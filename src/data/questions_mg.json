@@ -1,0 +1,3519 @@
+[
+  {
+    "id": 1,
+    "theme": "Momba ny Baiboly",
+    "question": "Inona no boky farany ao amin'ny Baiboly?",
+    "answer": "Apokalypsy",
+    "options": ["Salamo", "Genesisy", "Apokalypsy", "Matio"]
+  },
+  {
+    "id": 2,
+    "theme": "Momba ny Baiboly",
+    "question": "Inona avy ireo boky efatra mitantara ny fiainan'i Jesosy teto an-tany?",
+    "answer": "Matio, Marka, Lioka, Jaona",
+    "options": [
+      "Matio, Marka, Lioka, Jaona",
+      "Josoa, Mpitsara, Rota, Samoela",
+      "Paoly, Petera, Jakoba, Joda",
+      "Genesisy, Eksodosy, Levitikosy, Nomery"
+    ]
+  },
+  {
+    "id": 3,
+    "theme": "Momba ny Baiboly",
+    "question": "Inona no boky nosoratan'i Jesosy mivantana?",
+    "answer": "Tsy misy",
+    "options": ["Tsy misy", "Jaona", "Apokalypsy", "Salamo"]
+  },
+  {
+    "id": 4,
+    "theme": "Momba ny Baiboly",
+    "question": "Inona no boky lava indrindra ao amin'ny Baiboly?",
+    "answer": "Salamo",
+    "options": ["Salamo", "Genesisy", "Isaia", "Jeremia"]
+  },
+  {
+    "id": 5,
+    "theme": "Momba ny Baiboly",
+    "question": "Inona no boky fohy indrindra ao amin'ny Baiboly?",
+    "answer": "3 Jaona",
+    "options": ["3 Jaona", "2 Jaona", "Joda", "Filomona"]
+  },
+  {
+    "id": 6,
+    "theme": "Momba ny Baiboly",
+    "question": "Firy ny boky ao amin'ny Baiboly?",
+    "answer": "66",
+    "options": ["66", "72", "39", "27"]
+  },
+  {
+    "id": 7,
+    "theme": "Momba ny Baiboly",
+    "question": "Firy ny boky ao amin'ny Testamenta Taloha?",
+    "answer": "Boky 39 ao amin'ny Testamenta Taloha",
+    "options": [
+      "Boky 39 ao amin'ny Testamenta Taloha",
+      "Boky 27",
+      "Boky 66",
+      "Boky 45"
+    ]
+  },
+  {
+    "id": 8,
+    "theme": "Momba ny Baiboly",
+    "question": "Firy ny boky ao amin'ny Testamenta Vaovao?",
+    "answer": "Boky 27 ao amin'ny Testamenta Vaovao",
+    "options": [
+      "Boky 27 ao amin'ny Testamenta Vaovao",
+      "Boky 39",
+      "Boky 30",
+      "Boky 24"
+    ]
+  },
+  {
+    "id": 9,
+    "theme": "Momba ny Baiboly",
+    "question": "Inona no boky ao amin'ny Testamenta Vaovao misy ny toritenin'i Jesosy teo an-tendrombohitra?",
+    "answer": "Matio",
+    "options": ["Matio", "Marka", "Lioka", "Jaona"]
+  },
+  {
+    "id": 10,
+    "theme": "Momba ny Baiboly",
+    "question": "Amin'ny fiteny inona no nanomezana ny ankamaroan'ny Testamenta Taloha?",
+    "answer": "Hebreo",
+    "options": ["Hebreo", "Grika", "Latina", "Arameo"]
+  },
+  {
+    "id": 11,
+    "theme": "Momba ny Baiboly",
+    "question": "Amin'ny fiteny inona no nanomezana ny ankamaroan'ny Testamenta Vaovao?",
+    "answer": "Grika",
+    "options": ["Grika", "Hebreo", "Latina", "Arameo"]
+  },
+  {
+    "id": 12,
+    "theme": "Momba ny Baiboly",
+    "question": "Iza no olombelona mpanoratra nanoratra boky betsaka indrindra ao amin'ny Baiboly?",
+    "answer": "Paoly.",
+    "options": ["Paoly.", "Mosesy.", "Davida.", "Jaona."]
+  },
+  {
+    "id": 13,
+    "theme": "Momba ny Baiboly",
+    "question": "Iza no olombelona mpanoratra  nanoratra teny betsaka indrindra ao amin'ny Baiboly?",
+    "answer": "Mosesy.",
+    "options": ["Mosesy.", "Paoly.", "Davida.", "Jaona."]
+  },
+  {
+    "id": 14,
+    "theme": "Momba ny Baiboly",
+    "question": "Inona no Filazantsara voalohany nosoratana?",
+    "answer": "Marka",
+    "options": ["Marka", "Matio", "Lioka", "Jaona"]
+  },
+  {
+    "id": 15,
+    "theme": "Momba ny Baiboly",
+    "question": "Inona no Filazantsara farany nosoratana?",
+    "answer": "Jaona",
+    "options": ["Jaona", "Lioka", "Matio", "Marka"]
+  },
+  {
+    "id": 16,
+    "theme": "Momba ny Baiboly",
+    "question": "Inona no boky voalohany ao amin'ny Baiboly?",
+    "answer": "Genesisy",
+    "options": ["Genesisy", "Eksodosy", "Salamo", "Matio"]
+  },
+  {
+    "id": 17,
+    "theme": "Momba ny Baiboly",
+    "question": "Inona no nosoratana voalohany amin'ireo taratasin'i Paoly?",
+    "answer": "1 Tesaloniana",
+    "options": ["1 Tesaloniana", "Romana", "Galatiana", "1 Korintiana"]
+  },
+  {
+    "id": 18,
+    "theme": "Momba ny Baiboly",
+    "question": "Inona no boky farany nosoratana tao amin'ny Testamenta Vaovao?",
+    "answer": "Apokalypsy",
+    "options": ["Apokalypsy", "3 Jaona", "Joda", "2 Timoty"]
+  },
+  {
+    "id": 19,
+    "theme": "Momba ny Baiboly",
+    "question": "Filazantsaran'iza no nosoratana dokotera?",
+    "answer": "Lioka",
+    "options": ["Lioka", "Matio", "Marka", "Jaona"]
+  },
+  {
+    "id": 20,
+    "theme": "Momba ny Baiboly",
+    "question": "Iza no mpanoratra ny Bokin'ny Apokalipsy?",
+    "answer": "Jaona",
+    "options": ["Jaona", "Paoly", "Petera", "Mosesy"]
+  },
+  {
+    "id": 21,
+    "theme": "Genesisy fizarana #1",
+    "question": "Firy andro no namoronan'Andriamanitra izao tontolo izao?",
+    "answer": "6",
+    "options": ["6", "7", "3", "10"]
+  },
+  {
+    "id": 22,
+    "theme": "Genesisy fizarana #1",
+    "question": "Andro fahafiry no namoronan'Andriamanitra ny olombelona?",
+    "answer": "Fahenina",
+    "options": ["Fahenina", "Fahefatra", "Fahafito", "Fahadiminy"]
+  },
+  {
+    "id": 23,
+    "theme": "Genesisy fizarana #1",
+    "question": "Iza no lehilahy voalohany?",
+    "answer": "Adama",
+    "options": ["Adama", "Noa", "Abrahama", "Mosesy"]
+  },
+  {
+    "id": 24,
+    "theme": "Genesisy fizarana #1",
+    "question": "Iza no vehivavy voalohany?",
+    "answer": "Eva",
+    "options": ["Eva", "Sarah", "Rahely", "Debora"]
+  },
+  {
+    "id": 25,
+    "theme": "Genesisy fizarana #1",
+    "question": "Taiza no nipetrahan'i Adama sy Eva tamin'ny fiandohan'izao tontolo izao?",
+    "answer": "Saha Edena",
+    "options": ["Saha Edena", "Jerosalema", "Betlehema", "Kanana"]
+  },
+  {
+    "id": 26,
+    "theme": "Genesisy fizarana #1",
+    "question": "Iza avy ireo zanakalahin'i Adama sy Eva telo voatanisa ao amin'ny Baiboly?",
+    "answer": "Kaina, Abela, Seta",
+    "options": [
+      "Kaina, Abela, Seta",
+      "Sema, Hama, Jafeta",
+      "Isaka, Isimaela, Esao",
+      "Josefa, Jakoba, Joda"
+    ]
+  },
+  {
+    "id": 27,
+    "theme": "Genesisy fizarana #1",
+    "question": "Iza no nasain'Andriamanitra nanamboatra sambo fiara?",
+    "answer": "Noa",
+    "options": ["Noa", "Abrahama", "Mosesy", "Adama"]
+  },
+  {
+    "id": 28,
+    "theme": "Genesisy fizarana #1",
+    "question": "Iza avy ireo zanakalahin'i Noa telo?",
+    "answer": "Sema, Hama, Jafeta",
+    "options": [
+      "Sema, Hama, Jafeta",
+      "Kaina, Abela, Seta",
+      "Isaka, Isimaela, Esao",
+      "Robena, Simeona, Levi"
+    ]
+  },
+  {
+    "id": 29,
+    "theme": "Genesisy fizarana #1",
+    "question": "Firy andro sy alina no nilatsaka ny orana rehefa tao anaty sambo fiara i Noa?",
+    "answer": "40",
+    "options": ["40", "7", "30", "100"]
+  },
+  {
+    "id": 30,
+    "theme": "Genesisy fizarana #1",
+    "question": "Firy ny olona voavonjy tao anaty sambo fiara?",
+    "answer": "8",
+    "options": ["8", "12", "40", "4"]
+  },
+  {
+    "id": 31,
+    "theme": "Genesisy fizarana #1",
+    "question": "Inona no famantarana nomen'Andriamanitra an'i Noa fa tsy handrava ny tany intsony Izy?",
+    "answer": "Avana",
+    "options": ["Avana", "Kintana", "Vozon-kazo oliva", "Afo"]
+  },
+  {
+    "id": 32,
+    "theme": "Genesisy fizarana #1",
+    "question": "Inona no nokasain'ny olona hatao tao amin'ny Tilikambon'i Babela?",
+    "answer": "Nanorina tilikambo mba hahatratra ny lanitra.",
+    "options": [
+      "Nanorina tilikambo mba hahatratra ny lanitra.",
+      "Nanao tempoly ho an'ny sampy.",
+      "Niaro ny tanàna tamin'ny fahavalo.",
+      "Niangona hivavaka tamin'Andriamanitra."
+    ]
+  },
+  {
+    "id": 33,
+    "theme": "Genesisy fizarana #1",
+    "question": "Ahoana no nampielezan'Andriamanitra azy ireo eran'ny tany?",
+    "answer": "Nampisafotofoto ny fiteniny.",
+    "options": [
+      "Nampisafotofoto ny fiteniny.",
+      "Nandefa afo tamin'izy ireo.",
+      "Nandefa tafio-drivotra lehibe.",
+      "Namoaka azy ireo tamin'ny alalan'i anjely."
+    ]
+  },
+  {
+    "id": 34,
+    "theme": "Genesisy fizarana #1",
+    "question": "Iza no nantsoin'Andriamanitra avy any Ora hifindra any Kanana?",
+    "answer": "Abrama",
+    "options": ["Abrama", "Mosesy", "Josoa", "Noa"]
+  },
+  {
+    "id": 35,
+    "theme": "Genesisy fizarana #1",
+    "question": "Iza no vadin'i Abrama?",
+    "answer": "Saray",
+    "options": ["Saray", "Rahely", "Rebeka", "Hagara"]
+  },
+  {
+    "id": 36,
+    "theme": "Genesisy fizarana #1",
+    "question": "Na dia efa antitra loatra aza i Abrama sy Saraha, inona no nampanantenain'Andriamanitra azy ireo?",
+    "answer": "Zanakalahy",
+    "options": [
+      "Zanakalahy",
+      "Harena be",
+      "Tany vaovao",
+      "Fandresena tamin'ny fahavalo"
+    ]
+  },
+  {
+    "id": 37,
+    "theme": "Genesisy fizarana #1",
+    "question": "Rehefa nasehon'Andriamanitra an'i Abrama ny kintana eny amin'ny lanitra, inona no nampanantenainy?",
+    "answer": "Fa hanana taranaka maro kokoa noho ny isan'ny kintana i Abrama.",
+    "options": [
+      "Fa hanana taranaka maro kokoa noho ny isan'ny kintana i Abrama.",
+      "Fa hahazo tany lehibe izy.",
+      "Fa ho lasa mpanjaka izy.",
+      "Fa ho faty am-pilaminana izy."
+    ]
+  },
+  {
+    "id": 38,
+    "theme": "Genesisy fizarana #1",
+    "question": "Iza no anaran'ny mpanompovavin'i Abrama?",
+    "answer": "Hagara",
+    "options": ["Hagara", "Debora", "Rahely", "Lea"]
+  },
+  {
+    "id": 39,
+    "theme": "Genesisy fizarana #1",
+    "question": "Inona no hevitr'i Saraha mba hananan'i Abrama zaza?",
+    "answer": "Mba hananan'i Abrama zaza amin'i Hagara.",
+    "options": [
+      "Mba hananan'i Abrama zaza amin'i Hagara.",
+      "Mba hivavaka mafy izy ireo.",
+      "Mba hangataka amin'ny mpaminany.",
+      "Mba hiandry ny fampanantenan'Andriamanitra."
+    ]
+  },
+  {
+    "id": 40,
+    "theme": "Genesisy fizarana #1",
+    "question": "Iza no anaran'ny zanaka lahy voalohan'i Abrama?",
+    "answer": "Isimaela.",
+    "options": ["Isimaela.", "Isaka.", "Esao.", "Jakoba."]
+  },
+  {
+    "id": 41,
+    "theme": "Genesisy fizarana #1",
+    "question": "Inona no anaran'i Abrama rehefa novana?",
+    "answer": "Abrahama",
+    "options": ["Abrahama", "Isiraely", "Davida", "Josoa"]
+  },
+  {
+    "id": 42,
+    "theme": "Genesisy fizarana #1",
+    "question": "Inona no anaran'i Saray rehefa novana?",
+    "answer": "Saraha",
+    "options": ["Saraha", "Rahely", "Rebeka", "Debora"]
+  },
+  {
+    "id": 43,
+    "theme": "Genesisy fizarana #1",
+    "question": "Iza no anaran'ny zanaka faharoan'i Abrahama?",
+    "answer": "Isaka",
+    "options": ["Isaka", "Isimaela", "Esao", "Jakoba"]
+  },
+  {
+    "id": 44,
+    "theme": "Genesisy fizarana #1",
+    "question": "Iza no nananan'i Abrahama ny zanany faharoa?",
+    "answer": "Saraha",
+    "options": ["Saraha", "Hagara", "Rebeka", "Rahely"]
+  },
+  {
+    "id": 45,
+    "theme": "Genesisy fizarana #1",
+    "question": "Taiza no nandehanan'i Hagara sy ny zanany lahy?",
+    "answer": "Tany an'efitra",
+    "options": ["Tany an'efitra", "Tany Egypta", "Tany Kanana", "Tany Babylona"]
+  },
+  {
+    "id": 46,
+    "theme": "Genesisy fizarana #1",
+    "question": "Loza inona no nolazain'i Josefa tamin'ny fandikana ny nofin'i Farao?",
+    "answer": "Mosary mafy nandritra ny fito taona.",
+    "options": [
+      "Mosary mafy nandritra ny fito taona.",
+      "Aretina maro teo amin'ny olona.",
+      "Rano lehibe hahalany ny tany.",
+      "Ady amin'ny firenena hafa."
+    ]
+  },
+  {
+    "id": 47,
+    "theme": "Genesisy fizarana #1",
+    "question": "Iza ireo tonga tany Egypta izay fantatr'i Josefa nandritra ny mosary?",
+    "answer": "Ireo rahalahiny.",
+    "options": [
+      "Ireo rahalahiny.",
+      "Ny rainy Jakoba.",
+      "Ireo mpanompon'i Farao.",
+      "Ireo mpanjaka avy any Kanana."
+    ]
+  },
+  {
+    "id": 48,
+    "theme": "Genesisy fizarana #1",
+    "question": "Iza no anaran'ny zanakalahin'i Jakoba faharoa tamin'i Rahely?",
+    "answer": "Benjamina",
+    "options": ["Benjamina", "Josefa", "Joda", "Robena"]
+  },
+  {
+    "id": 49,
+    "theme": "Genesisy fizarana #1",
+    "question": "Inona no nasain'i Josefa nataon'ireo rahalahiny rehefa hiverina indray any Egypta izy ireo?",
+    "answer": "Hitondra an'i Benjamina hiaraka amin'izy ireo.",
+    "options": [
+      "Hitondra an'i Benjamina hiaraka amin'izy ireo.",
+      "Hitondra harena ho an'i Farao.",
+      "Hiantona ao Egypta mandrakariva.",
+      "Hangataka famelana tamin'i Josefa."
+    ]
+  },
+  {
+    "id": 50,
+    "theme": "Genesisy fizarana #1",
+    "question": "Iza no rahalahy nanolo-tena hijanona tany Egypta ho solon'i Benjamina?",
+    "answer": "Joda",
+    "options": ["Joda", "Robena", "Simeona", "Levi"]
+  },
+  {
+    "id": 51,
+    "theme": "Genesisy fizarana #1",
+    "question": "Inona no nasain'i Josefa nataon'ireo rahalahiny rehefa niverina tany Kanana izy ireo?",
+    "answer": "Hitondra ny fianakaviany sy ny rainy ho any Egypta.",
+    "options": [
+      "Hitondra ny fianakaviany sy ny rainy ho any Egypta.",
+      "Hifindra any Kanana izy ireo.",
+      "Hanangona vola mba hanonerana azy.",
+      "Hanorina tempoly ho an'Andriamanitra."
+    ]
+  },
+  {
+    "id": 52,
+    "theme": "Genesisy fizarana #2",
+    "question": "Iza no nirahin'i Abrahama hitady vady ho an'i Isaka?",
+    "answer": "Ny mpanompony zokiny indrindra",
+    "options": [
+      "Ny mpanompony zokiny indrindra",
+      "Isaka mihitsy",
+      "Abrahama mihitsy",
+      "Ny anjelin'Andriamanitra"
+    ]
+  },
+  {
+    "id": 53,
+    "theme": "Genesisy fizarana #2",
+    "question": "Iza no nofidin'ilay mpanompon'Abrahama ho vadin'i Isaka?",
+    "answer": "Rebeka",
+    "options": ["Rebeka", "Rahely", "Lea", "Debora"]
+  },
+  {
+    "id": 54,
+    "theme": "Genesisy fizarana #2",
+    "question": "Iza avy ireo anaran'ny zanakalahin'i Isaka?",
+    "answer": "Jakoba sy Esao",
+    "options": [
+      "Jakoba sy Esao",
+      "Josefa sy Benjamina",
+      "Kaina sy Abela",
+      "Isaka sy Isimaela"
+    ]
+  },
+  {
+    "id": 55,
+    "theme": "Genesisy fizarana #2",
+    "question": "Iza no teraka voalohany: Jakoba sa Esao?",
+    "answer": "Esao no tonga voalohany, ary i Jakoba no nihazona ny ombelahin-tongony.",
+    "options": [
+      "Esao no tonga voalohany, ary i Jakoba no nihazona ny ombelahin-tongony.",
+      "Jakoba no tonga voalohany.",
+      "Samy teraka indray mandeha izy ireo.",
+      "Tsy fantatra izay tonga voalohany."
+    ]
+  },
+  {
+    "id": 56,
+    "theme": "Genesisy fizarana #2",
+    "question": "Inona no asa nameloman'i Esao ny fianakaviany?",
+    "answer": "Nihaza izy.",
+    "options": [
+      "Nihaza izy.",
+      "Niasa tany an-tsaha izy.",
+      "Nivarotra teny an-tsena izy.",
+      "Nanarato trondro izy."
+    ]
+  },
+  {
+    "id": 57,
+    "theme": "Genesisy fizarana #2",
+    "question": "Iza no tian'i Isaka tamin'ireo zanany roa lahy?",
+    "answer": "Esao",
+    "options": [
+      "Esao",
+      "Jakoba",
+      "Samy tian'i Isaka mitovy",
+      "Tsy misy tiany izy ireo"
+    ]
+  },
+  {
+    "id": 58,
+    "theme": "Genesisy fizarana #2",
+    "question": "Inona no fanaon'i Jakoba matetika?",
+    "answer": "Nijanona tao an-trano niaraka tamin'ny reniny.",
+    "options": [
+      "Nijanona tao an-trano niaraka tamin'ny reniny.",
+      "Nihaza any an-tsaha.",
+      "Niasa tamin'i Isaka rainy.",
+      "Nianatra ny lalàn'Andriamanitra."
+    ]
+  },
+  {
+    "id": 59,
+    "theme": "Genesisy fizarana #2",
+    "question": "Inona no azon'i Esao ho takalon'ny zony amin'ny maha-zokiny azy?",
+    "answer": "Laoka kely.",
+    "options": [
+      "Laoka kely.",
+      "Tany lehibe.",
+      "Akanjo tsara.",
+      "Solika an'akoho."
+    ]
+  },
+  {
+    "id": 60,
+    "theme": "Genesisy fizarana #2",
+    "question": "Rehefa ho faty sy jamba i Isaka, iza no nanolo-kevitra fa tokony hangalatra ny tsodrano i Jakoba?",
+    "answer": "Rebeka.",
+    "options": ["Rebeka.", "Hagara.", "Lea.", "Rahely."]
+  },
+  {
+    "id": 61,
+    "theme": "Genesisy fizarana #2",
+    "question": "Ahoana no fihetsik'i Esao rehefa nalaina ny zony amin'ny maha-zokiny azy?",
+    "answer": "Nandrahona ny hamono an'i Jakoba.",
+    "options": [
+      "Nandrahona ny hamono an'i Jakoba.",
+      "Nandao ny ankohonana.",
+      "Niangavy an'i Isaka hamerina ny tsodrano.",
+      "Nivavaka tamin'Andriamanitra."
+    ]
+  },
+  {
+    "id": 62,
+    "theme": "Genesisy fizarana #2",
+    "question": "Rehefa nihaona tamin'i Labana i Jakoba, iza no zanakavavy tiany hovadiana?",
+    "answer": "Rahely.",
+    "options": ["Rahely.", "Lea.", "Rebeka.", "Debora."]
+  },
+  {
+    "id": 63,
+    "theme": "Genesisy fizarana #2",
+    "question": "Iza no namitahan'i Labana an'i Jakoba mba ho vadiny?",
+    "answer": "Lea.",
+    "options": ["Lea.", "Rahely.", "Rebeka.", "Hagara."]
+  },
+  {
+    "id": 64,
+    "theme": "Genesisy fizarana #2",
+    "question": "Inona no nasain'i Labana nataon'i Jakoba mba hanambadiany an'i Rahely?",
+    "answer": "Niasa fito taona fanampiny.",
+    "options": [
+      "Niasa fito taona fanampiny.",
+      "Niasa telo taona.",
+      "Nitondra harena ho an'i Labana.",
+      "Nanompa fery."
+    ]
+  },
+  {
+    "id": 65,
+    "theme": "Genesisy fizarana #2",
+    "question": "Iza no zanaka lahimatoan'i Jakoba tamin'i Rahely?",
+    "answer": "Josefa",
+    "options": ["Josefa", "Benjamina", "Robena", "Joda"]
+  },
+  {
+    "id": 66,
+    "theme": "Genesisy fizarana #2",
+    "question": "Inona no nanovan'Andriamanitra ny anaran'i Jakoba talohan'ny nihaonany tamin'i Esao?",
+    "answer": "Israely",
+    "options": ["Israely", "Abrahama", "Davida", "Josoa"]
+  },
+  {
+    "id": 67,
+    "theme": "Genesisy fizarana #2",
+    "question": "Firy ny rahalahy nananan'i Josefa?",
+    "answer": "11",
+    "options": ["11", "10", "12", "1"]
+  },
+  {
+    "id": 68,
+    "theme": "Genesisy fizarana #2",
+    "question": "Inona no nomen'i Jakoba an'i Josefa izay nahatonga ny fialonan'ireo iray tampo aminy?",
+    "answer": "Akanjo maro loko.",
+    "options": [
+      "Akanjo maro loko.",
+      "Tany sy harena.",
+      "Ondry maro.",
+      "Harona volamena."
+    ]
+  },
+  {
+    "id": 69,
+    "theme": "Genesisy fizarana #2",
+    "question": "Inona no nolazain'i Josefa tamin'ireo rahalahiny momba ny nofiny izay nampahatezitra azy ireo?",
+    "answer": "Nilaza ireo nofy fa ho lehibe kokoa izy ary hanapaka azy ireo.",
+    "options": [
+      "Nilaza ireo nofy fa ho lehibe kokoa izy ary hanapaka azy ireo.",
+      "Nilaza ny nofy fa hisy mosary lehibe.",
+      "Nilaza fa hitady azy ireo Andriamanitra.",
+      "Nilaza fa ho lasa mpanjaka any Egypta izy."
+    ]
+  },
+  {
+    "id": 70,
+    "theme": "Genesisy fizarana #2",
+    "question": "Ahoana no nandroahan'ireo rahalahiny an'i Josefa?",
+    "answer": "Namidy tamin'ny mpivarotra andevo izy.",
+    "options": [
+      "Namidy tamin'ny mpivarotra andevo izy.",
+      "Noroahiny tany an'efitra izy.",
+      "Nofonosiny tao anaty harona izy.",
+      "Nariany tao anaty lavaka izy."
+    ]
+  },
+  {
+    "id": 71,
+    "theme": "Genesisy fizarana #2",
+    "question": "Inona no nolazain'ireo rahalahin'i Josefa tamin'ny rain'izy ireo fa nitranga taminy?",
+    "answer": "Nilaza izy ireo fa novonoin'ny bibidia i Josefa.",
+    "options": [
+      "Nilaza izy ireo fa novonoin'ny bibidia i Josefa.",
+      "Nilaza fa very tany an'efitra izy.",
+      "Nilaza fa nandositra tany Egypta izy.",
+      "Nilaza fa maty noho ny aretina izy."
+    ]
+  },
+  {
+    "id": 72,
+    "theme": "Genesisy fizarana #2",
+    "question": "Taiza no nitondran'ireo mpivarotra andevo an'i Josefa?",
+    "answer": "Egypta",
+    "options": ["Egypta", "Babylona", "Kanana", "Pônikia"]
+  },
+  {
+    "id": 73,
+    "theme": "Genesisy fizarana #2",
+    "question": "Iza no nividy an'i Josefa?",
+    "answer": "Potifara, kapitenin'ny mpiambina an'i Farao",
+    "options": [
+      "Potifara, kapitenin'ny mpiambina an'i Farao",
+      "Farao mihitsy",
+      "Mpanjakan'i Kanana",
+      "Mpivarotra andevo hafa"
+    ]
+  },
+  {
+    "id": 74,
+    "theme": "Genesisy fizarana #2",
+    "question": "Iza no nampiditra an'i Josefa tao am-ponja tamin'ny lainga momba azy?",
+    "answer": "Vadin'i Potifara",
+    "options": [
+      "Vadin'i Potifara",
+      "Potifara mihitsy",
+      "Ireo rahalahin'i Josefa",
+      "Farao"
+    ]
+  },
+  {
+    "id": 75,
+    "theme": "Genesisy fizarana #2",
+    "question": "Iza koa no tao am-ponja niaraka tamin'i Josefa?",
+    "answer": "Ny lehiben'ny mpitondra kapoakan'i Farao sy ny lehiben'ny mpanao mofo.",
+    "options": [
+      "Ny lehiben'ny mpitondra kapoakan'i Farao sy ny lehiben'ny mpanao mofo.",
+      "Ireo mpiambina an'i Farao.",
+      "Ireo mpanao an-tsazoka tao an-dapa.",
+      "Ireo mpanompon'i Potifara."
+    ]
+  },
+  {
+    "id": 76,
+    "theme": "Genesisy fizarana #2",
+    "question": "Inona no nataon'i Josefa ho an'ny lehiben'ny mpitondra kapoakan'i Farao sy ny lehiben'ny mpanao mofo tao am-ponja?",
+    "answer": "Nanambara ny dikan'ny nofin'izy ireo.",
+    "options": [
+      "Nanambara ny dikan'ny nofin'izy ireo.",
+      "Nikarakara azy ireo.",
+      "Nampianatra azy ireo ny lalàn'Andriamanitra.",
+      "Nangataka famelana ho azy ireo."
+    ]
+  },
+  {
+    "id": 77,
+    "theme": "Genesisy fizarana #2",
+    "question": "Nahoana i Josefa no nantsoin'i Farao hivoaka ny fonja?",
+    "answer": "Hanambara ny dikan'ny nofin'i Farao.",
+    "options": [
+      "Hanambara ny dikan'ny nofin'i Farao.",
+      "Hanompo azy ho kapiteny.",
+      "Hitarika ny tafika.",
+      "Hanangona vary ho an'ny vahoaka."
+    ]
+  },
+  {
+    "id": 78,
+    "theme": "Genesisy fizarana #2",
+    "question": "Inona no toeram-pahefana nomen'i Farao an'i Josefa?",
+    "answer": "Mpanapaka faharoa ny tany Egypta rehetra.",
+    "options": [
+      "Mpanapaka faharoa ny tany Egypta rehetra.",
+      "Kapitenin'ny tafika.",
+      "Mpisorona lehibe.",
+      "Mpanangona hetra."
+    ]
+  },
+  {
+    "id": 79,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Ahoana no namonjen'ny renin'i Mosesy azy tamin'ny miaramila Egiptiana?",
+    "answer": "Napetrany tao anaty harona tao amin'ny renirano izy.",
+    "options": [
+      "Napetrany tao anaty harona tao amin'ny renirano izy.",
+      "Nentiny nandositra tany an'efitra.",
+      "Nafeniny tao an-tranony.",
+      "Nampitaizainy tamin'ny fianakaviana hafa."
+    ]
+  },
+  {
+    "id": 80,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Inona no nataon'i Mosesy rehefa avy namono Egiptiana iray izy?",
+    "answer": "Nandositra tany an'efitra.",
+    "options": [
+      "Nandositra tany an'efitra.",
+      "Niverina tany an-dapan'i Farao.",
+      "Nangata-pamelan-keloka tamin'i Farao.",
+      "Tafiditra am-ponja."
+    ]
+  },
+  {
+    "id": 81,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Tamin'ny alalan'ny inona no niresahan'Andriamanitra tamin'i Mosesy tany an'efitra?",
+    "answer": "Roimena mirehitra",
+    "options": [
+      "Roimena mirehitra",
+      "Rahona lehibe teny amin'ny lanitra",
+      "Feo avy any an-danitra",
+      "Anjely niseho taminy"
+    ]
+  },
+  {
+    "id": 82,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Rehefa nifanatrika tamin'i Farao i Mosesy, niova ho inona ny tehiny rehefa natsipiny tamin'ny tany?",
+    "answer": "Menarana",
+    "options": ["Menarana", "Nijanona ho tehina ihany", "Trondro", "Vorona"]
+  },
+  {
+    "id": 83,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Inona no nolazain'i Mosesy fa nasain'Andriamanitra hataon'i Farao?",
+    "answer": "Alefaso ny oloko mba hanao andro firavoravoana ho Ahy any an'efitra.",
+    "options": [
+      "Alefaso ny oloko mba hanao andro firavoravoana ho Ahy any an'efitra.",
+      "Manorena tempoly ho an'Andriamanitra.",
+      "Omeo sakafo ny vahoaka.",
+      "Manamasina ny andro Sabata."
+    ]
+  },
+  {
+    "id": 84,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Firy ny loza nalefan'Andriamanitra tany Egypta?",
+    "answer": "10",
+    "options": ["10", "7", "12", "Tsy misy"]
+  },
+  {
+    "id": 85,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Inona no loza farany izay nandresy lahatra an'i Farao handefa ny andevo?",
+    "answer": "Maty ny lahimatoan'ny fianakaviana Egiptiana rehetra.",
+    "options": [
+      "Maty ny lahimatoan'ny fianakaviana Egiptiana rehetra.",
+      "May ny afo ny tanàna rehetra.",
+      "Nivoaka ny bibikely tamin'ny tany rehetra.",
+      "Rakotra aizina ny andro nandritra ny hateloana."
+    ]
+  },
+  {
+    "id": 86,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Rehefa niova hevitra i Farao ka naniraka ny tafiny hanenjika ireo andevo Israelita, taiza no nihaonan'izy ireo?",
+    "answer": "Teo amoron'ny Ranomasina Mena",
+    "options": [
+      "Teo amoron'ny Ranomasina Mena",
+      "Teo amin'ny Tendrombohitra Sinay",
+      "Tany an'efitra Sinay",
+      "Tao amin'ny Tany Kanana"
+    ]
+  },
+  {
+    "id": 87,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Inona no nataon'Andriamanitra tamin'ny alalan'i Mosesy mba hamonjena ny Isiraelita teo amoron'ny Ranomasina Mena?",
+    "answer": "Nanasaraka ny Ranomasina Mena",
+    "options": [
+      "Nanasaraka ny Ranomasina Mena",
+      "Nandefa anjely hamono ny tafiky ny Egiptiana",
+      "Nandefa tafio-drivotra lehibe",
+      "Nampisy ny rahona mba hamandrihana ny Egiptiana"
+    ]
+  },
+  {
+    "id": 88,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Rehefa nanandrana nanaraka ny Isiraelita namaky ny Ranomasina Mena ny Egiptiana, inona no nitranga?",
+    "answer": "Nikatona tamin'izy ireo ny rano ary nahafaty azy rehetra.",
+    "options": [
+      "Nikatona tamin'izy ireo ny rano ary nahafaty azy rehetra.",
+      "Niafina tao anaty rahona ny Isiraelita.",
+      "Nihoatra noho ny hery ny tafiky ny Egiptiana.",
+      "Niverina tany Egypta ny tafika."
+    ]
+  },
+  {
+    "id": 89,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Inona no nalefan'Andriamanitra hamahanana ny Isiraelita tany an'efitra?",
+    "answer": "Papelika sy mana",
+    "options": [
+      "Papelika sy mana",
+      "Trondro sy mofo",
+      "Hena sy rano",
+      "Voankazo sy hena"
+    ]
+  },
+  {
+    "id": 90,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Taiza no nanomezan'Andriamanitra an'i Mosesy ny Didy Folo?",
+    "answer": "Tendrombohitra Sinay",
+    "options": [
+      "Tendrombohitra Sinay",
+      "Tendrombohitra Oliva",
+      "Tany an'efitra Sinay",
+      "Tao amin'ny Tabernakely"
+    ]
+  },
+  {
+    "id": 91,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Inona no sary volamena nataon'ny Isiraelita teo amin'ny Tendrombohitra Sinay?",
+    "answer": "Ombilahy kely volamena",
+    "options": [
+      "Ombilahy kely volamena",
+      "Menarana volamena",
+      "Anjely volamena",
+      "Ondry volamena"
+    ]
+  },
+  {
+    "id": 92,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Inona no hitan'ireo mpisafo-tany tany Kanana izay nahatonga azy ireo hatahotra?",
+    "answer": "Olona vaventibe tao amin'ilay tany",
+    "options": [
+      "Olona vaventibe tao amin'ilay tany",
+      "Tafika lehibe manao fiarovana mafy",
+      "Loza maro tao amin'ilay tany",
+      "Tanàna voaro mafy tsy azo idirana"
+    ]
+  },
+  {
+    "id": 93,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Iza avy ireo Isiraelita roa izay hany navela hiditra tao amin'ny tany nampanantenaina rehefa afaka taona maro?",
+    "answer": "Josoa sy Kaleba",
+    "options": [
+      "Josoa sy Kaleba",
+      "Mosesy sy Arona",
+      "Gideona sy Debora",
+      "Samoela sy Saoly"
+    ]
+  },
+  {
+    "id": 94,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Inona ilay tanàna izay noravan'Andriamanitra ny mandany mba hahafahan'i Josoa sy ny Isiraelita mandresy azy?",
+    "answer": "Jeriko",
+    "options": ["Jeriko", "Jerosalema", "Betlehema", "Babylona"]
+  },
+  {
+    "id": 95,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Rehefa avy tonga tamin'ny Tany Nampanantenaina ny Isiraelita ary maty i Josoa, iza no nitondra ny Israely?",
+    "answer": "Mpitsara",
+    "options": ["Mpitsara", "Mpanjaka", "Mpisorona", "Mpaminany"]
+  },
+  {
+    "id": 96,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Iza ilay mpitsara vehivavy nitarika ny Israely ho amin'ny fandresena?",
+    "answer": "Debora",
+    "options": ["Debora", "Rahely", "Hana", "Rota"]
+  },
+  {
+    "id": 97,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Iza ilay mpitsara nandresy ny Midianita tamin'ny lehilahy 300 monja izay nampiasa fanilo sy anjomara?",
+    "answer": "Gideona",
+    "options": ["Gideona", "Samsona", "Josoa", "Kaleba"]
+  },
+  {
+    "id": 98,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Iza ilay mpitsara izay nanao voady Nazirita hatramin'ny nahaterahany ary niady tamin'ny Filistina?",
+    "answer": "Samsona",
+    "options": ["Samsona", "Gideona", "Josoa", "Debora"]
+  },
+  {
+    "id": 99,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Inona no namonoan'i Samsona Filistina 1.000?",
+    "answer": "Valanoranom-boriky",
+    "options": ["Valanoranom-boriky", "Lefona vy", "Kibay", "Vato"]
+  },
+  {
+    "id": 100,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Iza ilay vehivavy Filistina nanontany an'i Samsona hoe avy aiza ny heriny?",
+    "answer": "Delila",
+    "options": ["Delila", "Rahely", "Debora", "Estera"]
+  },
+  {
+    "id": 101,
+    "theme": "Momba ny Tantaran'i Israely tany am-piandohana",
+    "question": "Ahoana no nahafatesan'i Samsona?",
+    "answer": "Nanosika ny andrin'ny tempoly, namono ny tenany sy ny Filistina maro.",
+    "options": [
+      "Nanosika ny andrin'ny tempoly, namono ny tenany sy ny Filistina maro.",
+      "Maty rehefa avy nohetezana ny volony.",
+      "Novonoin'ny mpiambina fonja.",
+      "Maty noho ny aretina."
+    ]
+  },
+  {
+    "id": 102,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Iza no mpanjaka voalohany teo amin'ny Israely?",
+    "answer": "Saoly",
+    "options": ["Saoly", "Davida", "Solomona", "Gideona"]
+  },
+  {
+    "id": 103,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Iza no nanosotra an'ny Paoly ho mpanjaka?",
+    "answer": "Samoela",
+    "options": ["Samoela", "Natana", "Elia", "Mosesy"]
+  },
+  {
+    "id": 104,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Iza no fahavalo naka ny Fiaran'ny Fanekena?",
+    "answer": "Filistina",
+    "options": ["Filistina", "Babylonianina", "Egiptiana", "Amalekita"]
+  },
+  {
+    "id": 105,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Inona no nitranga tamin'ilay sampy teo akaikin'ny Fiaran'ny Fanekena tao amin'ny tempolin'ny fahavalo?",
+    "answer": "Nianjera ilay sampy ary vaky",
+    "options": [
+      "Nianjera ilay sampy ary vaky",
+      "Niredareda ilay sampy",
+      "Tsy naninona ilay sampy",
+      "Nitomany ilay sampy"
+    ]
+  },
+  {
+    "id": 106,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Rehefa nangataka an'i Saoly hanao sorona ho an'Andriamanitra izay tokony hataon'ny mpisorona ihany ny olona, inona no nataony?",
+    "answer": "Nanao ny sorona ihany anefa izy",
+    "options": [
+      "Nanao ny sorona ihany anefa izy",
+      "Niandry ny mpisorona hatramin'ny faran'ny andro",
+      "Nandà ny hanao sorona",
+      "Nangataka an'i Samoela mba hanao sorona"
+    ]
+  },
+  {
+    "id": 107,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Rehefa nandresy ny Amalekita i Saoly, iza no olona nogadrainy fa tsy novonoiny araka ny nolazain'Andriamanitra?",
+    "answer": "Ny mpanjaka, Agaga",
+    "options": [
+      "Ny mpanjaka, Agaga",
+      "Ny kapitenin'ny tafika",
+      "Ny mpisorona lehibe",
+      "Ny mpaminany"
+    ]
+  },
+  {
+    "id": 108,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Inona no sazy ho an'i Saoly noho ny tsy fankatoavana?",
+    "answer": "Nesorin'Andriamanitra ny fanjakany",
+    "options": [
+      "Nesorin'Andriamanitra ny fanjakany",
+      "Nataon'Andriamanitra marenina izy",
+      "Namoy ny zanany izy",
+      "Nalefa tany an'efitra izy"
+    ]
+  },
+  {
+    "id": 109,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Iza no mpanjakan'ny Israely nohosoran'i Samoela taorian'i Saoly?",
+    "answer": "Davida",
+    "options": ["Davida", "Solomona", "Gideona", "Josoa"]
+  },
+  {
+    "id": 110,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Inona no asan'i Davida tao amin-drainy?",
+    "answer": "Mpiandry ondry",
+    "options": ["Mpiandry ondry", "Mpiasa tany", "Mpanjono", "Mpanao akanjo"]
+  },
+  {
+    "id": 111,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Rehefa tonga hanafika ny Isiraelita ny Filistina, iza no naneso an'Andriamanitra sy nanohitra azy ireo?",
+    "answer": "Goliata goavambe.",
+    "options": [
+      "Goliata goavambe.",
+      "Ny kapitenin'ny tafika Filistina.",
+      "Ny mpanjakan'ny Filistina.",
+      "Ny mpisorona lehibe Filistina."
+    ]
+  },
+  {
+    "id": 112,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Rehefa te hiady amin'i Goliata i Davida, inona no noezahin'i Saoly homena azy?",
+    "answer": "Ny fiadiany",
+    "options": [
+      "Ny fiadiany",
+      "Vato maromaro",
+      "Ankizy mpiambina",
+      "Tsy nomen'i Saoly na inona na inona"
+    ]
+  },
+  {
+    "id": 113,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Inona no nalain'i Davida avy teo amin'ny renirano mba hiadiana amin'i Goliata?",
+    "answer": "Vato dimy",
+    "options": ["Vato dimy", "Vato iray", "Fiadiana", "Lefona kely"]
+  },
+  {
+    "id": 114,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Firy ny antsamotady lanin'i Davida mba hamelezana an'i Goliata?",
+    "answer": "Iray",
+    "options": ["Iray", "Roa", "Telo", "Dimy"]
+  },
+  {
+    "id": 115,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Iza no zanakalahin'i Saoly izay nataon'i Davida ho sakaiza?",
+    "answer": "Jonatana",
+    "options": ["Jonatana", "Absaloma", "Isboeta", "Solomona"]
+  },
+  {
+    "id": 116,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Inona no natsipin'i Saoly mba hamonoana an'i Davida?",
+    "answer": "Lefona",
+    "options": ["Lefona", "Kibay", "Vato", "Zana-tsipìka"]
+  },
+  {
+    "id": 117,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Inona no nataon'i Jonatana mba hamonjena ny ain'i Davida tamin'i Saoly?",
+    "answer": "Nampitandrina azy fa mikasa hamono azy i Saoly",
+    "options": [
+      "Nampitandrina azy fa mikasa hamono azy i Saoly",
+      "Niaro an'i Davida tamin'ny sabany",
+      "Nandroaka an'i Saoly tamin'ny fiadiany",
+      "Niangavy an'i Saoly mba hamelana an'i Davida"
+    ]
+  },
+  {
+    "id": 118,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Firenena vahiny aiza no nandosiran'i Davida rehefa nikasa hamono azy i Saoly?",
+    "answer": "Tanin'ny Filistina",
+    "options": [
+      "Tanin'ny Filistina",
+      "Tany Egypta",
+      "Tany Babylona",
+      "Tany Moaba"
+    ]
+  },
+  {
+    "id": 119,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Nitsahatra tsy nanenjika an'i Davida ve i Saoly rehefa nankany an-tany efitra i Davida?",
+    "answer": "Tsia",
+    "options": [
+      "Tsia",
+      "Eny",
+      "Indray mandeha ihany no nanenjika azy izy",
+      "Nifanaraka izy ireo"
+    ]
+  },
+  {
+    "id": 120,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Impiry i Davida no nety namono an'i Saoly?",
+    "answer": "Indroa",
+    "options": ["Indroa", "Indray", "Intelo", "Inefatra"]
+  },
+  {
+    "id": 121,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Taiza no tsy netezan'i Davida hamono an'i Saoly tamin'ny voalohany?",
+    "answer": "Tao anaty lava-bato",
+    "options": [
+      "Tao anaty lava-bato",
+      "Tao amin'ny toby",
+      "Tany an'efitra",
+      "Teny an-tendrombohitra"
+    ]
+  },
+  {
+    "id": 122,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Taiza no tsy netezan'i Davida hamono an'i Saoly tamin'ny faharoa?",
+    "answer": "Tao amin'ny toby izay natorian'i Saoly",
+    "options": [
+      "Tao amin'ny toby izay natorian'i Saoly",
+      "Tao anaty lava-bato",
+      "Teny amoron'ny renirano",
+      "Tao amin'ny tanàna Filistina"
+    ]
+  },
+  {
+    "id": 123,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Iza no mpitsara farany teo amin'ny Israely maty rehefa avy nihavana vetivety tamin'i Davida i Saoly?",
+    "answer": "Samoela",
+    "options": ["Samoela", "Gideona", "Debora", "Josoa"]
+  },
+  {
+    "id": 124,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Taiza no nalehan'i Davida rehefa nanohy nihaza azy i Saoly?",
+    "answer": "Ny Tanin'ny Filistina",
+    "options": [
+      "Ny Tanin'ny Filistina",
+      "Tany Egypta",
+      "Tany Babylona",
+      "Tany Moaba"
+    ]
+  },
+  {
+    "id": 125,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Taiza no nitodihan'i Saoly mba hahazoana torohevitra rehefa tsy nahalala ny sitrapon'Andriamanitra izy?",
+    "answer": "Vehivavy manao azy ho tsindrian-javatra",
+    "options": [
+      "Vehivavy manao azy ho tsindrian-javatra",
+      "Vahivavy manao azy ho mpaminany",
+      "Mpisorona lehibe",
+      "Lehibe ny tafika"
+    ]
+  },
+  {
+    "id": 126,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Iza no mpaminany nasain'i Saoly hiresahana tamin'ny alalan'ilay vehivavy manao azy ho tsindrian-javatra?",
+    "answer": "Samoela",
+    "options": ["Samoela", "Elia", "Elisa", "Natana"]
+  },
+  {
+    "id": 127,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Ahoana no nahafatesan'i Saoly?",
+    "answer": "Lavo tamin'ny sabany manokana",
+    "options": [
+      "Lavo tamin'ny sabany manokana",
+      "Novonoin'ny Filistina",
+      "Voatifitra tamin'ny zana-tsipika",
+      "Maty noho ny aretina"
+    ]
+  },
+  {
+    "id": 128,
+    "theme": "Momba ny Fanjakana Voalohany",
+    "question": "Firy tamin'ireo zanaka lahin'i Saoly no maty tamin'ny ady?",
+    "answer": "Izy rehetra",
+    "options": [
+      "Izy rehetra",
+      "Telo tamin'izy ireo",
+      "Iray ihany",
+      "Roa tamin'izy ireo"
+    ]
+  },
+  {
+    "id": 129,
+    "theme": "Momba ny Fanjakan'i Davida Mpanjaka",
+    "question": "Nihevitra an'i Davida ho mpanjakany avy hatrany ve ny Israely rehetra?",
+    "answer": "Tsia",
+    "options": ["Tsia", "Eny", "Ny antsasany ihany", "Ny fokon'i Joda ihany"]
+  },
+  {
+    "id": 130,
+    "theme": "Momba ny Fanjakan'i Davida Mpanjaka",
+    "question": "Iza no kapitenin'ny tafika notarihin'i Davida?",
+    "answer": "Joaba",
+    "options": ["Joaba", "Jonatana", "Abisay", "Benaia"]
+  },
+  {
+    "id": 131,
+    "theme": "Momba ny Fanjakan'i Davida Mpanjaka",
+    "question": "Rehefa nijanona tao Jerosalema i Davida, iza no vehivavy hitany ary nijangajanga taminy?",
+    "answer": "Batseba",
+    "options": ["Batseba", "Rahely", "Abigaila", "Mikala"]
+  },
+  {
+    "id": 132,
+    "theme": "Momba ny Fanjakan'i Davida Mpanjaka",
+    "question": "Iza no vadin'i Batseba?",
+    "answer": "Oria",
+    "options": ["Oria", "Joaba", "Jonatana", "Benaia"]
+  },
+  {
+    "id": 133,
+    "theme": "Momba ny Fanjakan'i Davida Mpanjaka",
+    "question": "Rehefa bevohoka i Batseba, inona no nataon'i Davida tamin'i Oria?",
+    "answer": "Nalefany ho maty an'ady izy",
+    "options": [
+      "Nalefany ho maty an'ady izy",
+      "Nalefany an-tranomaizina izy",
+      "Naroahiny avy tao an-tafika izy",
+      "Nampirisihiny hisaraka tamin'i Batseba izy"
+    ]
+  },
+  {
+    "id": 134,
+    "theme": "Momba ny Fanjakan'i Davida Mpanjaka",
+    "question": "Iza no mpaminany tonga nananatra an'i Davida?",
+    "answer": "Natana",
+    "options": ["Natana", "Samoela", "Elia", "Elisa"]
+  },
+  {
+    "id": 135,
+    "theme": "Momba ny Fanjakan'i Davida Mpanjaka",
+    "question": "Inona no nitranga tamin'ny zanak'i Batseba?",
+    "answer": "Maty ilay zaza",
+    "options": [
+      "Maty ilay zaza",
+      "Nanjary mpanjaka izy",
+      "Nanjary mpaminany izy",
+      "Lasa sakaiza tsara tamin'i Davida izy"
+    ]
+  },
+  {
+    "id": 136,
+    "theme": "Momba ny Fanjakan'i Davida Mpanjaka",
+    "question": "Rehefa niteraka zaza hafa i Batseba, iza no natao anarany?",
+    "answer": "Solomona",
+    "options": ["Solomona", "Absaloma", "Jonatana", "Adonija"]
+  },
+  {
+    "id": 137,
+    "theme": "Momba ny Fanjakan'i Davida Mpanjaka",
+    "question": "Iza no zanakalahin'i Davida izay nanomboka fikomiana taminy?",
+    "answer": "Absaloma",
+    "options": ["Absaloma", "Solomona", "Adonija", "Jonatana"]
+  },
+  {
+    "id": 138,
+    "theme": "Momba ny Fanjakan'i Davida Mpanjaka",
+    "question": "Aiza ilay tanana Lehibe izay nilaozan'i Davida rehefa nanatona azy i Absaloma?",
+    "answer": "Jerosalema",
+    "options": ["Jerosalema", "Hebrona", "Betlehema", "Jeriko"]
+  },
+  {
+    "id": 139,
+    "theme": "Momba ny Fanjakan'i Davida Mpanjaka",
+    "question": "Inona no nitranga tamin'ny volon'i Absaloma rehefa niady ny tafikany sy ny tafik'i Davida?",
+    "answer": "Voasaringotra tamin'ny hazo ilay izy",
+    "options": [
+      "Voasaringotra tamin'ny hazo ilay izy",
+      "Lasa sola ny volony",
+      "Lasa voabango tsara ",
+      "Tsy naninona ny volony"
+    ]
+  },
+  {
+    "id": 140,
+    "theme": "Momba ny Fanjakan'i Davida Mpanjaka",
+    "question": "Iza no namono an'i Absaloma?",
+    "answer": "Joaba",
+    "options": ["Joaba", "Davida", "Benaia", "Abisay"]
+  },
+  {
+    "id": 141,
+    "theme": "Momba ny Fanjakan'i Davida Mpanjaka",
+    "question": "Inona no sazin'i Joaba satria namono an'i Absaloma izy?",
+    "answer": "Tsy kapiteny intsony izy",
+    "options": [
+      "Tsy kapiteny intsony izy",
+      "Natsipy tao an-tranomaizina izy",
+      "Noroahina avy ao an-dapa izy",
+      "Novonoina izy"
+    ]
+  },
+  {
+    "id": 142,
+    "theme": "Momba ny Fanjakan'i Davida Mpanjaka",
+    "question": "Inona no fahotana faharoa nataon'i Davida voarakitra ao amin'ny Baiboly?",
+    "answer": "Nanisa ny vahoaka tao amin'ny fireneny izy",
+    "options": [
+      "Nanisa ny vahoaka tao amin'ny fireneny izy",
+      "Nanadino ny hivavaka izy",
+      "Namela ny tempoly ho rava izy",
+      "Nandà ny lalàn'Andriamanitra izy"
+    ]
+  },
+  {
+    "id": 143,
+    "theme": "Momba ny Fanjakan'i Davida Mpanjaka",
+    "question": "Nandritra ny fotoana naha-mpanjaka azy, iza no fahavalon'i Davida lehibe indrindra?",
+    "answer": "Filistina",
+    "options": ["Filistina", "Babylonianina", "Amalekita", "Egiptiana"]
+  },
+  {
+    "id": 144,
+    "theme": "Momba ny Fanjakan'i Davida Mpanjaka",
+    "question": "Inona avy ireo boky ao amin'ny Baiboly mirakitra ny fotoana naha-mpanjaka an'i Davida?",
+    "answer": "Samoela voalohany sy faharoa",
+    "options": [
+      "Samoela voalohany sy faharoa",
+      "Mpanjaka voalohany sy faharoa",
+      "Tantara voalohany sy faharoa",
+      "Salamo sy Ohabolana"
+    ]
+  },
+  {
+    "id": 145,
+    "theme": "Momba ny Fanjakan'i Davida Mpanjaka",
+    "question": "Inona no boky nosoratan'i Davida ny ankamaroany?",
+    "answer": "Salamo",
+    "options": ["Salamo", "Ohabolana", "Tononkiran'i Solomona", "Joba"]
+  },
+  {
+    "id": 146,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Iza no zanakalahin'i Davida izay lasa mpanjaka?",
+    "answer": "Solomona",
+    "options": ["Solomona", "Absaloma", "Adonija", "Jonatana"]
+  },
+  {
+    "id": 147,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Inona no toetra nangatahin'i Solomona tamin'Andriamanitra?",
+    "answer": "Fahendrena",
+    "options": [
+      "Fahendrena",
+      "Harena be",
+      "Fandresena amin'ny fahavalo",
+      "Fiainana maharitra"
+    ]
+  },
+  {
+    "id": 148,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Inona no naorin'i Solomona ho an'ny Tompo?",
+    "answer": "Tempoly",
+    "options": [
+      "Tempoly",
+      "Rova lehibe",
+      "Tranobe ho an'ny vahoaka",
+      "Tabernakely"
+    ]
+  },
+  {
+    "id": 149,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Iza no mpanjakavavy malaza tonga nitsidika an'i Solomona?",
+    "answer": "Mpanjakavavin'i Sheba",
+    "options": [
+      "Mpanjakavavin'i Sheba",
+      "Mpanjakavavin'i Egypta",
+      "Mpanjakavavin'i Babylona",
+      "Mpanjakavavin'i Pônikia"
+    ]
+  },
+  {
+    "id": 150,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Firy ny vadin'i Solomona?",
+    "answer": "700",
+    "options": ["700", "300", "1000", "100"]
+  },
+  {
+    "id": 151,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Nanaraka an'Andriamanitra foana ve i Solomona?",
+    "answer": "Tsia. Niala tamin'Andriamanitra izy.",
+    "options": [
+      "Tsia. Niala tamin'Andriamanitra izy.",
+      "Eny, hatramin'ny nahafatesany.",
+      "Indraindray ihany.",
+      "Niala ary niverina tamin'Andriamanitra."
+    ]
+  },
+  {
+    "id": 152,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Iza no nandresy lahatra an'i Solomona hiala tamin'Andriamanitra?",
+    "answer": "Ny vadiny",
+    "options": [
+      "Ny vadiny",
+      "Ny manamboninahitra tao an-dapa",
+      "Ny mpaminany sandoka",
+      "Ny mpanjaka avy any ivelany"
+    ]
+  },
+  {
+    "id": 153,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Inona no nitranga tamin'ny fanjakana taorian'ny fitondran'i Solomona?",
+    "answer": "Nizara roa izany",
+    "options": [
+      "Nizara roa izany",
+      "Nafahan'ny Babylonianina izy",
+      "Nanjary matanjaka kokoa izy",
+      "Lasa fanjakana tsy misy mpanjaka izy"
+    ]
+  },
+  {
+    "id": 154,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Boky inona ao amin'ny Baiboly no mirakitra ny mpanjaka rehetra?",
+    "answer": "Mpanjaka voalohany sy faharoa, Tantara voalohany sy faharoa",
+    "options": [
+      "Mpanjaka voalohany sy faharoa, Tantara voalohany sy faharoa",
+      "Samoela voalohany sy faharoa, Mpitsara",
+      "Joba sy Salamo",
+      "Isaia sy Jeremia"
+    ]
+  },
+  {
+    "id": 155,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Inona avy ireo boky ao amin'ny Baiboly nosoratan'i Solomona?",
+    "answer": "Tononkiran'i Solomona sy Ohabolana ary Salamo sasany",
+    "options": [
+      "Tononkiran'i Solomona sy Ohabolana ary Salamo sasany",
+      "Isaia sy Jeremia",
+      "Joba sy Rota",
+      "Eksodosy sy Levitikosy"
+    ]
+  },
+  {
+    "id": 156,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Firy ny isan'ny mpanjakan'i Joda?",
+    "answer": "20",
+    "options": ["20", "19", "15", "12"]
+  },
+  {
+    "id": 157,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Firy ny isan'ny mpanjakan'ny Israely?",
+    "answer": "19",
+    "options": ["19", "20", "15", "12"]
+  },
+  {
+    "id": 158,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Iza no nambabo an'i Joda ary nitondra an'i Daniela tany amin'ny fireneny?",
+    "answer": "Babylonianina",
+    "options": ["Babylonianina", "Egiptiana", "Filistina", "Asyriana"]
+  },
+  {
+    "id": 159,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Nofin'iza no nohazavain'i Daniela tao Babylona?",
+    "answer": "Nebokadnezara Mpanjaka",
+    "options": [
+      "Nebokadnezara Mpanjaka",
+      "Dariosy Mpanjaka",
+      "Korezy Mpanjaka",
+      "Farao Mpanjaka"
+    ]
+  },
+  {
+    "id": 160,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Iza no mpanjaka farany notompoin'i Daniela ao amin'ny Baiboly?",
+    "answer": "Dariosy",
+    "options": ["Dariosy", "Nebokadnezara", "Kyrosy", "Artaksersesy"]
+  },
+  {
+    "id": 161,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Rehefa nivavaka tamin'Andriamanitra foana i Daniela na dia voarara izany, taiza izy no natsipy?",
+    "answer": "Lavaka misy liona",
+    "options": [
+      "Lavaka misy liona",
+      "Lafaoro mirehitra",
+      "Tranomaizina maizina",
+      "Tany efitra lavitra"
+    ]
+  },
+  {
+    "id": 162,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Iza avy ireo naman'i Daniela telo (anarana Babylonianina)?",
+    "answer": "Sadraka, Mesaka, Abednego",
+    "options": [
+      "Sadraka, Mesaka, Abednego",
+      "Hanania, Misaela, Azaria",
+      "Josefa, Benjamina, Joda",
+      "Petera, Jaona, Jakoba"
+    ]
+  },
+  {
+    "id": 163,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Rehefa tsy nety niankohoka tamin'ny sampy ireo naman'i Daniela telo, natsipy aiza izy ireo?",
+    "answer": "Tao anaty lafaoro mirehitra",
+    "options": [
+      "Tao anaty lafaoro mirehitra",
+      "Tao amin'ny lavaka misy liona",
+      "Tao an-tranomaizina",
+      "Tany an'efitra"
+    ]
+  },
+  {
+    "id": 164,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Iza no niverina tany Israely mba hanangana ny mandan'i Jerosalema?",
+    "answer": "Nehemia",
+    "options": ["Nehemia", "Estera", "Ezra", "Daniela"]
+  },
+  {
+    "id": 165,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Iza no Israelita namonjy ny olony tamin'ny famonoana sady vadina mpanjaka?",
+    "answer": "Estera",
+    "options": ["Estera", "Debora", "Rota", "Hana"]
+  },
+  {
+    "id": 166,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Inona no zavatra sahin'i Estera natao mba hiresahana tamin'ny mpanjaka?",
+    "answer": "Tonga dia niditra mba hiresaka nefa tsy nantsoina mialoha",
+    "options": [
+      "Tonga dia niditra mba hiresaka nefa tsy nantsoina mialoha",
+      "Nanoratra taratasy tamin'ny mpanjaka",
+      "Nangataka tamin'ny mpisorona hiangona hivavaka",
+      "Nampitandrina ny mpanjaka tamin'ny alalan'ny manamboninahitra"
+    ]
+  },
+  {
+    "id": 167,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Iza no namela ny Israelita hiverina tany amin'ny tanindrazany?",
+    "answer": "Kyrosy",
+    "options": ["Kyrosy", "Dariosy", "Nebokadnezara", "Artaksersesy"]
+  },
+  {
+    "id": 168,
+    "theme": "Momba ny Tantaran'ny Israely taty aoriana",
+    "question": "Iza ilay avy amin'ny taranak'i Davida?",
+    "answer": "Jesosy",
+    "options": ["Jesosy", "Paoly", "Petera", "Jaona Mpanao Batisa"]
+  },
+  {
+    "id": 169,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Iza no renin'i Jesosy teto an-tany?",
+    "answer": "Maria",
+    "options": ["Maria", "Elizabeta", "Marta", "Johana"]
+  },
+  {
+    "id": 170,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Iza no ray nitaiza an'i Jesosy teto an-tany?",
+    "answer": "Josefa",
+    "options": ["Josefa", "Zakaria", "Jaona", "Simeona"]
+  },
+  {
+    "id": 171,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Iza no rain'i Jesosy niteraka azy (matio 1:20)?",
+    "answer": "Andriamanitra Fanahy Masina",
+    "options": [
+      "Andriamanitra Fanahy Masina",
+      "Josefa",
+      "Anjely Gabriel",
+      "Tsy misy rain'i Jesosy"
+    ]
+  },
+  {
+    "id": 172,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Inona ny anaran'ny tanàna nahaterahan'i Jesosy?",
+    "answer": "Betlehema",
+    "options": ["Betlehema", "Nazareta", "Jerosalema", "Kapernaoma"]
+  },
+  {
+    "id": 173,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Taiza no nalehan'ny fianakavian'i Jesosy rehefa te hanisy ratsy azy i Heroda fony izy mbola zaza?",
+    "answer": "Egypta",
+    "options": ["Egypta", "Babylona", "Nazareta", "Betlehema"]
+  },
+  {
+    "id": 174,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Firy ny rahalahin'i Jesosy voatonona ao amin'ny Baiboly?",
+    "answer": "Efatra",
+    "options": ["Efatra", "Roa", "Telo", "Dimy"]
+  },
+  {
+    "id": 175,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Lahitokan'ny Josefa sy Maria ve i Jesosy",
+    "answer": "Eny",
+    "options": ["Eny", "Tsia", "Tsy fantatra", "Manana zoky Izy"]
+  },
+  {
+    "id": 176,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Iza no zanak'olo-mpirai-tampo amin'i Jesosy malaza indrindra?",
+    "answer": "Jaona Mpanao Batisa",
+    "options": ["Jaona Mpanao Batisa", "Jakoba", "Josefa", "Jodasy"]
+  },
+  {
+    "id": 177,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Iza no nanao batisa an'i Jesosy?",
+    "answer": "Jaona Mpanao Batisa",
+    "options": ["Jaona Mpanao Batisa", "Josefa", "Petera", "Filipo"]
+  },
+  {
+    "id": 178,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Iza no niteny avy tany an-danitra rehefa natao batisa i Jesosy?",
+    "answer": "Andriamanitra",
+    "options": ["Andriamanitra", "Anjely", "Fanahy Masina", "Mosesy"]
+  },
+  {
+    "id": 179,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Jesosy dia tsy nety nifangaro amin'ireo olona malaza mpanao ratsy.",
+    "answer": "Tsia, fa matetika dia miara misakafo amin'ny mpanota Izy.",
+    "options": [
+      "Tsia, fa matetika dia miara misakafo amin'ny mpanota Izy.",
+      "Eny, satria Izy no Mesia.",
+      "Tsy voalaza ny momba an'izany.",
+      "Izay efa voavonjy ihany no tiany."
+    ]
+  },
+  {
+    "id": 357,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Tamin'ny toerana rehetra izay nandehanan'i Jesosy, dia tia sy nino Azy avokoa ny olona.",
+    "answer": "Tsia, fa matetika dia nolavina Izy.",
+    "options": [
+      "Tsia, fa matetika dia nolavina Izy.",
+      "Eny, tena nino Azy daholo ny olona.",
+      "Tsy voalaza ny momba an'izany.",
+      "Tsy nandeha nitety tanàna i Jesosy"
+    ]
+  },
+  {
+    "id": 180,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Inona no nitranga rehefa nankany an-tany efitra i Jesosy taorian'ny batisany?",
+    "answer": "Nalain'i Satana fanahy Izy",
+    "options": [
+      "Nalain'i Satana fanahy Izy",
+      "Nampianatra ny vahoaka Izy",
+      "Nifady hanina 7 andro Izy",
+      "Nivavaka tamin'i Andriamanitra Izy"
+    ]
+  },
+  {
+    "id": 181,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Talohan'ny nanombohan'i Jesosy nitory, inona no asany mahazatra?",
+    "answer": "Mpandrafitra",
+    "options": ["Mpandrafitra", "Mpanjono", "Mpisorona", "Mpampianatra"]
+  },
+  {
+    "id": 182,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Lazao ny anaran'ny tanàna niavian'i Jesosy.",
+    "answer": "Nazareta",
+    "options": ["Nazareta", "Betlehema", "Kapernaoma", "Jerosalema"]
+  },
+  {
+    "id": 183,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Ankoatra ny fitoriana, lazao ny asa nataon'i Jesosy nandritra ny diany tany Galilia.",
+    "answer": "Nanasitrana ny marary sy nandroaka demonia.",
+    "options": [
+      "Nanasitrana ny marary sy nandroaka demonia.",
+      "Nampianatra tao amin'ny synagoga.",
+      "Nandresy ny Filistina.",
+      "Nanao batisa ny olona maro."
+    ]
+  },
+  {
+    "id": 184,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Lazao ny anaran'ilay toerana nandehanan'i Jesosy teo ambony rano?",
+    "answer": "Ranomasin'i Galilia",
+    "options": [
+      "Ranomasin'i Galilia",
+      "Reniranon'i Jordana",
+      "Ranomasin'i Tiberias",
+      "Ranomasin'i Kanerety"
+    ]
+  },
+  {
+    "id": 185,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Iza ilay mpikambana tao amin'ny mpanolo-tsaina jiosy tonga nanontany an'i Jesosy tamin'ny alina?",
+    "answer": "Nikodemosy",
+    "options": ["Nikodemosy", "Kaiafa", "Josefa avy any Arimatia", "Pilato"]
+  },
+  {
+    "id": 186,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Firy ny mpianatra nofidin'i Jesosy?",
+    "answer": "12",
+    "options": ["12", "7", "70", "3"]
+  },
+  {
+    "id": 187,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Inona i Matio talohan'ny nanarahany an'i Jesosy?",
+    "answer": "Mpamory hetra",
+    "options": ["Mpamory hetra", "Mpanjono", "Mpisorona", "Mpiandry ondry"]
+  },
+  {
+    "id": 188,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Firy andro taorinan'ny nitsanganan'i Jesosy tamin'ny maty no niakarany any an-danitra?",
+    "answer": "40 andro",
+    "options": ["40 andro", "7 andro", "3 andro", "30 andro"]
+  },
+  {
+    "id": 189,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Ahoana no fomba nandaozan'i Jesosy ny Tany ary niakarany tany an-danitra?",
+    "answer": "Niakatra tany amin'ny rahona Izy",
+    "options": [
+      "Niakatra tany amin'ny rahona Izy",
+      "Nilevina tao am-pasana Izy",
+      "Nitsangana tany Galilia Izy",
+      "Nanjavona teo anoloan'ny mpianany Izy"
+    ]
+  },
+  {
+    "id": 190,
+    "theme": "Momba ny Fiainan'i Jesosy #1",
+    "question": "Firy ny olona nahita an'i Jesosy taorian'ny nitsanganany tamin'ny maty? (1 kor 15:3-8)",
+    "answer": "Maherin'ny 500",
+    "options": ["Maherin'ny 500", "12 ihany", "3 ihany", "Maherin'ny 100"]
+  },
+  {
+    "id": 191,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Inona no andininy fohy indrindra ao amin'ny Baiboly?",
+    "answer": "Jaona 11:35 Nitomany i Jesosy.",
+    "options": [
+      "Jaona 11:35 Nitomany i Jesosy.",
+      "Joba 3:2 Ary niteny i Joba.",
+      "Eksodosy 20:13 Aza mamono.",
+      "Lioka 17:32 Tsarovy i Lota vadin'ny vehivavy."
+    ]
+  },
+  {
+    "id": 192,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Nahoana i Jesosy no nitomany?",
+    "answer": "Satria maty i Lazarosy namany.",
+    "options": [
+      "Satria maty i Lazarosy namany.",
+      "Satria nanota ny vahoaka.",
+      "Satria tsy nino azy ny mpianany.",
+      "Satria nandà azy ny Fariseo."
+    ]
+  },
+  {
+    "id": 193,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Firy andro no maty i Lazarosy talohan'ny nahatongavan'i Jesosy nitsidika?",
+    "answer": "Efatra andro",
+    "options": ["Efatra andro", "Roa andro", "Iray andro", "Telo andro"]
+  },
+  {
+    "id": 194,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Inona avy ireo zavatra 2 nataon'i Jesosy mba hananganana an'i Lazarosy indray?",
+    "answer": "Nivavaka Izy ary avy eo dia nilaza tamin'i Lazarosy mba hivoaka.",
+    "options": [
+      "Nivavaka Izy ary avy eo dia nilaza tamin'i Lazarosy mba hivoaka.",
+      "Nanasitrana sy nanao batisa azy izy.",
+      "Nandroaka demonia sy nangataka tamin'ny anjely.",
+      "Nihady fasana sy nampitsangana azy."
+    ]
+  },
+  {
+    "id": 195,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Anaran'ny demonia noroahin'i Jesosy tao amin'ny faritr'i Gerasena?",
+    "answer": "Legiona",
+    "options": ["Legiona", "Beliala", "Abadona", "Mefistofela"]
+  },
+  {
+    "id": 196,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Firy ny mofo sy trondro nampiasain'i Jesosy hamahanana olona maherin'ny 5000?",
+    "answer": "Mofo dimy — sy trondro roa",
+    "options": [
+      "Mofo dimy — sy trondro roa",
+      "Mofo folo sy trondro dimy",
+      "Mofo telo sy trondro iray",
+      "Mofo roa ambin'ny folo sy trondro efatra"
+    ]
+  },
+  {
+    "id": 197,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Inona no asa nataon'i Petera sy Andrea talohan'ny niantson'i Jesosy azy ireo hanaraka Azy?",
+    "answer": "Fanjonoana",
+    "options": [
+      "Fanjonoana",
+      "Niasa tany an-tsaha",
+      "Fivarotan-entana",
+      "Fampiarana amin'ny tempoly"
+    ]
+  },
+  {
+    "id": 198,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Omeo ny anaran'ireo olona roa tao amin'ny Testamenta Taloha izay niseho rehefa niova tarehy i Jesosy?",
+    "answer": "Elia sy Mosesy",
+    "options": [
+      "Elia sy Mosesy",
+      "Abrahama sy Isaka",
+      "Davida sy Solomona",
+      "Josoa sy Gideona"
+    ]
+  },
+  {
+    "id": 199,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Inona no aretina nananan'i Bartimeo izay nositranin'i Jesosy?",
+    "answer": "Jamba izy",
+    "options": ["Jamba izy", "Kilemaina izy", "Marenina izy", "Boka izy"]
+  },
+  {
+    "id": 200,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Firy ny olona nofahanan'i Jesosy tamin'ny trondro sy mofo?",
+    "answer": "Olona 5.000",
+    "options": ["Olona 5.000", "Olona 4.000", "Olona 3.000", "Olona 1.000"]
+  },
+  {
+    "id": 201,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Firy ny boka nositranin'i Jesosy kanefa 1 ihany no niverina?",
+    "answer": "10",
+    "options": ["10", "5", "7", "3"]
+  },
+  {
+    "id": 202,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Inona no nataon'i Jesosy tamin'ny mpianany tamin'ny Sakafo Hariva Farany?",
+    "answer": "Nanasa ny tongotr'izy ireo",
+    "options": [
+      "Nanasa ny tongotr'izy ireo",
+      "Nampianatra azy ireo ny vavaka",
+      "Nanosotra menaka azy ireo",
+      "Nanome akanjo vaovao azy ireo"
+    ]
+  },
+  {
+    "id": 203,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Inona no nararak'ilay vehivavy teo amin'ny tongotr'i Jesosy tao an-tranon'i Simona?",
+    "answer": "Ranomanitra lafo vidy",
+    "options": [
+      "Ranomanitra lafo vidy",
+      "Siny feno menaka",
+      "Ranon'ny voaloboka tsara",
+      "Siny feno divay lafo vidy"
+    ]
+  },
+  {
+    "id": 204,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Iza no anaran'ny mpianatra namadika an'i Jesosy.",
+    "answer": "Jodasy Iskariota",
+    "options": ["Jodasy Iskariota", "Petera", "Tomasy", "Filipo"]
+  },
+  {
+    "id": 205,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Inona no zaridaina nalehan'i Jesosy rehefa nivavaka taorian'ny Sakafo Hariva Farany?",
+    "answer": "Zaridainan'i Getsemane",
+    "options": [
+      "Zaridainan'i Getsemane",
+      "Zaridainan'i Edena",
+      "Zaridainan'i Solomona",
+      "Zaridainan'i Oliva"
+    ]
+  },
+  {
+    "id": 206,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Iza no nanome satroboninahitra tsilo an'i Jesosy?",
+    "answer": "Miaramila Romana",
+    "options": [
+      "Miaramila Romana",
+      "Fariseo jiosy",
+      "Mpianatra namadika",
+      "Filistina"
+    ]
+  },
+  {
+    "id": 207,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Iza no anaran'ny Governora Romana izay nitsara an'i Jesosy?",
+    "answer": "Pilato",
+    "options": ["Pilato", "Heroda", "Kaiafa", "Agripay"]
+  },
+  {
+    "id": 208,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Inona no nataon'i Pilato mba hanadiovana ny tenany tamin'ny famatsihana an'i Jesosy ho faty?",
+    "answer": "Nanasa ny tanany",
+    "options": [
+      "Nanasa ny tanany",
+      "Nanao sorona ho an'Andriamanitra",
+      "Nandefa taratasy tamin'i Heroda",
+      "Nanafaka ireo mpianatra"
+    ]
+  },
+  {
+    "id": 209,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Iza no nanapaka ny sofin'ny miaramila iray rehefa nosamborina i Jesosy?",
+    "answer": "Petera",
+    "options": ["Petera", "Jodasy", "Jaona", "Jakoba"]
+  },
+  {
+    "id": 210,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Iza no mpianatra nandà an'i Jesosy in-telo?",
+    "answer": "Petera",
+    "options": ["Petera", "Tomasy", "Jodasy", "Filipo"]
+  },
+  {
+    "id": 211,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Inona no nitranga tamin'ny lambam-baravaran'ny tempoly rehefa novonoina i Jesosy?",
+    "answer": "Rovitra ilay izy",
+    "options": [
+      "Rovitra ilay izy",
+      "May ny afo ilay izy",
+      "Lasa fotsy ilay izy",
+      "Niova loko ilay izy"
+    ]
+  },
+  {
+    "id": 212,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Inona no nitranga rehefa avy nalevina tao am-pasana i Jesosy?",
+    "answer": "Nitsangana indray Izy",
+    "options": [
+      "Nitsangana indray Izy",
+      "Niakatra avy hatrany Izy",
+      "Niova ho anjely Izy",
+      "Nisy fahagagana lehibe nitranga"
+    ]
+  },
+  {
+    "id": 213,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Inona ilay nakodia avy teo am-baravaran'ny fasana nilevenan'i Jesosy?",
+    "answer": "Vato lehibe iray",
+    "options": [
+      "Vato lehibe iray",
+      "Milahy miaramila",
+      "Tombo-kase mpanjaka",
+      "Hazo lehibe iray"
+    ]
+  },
+  {
+    "id": 214,
+    "theme": "Momba ny fiainan'i Jesosy #2",
+    "question": "Andro inona tamin'ny herinandro no nitsanganan'i Jesosy tamin'ny maty?",
+    "answer": "Alahady - ny andro voalohany amin'ny herinandro",
+    "options": [
+      "Alahady - ny andro voalohany amin'ny herinandro",
+      "Zoma - ny andro fahadimy amin'ny herinandro",
+      "Sabata - ny andro faha-7 amin'ny herinandro",
+      "Alatsinainy - ny andro faharoa amin'ny herinandro"
+    ]
+  },
+  {
+    "id": 215,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "Inona no anarana hafa niantsoana ny Apostoly Paoly?",
+    "answer": "Saoly avy any Tarsosy",
+    "options": [
+      "Saoly avy any Tarsosy",
+      "Barnabasy avy any Kyprosy",
+      "Silasy avy any Antiokia",
+      "Timoty avy any Listra"
+    ]
+  },
+  {
+    "id": 216,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "Iza no Kristianina voalohany maty noho ny finoany?",
+    "answer": "Stefana",
+    "options": [
+      "Stefana",
+      "Jaona Mpanao Batisa",
+      "Jakoba zanak'i Zebedio",
+      "Petera"
+    ]
+  },
+  {
+    "id": 217,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "Firy ny boky misy ny anarana hoe Jaona ao anatiny?",
+    "answer": "Efatra",
+    "options": ["Efatra", "Telo", "Roa", "Dimy"]
+  },
+  {
+    "id": 218,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "Iza no nitory teny tamin'ny andro Pentekosta?",
+    "answer": "Petera",
+    "options": ["Petera", "Paoly", "Jaona", "Filipo"]
+  },
+  {
+    "id": 219,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "Inona no fahagagana mahagaga nitranga momba ny fiteny tamin'ny Pentekosta?",
+    "answer": "Samy nandre ny toriteny tamin'ny fiteniny avy ny rehetra.",
+    "options": [
+      "Samy nandre ny toriteny tamin'ny fiteniny avy ny rehetra.",
+      "Niteny tamin'ny fiteny anjely ny mpianatra.",
+      "Nikorana tamin'ny fiteny vao ny vahoaka.",
+      "Nifamadika ny fiteny tamin'ny fomba mahagaga."
+    ]
+  },
+  {
+    "id": 220,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "Iza moa i Saoly?",
+    "answer": "Nanenjika ny Kristianina izy",
+    "options": [
+      "Nanenjika ny Kristianina izy",
+      "Mpianatra tamin'i Jesosy izy",
+      "Mpitondra tafika Romana izy",
+      "Mpisorona lehibe jiosy izy"
+    ]
+  },
+  {
+    "id": 221,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "Inona no nitranga rehefa teny an-dalana ho any Damaskosy i Saoly?",
+    "answer": "Niseho taminy i Jesosy sady nanova ny fiainany",
+    "options": [
+      "Niseho taminy i Jesosy sady nanova ny fiainany",
+      "Nosamborina tamin'ny miaramila izy",
+      "Niseho taminy i Mosesy sy Elia",
+      "Nandre ny feon'i Andriamanitra tsy hitany izy"
+    ]
+  },
+  {
+    "id": 222,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "Inona no anaran'i Saoly rehefa novàna?",
+    "answer": "Paoly",
+    "options": ["Paoly", "Barnabasy", "Silasy", "Timoty"]
+  },
+  {
+    "id": 223,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "Iza no natao sesitany tany amin'ny nosy iray?",
+    "answer": "Jaona",
+    "options": ["Jaona", "Paoly", "Petera", "Filipo"]
+  },
+  {
+    "id": 224,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "Iza no nohomboana tamin'ny hazo fijaliana mivadika?",
+    "answer": "Petera",
+    "options": ["Petera", "Paoly", "Jakoba", "Jaona"]
+  },
+  {
+    "id": 225,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "Iza no maritiora voalohany ary notoraham-bato?",
+    "answer": "Stefana",
+    "options": ["Stefana", "Petera", "Jakoba", "Jaona"]
+  },
+  {
+    "id": 226,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "Firy ny diakona nofidina hanampy ny apôstôly hizara sakafo ho an'ny mpitondratena?",
+    "answer": "Fito",
+    "options": ["Fito", "Roa ambin'ny folo", "Telo", "Folo"]
+  },
+  {
+    "id": 227,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "Iza no Apôstôly nitondra ny Filazantsara tany amin'ny tanànan'i Samaria?",
+    "answer": "Filipo",
+    "options": ["Filipo", "Petera", "Jaona", "Paoly"]
+  },
+  {
+    "id": 228,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "Iza no Apôstôly nizara ny Filazantsara tamin'ny manam-boninahitra Etiopiana teny an-dalana ho any Gaza?",
+    "answer": "Filipo",
+    "options": ["Filipo", "Paoly", "Barnabasy", "Silasy"]
+  },
+  {
+    "id": 229,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "Taiza no nijanonan'i Petera nandritra ny fanompoany tao amin'ny tanànan'i Jopa?",
+    "answer": "Tao an-tranon'i Simona mpandon-koditra",
+    "options": [
+      "Tao an-tranon'i Simona mpandon-koditra",
+      "Tao an-tranon'i Kornelio",
+      "Tao amin'ny synagoga",
+      "Tao amin'ny tranon'i Marta sy Maria"
+    ]
+  },
+  {
+    "id": 358,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "I Petera dia nanangana avy tamin'ny maty ilay vehivavy antsoina hoe Dorkasy",
+    "answer": "Eny, tao Jopa",
+    "options": [
+      "Eny, tao Jopa",
+      "Tsia, tao Jerosalema",
+      "Eny, tao Antiokia",
+      "Tsia, tao Roma"
+    ]
+  },
+  {
+    "id": 230,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "Tao amin'ny tanàna inona no voalohany niantsoana ireo mpanara-dia an'i Jesosy hoe 'Kristianina'?",
+    "answer": "Antiokia",
+    "options": ["Antiokia", "Jerosalema", "Roma", "Filipy"]
+  },
+  {
+    "id": 231,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "Iza no niaraka tamin'i Paoly tamin'ireo dia fitoriana voalohany nataony?",
+    "answer": "Barnabasy",
+    "options": ["Barnabasy", "Silasy", "Timoty", "Lioka"]
+  },
+  {
+    "id": 232,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "Inona no nolazain'ny mpiambina ny fonja Filipiana tamin'i Paoly rehefa avy nandre ny Filazantsara izy?",
+    "answer": "Inona no tsy maintsy ataoko mba ho voavonjy?",
+    "options": [
+      "Inona no tsy maintsy ataoko mba ho voavonjy?",
+      "Mangataka aminareo mba hivavaka ho ahy.",
+      "Faly aho noho ny hafatrareo.",
+      "Mety ve aho ho anisan'ny fianakaviananareo?"
+    ]
+  },
+  {
+    "id": 233,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "Ahoana no navalin'i Paoly sy Silasy an'ilay mpiambina ny fonja Filipiana?",
+    "answer": "Minoa an'i Jesosy Tompo, dia hovonjena ianareo.",
+    "options": [
+      "Minoa an'i Jesosy Tompo, dia hovonjena ianareo.",
+      "Mivavaha ary hiova ny fiainanao.",
+      "Mangataha amim-panetren-tena amin'Andriamanitra.",
+      "Atovory ny Kristianina ary mivavaha miara-miasa."
+    ]
+  },
+  {
+    "id": 234,
+    "theme": "Momba ny Testamenta Vaovao #1",
+    "question": "Inona no tanjon'i Paoly tamin'ny dia misionera nataony?",
+    "answer": "Hitondra ny filazantsara hatraiza hatraiza ary farany hitory any amin'ny renivohitr'i Roma",
+    "options": [
+      "Hitondra ny filazantsara hatraiza hatraiza ary farany hitory any amin'ny renivohitr'i Roma",
+      "Hanangona vola ho an'ny fiangonana tao Jerosalema",
+      "Hamorona fiaraha-monina Kristianina any ivelany",
+      "Hankany amin'ny firenena rehetra mba hano batisa azy ireo"
+    ]
+  },
+  {
+    "id": 235,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Tany amin'ny tanàna inona no nahaterahan'i Jesosy?",
+    "answer": "Betlehema",
+    "options": ["Betlehema", "Nazareta", "Kapernaoma", "Jerosalema"]
+  },
+  {
+    "id": 236,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Karazana bibikely inona no nohanin'i Jaona Mpanao Batisa tany an'efitra?",
+    "answer": "Valala",
+    "options": ["Valala", "Vitsika", "Vorona kely", "Bibikely"]
+  },
+  {
+    "id": 237,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Iza avy ireo apôstôly voalohany nantsoina hanaraka an'i Jesosy?",
+    "answer": "Petera sy Andrea",
+    "options": [
+      "Petera sy Andrea",
+      "Jaona sy Jakoba",
+      "Matio sy Filipo",
+      "Tomasy sy Bartolomeo"
+    ]
+  },
+  {
+    "id": 238,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Iza no nanaiky an'i Jesosy ho Mesia rehefa natolotra tao amin'ny Tempoly fony izy mbola zaza?",
+    "answer": "Simeona",
+    "options": ["Simeona", "Ana", "Zakaria", "Elia"]
+  },
+  {
+    "id": 239,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Iza no nangataka tamin'i Pilato ny fatin'i Jesosy taorian'ny nanomboana azy tamin'ny hazo fijaliana?",
+    "answer": "Josefa avy any Arimatia",
+    "options": [
+      "Josefa avy any Arimatia",
+      "Nikodemosy",
+      "Pilato mihitsy",
+      "Marta sy Maria"
+    ]
+  },
+  {
+    "id": 240,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Vaky sambo tao amin'ny nosy inona i Paoly?",
+    "answer": "Malta",
+    "options": ["Malta", "Kyprosy", "Krety", "Patmo"]
+  },
+  {
+    "id": 241,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Inona no boky fohy indrindra ao amin'ny Testamenta Vaovao?",
+    "answer": "2 Jaona",
+    "options": ["2 Jaona", "3 Jaona", "Filomona", "Joda"]
+  },
+  {
+    "id": 242,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Matio dia _________.",
+    "answer": "Mpamory hetra",
+    "options": ["Mpamory hetra", "Mpanjono", "Mpisorona", "Mpiandry ondry"]
+  },
+  {
+    "id": 243,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Tanàna inona no nalehan'i Saoly rehefa nahita hazavana lehibe sy mahajamba izy?",
+    "answer": "Damaskosy",
+    "options": ["Damaskosy", "Jerosalema", "Antiokia", "Roma"]
+  },
+  {
+    "id": 244,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Iza no olona voalohany nahita ilay lehilahy naratra tao amin'ny fanoharana Momba ny Samaritana tsara fanahy?",
+    "answer": "Mpisorona",
+    "options": ["Mpisorona", "Levita", "Samaritana", "Mpianatra"]
+  },
+  {
+    "id": 359,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Firy no isan'ny olona nofahanan'i Jesosy tamin'ny mofo dimy sy trondro roa?",
+    "answer": "Lehilahy manodidina ny 5000 isa",
+    "options": [
+      "Lehilahy manodidina ny 5000 isa",
+      "Lehilahy sy vehivavy manodidina ny 5000 isa",
+      "Olona manodidina ny 5000 isa",
+      "Zaza amam-behivavy manodidina ny 5000 isa"
+    ]
+  },
+  {
+    "id": 360,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Iza no nanoratra ny boky Apokalypsy?",
+    "answer": "Jaona",
+    "options": ["Jaona", "Petera", "Paoly", "Matio"]
+  },
+  {
+    "id": 361,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Fenoy ity toko sy andininy ity: « ary ho fanampin'izany rehetra izany dia tano ny finoana ho _________ ,izay hahazoanareo hamono ny zana-tsipika mirehitra rehetra izay alefan'ilay ratsy» - Efes 6:16",
+    "answer": "ampinga",
+    "options": ["ampinga", "fiarovan-doha", "fitaovam-piadiana", "tsy miova"]
+  },
+  {
+    "id": 362,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Rehefa avy namoky olona 5000 tamin'ny alala'ny mofo dimy sy trondro roa Jesosy, firy harona ny mofo sisa?",
+    "answer": "12",
+    "options": ["12", "5", "2", "tsy nisy"]
+  },
+  {
+    "id": 363,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Araka ny filazantsaran'i Marka, fomba ahoana no nahafantaran'i Maria virjiny fa hitoe-jaza izy",
+    "answer": "Tamin'ny alalan'i Anjely Gabriely",
+    "options": [
+      "Tamin'ny alalan'i Anjely Gabriely",
+      "Tamin'ny alalan'ny nofy",
+      "Nambaran'ny mpisorona taminy",
+      "Nambaran'ny mpiandry ondry"
+    ]
+  },
+
+  {
+    "id": 245,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Avy amin'ny foko inona i Paoly?",
+    "answer": "Benjamina",
+    "options": ["Benjamina", "Joda", "Levi", "Robena"]
+  },
+  {
+    "id": 246,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Iza no hovokisana?",
+    "answer": "Ireo izay noana sy mangetaheta ny fahamarinana",
+    "options": [
+      "Ireo izay noana sy mangetaheta ny fahamarinana",
+      "Ireo manan-karena",
+      "Ireo mahafinaritra ny Tompo",
+      "Ireo mivavaka mafy"
+    ]
+  },
+  {
+    "id": 247,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Inona no fiveloman'i Simona Petera talohan'ny nahatongavany ho apostoly?",
+    "answer": "Mpanjono izy.",
+    "options": [
+      "Mpanjono izy.",
+      "Mpiandry ondry izy.",
+      "Mpiasa tany izy.",
+      "Mpamory hetra izy."
+    ]
+  },
+  {
+    "id": 248,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Iza no mpisoronabe tao Jerosalema izay nitsara an'i Jesosy?",
+    "answer": "Kaiafa",
+    "options": ["Kaiafa", "Anasy", "Pilato", "Heroda"]
+  },
+  {
+    "id": 249,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Ao amin'ny Filazantsaran'i Jaona, iza amin'ireo apostoly no misalasala ny amin'ny fitsanganan'i Jesosy tamin'ny maty mandra-pahitany maso an'i Jesosy?",
+    "answer": "Tomasy",
+    "options": ["Tomasy", "Petera", "Filipo", "Natanaely"]
+  },
+  {
+    "id": 250,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Araka ny Filazantsaran'i Matio, aiza no misy ny toriteny ampahibemaso voalohany nataon'i Jesosy?",
+    "answer": "Teo an-tendrombohitra",
+    "options": [
+      "Teo an-tendrombohitra",
+      "Tao amin'ny synagoga",
+      "Teo amoron'ny ranomasina",
+      "Tao amin'ny tempoly"
+    ]
+  },
+  {
+    "id": 251,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Ahoana no fomba nanambaran'i Jodasy ny maha-izy azy an'i Jesosy tamin'ireo manampahefana Romana?",
+    "answer": "Nanoroka azy izy.",
+    "options": [
+      "Nanoroka azy izy.",
+      "Nitondra fehezam-bolo tamin'ny vadiny.",
+      "Nilaza taminy tamin'ny tenina.",
+      "Naneho azy amin'ny alalan'ny taratasy."
+    ]
+  },
+  {
+    "id": 252,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Iza no namono an'i Jaona Mpanao Batisa?",
+    "answer": "Heroda Antipasy",
+    "options": ["Heroda Antipasy", "Pilato", "Kaiafa", "Fariseo"]
+  },
+  {
+    "id": 253,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Araka ny Filazantsara, inona no karazana literatiora miavaka ampiasain'i Jesosy hitory ny hafany?",
+    "answer": "Ny fanoharana",
+    "options": [
+      "Ny fanoharana",
+      "Ny tononkalo",
+      "Ny teny fanahy",
+      "Ny mpaminany"
+    ]
+  },
+  {
+    "id": 254,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Iza no Filazantsara maneho ny mistery sy ny maha-izy azy an'i Jesosy?",
+    "answer": "Jaona",
+    "options": ["Jaona", "Matio", "Marka", "Lioka"]
+  },
+  {
+    "id": 255,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Iza no nanala ny vatan'i Jesosy teo amin'ny hazo fijaliana?",
+    "answer": "Josefa avy any Arimatia",
+    "options": [
+      "Josefa avy any Arimatia",
+      "Nikodemosy",
+      "Petera",
+      "Maria renin'i Jesosy"
+    ]
+  },
+  {
+    "id": 256,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Iza no apostoly voalohany nandà an'i Jesosy?",
+    "answer": "Petera",
+    "options": ["Petera", "Jodasy", "Tomasy", "Filipo"]
+  },
+  {
+    "id": 364,
+    "theme": "Momba ny Testamenta Vaovao #2",
+    "question": "Inona ilay filazantsara nosoratana dokotera",
+    "answer": "Lioka",
+    "options": ["Lioka", "Matio", "Marka", "Jaona"]
+  },
+  {
+    "id": 257,
+    "theme": "Momba ny 'Vokatry ny Fanahy'",
+    "question": "Aiza no ahitana ny Vokatry ny Fanahy ao amin'ny Baiboly?",
+    "answer": "Galatiana 5",
+    "options": ["Galatiana 5", "Romana 8", "Efesiana 6", "1 Korintiana 13"]
+  },
+  {
+    "id": 258,
+    "theme": "Momba ny 'Vokatry ny Fanahy'",
+    "question": "Iza no mpanoratra nanoratra ny boky Galatiana?",
+    "answer": "Paoly",
+    "options": ["Paoly", "Petera", "Jaona", "Jakoba"]
+  },
+  {
+    "id": 259,
+    "theme": "Momba ny 'Vokatry ny Fanahy'",
+    "question": "Lazao izay Vokatry ny Fanahy  amin'ireto. (Galatiana 5:22-23)",
+    "answer": "fitiavana, fifaliana, fiadanana, fahari-po, fahamoram-panahy, fahamarinana, fahalemem-panahy, fahononam-po",
+    "options": [
+      "fitiavana, fifaliana, fiadanana, fahari-po, fahamoram-panahy, fahamarinana, fahalemem-panahy, fahononam-po",
+      "hery, fahendrena, finoana, famindram-po",
+      "fahaizana mitory, fanasitranana, fandroahana demonia",
+      "fahazavana, fahamarinana, fahamasinana, fahamendrehana"
+    ]
+  },
+  {
+    "id": 365,
+    "theme": "Momba ny 'Vokatry ny Fanahy'",
+    "question": "Inona no iantsoana ny mifanohitra amin'ny vokatry ny Fanahy?",
+    "answer": "Asan'ny nofo",
+    "options": [
+      "Asan'ny nofo",
+      "Vokatry ny nofo",
+      "Asan'ny Satana",
+      "Vokatry ny fanahy maloto"
+    ]
+  },
+  {
+    "id": 260,
+    "theme": "Momba ny 'Vokatry ny Fanahy'",
+    "question": "Inona no asehon'ny vokatry ny Fanahy Masina?",
+    "answer": "Ny toetran'i Jesosy Kristy.",
+    "options": [
+      "Ny toetran'i Jesosy Kristy.",
+      "Ny herin'Andriamanitra.",
+      "Ny fahendrena sy ny fahalalana.",
+      "Ny fahaizana mampahery ny hafa."
+    ]
+  },
+  {
+    "id": 261,
+    "theme": "Momba ny 'Vokatry ny Fanahy'",
+    "question": "Ny vokatry ny Fanahy faharoa dia ny fifaliana. Inona no entin'ny fifaliana avy amin'Andriamanitra?",
+    "answer": "fahasambarana",
+    "options": ["fahasambarana", "hery", "fahendrena", "fandresena"]
+  },
+  {
+    "id": 262,
+    "theme": "Momba ny 'Vokatry ny Fanahy'",
+    "question": "Rehefa manana fiadanana ianao dia _________",
+    "answer": "tony",
+    "options": ["tony", "matanjaka", "faly", "mahery fo"]
+  },
+  {
+    "id": 263,
+    "theme": "Momba ny 'Vokatry ny Fanahy'",
+    "question": "Rehefa manam-paharetana ianao dia afaka _________",
+    "answer": "miandry",
+    "options": ["miandry", "miady", "miasa mafy", "mivavaka"]
+  },
+  {
+    "id": 264,
+    "theme": "Momba ny 'Vokatry ny Fanahy'",
+    "question": "Farany fa tsy kely indrindra amin'ny vokatry ny Fanahy dia ny fahononam-po(fifehezan-tena). Manana fahononam-po ianao rehefa?",
+    "answer": "mieritreritra ny fihetsika ataontsika alohan'ny hanaovana zavatra",
+    "options": [
+      "mieritreritra ny fihetsika ataontsika alohan'ny hanaovana zavatra",
+      "misakafo tsara ary rehefa voky dia miala sasatra",
+      "mazoto mivavaka eny amin'ny fiangonana",
+      "maharitra mamaky ny Baiboly isan'andro"
+    ]
+  },
+  {
+    "id": 265,
+    "theme": "Momba ny 'Vokatry ny Fanahy'",
+    "question": "Ahoana no fomba nilazan'i Jesosy fa tokony ho tia ny hafa isika?",
+    "answer": "tiavo izy ireo tahaka ny tenantsika",
+    "options": [
+      "tiavo izy ireo tahaka ny tenantsika",
+      "tiavo izy ireo noho ny zavatra omeny antsika",
+      "tiavo izy ireo raha tiany koa isika",
+      "tiavo izy ireo noho ny didy an'Andriamanitra"
+    ]
+  },
+  {
+    "id": 266,
+    "theme": "Momba ny Vavaky ny Tompo",
+    "question": "Aiza ao amin'ny Baiboly no ahitanao ny Vavaka nampianarin'ny Tompo?",
+    "answer": "Matio 6",
+    "options": ["Matio 6", "Lioka 11", "Marka 14", "Jaona 17"]
+  },
+  {
+    "id": 267,
+    "theme": "Momba ny Vavaky ny Tompo",
+    "question": "Iza no nampianatra ny Vavaka nampianarin'ny Tompo?",
+    "answer": "Jesosy",
+    "options": ["Jesosy", "Mosesy", "Petera", "Paoly"]
+  },
+  {
+    "id": 268,
+    "theme": "Momba ny Vavaky ny Tompo",
+    "question": "Manomboka amin'ny teny hoe 'Rainay' ny vavaka nampianarin'ny Tompo. Iza no iresahantsika amin'izany?",
+    "answer": "Andriamanitra",
+    "options": ["Andriamanitra", "Jesosy", "Anjely", "Fanahy Masina"]
+  },
+  {
+    "id": 269,
+    "theme": "Momba ny Vavaky ny Tompo",
+    "question": "Inona no teny tsy ampy amin'ity andalana ity? 'Hohamasinina anie ny __-nao'.",
+    "answer": "anarana",
+    "options": ["anarana", "fanjakana", "hery", "voninahitra"]
+  },
+  {
+    "id": 270,
+    "theme": "Momba ny Vavaky ny Tompo",
+    "question": "Amin'ity fehezanteny ity, 'Omeo anay anio ny hanina sahaza ho anay isan'andro', inona no angatahina eto?",
+    "answer": "Zavatra fototra ilaintsika amin'ny fiainana.",
+    "options": [
+      "Zavatra fototra ilaintsika amin'ny fiainana.",
+      "Harena be sy fanomezana.",
+      "Fahasalamana sy mofo ho isan'andro.",
+      "Fahendrena sy fahalalana."
+    ]
+  },
+  {
+    "id": 271,
+    "theme": "Momba ny Vavaky ny Tompo",
+    "question": "Matetika, amin'ny faran'ny vavaka, dia miteny teny iray isika. Inona izany teny izany?",
+    "answer": "Amena",
+    "options": ["Amena", "Haleloia", "Toky", "Fiderana"]
+  },
+  {
+    "id": 272,
+    "theme": "Momba ny Vavaky ny Tompo",
+    "question": "Firy ny fangatahana ao amin'ny Vavaky ny Tompo?",
+    "answer": "Fito",
+    "options": ["Fito", "Dimy", "Enina", "Valo"]
+  },
+  {
+    "id": 273,
+    "theme": "Momba ny Vavaky ny Tompo",
+    "question": "Inona ny fangatahana voalohany ao amin'ny vavaka nampianarin'ny Tompo?",
+    "answer": "Hohamasinina anie ny anaranao",
+    "options": [
+      "Hohamasinina anie ny anaranao",
+      "Ho tonga anie ny fanjakanao",
+      "Omeo anay ny hanina sahaza anay",
+      "Mamelà ny halokay"
+    ]
+  },
+  {
+    "id": 274,
+    "theme": "Momba ny Vavaky ny Tompo",
+    "question": "Inona ny fangatahana faharoa ao amin'ny vavaka nampianarin'ny Tompo?",
+    "answer": "Ho tonga anie ny fanjakanao",
+    "options": [
+      "Ho tonga anie ny fanjakanao",
+      "Hohamasinina anie ny anaranao",
+      "Hatao etỳ an-tany anie ny sitraponao",
+      "Omeo anay ny hanina sahaza anay"
+    ]
+  },
+  {
+    "id": 275,
+    "theme": "Momba ny Vavaky ny Tompo",
+    "question": "Inona ny fangatahana fahatelo ao amin'ny vavaka nampianarin'ny Tompo?",
+    "answer": "Hatao anie ny sitraponao etỳ an-tany",
+    "options": [
+      "Hatao anie ny sitraponao etỳ an-tany",
+      "Ho tonga anie ny fanjakanao",
+      "Omeo anay ny hanina sahaza anay",
+      "Mamelà ny helokay"
+    ]
+  },
+  {
+    "id": 276,
+    "theme": "Momba ny Vavaky ny Tompo",
+    "question": "Inona ny fangatahana faha-4 ao amin'ny vavaka nampianarin'ny Tompo?",
+    "answer": "Omeo anay ny hanina sahaza anay",
+    "options": [
+      "Omeo anay ny hanina sahaza anay",
+      "Hatao anie ny sitraponao etỳ an-tany",
+      "Mamelà ny helokay",
+      "Aza mitondra anay ho amin'ny fakam-panahy"
+    ]
+  },
+  {
+    "id": 277,
+    "theme": "Momba ny Vavaky ny Tompo",
+    "question": "Inona ny fangatahana faha-5 ao amin'ny vavaka nampianarin'ny Tompo?",
+    "answer": "Mamelà ny helokay",
+    "options": [
+      "Mamelà ny helokay",
+      "Omeo anay ny hanina sahaza anay",
+      "Aza mitondra anay ho amin'ny fakam-panahy",
+      "Manafaha anay amin'ny ratsy"
+    ]
+  },
+  {
+    "id": 278,
+    "theme": "Momba ny Vavaky ny Tompo",
+    "question": "Inona ny fangatahana faha-6 ao amin'ny vavaka nampianarin'ny Tompo?",
+    "answer": "Aza mitondra anay ho amin'ny fakam-panahy",
+    "options": [
+      "Aza mitondra anay ho amin'ny fakam-panahy",
+      "Mamelà ny helokay",
+      "Manafaha anay amin'ny ratsy",
+      "Omeo anay ny hanina sahaza anay"
+    ]
+  },
+  {
+    "id": 279,
+    "theme": "Momba ny Vavaky ny Tompo",
+    "question": "Inona ny fangatahana faha-7 ao amin'ny vavaka nampianarin'ny Tompo?",
+    "answer": "Manafaha anay amin'ny ratsy",
+    "options": [
+      "Manafaha anay amin'ny ratsy",
+      "Aza mitondra anay ho amin'ny fakam-panahy",
+      "Hohamasinina anie ny anaranao",
+      "Ho tonga anie ny fanjakanao"
+    ]
+  },
+  {
+    "id": 280,
+    "theme": "Momba ny Baiboly Momba ny Didy 10",
+    "question": "Aiza no ahitanao ny didy 10 ao amin'ny Baiboly?",
+    "answer": "Eksodosy 20 sy Deoteronomia 5",
+    "options": [
+      "Eksodosy 20 sy Deoteronomia 5",
+      "Genesisy 1 sy Levitikosy 10",
+      "Nomery 15 sy Josoa 3",
+      "Matio 5 sy Romana 13"
+    ]
+  },
+  {
+    "id": 281,
+    "theme": "Momba ny Baiboly Momba ny Didy 10",
+    "question": "Iza no anaran'ny olona nandray ny Didy 10 avy amin'Andriamanitra?",
+    "answer": "Mosesy",
+    "options": ["Mosesy", "Arona", "Josoa", "Davida"]
+  },
+  {
+    "id": 282,
+    "theme": "Momba ny Baiboly Momba ny Didy 10",
+    "question": "Inona ny didy voalohany?",
+    "answer": "Aza manana andriamani-kafa, fa Izaho ihany.",
+    "options": [
+      "Aza manana andriamani-kafa, fa Izaho ihany.",
+      "Aza miankohoka amin'ny sampy.",
+      "Aza manonona foana ny anaran'i Jehovah.",
+      "Mahatsiarova ny andro Sabata hanamasina azy."
+    ]
+  },
+  {
+    "id": 283,
+    "theme": "Momba ny Baiboly Momba ny Didy 10",
+    "question": "Inona ny didy faharoa?",
+    "answer": "Aza manao sarin-javatra voasokitra hiankohofana.",
+    "options": [
+      "Aza manao sarin-javatra voasokitra hiankohofana.",
+      "Aza manana andriamani-kafa fa Izaho ihany.",
+      "Aza manonona foana ny anaran'i Jehovah.",
+      "Manajà ny rainao sy ny reninao."
+    ]
+  },
+  {
+    "id": 284,
+    "theme": "Momba ny Baiboly Momba ny Didy 10",
+    "question": "Inona ny didy fahatelo?",
+    "answer": "Aza manonona foana ny anaran'i Jehovah Andriamanitrao.",
+    "options": [
+      "Aza manonona foana ny anaran'i Jehovah Andriamanitrao.",
+      "Aza manao sarin-javatra voasokitra hiankohofana.",
+      "Mahatsiarova ny andro Sabata hanamasina azy.",
+      "Aza mamono olona."
+    ]
+  },
+  {
+    "id": 285,
+    "theme": "Momba ny Baiboly Momba ny Didy 10",
+    "question": "Inona ny didy faha-4?",
+    "answer": "Mahatsiarova ny andro Sabata hanamasina azy.",
+    "options": [
+      "Mahatsiarova ny andro Sabata hanamasina azy.",
+      "Manajà ny rainao sy ny reninao.",
+      "Aza mamono olona.",
+      "Aza mijangajanga."
+    ]
+  },
+  {
+    "id": 286,
+    "theme": "Momba ny Baiboly Momba ny Didy 10",
+    "question": "Inona ny didy fahadimy?",
+    "answer": "Manajà ny rainao sy ny reninao.",
+    "options": [
+      "Manajà ny rainao sy ny reninao.",
+      "Mahatsiarova ny andro Sabata hanamasina azy.",
+      "Aza mamono olona.",
+      "Aza mangalatra."
+    ]
+  },
+  {
+    "id": 287,
+    "theme": "Momba ny Baiboly Momba ny Didy 10",
+    "question": "Inona ny didy faha-6?",
+    "answer": "Aza mamono olona.",
+    "options": [
+      "Aza mamono olona.",
+      "Aza mijangajanga.",
+      "Aza mangalatra.",
+      "Manajà ny rainao sy ny reninao."
+    ]
+  },
+  {
+    "id": 288,
+    "theme": "Momba ny Baiboly Momba ny Didy 10",
+    "question": "Inona ny didy faha-7?",
+    "answer": "Aza mijangajanga.",
+    "options": [
+      "Aza mijangajanga.",
+      "Aza mamono olona.",
+      "Aza mangalatra.",
+      "Aza mijoro vavolombelona mandainga."
+    ]
+  },
+  {
+    "id": 289,
+    "theme": "Momba ny Baiboly Momba ny Didy 10",
+    "question": "Inona ny didy faha-8?",
+    "answer": "Aza mangalatra.",
+    "options": [
+      "Aza mangalatra.",
+      "Aza mijangajanga.",
+      "Aza mijoro vavolombelona mandainga.",
+      "Aza mitsiriritra."
+    ]
+  },
+  {
+    "id": 290,
+    "theme": "Momba ny Baiboly Momba ny Didy 10",
+    "question": "Inona ny didy faha-9?",
+    "answer": "Aza mety ho vavolombelona mandainga.",
+    "options": [
+      "Aza mety ho vavolombelona mandainga.",
+      "Aza mangalatra.",
+      "Aza mitsiriritra.",
+      "Aza mamono olona."
+    ]
+  },
+  {
+    "id": 291,
+    "theme": "Momba ny Baiboly Momba ny Didy 10",
+    "question": "Inona ny didy faha-10?",
+    "answer": "Aza mitsiriritra.",
+    "options": [
+      "Aza mitsiriritra.",
+      "Aza mety ho vavolombelona mandainga.",
+      "Aza mangalatra.",
+      "Aza mamono olona."
+    ]
+  },
+  {
+    "id": 292,
+    "theme": "Momba ny Baiboly Momba ny Didy 10",
+    "question": "Inona no dikan'ny manonona foana ny anaran'Andriamanitra?",
+    "answer": "Mampiasa ny anaran'Andriamanitra amin'ny fomba tsy fanajana",
+    "options": [
+      "Mampiasa ny anaran'Andriamanitra amin'ny fomba tsy fanajana",
+      "Manonona ny anaran'Andriamanitra tsy misy antony",
+      "Miantso an'Andriamanitra amin'ny fomba diso",
+      "Manao vavaka foana ao amin'ny fiangonana"
+    ]
+  },
+  {
+    "id": 366,
+    "theme": "Momba ny Baiboly Momba ny Didy 10",
+    "question": "Ao amin'ny didy fahaefatra, inona no asain'Andriamanitra hatao",
+    "answer": "Mitsahatra amin'ny asa rehetra sady mitandrina ny andro Sabata ho masina",
+    "options": [
+      "Mitsahatra amin'ny asa rehetra sady mitandrina ny andro Sabata ho masina",
+      "Mandeha any am-piangonana, dia miverina miasa rehefa vita izany",
+      "Manao izay tiana hatao",
+      "Manao fitsangatsanganana"
+    ]
+  },
+  {
+    "id": 367,
+    "theme": "Momba ny Baiboly Momba ny Didy 10",
+    "question": "Aza mety ho vavolombelona mandainga hanameloka ny _________",
+    "answer": "namanao",
+    "options": ["namanao", "olona", "mpianakavinao", "mpitondra fivavahana"]
+  },
+  {
+    "id": 293,
+    "theme": "Momba ny Baiboly Momba ny Didy 10",
+    "question": "Inona no dikan'ny hoe mitsiriritra?",
+    "answer": "Maniry ny fanan'olon-kafa amim-pialonana",
+    "options": [
+      "Maniry ny fanan'olon-kafa amim-pialonana",
+      "Mangalatra zavatra amin'ny olona hafa",
+      "Mandainga mba hahazoana zavatra",
+      "Mampiasa hery mba hahazoana zavatra"
+    ]
+  },
+  {
+    "id": 368,
+    "theme": "Momba ny Baiboly Momba ny Didy 10",
+    "question": "Jesosy niteny fa tsy ilaina intsony ny mitandrina ny didy voasoratra ao amin'ny Testamenta Taloha fa efa rava. Marina sa diso? (Matio 5:17)",
+    "answer": "Diso",
+    "options": ["Marina", "Diso", "Mety ho marina", "Mety ho diso"]
+  },
+  {
+    "id": 294,
+    "theme": "Momba ny Baiboly Momba ny Didy 10",
+    "question": "Firy ny isan'ny didy ampiasain'i Jesosy hamintinana ny didy 10?",
+    "answer": "Roa",
+    "options": ["Roa", "Iray", "Telo", "Dimy"]
+  },
+  {
+    "id": 295,
+    "theme": "Momba ny Baiboly Momba ny Didy 10",
+    "question": "Inona no nolazain'i Jesosy fa didy voalohany sady lehibe indrindra?",
+    "answer": "Tiava an'Andriamanitra amin'ny fonao rehetra sy ny sainao rehetra sy ny fanahinao rehetra ary ny herinao rehetra.",
+    "options": [
+      "Tiava an'Andriamanitra amin'ny fonao rehetra sy ny sainao rehetra sy ny fanahinao rehetra ary ny herinao rehetra.",
+      "Tiava ny namanao tahaka ny tenanao.",
+      "Hajao ny rainao sy ny reninao.",
+      "Aza manana andriamani-kafa afa-tsy Izaho."
+    ]
+  },
+  {
+    "id": 296,
+    "theme": "Momba ny Baiboly Momba ny Didy 10",
+    "question": "Inona no nolazain'i Jesosy fa didy faharoa?",
+    "answer": "Tiava ny namanao tahaka ny tenanao.",
+    "options": [
+      "Tiava ny namanao tahaka ny tenanao.",
+      "Tiava an'Andriamanitra amin'ny fonao rehetra.",
+      "Hajao ny rainao sy ny reninao.",
+      "Aza mamono olona."
+    ]
+  },
+  {
+    "id": 297,
+    "theme": "Lehilahy ao amin'ny Testamenta Taloha",
+    "question": "Nomeko anarana ny biby rehetra. Iza moa aho? (Genesisy 2:20)",
+    "answer": "Adama",
+    "options": ["Adama", "Noa", "Abrahama", "Solomona"]
+  },
+  {
+    "id": 298,
+    "theme": "Lehilahy ao amin'ny Testamenta Taloha",
+    "question": "Nanana zanaka lahy nantsoina hoe Isaka aho. Iza moa aho? (Genesisy 21:3)",
+    "answer": "Abrahama",
+    "options": ["Abrahama", "Isaka", "Jakoba", "Noa"]
+  },
+  {
+    "id": 299,
+    "theme": "Lehilahy ao amin'ny Testamenta Taloha",
+    "question": "Nanamboatra sambo lehibe aho. Iza moa aho? (Genesisy 6:13-16)",
+    "answer": "Noa",
+    "options": ["Noa", "Abrahama", "Mosesy", "Josoa"]
+  },
+  {
+    "id": 300,
+    "theme": "Lehilahy ao amin'ny Testamenta Taloha",
+    "question": "Izaho no kambana izay nanary ny fizokiako. Iza moa aho? (Genesisy 25:31-33)",
+    "answer": "Esao",
+    "options": ["Esao", "Jakoba", "Isimaela", "Isaka"]
+  },
+  {
+    "id": 301,
+    "theme": "Lehilahy ao amin'ny Testamenta Taloha",
+    "question": "Rahalahin'i Rebeka aho. Iza moa aho? (Genesisy 27:42-44)",
+    "answer": "Labana",
+    "options": ["Labana", "Isaka", "Esao", "Jakoba"]
+  },
+  {
+    "id": 302,
+    "theme": "Lehilahy ao amin'ny Testamenta Taloha",
+    "question": "Nitarika ny Isiraelita tamin'ny ady tao Jeriko aho. Iza moa aho? (Josoa 5:13-6:7)",
+    "answer": "Josoa",
+    "options": ["Josoa", "Gideona", "Kaleba", "Mosesy"]
+  },
+  {
+    "id": 303,
+    "theme": "Lehilahy ao amin'ny Testamenta Taloha",
+    "question": "Niaina tao anaty trondro lehibe nandritra ny telo andro aho. Iza moa aho? (Jona 1:17)",
+    "answer": "Jona",
+    "options": ["Jona", "Josoa", "Jakoba", "Joda"]
+  },
+  {
+    "id": 304,
+    "theme": "Lehilahy ao amin'ny Testamenta Taloha",
+    "question": "Namono an'ilay goavambe Filistina antsoina hoe Goliata aho. Iza moa aho? (1 Samoela 17:45-49)",
+    "answer": "Davida",
+    "options": ["Davida", "Josoa", "Gideona", "Saoly"]
+  },
+  {
+    "id": 305,
+    "theme": "Lehilahy ao amin'ny Testamenta Taloha",
+    "question": "Nentina tany an-danitra tao anaty tafio-drivotra aho. Iza moa aho? (2 Mpanjaka 2:11)",
+    "answer": "Elia",
+    "options": ["Elia", "Elisa", "Mosesy", "Enoka"]
+  },
+  {
+    "id": 306,
+    "theme": "Lehilahy ao amin'ny Testamenta Taloha",
+    "question": "Nanorina ny tempoly aho. Iza moa aho? (1 Mpanjaka 5:1-5)",
+    "answer": "Solomona",
+    "options": ["Solomona", "Davida", "Josoa", "Ezra"]
+  },
+  {
+    "id": 307,
+    "theme": "Lehilahy ao amin'ny Testamenta Taloha",
+    "question": "Nantsoin'ny Tompo aho mba hanafaka ny Israely tamin'ny tanan'ny Midianita. Iza moa aho? (Mpitsara 6:11-14)",
+    "answer": "Gideona",
+    "options": ["Gideona", "Samsona", "Debora", "Jefta"]
+  },
+  {
+    "id": 308,
+    "theme": "Lehilahy ao amin'ny Testamenta Taloha",
+    "question": "Ny tanjako dia mifandraika amin'ny voloko. Iza moa aho? (Mpitsara 16:13-17)",
+    "answer": "Samsona",
+    "options": ["Samsona", "Gideona", "Davida", "Elia"]
+  },
+  {
+    "id": 309,
+    "theme": "Lehilahy ao amin'ny Testamenta Taloha",
+    "question": "Nomen'ny raiko akanjo lava aho. Iza moa aho? (Genesisy 37:3)",
+    "answer": "Josefa",
+    "options": ["Josefa", "Benjamina", "Joda", "Robena"]
+  },
+  {
+    "id": 310,
+    "theme": "Lehilahy ao amin'ny Testamenta Taloha",
+    "question": "Novain'Andriamanitra ho Israely ny anarako. Iza moa aho? (Genesisy 35:10)",
+    "answer": "Jakoba",
+    "options": ["Jakoba", "Abrahama", "Isaka", "Josefa"]
+  },
+  {
+    "id": 311,
+    "theme": "Lehilahy ao amin'ny Testamenta Taloha",
+    "question": "Zanak'olo-mpiray tam-po amin'i Estera aho izay nitaiza azy toy ny zanakavavy. Iza moa aho? (Estera 2:7)",
+    "answer": "Mordekay",
+    "options": ["Mordekay", "Ezra", "Nehemia", "Daniela"]
+  },
+  {
+    "id": 312,
+    "theme": "Lehilahy ao amin'ny Testamenta Taloha",
+    "question": "Zanak'i Hakalia aho ary mpitondra kapoakan'i Artaksersesy mpanjaka. Iza moa aho? (Nehemia 1:1)",
+    "answer": "Nehemia",
+    "options": ["Nehemia", "Ezra", "Daniela", "Mordekay"]
+  },
+  {
+    "id": 313,
+    "theme": "Lehilahy ao amin'ny Testamenta Taloha",
+    "question": "Andriamanitra niantso ahy hitarika ny vahoakan'ny Isiraely hivoaka an'i Egypta. Iza moa aho? (Eksodosy 3:10-11)",
+    "answer": "Mosesy",
+    "options": ["Mosesy", "Arona", "Josoa", "Kaleba"]
+  },
+  {
+    "id": 314,
+    "theme": "Lehilahy ao amin'ny Testamenta Taloha",
+    "question": "Andriamanitra niaro ahy tamin'ny liona tao an-davaky ny liona. Iza moa aho? (Daniela 5:21-22)",
+    "answer": "Daniela",
+    "options": ["Daniela", "Sadraka", "Nehemia", "Josefa"]
+  },
+  {
+    "id": 315,
+    "theme": "Lehilahy ao amin'ny Testamenta Taloha",
+    "question": "Tsy niankohoka tamin'andriamani-kafa izahay ka natsipy tao anaty lafaoro. Iza moa izahay? (Daniela 1:6-7, 3:11-12)",
+    "answer": "Hanania, Misaela, Azaria",
+    "options": [
+      "Hanania, Misaela, Azaria",
+      "Daniela, Ezra, Nehemia",
+      "Josefa, Benjamina, Joda",
+      "Mosesy, Arona, Miriam"
+    ]
+  },
+  {
+    "id": 316,
+    "theme": "Lehilahy ao amin'ny Testamenta Taloha",
+    "question": "Rahalahin'i Mosesy nofidin'Andriamanitra ho mpitondra teniny ho an'ny Isiraely aho. Iza moa aho? (Eksodosy 4:14-17)",
+    "answer": "Aarona",
+    "options": ["Aarona", "Kaleba", "Josoa", "Gideona"]
+  },
+  {
+    "id": 317,
+    "theme": "Vehivavy ao amin'ny Testamenta Taloha",
+    "question": "Noforonina avy tamin'ny taolan-tehezan'i Adama aho. Iza moa aho? (Genesisy 2:21-22)",
+    "answer": "Eva",
+    "options": ["Eva", "Saraha", "Rahely", "Debora"]
+  },
+  {
+    "id": 318,
+    "theme": "Vehivavy ao amin'ny Testamenta Taloha",
+    "question": "Nanana zanakalahy aho, Isaka, fony aho efa antitra. Iza moa aho? (Genesisy 18:9-12)",
+    "answer": "Saraha",
+    "options": ["Saraha", "Rahely", "Rebeka", "Hagara"]
+  },
+  {
+    "id": 319,
+    "theme": "Vehivavy ao amin'ny Testamenta Taloha",
+    "question": "Niova ho vongan-tsira aho. Iza moa aho? (Genesisy 19:26)",
+    "answer": "Vadin'i Lota",
+    "options": ["Vadin'i Lota", "Eva", "Saraha", "Hagara"]
+  },
+  {
+    "id": 320,
+    "theme": "Vehivavy ao amin'ny Testamenta Taloha",
+    "question": "Niteraka an'i Robena, lahimatoan'i Jakoba, aho. Iza moa aho? (Genesisy 29:31-32)",
+    "answer": "Lea",
+    "options": ["Lea", "Rahely", "Bilha", "Zilpa"]
+  },
+  {
+    "id": 321,
+    "theme": "Vehivavy ao amin'ny Testamenta Taloha",
+    "question": "Renin'ny kambana, Jakoba sy Esao aho. Iza moa aho? (Genesisy 25:24-26)",
+    "answer": "Rebeka",
+    "options": ["Rebeka", "Rahely", "Lea", "Sarah"]
+  },
+  {
+    "id": 322,
+    "theme": "Vehivavy ao amin'ny Testamenta Taloha",
+    "question": "Maty aho nandritra ny nahaterahan'ny zazalahy iray izay nomeko anarana hoe Benony. Iza moa aho? (Genesisy 35:16-20)",
+    "answer": "Rahely",
+    "options": ["Rahely", "Lea", "Rebeka", "Zilpa"]
+  },
+  {
+    "id": 323,
+    "theme": "Vehivavy ao amin'ny Testamenta Taloha",
+    "question": "Niaro ireo mpisafo-tany tany Jeriko aho. Iza moa aho? (Josoa 2:3-6)",
+    "answer": "Rahaba",
+    "options": ["Rahaba", "Debora", "Rota", "Hana"]
+  },
+  {
+    "id": 324,
+    "theme": "Vehivavy ao amin'ny Testamenta Taloha",
+    "question": "Mpanjakavavin'i Persia aho ary tsy nety nanaiky ny fangatahan'ny vadiko. Iza moa aho? (Estera 1:10-12)",
+    "answer": "Vasty",
+    "options": ["Vasty", "Estera", "Debora", "Hana"]
+  },
+  {
+    "id": 325,
+    "theme": "Vehivavy ao amin'ny Testamenta Taloha",
+    "question": "Mpaminanivavy aho izay nitarika ny Isiraely. Iza moa aho? (Mpitsara 4:4)",
+    "answer": "Debora",
+    "options": ["Debora", "Miriama", "Hana", "Rota"]
+  },
+  {
+    "id": 326,
+    "theme": "Vehivavy ao amin'ny Testamenta Taloha",
+    "question": "Nanokana an'i Samoela zanako lahy ho an'i Jehovah aho. Iza moa aho? (1 Samoela 1:20)",
+    "answer": "Hana",
+    "options": ["Hana", "Debora", "Miriama", "Rota"]
+  },
+  {
+    "id": 327,
+    "theme": "Vehivavy ao amin'ny Testamenta Taloha",
+    "question": "Nandeha niaraka tamin'i Naomy rafozambaviko nankany Betlehema aho. Iza moa aho? (Rota 1:18-19)",
+    "answer": "Rota",
+    "options": ["Rota", "Hana", "Orpa", "Miriama"]
+  },
+  {
+    "id": 328,
+    "theme": "Vehivavy ao amin'ny Testamenta Taloha",
+    "question": "Renin'i Solomona aho. Iza moa aho? (1 Tantara 3:5)",
+    "answer": "Batseba",
+    "options": ["Batseba", "Mikala", "Abigaila", "Oria"]
+  },
+  {
+    "id": 329,
+    "theme": "Vehivavy ao amin'ny Testamenta Taloha",
+    "question": "Nahita zazalahy Hebreo nitsinkafona tao anaty harona teo amin'ny Reniranon'i Neily aho. Iza moa aho? (Eksodosy 2:5-6)",
+    "answer": "Zanakavavin'i Farao",
+    "options": [
+      "Zanakavavin'i Farao",
+      "Renin'i Mosesy",
+      "Anabaviny Mosesy",
+      "Vadin'i Farao"
+    ]
+  },
+  {
+    "id": 330,
+    "theme": "Vehivavy ao amin'ny Testamenta Taloha",
+    "question": "Zanakavavin'i Levy aho ary renin'i Mosesy. Iza moa aho? (Nomery 26:59)",
+    "answer": "Jokebeda",
+    "options": ["Jokebeda", "Miriama", "Debora", "Hana"]
+  },
+  {
+    "id": 331,
+    "theme": "Vehivavy ao amin'ny Testamenta Taloha",
+    "question": "Lasa Mpanjakavavin'i Persia aho nisolo an'i Vasty. Iza moa aho? (Estera 2:17)",
+    "answer": "Estera",
+    "options": ["Estera", "Vasty", "Debora", "Rota"]
+  },
+  {
+    "id": 332,
+    "theme": "Vehivavy ao amin'ny Testamenta Taloha",
+    "question": "Anabavin'i Arona sy Mosesy aho. Iza moa aho? (Nomery 26:59)",
+    "answer": "Miriama",
+    "options": ["Miriama", "Debora", "Hana", "Rota"]
+  },
+  {
+    "id": 333,
+    "theme": "Vehivavy ao amin'ny Testamenta Taloha",
+    "question": "Nilaza tamin'ny vadiko aho mba hahafoy an'Andriamanitra ary ho faty. Iza moa aho? (Joba 2:9-10)",
+    "answer": "Vadin'i Joba",
+    "options": [
+      "Vadin'i Joba",
+      "Vadin'i Adama",
+      "Vadin'i Noa",
+      "Vadin'i Abrahama"
+    ]
+  },
+  {
+    "id": 334,
+    "theme": "Vehivavy ao amin'ny Testamenta Taloha",
+    "question": "Renin'i Isimaela aho. Iza moa aho? (Genesisy 16:15-16)",
+    "answer": "Hagara",
+    "options": ["Hagara", "Sarah", "Rebeka", "Lea"]
+  },
+  {
+    "id": 335,
+    "theme": "Vehivavy ao amin'ny Testamenta Taloha",
+    "question": "Nilaza tamin'ny olona aho mba hiantso ahy hoe Mara satria tezitra tamin'Andriamanitra aho. Iza moa aho? (Rota 1:20-22)",
+    "answer": "Naomy",
+    "options": ["Naomy", "Rota", "Orpa", "Debora"]
+  },
+  {
+    "id": 336,
+    "theme": "Vehivavy ao amin'ny Testamenta Vaovao",
+    "question": "Renin'i Jesosy aho. Iza moa aho? (Lioka 1:18-25)",
+    "answer": "Maria",
+    "options": ["Maria", "Elizabeta", "Marta", "Miriama"]
+  },
+  {
+    "id": 337,
+    "theme": "Vehivavy ao amin'ny Testamenta Vaovao",
+    "question": "Vadin'i Zakaria aho ary renin'i Jaona. Iza moa aho? (Lioka 1:13)",
+    "answer": "Elizabeta",
+    "options": ["Elizabeta", "Maria", "Marta", "Ana"]
+  },
+  {
+    "id": 338,
+    "theme": "Vehivavy ao amin'ny Testamenta Vaovao",
+    "question": "Maria no anabaviko ary Lazarosy no rahalahiko. Iza moa aho? (Jaona 11:1-2)",
+    "answer": "Marta",
+    "options": ["Marta", "Maria", "Johana", "Susana"]
+  },
+  {
+    "id": 339,
+    "theme": "Vehivavy ao amin'ny Testamenta Vaovao",
+    "question": "Izaho ilay anabavy nipetraka teo anilan'ny tongotr'i Jesosy nandritra ny fitsidihany. Iza moa aho? (Lioka 10:38-39)",
+    "answer": "Maria",
+    "options": ["Maria", "Marta", "Johana", "Ana"]
+  },
+  {
+    "id": 340,
+    "theme": "Vehivavy ao amin'ny Testamenta Vaovao",
+    "question": "Nitondra zava-manitra tany amin'ny fasan'i Jesosy niaraka tamin'i Maria renin'i Jakoba aho. Iza moa aho? (Marka 16:1-2)",
+    "answer": "Maria Magdelena",
+    "options": ["Maria Magdelena", "Marta", "Johana", "Ana"]
+  },
+  {
+    "id": 341,
+    "theme": "Vehivavy ao amin'ny Testamenta Vaovao",
+    "question": "Anisan'ireo vehivavy niaraka tamin'i Maria Magdalena sy Maria renin'i Jakoba aho izay nilaza tamin'ny mpianatra Momba ny fitsanganan'i Jesosy. Iza moa aho? (Lioka 24:10)",
+    "answer": "Johana",
+    "options": ["Johana", "Marta", "Ana", "Susana"]
+  },
+  {
+    "id": 342,
+    "theme": "Vehivavy ao amin'ny Testamenta Vaovao",
+    "question": "Zanakavavin'i Fanoela izay mpaminanivavy avy amin'ny fokon'i Asera aho. Iza moa aho? (Lioka 2:36)",
+    "answer": "Ana",
+    "options": ["Ana", "Elizabeta", "Maria", "Johana"]
+  },
+  {
+    "id": 343,
+    "theme": "Vehivavy ao amin'ny Testamenta Vaovao",
+    "question": "Nilaza tamiko Momba ny rano velona i Jesosy. Iza moa aho? (Jaona 4:4-26)",
+    "answer": "Vehivavy Samaritana",
+    "options": ["Vehivavy Samaritana", "Maria Magdelena", "Marta", "Johana"]
+  },
+  {
+    "id": 344,
+    "theme": "Vehivavy ao amin'ny Testamenta Vaovao",
+    "question": "Mpanapaka tao amin'ny synagoga ny raiko izay nangataka an'i Jesosy hanasitrana ahy. Iza moa aho? (Marka 5:21-23)",
+    "answer": "Zanakavavin'i Jairo",
+    "options": [
+      "Zanakavavin'i Jairo",
+      "Zanakavavin'i Farao",
+      "Zanakavavin'i Heroda",
+      "Zanakavavin'i Pilato"
+    ]
+  },
+  {
+    "id": 345,
+    "theme": "Vehivavy ao amin'ny Testamenta Vaovao",
+    "question": "Nanome vola madinika varahina roa ho fanatitra aho. Iza moa aho? (Marka 12:41-44)",
+    "answer": "Ilay mpitondratena",
+    "options": [
+      "Ilay mpitondratena",
+      "Ilay vehivavy manan-karena",
+      "Ilay mpanao amin'ny tempoly",
+      "Ilay mpianatra vavy"
+    ]
+  },
+  {
+    "id": 346,
+    "theme": "Vehivavy ao amin'ny Testamenta Vaovao",
+    "question": "Nanao asa soa sy fiantrana tao amin'ny tanànan'i Jopa aho. Iza moa aho? (Asan'ny Apostoly 9:36)",
+    "answer": "Dorkasy",
+    "options": ["Dorkasy", "Lydia", "Prisila", "Foiby"]
+  },
+  {
+    "id": 347,
+    "theme": "Vehivavy ao amin'ny Testamenta Vaovao",
+    "question": "Andevovavy aho izay nandre ny feon'i Petera teo am-baravaran'ny vavahady ivelany. Iza moa aho? (Asan'ny Apostoly 12:13-14)",
+    "answer": "Roda",
+    "options": ["Roda", "Lydia", "Prisila", "Foiby"]
+  },
+  {
+    "id": 348,
+    "theme": "Vehivavy ao amin'ny Testamenta Vaovao",
+    "question": "Mpino aho ary renin'i Timoty. Iza moa aho? (Asan'ny Apostoly 16:1; 2 Timoty 1:5)",
+    "answer": "Eonika",
+    "options": ["Eonika", "Loisa", "Prisila", "Lydia"]
+  },
+  {
+    "id": 349,
+    "theme": "Vehivavy ao amin'ny Testamenta Vaovao",
+    "question": "Renin'i Eonika aho ary reniben'i Timoty. Iza moa aho? (2 Timoty 1:5)",
+    "answer": "Loisa",
+    "options": ["Loisa", "Eonika", "Prisila", "Foiby"]
+  },
+  {
+    "id": 350,
+    "theme": "Vehivavy ao amin'ny Testamenta Vaovao",
+    "question": "Avy any an-tanànan'i Tyatria aho ary mpivarotra lamba volomparasy. Iza moa aho? (Asan'ny Apostoly 16:14-15)",
+    "answer": "Lydia",
+    "options": ["Lydia", "Prisila", "Foiby", "Dorkosy"]
+  },
+  {
+    "id": 351,
+    "theme": "Vehivavy ao amin'ny Testamenta Vaovao",
+    "question": "Vadin'i Akoila aho. Iza moa aho? (Asan'ny Apostoly 18:2)",
+    "answer": "Prisila",
+    "options": ["Prisila", "Lydia", "Foiby", "Roda"]
+  },
+  {
+    "id": 352,
+    "theme": "Vehivavy ao amin'ny Testamenta Vaovao",
+    "question": "Mpanompon'ny fiangonana tao Kenkrea aho. Iza moa aho? (Romana 16:1-2)",
+    "answer": "Foiby",
+    "options": ["Foiby", "Lydia", "Prisila", "Roda"]
+  },
+  {
+    "id": 354,
+    "theme": "Vehivavy ao amin'ny Testamenta Vaovao",
+    "question": "Mpino izahay ary nanompo an'i Jesosy Kristy. Iza moa izahay? (Filipiana 4:1-3)",
+    "answer": "Eodia sy Syntyke",
+    "options": [
+      "Eodia sy Syntyke",
+      "Marta sy Maria",
+      "Prisila sy Lydia",
+      "Foiby sy Roda"
+    ]
+  },
+  {
+    "id": 355,
+    "theme": "Momba ny Baiboly",
+    "question": "Firy no isan'ny boky nosoratan'i Paoly ao amin'ny Baiboly?",
+    "answer": "13",
+    "options": ["13", "14", "15", "16"]
+  },
+  {
+    "id": 356,
+    "theme": "Momba ny Baiboly",
+    "question": "Firy no totaly isan'ny teny nosoratan'i Mosesy ao amin'ny Baiboly?",
+    "answer": "125.139",
+    "options": ["125.139", "100.000", "80.000", "50.000"]
+  },
+  {
+    "id": 369,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": "Izahay ilay mpianatr'i Jesosy roa ambin'ny folo. Iza avy izahay?(Lioka 6:13-16)",
+    "answer": "Simona Petera, Andrea rahalahiny, Jakoba, Jaona, Filipo, Bartolomeo, Tomasy, Matio, Jakoba zanak'i Alfeo, Simona Zelota, Jodasy zanak'i Jakoba, ary Jodasy Iskariota",
+    "options": [
+      "Simona Petera, Andrea rahalahiny, Jakoba, Jaona, Filipo, Bartolomeo, Tomasy, Matio, Jakoba zanak'i Alfeo, Simona Zelota, Jodasy zanak'i Jakoba, ary Jodasy Iskariota",
+      "Simona Petera, Andrea, Timoty, Jaona, Filipo, Bartolomeo, Hosea, Stefana, Mika, Marka, Joda zanak'i Jakoba, ary Joda Iskariota",
+      "Marka, Lioka, Jakoba, Jaona, Filipo, Bartolomeo, Tomasa, Matio, Jakoba zanak'i Alfeo, Simona Zelota, Joda zanak'i Jakoba, ary Joda Iskariota",
+      "Paoly, Jakoba, Jaona, Filipo, Bartolomeo, Tomasa, Matio, Alfeo, Zelota, Joda, ary Jodasy Iskariota"
+    ]
+  },
+  {
+    "id": 370,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": "Lasa moana tsy nahay miteny aho mandra-pahateraky ny zanako lahy Jaona. Iza moa aho? (Lioka 1:18, 20)",
+    "answer": "Zakaria",
+    "options": ["Zakaria", "Josefa", "Andrea", "Tomasy"]
+  },
+  {
+    "id": 371,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": "Nanao batisa an'i Jesosy teo amin'ny renirano Jordana aho. Iza moa aho? (Matio 3:13)",
+    "answer": "Jaona Mpanao batisa",
+    "options": ["Jaona Mpanao batisa", "Zakaria", "Fanahy Masina", "Petera"]
+  },
+  {
+    "id": 372,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": " Izaho no lehiben'ny mpamory hetra tao Jeriko izay niakatra teny amin'ny hazo Sikamora mba hahita an'i Jesosy. Iza moa aho? (Lioka 19:1-5)",
+    "answer": "Zakaiosy",
+    "options": ["Zakaiosy", "Simona Petera", "Jaona Mpanao batisa", "Zakaria"]
+  },
+  {
+    "id": 373,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": "Mpanara-dia an'i Jesosy aho, saingy tsy anisan'ireo mpianatra roa ambin'ny folo. Iza moa aho?(Marka 2:13-15)",
+    "answer": "Levy",
+    "options": ["Levy", "Lazarosy", "Jaona Mpanao batisa", "Zakaria"]
+  },
+  {
+    "id": 374,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": "Notoraham-bato ho faty aho noho ny finoako an'i Jesosy. Iza moa aho? (Asan'ny Apostoly 7:59-60)",
+    "answer": "Stefana",
+    "options": ["Stefana", "Paoly", "Petera", "Timoty"]
+  },
+  {
+    "id": 375,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": "Vadin'i Maria renin'i Jesosy aho. Iza moa aho? (Lioka 2:1-7)",
+    "answer": "Josefa",
+    "options": ["Josefa", "Zakaria", "Jaona Mpanao batisa", "Jaona"]
+  },
+  {
+    "id": 376,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": "Tao an-tranomaizina niaraka tamin'i Paoly aho nivavaka sy nihira fiderana an'Andriamanitra. Iza moa aho? (Asan'ny Apostoly 16:25)",
+    "answer": "Silasy",
+    "options": ["Silasy", "Stefana", "Petera", "Lioka"]
+  },
+  {
+    "id": 377,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": "Izaho no mpanjaka naniraka Magy hitady an'i Jesosy. Iza moa aho? (Matio 2:7-8)",
+    "answer": "Heroda",
+    "options": ["Heroda", "Pilato", "Agrippa", "Kaisara"]
+  },
+  {
+    "id": 378,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": "zaho no governora izay nanapa-kevitra ny hanomboana an'i Jesosy amin'ny hazo fijaliana. Iza moa aho? (Lioka 23:20-25)",
+    "answer": "Pilato",
+    "options": ["Heroda", "Pilato", "Agrippa", "Kaisara"]
+  },
+  {
+    "id": 379,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": "Niaraka tamin'i Paoly tany Antiokia nandritra ny herintaona aho nampianatra ny olona momba an'i Jesosy. Iza moa aho? (Asan'ny Apostoly 11:25-26)",
+    "answer": "Barnabasy",
+    "options": ["Barnabasy", "Timoty", "Jaona", "Filipo"]
+  },
+  {
+    "id": 380,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": "Nivarotra tany aho sy ny vadiko ary nitazona ny ampahany tamin'ny vola azo ho ahy aho. Iza moa aho?  (Asan'ny Apostoly 5:1-4)",
+    "answer": "Ananiasy",
+    "options": ["Ananiasy", "Safira", "Petera", "Lehilahy tsy fantatra anarana"]
+  },
+  {
+    "id": 381,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": "Fariseo aho ary mpikambana tao amin'ny filankevitra mpanapaka izay nanontany an'i Jesosy ny fomba hahaterahana indray. Iza moa aho? (Jaona 3:1-4)",
+    "answer": "Nikodemosy",
+    "options": ["Nikodemosy", "Lazarosy", "Matio", "Ireo mpanora-dalàna"]
+  },
+  {
+    "id": 382,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": "Mpisoronabe tao amin'ny Synedriona aho. Iza moa aho? (Matio 26:57-59)",
+    "answer": "Kaiafa",
+    "options": ["Kaiafa", "Jesosy", "Petera", "Elia"]
+  },
+  {
+    "id": 383,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": "Izaho ilay mpianatra nandà fa tsy nahalala an'i Jesosy. Iza moa aho? (Matio 26:69-75)",
+    "answer": "Simona Petera",
+    "options": ["Simona Petera", "Jaona", "Tomasy", "Jodasy Iskariota"]
+  },
+  {
+    "id": 384,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": "Izaho ilay mpianatra namadika an'i Jesosy. Iza moa aho? (Matio 26:14-16)",
+    "answer": "Jodasy Iskariota",
+    "options": ["Simona Petera", "Jaona", "Tomasy", "Jodasy Iskariota"]
+  },
+  {
+    "id": 385,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": "Izaho ilay mpianatra tsy nino ny fitsanganan'i Jesosy tamin'ny maty. Iza moa aho? (Jaona 20:26-29)",
+    "answer": "Tomasy",
+    "options": ["Simona Petera", "Jaona", "Tomasy", "Jodasy Iskariota"]
+  },
+  {
+    "id": 386,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": "Nanoratra taratasy ho an'ny fiangonana fito aho raha tany amin'ny nosy Patmo. Iza moa aho?  Apokalypsy 1:9-11)",
+    "answer": "Jaona",
+    "options": ["Simona Petera", "Jaona", "Paoly", "Lioka"]
+  },
+  {
+    "id": 387,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": "Jiosy nanambady an'i Prisila aho izay hitan'i Paoly tao Korinto. Iza moa aho? (Asan'ny Apostoly 18:1-2)",
+    "answer": "Akoila",
+    "options": ["Akoila", "Prisila", "Klaodio", "Silasy"]
+  },
+  {
+    "id": 388,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": "Nirahina avy tao amin'ny fiangonana tao Antiokia izahay mba hitory amin'ny olona momba an'i Jesosy. Iza moa izahay? (Asan'ny Apostoly 13:1-3)",
+    "answer": "Barnabasy sy Saoly",
+    "options": [
+      "Barnabasy sy Saoly",
+      "Elyma sy Serygio",
+      "Filipo sy Timoty",
+      "Jaona sy Paoly"
+    ]
+  },
+  {
+    "id": 389,
+    "theme": "Lehilahy ao amin'ny Testamenta Vaovao",
+    "question": "Izaho ilay mpianatra niankina teo amin'ny tratran'i Jesosy. Iza moa aho? (Jaona 13:23-25)",
+    "answer": "Jaona",
+    "options": ["Simona Petera", "Jaona", "Tomasy", "Jodasy Iskariota"]
+  }
+]
