@@ -37,7 +37,7 @@ const AVATARS = [
 ];
 
 const AuthScreen: React.FC<Props> = ({ navigation }) => {
-  const { login, setAvatar } = useUser();
+  const { login, setAvatar, addGems } = useUser();
   const [name, setName] = useState("");
   const [church, setChurch] = useState("");
   const [city, setCity] = useState("");
@@ -65,6 +65,7 @@ const AuthScreen: React.FC<Props> = ({ navigation }) => {
     if (name.trim().length < 3 || !church.trim() || !city.trim()) return;
     setAvatar(selectedAvatar);
     login(name.trim(), church.trim(), city.trim());
+    addGems(50);
     navigation.replace("Home");
   };
 

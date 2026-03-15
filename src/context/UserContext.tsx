@@ -38,7 +38,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [gems, setGems] = useState(100);
+  const [gems, setGems] = useState(20);
   const [hearts, setHearts] = useState(5);
   const [medals, setMedals] = useState<string[]>(["bronze"]);
   const [avatar, setAvatarLocal] = useState("default");

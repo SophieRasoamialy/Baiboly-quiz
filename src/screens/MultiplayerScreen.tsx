@@ -64,6 +64,12 @@ const MultiplayerScreen: React.FC<Props> = ({ navigation }) => {
               color={COLORS.emerald}
             />
           </View>
+          <View style={styles.promoBanner}>
+            <MaterialCommunityIcons name="gift" size={32} color="#0D0B15" />
+            <Text style={styles.promoText}>
+              Mamorona kaonty hahazoana Vato soa 50 maimaim-poana!
+            </Text>
+          </View>
           <Text style={styles.title}>Fomba Maromaro</Text>
           <Text style={styles.description}>
             Mila mamorona kaonty ianao vao afaka milalao miaraka amin'ny namana.
@@ -272,6 +278,28 @@ const styles = StyleSheet.create({
     fontWeight: "900",
     marginBottom: 10,
     textAlign: "center",
+  },
+  promoBanner: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#F9A825",
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    marginBottom: 20,
+    gap: 15,
+    shadowColor: "#F9A825",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 6,
+    width: "100%",
+  },
+  promoText: {
+    color: "#0D0B15",
+    fontSize: 14,
+    fontWeight: "800",
+    flexShrink: 1,
   },
   description: {
     color: "rgba(255,255,255,0.5)",

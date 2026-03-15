@@ -648,7 +648,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                     textTransform: "uppercase",
                   }}
                 >
-                  Ny tenin'Atra
+                  Ny tenin'Andriamanitra
                 </Text>
               </LinearGradient>
 

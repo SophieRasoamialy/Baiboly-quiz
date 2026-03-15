@@ -10,6 +10,8 @@ import {
   Animated,
   Easing,
   SectionList,
+  TextInput,
+  Keyboard,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -479,12 +481,22 @@ const VerseItem = ({ item, index }: { item: Verse; index: number }) => {
 const BibleScreen: React.FC<Props> = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [bibleData, setBibleData] = useState<Book[]>([]);
-  const [viewState, setViewState] = useState<"BOOKS" | "CHAPTERS" | "VERSES">(
-    "BOOKS",
-  );
+  const [viewState, setViewState] = useState<
+    "BOOKS" | "CHAPTERS" | "VERSES" | "SEARCH"
+  >("BOOKS");
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [selectedChapter, setSelectedChapter] = useState<Chapter | null>(null);
   const [activeTab, setActiveTab] = useState<"OT" | "NT">("OT");
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchScope, setSearchScope] = useState<string>("Rehetra");
+  const [searchResults, setSearchResults] = useState<
+    { book: Book; chapter: Chapter; verse: Verse }[]
+  >([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [previousState, setPreviousState] = useState<
+    "BOOKS" | "CHAPTERS" | "VERSES" | "SEARCH" | null
+  >(null);
 
   const headerAnim = useRef(new Animated.Value(0)).current;
 
@@ -510,14 +522,92 @@ const BibleScreen: React.FC<Props> = ({ navigation }) => {
 
   const handleBack = () => {
     if (viewState === "VERSES") {
-      setViewState("CHAPTERS");
-      setSelectedChapter(null);
+      if (previousState === "SEARCH") {
+        setViewState("SEARCH");
+        setPreviousState(null);
+      } else {
+        setViewState("CHAPTERS");
+        setSelectedChapter(null);
+      }
     } else if (viewState === "CHAPTERS") {
       setViewState("BOOKS");
       setSelectedBook(null);
+    } else if (viewState === "SEARCH") {
+      setViewState("BOOKS");
+      setSearchQuery("");
+      setSearchScope("Rehetra");
+      setSearchResults([]);
+      setPreviousState(null);
+      Keyboard.dismiss();
     } else {
       navigation.goBack();
     }
+  };
+
+  useEffect(() => {
+    if (searchQuery.length < 3) {
+      setSearchResults([]);
+      return;
+    }
+
+    setIsSearching(true);
+    const timeout = setTimeout(() => {
+      const results: { book: Book; chapter: Chapter; verse: Verse }[] = [];
+      const lowerText = searchQuery.toLowerCase();
+
+      for (const book of bibleData) {
+        const isOT = OLD_TESTAMENT_BOOKS.includes(book.name);
+        if (searchScope === "Testamenta Taloha" && !isOT) continue;
+        if (searchScope === "Testamenta Vaovao" && isOT) continue;
+        if (
+          searchScope !== "Rehetra" &&
+          searchScope !== "Testamenta Taloha" &&
+          searchScope !== "Testamenta Vaovao" &&
+          searchScope !== book.name
+        )
+          continue;
+
+        for (const chapter of book.chapters) {
+          for (const verse of chapter.verses) {
+            if (verse.text.toLowerCase().includes(lowerText)) {
+              results.push({ book, chapter, verse });
+              if (results.length > 200) break;
+            }
+          }
+          if (results.length > 200) break;
+        }
+        if (results.length > 200) break;
+      }
+      setSearchResults(results);
+      setIsSearching(false);
+    }, 200);
+
+    return () => clearTimeout(timeout);
+  }, [searchQuery, searchScope, bibleData]);
+
+  const handleSearch = (text: string) => {
+    setSearchQuery(text);
+  };
+
+  const renderHighlightedText = (text: string, query: string) => {
+    if (!query) return text;
+    const parts = text.split(new RegExp(`(${query})`, "gi"));
+    return parts.map((part, index) =>
+      part.toLowerCase() === query.toLowerCase() ? (
+        <Text
+          key={index}
+          style={{
+            color: "#00E5CC",
+            fontWeight: "900",
+            backgroundColor: "rgba(0,229,204,0.15)",
+          }}
+        >
+          {part}
+        </Text>
+      ) : (
+        <Text key={index}>{part}</Text>
+      ),
+    );
   };
 
   const otBooks = bibleData.filter((b) => OLD_TESTAMENT_BOOKS.includes(b.name));
@@ -686,6 +776,35 @@ const BibleScreen: React.FC<Props> = ({ navigation }) => {
                     Baiboly
                   </Text>
                 </>
+              ) : viewState === "SEARCH" ? (
+                <>
+                  <Text
+                    style={{
+                      color: "rgba(0,229,204,0.7)",
+                      fontSize: 11,
+                      fontWeight: "700",
+                      letterSpacing: 2.5,
+                      textTransform: "uppercase",
+                      marginBottom: 2,
+                    }}
+                  >
+                    Fikarohana
+                  </Text>
+                  <TextInput
+                    style={{
+                      color: "#fff",
+                      fontSize: 18,
+                      fontWeight: "600",
+                      paddingVertical: 2,
+                      width: "100%",
+                    }}
+                    placeholder="Hitady ao amin'ny Baiboly..."
+                    placeholderTextColor="rgba(255,255,255,0.4)"
+                    value={searchQuery}
+                    onChangeText={handleSearch}
+                    autoFocus
+                  />
+                </>
               ) : viewState === "CHAPTERS" ? (
                 <>
                   <Text
@@ -734,24 +853,47 @@ const BibleScreen: React.FC<Props> = ({ navigation }) => {
             {/* Book/Chapter count badge */}
             {viewState === "BOOKS" && (
               <View
-                style={{
-                  backgroundColor: "rgba(0,229,204,0.12)",
-                  paddingHorizontal: 12,
-                  paddingVertical: 6,
-                  borderRadius: 12,
-                  borderWidth: 1,
-                  borderColor: "rgba(0,229,204,0.25)",
-                }}
+                style={{ flexDirection: "row", alignItems: "center", gap: 8 }}
               >
-                <Text
+                <View
                   style={{
-                    color: "rgba(0,229,204,0.85)",
-                    fontSize: 12,
-                    fontWeight: "800",
+                    backgroundColor: "rgba(0,229,204,0.12)",
+                    paddingHorizontal: 12,
+                    paddingVertical: 6,
+                    borderRadius: 12,
+                    borderWidth: 1,
+                    borderColor: "rgba(0,229,204,0.25)",
                   }}
                 >
-                  {bibleData.length} boky
-                </Text>
+                  <Text
+                    style={{
+                      color: "rgba(0,229,204,0.85)",
+                      fontSize: 12,
+                      fontWeight: "800",
+                    }}
+                  >
+                    {bibleData.length} boky
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  onPress={() => setViewState("SEARCH")}
+                  style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: 12,
+                    backgroundColor: "rgba(0,229,204,0.12)",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderWidth: 1,
+                    borderColor: "rgba(0,229,204,0.25)",
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name="magnify"
+                    size={20}
+                    color="#00E5CC"
+                  />
+                </TouchableOpacity>
               </View>
             )}
             {viewState === "CHAPTERS" && selectedBook && (
@@ -882,6 +1024,151 @@ const BibleScreen: React.FC<Props> = ({ navigation }) => {
             </View>
           )}
         </Animated.View>
+
+        {/* ── SEARCH VIEW ── */}
+        {viewState === "SEARCH" && (
+          <View style={{ flex: 1 }}>
+            <View style={{ paddingLeft: 20, marginBottom: 12 }}>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={[
+                  "Rehetra",
+                  "Testamenta Taloha",
+                  "Testamenta Vaovao",
+                  ...bibleData.map((b) => b.name),
+                ]}
+                keyExtractor={(item) => item}
+                renderItem={({ item }) => {
+                  const isActive = searchScope === item;
+                  return (
+                    <TouchableOpacity
+                      onPress={() => setSearchScope(item)}
+                      style={{
+                        paddingVertical: 6,
+                        paddingHorizontal: 16,
+                        borderRadius: 20,
+                        backgroundColor: isActive
+                          ? "rgba(0,229,204,0.2)"
+                          : "rgba(255,255,255,0.05)",
+                        borderWidth: 1,
+                        borderColor: isActive
+                          ? "rgba(0,229,204,0.5)"
+                          : "rgba(255,255,255,0.1)",
+                        marginRight: 8,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: isActive ? "#00E5CC" : "rgba(255,255,255,0.6)",
+                          fontWeight: isActive ? "800" : "600",
+                          fontSize: 13,
+                        }}
+                      >
+                        {item}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                }}
+              />
+            </View>
+            {isSearching ? (
+              <ActivityIndicator
+                size="large"
+                color="#00E5CC"
+                style={{ marginTop: 40 }}
+              />
+            ) : (
+              <FlatList
+                data={searchResults}
+                keyExtractor={(item, index) => `search-${index}`}
+                contentContainerStyle={{
+                  paddingHorizontal: 20,
+                  paddingBottom: 50,
+                  paddingTop: 12,
+                }}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor: "rgba(255,255,255,0.05)",
+                      borderRadius: 16,
+                      padding: 16,
+                      marginBottom: 12,
+                      borderWidth: 1,
+                      borderColor: "rgba(0,229,204,0.15)",
+                    }}
+                    onPress={() => {
+                      setPreviousState("SEARCH");
+                      setSelectedBook(item.book);
+                      setSelectedChapter(item.chapter);
+                      setViewState("VERSES");
+                    }}
+                  >
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        marginBottom: 8,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: "rgba(0,229,204,0.9)",
+                          fontWeight: "800",
+                          fontSize: 13,
+                        }}
+                      >
+                        {item.book.name} {item.chapter.chapter}
+                      </Text>
+                      <Text
+                        style={{
+                          color: "#F9A825",
+                          fontWeight: "900",
+                          fontSize: 13,
+                        }}
+                      >
+                        And {item.verse.verse}
+                      </Text>
+                    </View>
+                    <Text
+                      style={{
+                        color: "rgba(255,255,255,0.85)",
+                        fontSize: 15,
+                        lineHeight: 22,
+                      }}
+                    >
+                      {renderHighlightedText(item.verse.text, searchQuery)}
+                    </Text>
+                  </TouchableOpacity>
+                )}
+                ListEmptyComponent={
+                  searchQuery.length >= 3 ? (
+                    <Text
+                      style={{
+                        color: "rgba(255,255,255,0.5)",
+                        textAlign: "center",
+                        marginTop: 40,
+                      }}
+                    >
+                      Tsy misy valiny ho an'ny "{searchQuery}".
+                    </Text>
+                  ) : (
+                    <Text
+                      style={{
+                        color: "rgba(255,255,255,0.5)",
+                        textAlign: "center",
+                        marginTop: 40,
+                      }}
+                    >
+                      Mampidira teny 3 farafahakeliny entina mikaroka.
+                    </Text>
+                  )
+                }
+              />
+            )}
+          </View>
+        )}
 
         {/* ── BOOKS VIEW ── */}
         {viewState === "BOOKS" && (
