@@ -1,20 +1,22 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import HomeScreen from "../screens/HomeScreen";
-import SoloQuizScreen from "../screens/SoloQuizScreen";
-import ThemeSelectionScreen from "../screens/ThemeSelectionScreen";
-import MultiplayerScreen from "../screens/MultiplayerScreen";
-import ProfileScreen from "../screens/ProfileScreen";
-import SettingsScreen from "../screens/SettingsScreen";
-import RankingScreen from "../screens/RankingScreen";
-import BibleScreen from "../screens/BibleScreen";
-import VerseOfDayScreen from "../screens/VerseOfDayScreen";
-import AuthScreen from "../screens/AuthScreen";
-import DuoQuizScreen from "../screens/DuoQuizScreen";
-import MatchmakingScreen from "../screens/MatchmakingScreen";
-import FriendSearchScreen from "../screens/FriendSearchScreen";
-import OnlineQuizScreen from "../screens/OnlineQuizScreen";
-import { useUser } from "../context/UserContext";
+import HomeScreen from "../screens/home/HomeScreen";
+import SoloQuizScreen from "../screens/solo-quiz/SoloQuizScreen";
+import ThemeSelectionScreen from "../screens/solo-quiz/ThemeSelectionScreen";
+import MultiplayerScreen from "../screens/multiplayer/MultiplayerScreen";
+import ProfileScreen from "../screens/profile/ProfileScreen";
+import SettingsScreen from "../screens/settings/SettingsScreen";
+import RankingScreen from "../screens/ranking/RankingScreen";
+import BibleScreen from "../screens/bible/BibleScreen";
+import VerseOfDayScreen from "../screens/verse-of-day/VerseOfDayScreen";
+import AuthScreen from "../screens/auth/AuthScreen";
+import DuoQuizScreen from "../screens/duo/DuoQuizScreen";
+import MatchmakingScreen from "../screens/matchmaking/MatchmakingScreen";
+import FriendSearchScreen from "../screens/friend-search/FriendSearchScreen";
+import OnlineQuizScreen from "../screens/online-quiz/OnlineQuizScreen";
+import TeamQuizScreen from "../screens/team-quiz/TeamQuizScreen";
+import ImageQuizScreen from "../screens/image-quiz/ImageQuizScreen";
+import { useUser } from "../context/user";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -24,13 +26,17 @@ export type RootStackParamList = {
   Profile: undefined;
   Settings: undefined;
   Ranking: undefined;
-  Bible: undefined;
+  Bible:
+    | { initialBook?: string; initialChapter?: number; initialVerse?: number }
+    | undefined;
   VerseOfDay: undefined;
   Auth: undefined;
   DuoQuiz: undefined;
   Matchmaking: { mode: "random" | "invite"; friendName?: string };
   FriendSearch: undefined;
   OnlineQuiz: { opponent: any };
+  TeamQuiz: undefined;
+  ImageQuiz: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -60,6 +66,8 @@ const AppNavigator = () => {
       <Stack.Screen name="Matchmaking" component={MatchmakingScreen} />
       <Stack.Screen name="FriendSearch" component={FriendSearchScreen} />
       <Stack.Screen name="OnlineQuiz" component={OnlineQuizScreen} />
+      <Stack.Screen name="TeamQuiz" component={TeamQuizScreen} />
+      <Stack.Screen name="ImageQuiz" component={ImageQuizScreen} />
     </Stack.Navigator>
   );
 };

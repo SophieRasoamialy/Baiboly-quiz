@@ -1,0 +1,62 @@
+export const PALETTE = {
+  gold: "#F9A825",
+  goldDark: "#E65100",
+  goldDeep: "#BF360C",
+  goldLight: "#FFD54F",
+  goldPale: "#FFF8E1",
+
+  emerald: "#00B894",
+  emeraldDark: "#00897B",
+  emeraldDeep: "#00695C",
+  emeraldLight: "#B2DFDB",
+  emeraldPale: "#E0F7F4",
+
+  coral: "#FF6B6B",
+  coralDark: "#E53935",
+  coralLight: "#FFCDD2",
+
+  white: "#FFFFFF",
+  black: "#000000",
+};
+
+export const lightColors = {
+  mode: "light",
+  background: "#FFFDF8",
+  backgroundSecondary: "#FFF7EA",
+  surface: "#FFFFFF",
+  surfaceSoft: "#FFF9F0",
+  card: "#FFFFFF",
+  border: "rgba(26,15,0,0.08)",
+  text: "#1A0F00",
+  textSecondary: "#6F614A",
+  textMuted: "#9A8A70",
+  primary: PALETTE.gold,
+  primarySoft: "#FFF1CC",
+  secondary: PALETTE.emerald,
+  secondarySoft: "#EAFBF7",
+  accent: PALETTE.coral,
+  error: PALETTE.coralDark,
+  white: PALETTE.white,
+  shadow: "rgba(26,15,0,0.10)",
+};
+
+export const darkColors = {
+  mode: "dark",
+  background: "#0E0B07",
+  backgroundSecondary: "#16110B",
+  surface: "#18130D",
+  surfaceSoft: "#211A12",
+  card: "#1C160F",
+  border: "rgba(255,255,255,0.08)",
+  text: "#FFFFFF",
+  textSecondary: "rgba(255,255,255,0.72)",
+  textMuted: "rgba(255,255,255,0.45)",
+  primary: PALETTE.gold,
+  primarySoft: "rgba(249,168,37,0.16)",
+  secondary: PALETTE.emerald,
+  secondarySoft: "rgba(0,184,148,0.14)",
+  accent: PALETTE.coral,
+  error: PALETTE.coral,
+  white: PALETTE.white,
+  shadow: "rgba(0,0,0,0.35)",
+};

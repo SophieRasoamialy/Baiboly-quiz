@@ -1,21 +1,60 @@
 import React, { useCallback } from "react";
-import { StyleSheet, View, LogBox } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { View, LogBox } from "react-native";
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import AppNavigator from "./src/navigation";
-import { UserProvider } from "./src/context/UserContext";
-import { Colors } from "./src/theme";
 
-// Ignore some navigation warnings in dev
-LogBox.ignoreLogs(["Sending `onAnimatedValueUpdate` @[event] of older method"]);
+import AppNavigator from "./src/navigation";
+import { UserProvider, useUser } from "./src/context/user";
+import { lightColors, darkColors } from "./src/theme/colors";
+
+// Ignore some warnings in dev
+LogBox.ignoreLogs([
+  "Sending `onAnimatedValueUpdate` with no listeners registered",
+]);
 
 SplashScreen.preventAutoHideAsync();
 
+function AppContent() {
+  const { theme } = useUser();
+
+  const colors = theme === "light" ? lightColors : darkColors;
+  const isLight = theme === "light";
+
+  const navigationTheme = {
+    ...(isLight ? DefaultTheme : DarkTheme),
+    colors: {
+      ...(isLight ? DefaultTheme.colors : DarkTheme.colors),
+      background: colors.background,
+      card: colors.surface,
+      text: colors.text,
+      border: colors.border,
+      primary: colors.primary,
+      notification: colors.accent,
+    },
+  };
+
+  return (
+    <>
+      <NavigationContainer theme={navigationTheme}>
+        <AppNavigator />
+      </NavigationContainer>
+
+      <StatusBar style={isLight ? "dark" : "light"} />
+    </>
+  );
+}
+
 export default function App() {
   const [fontsLoaded] = useFonts({
-    // Using default fonts for now, but prepared for custom ones
+    // Example:
+    // "Inter-Regular": require("./assets/fonts/Inter-Regular.ttf"),
+    // "Inter-Bold": require("./assets/fonts/Inter-Bold.ttf"),
   });
 
   const onLayoutRootView = useCallback(async () => {
@@ -30,19 +69,9 @@ export default function App() {
 
   return (
     <UserProvider>
-      <View style={styles.container} onLayout={onLayoutRootView}>
-        <NavigationContainer>
-          <AppNavigator />
-        </NavigationContainer>
-        <StatusBar style="light" />
+      <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+        <AppContent />
       </View>
     </UserProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background,
-  },
-});
