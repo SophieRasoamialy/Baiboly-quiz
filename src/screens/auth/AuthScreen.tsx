@@ -21,6 +21,7 @@ import AuthRewardCard from "../../components/auth/AuthRewardCard";
 import AuthFormInput from "../../components/auth/AuthFormInput";
 import AuthAvatarPicker from "../../components/auth/AuthAvatarPicker";
 import AuthSubmitButton from "../../components/auth/AuthSubmitButton";
+import { BackButton } from "../../components/ui/BackButton";
 
 import { AVATARS } from "../../constants/avatar";
 
@@ -101,7 +102,11 @@ const AuthScreen: React.FC<Props> = ({ navigation }) => {
         </>
       )}
 
-      <SafeAreaView style={styles.safeArea}>
+      <SafeAreaView style={styles.safeArea} edges={["top"]}>
+        <View style={{ paddingHorizontal: 20, paddingTop: 10 }}>
+          <BackButton colors={colors} onPress={() => navigation.goBack()} />
+        </View>
+
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={{ flex: 1 }}

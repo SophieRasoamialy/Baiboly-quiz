@@ -11,6 +11,7 @@ interface Props {
   nextRefillIn: number;
   avatar?: string | null;
   isLoggedIn: boolean;
+  points: number;
   onPressProfile: () => void;
   onPressHeart: () => void;
 }
@@ -23,6 +24,7 @@ const HomeHeader: React.FC<Props> = ({
   nextRefillIn,
   avatar,
   isLoggedIn,
+  points,
   onPressProfile,
   onPressHeart,
 }) => {
@@ -43,6 +45,11 @@ const HomeHeader: React.FC<Props> = ({
         <View style={styles.statPill}>
           <MaterialCommunityIcons name="diamond-stone" size={14} color={colors.primary} />
           <Text style={styles.statText}>{gems}</Text>
+        </View>
+
+        <View style={styles.statPill}>
+          <MaterialCommunityIcons name="trophy-variant" size={14} color="#F59E0B" />
+          <Text style={styles.statText}>{points}</Text>
         </View>
 
         <TouchableOpacity style={styles.statPill} onPress={onPressHeart} activeOpacity={0.8}>

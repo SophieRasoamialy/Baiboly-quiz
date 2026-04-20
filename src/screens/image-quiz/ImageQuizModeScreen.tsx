@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { View, Text, TouchableOpacity, Animated, ScrollView, Dimensions, Alert } from "react-native";
+import React from "react";
+import { View, Text, TouchableOpacity, ScrollView, Dimensions, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation";
@@ -9,38 +9,26 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 
-import { createMultiplayerStyles } from "./multiplayer.styles";
-import { MultiplayerGuestPrompt } from "../../components/multiplayer/MultiplayerGuestPrompt";
-import { UserLobbyCard } from "../../components/multiplayer/UserLobbyCard";
+import { createMultiplayerStyles } from "../multiplayer/multiplayer.styles";
 import { GameModeCard } from "../../components/multiplayer/GameModeCard";
 import FloatingGem from "../../components/home/FloatingGem";
 import { BackButton } from "../../components/ui/BackButton";
 
 const { width } = Dimensions.get("window");
 
-type MultiplayerScreenNavigationProp = StackNavigationProp<
+type ImageQuizModeScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
-  "Multiplayer"
+  "ImageQuizMode"
 >;
 
 interface Props {
-  navigation: MultiplayerScreenNavigationProp;
+  navigation: ImageQuizModeScreenNavigationProp;
 }
 
-const MultiplayerScreen: React.FC<Props> = ({ navigation }) => {
-  const { isLoggedIn, username, avatar, churchName, city } = useUser();
+const ImageQuizModeScreen: React.FC<Props> = ({ navigation }) => {
+  const { isLoggedIn } = useUser();
   const { colors, isLight } = useAppTheme();
   const styles = createMultiplayerStyles(colors);
-  
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 600,
-      useNativeDriver: true,
-    }).start();
-  }, [isLoggedIn]);
 
   const gemsConfig = [
     { x: width * 0.08, size: 14, delay: 0, duration: 7000, opacity: 0.5 },
@@ -52,7 +40,7 @@ const MultiplayerScreen: React.FC<Props> = ({ navigation }) => {
     if (!isLoggedIn) {
       Alert.alert(
         "Mila Kaonty",
-        "Mila misoratra anarana ianao raha te hilalao amin'ny namana an-tserasera na hifaninana amin'ny mpilalao hafa.",
+        "Mila misoratra anarana ianao raha te hilalao amin'ny namana an-tserasera.",
         [
           { text: "Aoka ihany", style: "cancel" },
           { text: "Hiditra", onPress: () => navigation.navigate("Auth") },
@@ -76,13 +64,6 @@ const MultiplayerScreen: React.FC<Props> = ({ navigation }) => {
         style={styles.backgroundFill}
       />
 
-      {!isLight && (
-        <>
-          <View pointerEvents="none" style={styles.glowLeft} />
-          <View pointerEvents="none" style={styles.glowRight} />
-        </>
-      )}
-
       {gemsConfig.map((gem, index) => (
         <FloatingGem key={index} {...gem} isLight={isLight} />
       ))}
@@ -90,43 +71,44 @@ const MultiplayerScreen: React.FC<Props> = ({ navigation }) => {
       <SafeAreaView style={styles.safeArea} edges={["top"]}>
         <View style={styles.header}>
           <BackButton colors={colors} onPress={() => navigation.goBack()} />
-          <Text style={styles.headerTitle}>Lalao Maromaro</Text>
+          <Text style={styles.headerTitle}>Lalao Sary</Text>
         </View>
 
         <ScrollView 
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.lobbyContent}
         >
-          <UserLobbyCard
-            username={username}
-            avatar={avatar}
-            churchName={churchName}
-            city={city}
-            styles={styles}
-            colors={colors}
-            onLoginPress={() => navigation.navigate("Auth")}
-          />
-
-          <Text style={styles.sectionTitle}>Lalao Afaka Atao</Text>
+          <Text style={styles.sectionTitle}>Misafidy ny fomba filalao</Text>
 
           <GameModeCard
-            title="Duo Quiz (Local)"
-            description="Milalao amin'ny namana amin'ny finday iray ihany (Split Screen)."
+            title="Sary Solo (Irery)"
+            description="Maminany sary irery ianao mba hahazoana vatosoa."
+            icon="account-outline"
+            iconColor={colors.primary}
+            gradientColors={[colors.primarySoft, colors.primarySoft]}
+            onPress={() => navigation.navigate("ImageQuiz")}
+            styles={styles}
+            colors={colors}
+          />
+
+          <GameModeCard
+            title="Sary Duo (Local)"
+            description="Hifaninana amin'ny sary amin'ny finday iray ihany (Split Screen)."
             icon="sword-cross"
             iconColor={colors.secondary}
             gradientColors={[colors.secondarySoft, colors.secondarySoft]}
-            onPress={() => navigation.navigate("DuoSetup")}
+            onPress={() => navigation.navigate("DuoSetup", { quizType: "image" })}
             styles={styles}
             colors={colors}
           />
 
           <GameModeCard
-            title="Duo Quiz (Online)"
-            description="Lalao an-tserasera (Matchmaking na fanasana namana)."
+            title="Sary Duo (Online)"
+            description="Hifaninana an-tserasera amin'ny sary amin'ny namana."
             icon="earth"
             iconColor={colors.primary}
             gradientColors={[colors.primarySoft, colors.primarySoft]}
-            onPress={() => handleOnlineMode(() => navigation.navigate("FriendSelection", { gameType: "duo", quizType: "standard" }))}
+            onPress={() => handleOnlineMode(() => navigation.navigate("FriendSelection", { gameType: "duo", quizType: "image" }))}
             isLocked={!isLoggedIn}
             styles={styles}
             colors={colors}
@@ -137,4 +119,4 @@ const MultiplayerScreen: React.FC<Props> = ({ navigation }) => {
   );
 };
 
-export default MultiplayerScreen;
+export default ImageQuizModeScreen;

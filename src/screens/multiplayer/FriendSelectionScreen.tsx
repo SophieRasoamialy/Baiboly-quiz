@@ -12,6 +12,7 @@ import { AVATAR_MAP } from "../../constants/avatar";
 
 import { createFriendSelectionStyles } from "./friend-selection.styles";
 import FloatingGem from "../../components/home/FloatingGem";
+import { BackButton } from "../../components/ui/BackButton";
 
 const { width } = Dimensions.get("window");
 
@@ -26,7 +27,7 @@ interface Props {
 }
 
 const FriendSelectionScreen: React.FC<Props> = ({ navigation, route }) => {
-  const { gameType = "duo" } = route.params || {};
+  const { gameType = "duo", quizType = "standard" } = route.params || {};
   const { friends } = useUser();
   const { colors, isLight } = useAppTheme();
   const styles = createFriendSelectionStyles(colors);
@@ -62,16 +63,10 @@ const FriendSelectionScreen: React.FC<Props> = ({ navigation, route }) => {
 
       <SafeAreaView style={styles.safeArea} edges={["top"]}>
         <View style={styles.header}>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={styles.backBtn}
-          >
-            <MaterialCommunityIcons name="arrow-left" size={24} color={colors.text} />
-          </TouchableOpacity>
+          <BackButton colors={colors} onPress={() => navigation.goBack()} />
           <Text style={styles.headerTitle}>
             {gameType === "team" ? "Hifidy Mpilalao (2v2)" : "Hifidy Mpilalao"}
           </Text>
-          <View style={{ width: 40 }} />
         </View>
 
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
@@ -81,7 +76,7 @@ const FriendSelectionScreen: React.FC<Props> = ({ navigation, route }) => {
             <TouchableOpacity 
               activeOpacity={0.85} 
               style={styles.selectionCard}
-              onPress={() => navigation.navigate("Matchmaking", { mode: "random", gameType })}
+              onPress={() => navigation.navigate("Matchmaking", { mode: "random", gameType, quizType } as any)}
             >
               <LinearGradient
                 colors={[colors.card, colors.surfaceSoft]}
@@ -101,7 +96,7 @@ const FriendSelectionScreen: React.FC<Props> = ({ navigation, route }) => {
             <TouchableOpacity 
               activeOpacity={0.85} 
               style={styles.selectionCard}
-              onPress={() => navigation.navigate("FriendSearch", { gameType } as any)}
+              onPress={() => navigation.navigate("FriendSearch", { gameType, quizType } as any)}
             >
               <LinearGradient
                 colors={[colors.card, colors.surfaceSoft]}
@@ -141,7 +136,7 @@ const FriendSelectionScreen: React.FC<Props> = ({ navigation, route }) => {
                   </View>
                   <TouchableOpacity 
                     style={styles.inviteBtn}
-                    onPress={() => navigation.navigate("Matchmaking", { mode: "invite", friendName: friend.name, gameType } as any)}
+                    onPress={() => navigation.navigate("Matchmaking", { mode: "invite", friendName: friend.name, gameType, quizType } as any)}
                   >
                     <Text style={styles.inviteText}>ASAO</Text>
                   </TouchableOpacity>

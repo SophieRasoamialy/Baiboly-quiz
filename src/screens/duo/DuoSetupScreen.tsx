@@ -10,7 +10,6 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation";
-import { useUser } from "../../context/user";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
@@ -18,7 +17,7 @@ import { StatusBar } from "expo-status-bar";
 import { AVATARS } from "../../constants/avatar";
 
 import { createMultiplayerStyles } from "../multiplayer/multiplayer.styles";
-import FloatingGem from "../../components/home/FloatingGem";
+import { BackButton } from "../../components/ui/BackButton";
 
 const { width, height } = Dimensions.get("window");
 
@@ -29,9 +28,11 @@ type DuoSetupScreenNavigationProp = StackNavigationProp<
 
 interface Props {
   navigation: DuoSetupScreenNavigationProp;
+  route: any;
 }
 
-const DuoSetupScreen: React.FC<Props> = ({ navigation }) => {
+const DuoSetupScreen: React.FC<Props> = ({ navigation, route }) => {
+  const { quizType = "standard" } = route.params || {};
   const { colors, isLight } = useAppTheme();
   const [p1Selection, setP1Selection] = useState<any>(null);
   const [p2Selection, setP2Selection] = useState<any>(null);
@@ -40,7 +41,8 @@ const DuoSetupScreen: React.FC<Props> = ({ navigation }) => {
 
   const handleStart = () => {
     if (p1Selection && p2Selection) {
-      navigation.navigate("DuoQuiz", { p1: p1Selection, p2: p2Selection });
+      const destination = quizType === "image" ? "DuoImageQuiz" : "DuoQuiz";
+      navigation.navigate(destination as any, { p1: p1Selection, p2: p2Selection });
     }
   };
 
@@ -118,11 +120,8 @@ const DuoSetupScreen: React.FC<Props> = ({ navigation }) => {
 
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.header}>
-            <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
-                <MaterialCommunityIcons name="arrow-left" size={24} color={colors.text} />
-            </TouchableOpacity>
+            <BackButton colors={colors} onPress={() => navigation.goBack()} />
             <Text style={styles.headerTitle}>Fidiana Mpilalao</Text>
-            <View style={{ width: 40 }} />
         </View>
 
         <View style={{ flex: 1 }}>

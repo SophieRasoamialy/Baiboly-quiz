@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
-import { Animated, Share, StyleSheet, Text, View } from "react-native";
+import { Animated, Share, StyleSheet, Text, View, ScrollView } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
@@ -34,6 +34,7 @@ const VerseOfDayScreen: React.FC<Props> = ({ navigation }) => {
   const styles = createVerseOfDayStyles(colors);
 
   const shareCardRef = useRef<View>(null);
+  const scrollRef = useRef<ScrollView>(null);
   const scrollY = useRef(new Animated.Value(0)).current;
 
   const { dateDisplay, dailyVerse, dailyCategory, getCategoryForVerse } =
@@ -64,6 +65,7 @@ const VerseOfDayScreen: React.FC<Props> = ({ navigation }) => {
     (verse: PromiseVerse) => {
       setSelectedVerse(verse);
       setSelectedCategory(getCategoryForVerse(verse));
+      scrollRef.current?.scrollTo({ y: 0, animated: true });
     },
     [getCategoryForVerse],
   );
@@ -71,6 +73,7 @@ const VerseOfDayScreen: React.FC<Props> = ({ navigation }) => {
   const handleResetToDailyVerse = useCallback(() => {
     setSelectedVerse(dailyVerse);
     setSelectedCategory(dailyCategory);
+    scrollRef.current?.scrollTo({ y: 0, animated: true });
   }, [dailyVerse, dailyCategory]);
 
   const handleCopyText = useCallback(async () => {
@@ -155,6 +158,7 @@ const VerseOfDayScreen: React.FC<Props> = ({ navigation }) => {
         />
 
         <Animated.ScrollView
+          ref={scrollRef}
           showsVerticalScrollIndicator={false}
           scrollEventThrottle={16}
           contentContainerStyle={styles.scrollContent}

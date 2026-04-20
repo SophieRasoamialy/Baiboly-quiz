@@ -81,6 +81,7 @@ export const createProfileStyles = (colors: any) =>
       fontSize: 24,
       fontWeight: "900",
       letterSpacing: 0.3,
+      marginLeft: 10,
     },
 
     dividerRow: {

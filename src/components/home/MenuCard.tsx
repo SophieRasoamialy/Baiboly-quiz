@@ -1,5 +1,12 @@
 import React, { useEffect, useRef } from "react";
-import { Animated, Dimensions, Text, TouchableOpacity, View } from "react-native";
+import {
+  Animated,
+  Dimensions,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const { width } = Dimensions.get("window");
@@ -12,6 +19,7 @@ interface Props {
     accent: string;
     softAccent: string;
     route: string;
+    bgImage?: any;
   };
   index: number;
   colors: any;
@@ -19,7 +27,13 @@ interface Props {
   onPress: () => void;
 }
 
-const MenuCard: React.FC<Props> = ({ item, index, colors, isLight, onPress }) => {
+const MenuCard: React.FC<Props> = ({
+  item,
+  index,
+  colors,
+  isLight,
+  onPress,
+}) => {
   const pressAnim = useRef(new Animated.Value(0)).current;
   const mountAnim = useRef(new Animated.Value(0)).current;
 
@@ -79,7 +93,11 @@ const MenuCard: React.FC<Props> = ({ item, index, colors, isLight, onPress }) =>
         width: cardWidth,
         height: 158,
         opacity,
-        transform: [{ translateY: mountTranslateY }, { scale }, { translateY: pressTranslateY }],
+        transform: [
+          { translateY: mountTranslateY },
+          { scale },
+          { translateY: pressTranslateY },
+        ],
       }}
     >
       <TouchableOpacity
@@ -102,23 +120,39 @@ const MenuCard: React.FC<Props> = ({ item, index, colors, isLight, onPress }) =>
           elevation: 4,
         }}
       >
-        <View
-          style={{
-            width: 48,
-            height: 48,
-            borderRadius: 16,
-            backgroundColor: item.softAccent,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <MaterialCommunityIcons
-            name={item.icon as any}
-            size={24}
-            color={item.accent}
+        {/* Image instead of icon */}
+        {item.bgImage ? (
+          <Image
+            source={item.bgImage}
+            style={{
+              width: 64,
+              height: 64,
+              borderRadius: 18,
+              marginBottom: 8,
+            }}
+            resizeMode="cover"
           />
-        </View>
+        ) : (
+          <View
+            style={{
+              width: 64,
+              height: 64,
+              borderRadius: 18,
+              backgroundColor: item.softAccent,
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: 8,
+            }}
+          >
+            <MaterialCommunityIcons
+              name={item.icon as any}
+              size={28}
+              color={item.accent}
+            />
+          </View>
+        )}
 
+        {/* Text */}
         <View>
           <Text
             style={{
@@ -129,6 +163,7 @@ const MenuCard: React.FC<Props> = ({ item, index, colors, isLight, onPress }) =>
           >
             {item.title}
           </Text>
+
           <Text
             style={{
               color: colors.textSecondary,
@@ -141,6 +176,7 @@ const MenuCard: React.FC<Props> = ({ item, index, colors, isLight, onPress }) =>
           </Text>
         </View>
 
+        {/* Background icon (optional) */}
         <MaterialCommunityIcons
           name={item.icon as any}
           size={68}

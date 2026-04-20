@@ -6,6 +6,7 @@ interface PlayerSideProps {
   playerName: string;
   playerAvatar: any;
   questionText: string;
+  questionImage?: any;
   questionIndex: number;
   options: string[];
   onAnswer: (answer: string) => void;
@@ -21,6 +22,7 @@ export const PlayerSide: React.FC<PlayerSideProps> = ({
   playerName,
   playerAvatar,
   questionText,
+  questionImage,
   questionIndex,
   options,
   onAnswer,
@@ -55,6 +57,11 @@ export const PlayerSide: React.FC<PlayerSideProps> = ({
       {/* Question */}
       <View style={styles.inSideQuestionContainer}>
         <Text style={styles.counter}>FANONTANIANA {questionIndex + 1}</Text>
+        {questionImage && (
+          <View style={styles.quizImageContainerSmall}>
+            <Image source={questionImage} style={styles.quizImageSmall} resizeMode="contain" />
+          </View>
+        )}
         <Text style={styles.question}>{questionText}</Text>
       </View>
 

@@ -39,6 +39,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const [avatar, setAvatarLocal] = useState(DEFAULT_AVATAR);
   const [language, setLanguageLocal] = useState<LanguageCode>(DEFAULT_LANGUAGE);
   const [theme, setThemeState] = useState<ThemeMode>(DEFAULT_THEME);
+  const [points, setPoints] = useState(0);
 
   const [username, setUsername] = useState<string | null>(null);
   const [churchName, setChurchName] = useState<string | null>(null);
@@ -72,6 +73,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
           setCity(savedState.city ?? null);
           setIsLoggedIn(!!savedState.username);
           setLastHeartRefill(savedState.lastHeartRefill || Date.now());
+          setPoints(savedState.points || 0);
 
           if (savedState.language) {
             i18n.locale = savedState.language;
@@ -142,6 +144,14 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     });
 
     return true;
+  };
+
+  const addPoints = (amount: number) => {
+    setPoints((prev) => {
+      const newValue = Math.max(0, prev + amount);
+      updateDB({ points: newValue });
+      return newValue;
+    });
   };
 
   const addHeart = () => {
@@ -272,9 +282,11 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       isLoggedIn,
       isLoading,
       friends,
+      points,
 
       addGems,
       removeGems,
+      addPoints,
       addHeart,
       removeHeart,
       buyHeartWithGems,
@@ -304,6 +316,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       isLoggedIn,
       isLoading,
       friends,
+      points,
     ],
   );
 

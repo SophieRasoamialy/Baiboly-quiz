@@ -25,7 +25,7 @@ interface Props {
 }
 
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
-  const { gems, hearts, buyHeartWithGems, nextRefillIn, avatar, isLoggedIn } =
+  const { gems, hearts, buyHeartWithGems, nextRefillIn, avatar, isLoggedIn, points } =
     useUser();
 
   const { colors, isLight } = useAppTheme();
@@ -97,6 +97,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
           nextRefillIn={nextRefillIn}
           avatar={avatar}
           isLoggedIn={isLoggedIn}
+          points={points}
           onPressProfile={() => navigation.navigate("Profile")}
           onPressHeart={handleBuyHeart}
         />

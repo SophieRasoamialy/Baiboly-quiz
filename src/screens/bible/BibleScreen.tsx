@@ -208,6 +208,7 @@ const BibleScreen: React.FC<Props> = ({ navigation, route }) => {
                 otCount={otBooks.length}
                 ntCount={ntBooks.length}
                 onChangeTab={setActiveTab}
+                colors={colors}
               />
             </View>
           )}

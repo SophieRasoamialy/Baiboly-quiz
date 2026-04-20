@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { QUIZ_CONFIG } from "../constants/quiz";
+import { useUser } from "../context/user/UserContext";
 
 export const useQuizGame = (questions: any[]) => {
+  const { addPoints, isLoggedIn, hearts, gems, addGems, removeHeart } = useUser();
   const [index, setIndex] = useState(0);
-  const [hearts, setHearts] = useState(QUIZ_CONFIG.MAX_HEARTS);
-  const [gems, setGems] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
 
   const currentQuestion = questions[index];
@@ -15,9 +15,11 @@ export const useQuizGame = (questions: any[]) => {
     setSelected(choice);
 
     if (choice === currentQuestion.correctAnswer) {
-      setGems((g) => g + QUIZ_CONFIG.REWARD_GEMS);
+      addGems(QUIZ_CONFIG.REWARD_GEMS);
+      if (isLoggedIn) addPoints(10);
     } else {
-      setHearts((h) => h - 1);
+      removeHeart();
+      if (isLoggedIn) addPoints(-5);
     }
   };
 

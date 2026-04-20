@@ -66,7 +66,7 @@ export const createBibleStyles = (colors: any) =>
     },
 
     headerEyebrow: {
-      color: colors.secondary,
+      color: colors.mode === "light" ? colors.primary : colors.secondary,
       fontSize: 11,
       fontWeight: "700",
       letterSpacing: 2.5,
@@ -79,12 +79,14 @@ export const createBibleStyles = (colors: any) =>
       fontSize: 26,
       fontWeight: "900",
       letterSpacing: 0.4,
+      marginLeft: 10,
     },
 
     headerSubtitleTitle: {
       color: colors.text,
       fontSize: 22,
       fontWeight: "900",
+      marginLeft: 10,
     },
 
     badge: {

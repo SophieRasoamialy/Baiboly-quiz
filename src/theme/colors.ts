@@ -31,6 +31,7 @@ export const lightColors = {
   primary: PALETTE.emerald,
   primarySoft: "#D1FAE5",
   secondary: PALETTE.gold,
+  secondaryDark: PALETTE.goldDark,
   secondarySoft: "#FEF3C7",
   accent: PALETTE.coral,
   error: PALETTE.coralDark,
@@ -40,21 +41,22 @@ export const lightColors = {
 
 export const darkColors = {
   mode: "dark",
-  background: "#022C22",
-  backgroundSecondary: "#064E3B",
-  surface: "#064E3B",
-  surfaceSoft: "#065F46",
-  card: "#064E3B",
-  border: "rgba(255,255,255,0.08)",
-  text: "#ECFDF5",
-  textSecondary: "rgba(236,253,245,0.7)",
-  textMuted: "rgba(236,253,245,0.45)",
+  background: "#020617", // Deepest Navy (Slate 950)
+  backgroundSecondary: "#0F172A", // Midnight Navy (Slate 900)
+  surface: "#1E293B", // Mid Navy (Slate 800)
+  surfaceSoft: "#334155", // Light Navy (Slate 700)
+  card: "#0F172A",
+  border: "rgba(148,163,184,0.12)", // Slate 400 with opacity
+  text: "#F8FAFC", // Off-white (Slate 50)
+  textSecondary: "#94A3B8", // Cool Grey (Slate 400)
+  textMuted: "#64748B", // Muted Slate (Slate 500)
   primary: PALETTE.emerald,
   primarySoft: "rgba(16,185,129,0.16)",
   secondary: PALETTE.gold,
+  secondaryDark: PALETTE.goldDark,
   secondarySoft: "rgba(245,158,11,0.14)",
   accent: PALETTE.coral,
   error: PALETTE.coral,
   white: PALETTE.white,
-  shadow: "rgba(0,0,0,0.45)",
+  shadow: "rgba(0,0,0,0.5)",
 };

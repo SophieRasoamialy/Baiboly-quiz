@@ -9,6 +9,8 @@ export interface UserState {
   language: LanguageCode;
   theme: ThemeMode;
   colors: any;
+  points: number;
+
 
   lastHeartRefill: number;
   nextRefillIn: number;
@@ -24,6 +26,7 @@ export interface UserState {
 export interface UserActions {
   addGems: (amount: number) => void;
   removeGems: (amount: number) => boolean;
+  addPoints: (amount: number) => void;
 
   addHeart: () => void;
   removeHeart: () => void;

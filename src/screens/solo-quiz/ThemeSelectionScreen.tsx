@@ -13,6 +13,7 @@ import ThemeList from "../../components/quiz-solo/ThemeList";
 import RandomThemeCard from "../../components/quiz-solo/RandomThemeCard";
 import FloatingGem from "../../components/home/FloatingGem";
 import { createThemeSelectionStyles } from "./theme-selection.styles";
+import { BackButton } from "../../components/ui/BackButton";
 
 const { width } = Dimensions.get("window");
 
@@ -79,9 +80,7 @@ const ThemeSelectionScreen = () => {
 
       <SafeAreaView style={styles.safeArea} edges={["top"]}>
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
-            <MaterialCommunityIcons name="arrow-left" size={22} color={colors.text} />
-          </TouchableOpacity>
+          <BackButton colors={colors} onPress={() => navigation.goBack()} />
         </View>
 
         <ThemeList 

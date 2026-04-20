@@ -22,6 +22,7 @@ import { QUIZ_IMAGE_MAP } from "../../constants/quizImages";
 import { createImageQuizStyles, TIMER_SECONDS } from "./image-quiz.styles";
 import FloatingGem from "../../components/home/FloatingGem";
 import { OptionButton } from "../../components/image-quiz/OptionButton";
+import { BackButton } from "../../components/ui/BackButton";
 
 const { width } = Dimensions.get("window");
 
@@ -110,10 +111,10 @@ const ImageQuizScreen: React.FC<Props> = ({ navigation }) => {
       removeHeart();
     }
 
-    Animated.spring(nextBtnAnim, {
-      toValue: 1,
-      useNativeDriver: true,
-    }).start();
+    // Auto-navigate to next question after delay
+    setTimeout(() => {
+      navigateNext();
+    }, 1500);
   };
 
   const navigateNext = () => {
@@ -209,16 +210,7 @@ const ImageQuizScreen: React.FC<Props> = ({ navigation }) => {
       <SafeAreaView style={styles.safeArea} edges={["top"]}>
         {/* Header */}
         <View style={styles.header}>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={styles.backBtn}
-          >
-            <MaterialCommunityIcons
-              name="arrow-left"
-              size={24}
-              color={colors.text}
-            />
-          </TouchableOpacity>
+          <BackButton colors={colors} onPress={() => navigation.goBack()} />
           <View style={styles.stats}>
             <View style={styles.statPill}>
               <Text style={styles.statText}>💎 {gems}</Text>
@@ -263,7 +255,7 @@ const ImageQuizScreen: React.FC<Props> = ({ navigation }) => {
               <Image
                 source={imageSource}
                 style={styles.quizImage}
-                resizeMode="cover"
+                resizeMode="contain"
               />
               <LinearGradient
                 colors={["transparent", "rgba(0,0,0,0.6)"]}
@@ -295,41 +287,7 @@ const ImageQuizScreen: React.FC<Props> = ({ navigation }) => {
           </Animated.View>
         </View>
 
-        {/* Next Button */}
-        {revealed && (
-          <Animated.View
-            style={[
-              styles.nextBtnContainer,
-              {
-                opacity: nextBtnAnim,
-                transform: [
-                  {
-                    translateY: nextBtnAnim.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [20, 0],
-                    }),
-                  },
-                ],
-              },
-            ]}
-          >
-            <TouchableOpacity style={styles.nextBtn} onPress={navigateNext}>
-              <LinearGradient
-                colors={[colors.primary, "#FF8F00"]}
-                style={styles.nextGradient}
-              >
-                <Text style={styles.nextBtnText}>
-                  {currentIndex < questions.length - 1 ? "MANARAKA" : "VITA"}
-                </Text>
-                <MaterialCommunityIcons
-                  name="arrow-right"
-                  size={20}
-                  color="#fff"
-                />
-              </LinearGradient>
-            </TouchableOpacity>
-          </Animated.View>
-        )}
+
       </SafeAreaView>
     </View>
   );

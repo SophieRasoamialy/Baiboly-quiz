@@ -19,7 +19,6 @@ export const createVerseOfDayStyles = (colors: any) =>
       height: 64,
       flexDirection: "row",
       alignItems: "center",
-      justifyContent: "space-between",
       paddingHorizontal: 16,
       zIndex: 10,
     },
@@ -40,6 +39,7 @@ export const createVerseOfDayStyles = (colors: any) =>
       fontSize: 18,
       fontWeight: "900",
       letterSpacing: 0.8,
+      marginLeft: 10,
     },
 
     scrollContent: {

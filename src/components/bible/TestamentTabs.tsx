@@ -8,6 +8,7 @@ interface Props {
   otCount: number;
   ntCount: number;
   onChangeTab: (tab: "OT" | "NT") => void;
+  colors: any;
 }
 
 const TestamentTabs: React.FC<Props> = ({
@@ -16,6 +17,7 @@ const TestamentTabs: React.FC<Props> = ({
   otCount,
   ntCount,
   onChangeTab,
+  colors,
 }) => {
   return (
     <View style={styles.tabWrap}>
@@ -52,7 +54,7 @@ const TestamentTabs: React.FC<Props> = ({
             <Text
               style={[
                 styles.tabLabel,
-                { color: isActive ? "#fff" : "rgba(255,255,255,0.45)" },
+                { color: isActive ? "#fff" : (colors.mode === "light" ? "rgba(0,0,0,0.4)" : "rgba(255,255,255,0.45)") },
               ]}
             >
               {label}
@@ -61,7 +63,7 @@ const TestamentTabs: React.FC<Props> = ({
             <Text
               style={[
                 styles.tabSubLabel,
-                { color: isActive ? "rgba(255,255,255,0.75)" : "rgba(255,255,255,0.25)" },
+                { color: isActive ? "rgba(255,255,255,0.85)" : (colors.mode === "light" ? "rgba(0,0,0,0.25)" : "rgba(255,255,255,0.25)") },
               ]}
             >
               {count} boky

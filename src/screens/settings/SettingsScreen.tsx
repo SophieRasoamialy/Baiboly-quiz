@@ -55,7 +55,7 @@ const SettingsScreen = () => {
   };
 
   const handleShare = () => {
-    Alert.alert("Share", "Ampidiro eto ny logique de partage.");
+    //Alert.alert("Share", "Ampidiro eto ny logique de partage.");
   };
 
   return (
@@ -89,7 +89,7 @@ const SettingsScreen = () => {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.content}
         >
-          <SettingsSection title="Language" styles={styles}>
+          <SettingsSection title="Fiteny" styles={styles}>
             <LanguageSelector
               styles={styles}
               colors={colors}
@@ -98,7 +98,7 @@ const SettingsScreen = () => {
             />
           </SettingsSection>
 
-          <SettingsSection title="Appearance" styles={styles}>
+          <SettingsSection title="Endrika" styles={styles}>
             <ThemeSelector
               styles={styles}
               colors={colors}
@@ -107,7 +107,7 @@ const SettingsScreen = () => {
             />
           </SettingsSection>
 
-          <SettingsSection title="Shop" styles={styles}>
+          <SettingsSection title="Varotra" styles={styles}>
             <ShopCard
               styles={styles}
               colors={colors}
@@ -118,7 +118,7 @@ const SettingsScreen = () => {
             />
           </SettingsSection>
 
-          <SettingsSection title="Preferences" styles={styles}>
+          <SettingsSection title="Safidy" styles={styles}>
             <PreferencesCard
               styles={styles}
               colors={colors}

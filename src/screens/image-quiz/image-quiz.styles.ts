@@ -119,8 +119,11 @@ export const createImageQuizStyles = (colors: any) =>
 
     imageContainer: {
       width: "100%",
-      height: 200,
+      height: 250,
       position: "relative",
+      backgroundColor: colors.background,
+      borderRadius: 16,
+      overflow: "hidden",
     },
 
     quizImage: {

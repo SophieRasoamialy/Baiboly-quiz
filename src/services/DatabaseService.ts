@@ -12,7 +12,7 @@ export interface UserDBState {
   medals: string; // Stored as comma-separated string
   avatar: string;
   language: string;
-  theme: string;
+  points: number;
   lastHeartRefill: number;
 }
 
@@ -37,6 +37,7 @@ class DatabaseService {
         avatar TEXT DEFAULT 'default',
         language TEXT DEFAULT 'mg',
         theme TEXT DEFAULT 'light',
+        points INTEGER DEFAULT 0,
         lastHeartRefill INTEGER
       );
 
@@ -55,7 +56,7 @@ class DatabaseService {
     );
     if (result && result.count === 0) {
       await this.db.runAsync(
-        'INSERT INTO user_state (id, gems, hearts, medals, avatar, language, theme, lastHeartRefill) VALUES (1, 100, 5, "bronze", "default", "mg", "light", ?)',
+        'INSERT INTO user_state (id, gems, hearts, medals, avatar, language, theme, points, lastHeartRefill) VALUES (1, 100, 5, "bronze", "default", "mg", "light", 0, ?)',
         [Date.now()],
       );
     }

@@ -51,6 +51,7 @@ export const createSettingsStyles = (colors: any) =>
       fontWeight: "900",
       color: colors.text,
       letterSpacing: -0.4,
+      marginLeft: 10,
     },
 
     headerSubtitle: {

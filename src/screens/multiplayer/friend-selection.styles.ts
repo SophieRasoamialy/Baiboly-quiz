@@ -42,27 +42,18 @@ export const createFriendSelectionStyles = (colors: any) =>
     header: {
       flexDirection: "row",
       alignItems: "center",
-      justifyContent: "space-between",
       paddingHorizontal: 20,
       paddingVertical: 15,
     },
 
-    backBtn: {
-      width: 40,
-      height: 40,
-      borderRadius: 12,
-      backgroundColor: colors.surfaceSoft,
-      borderWidth: 1,
-      borderColor: colors.border,
-      justifyContent: "center",
-      alignItems: "center",
-    },
+
 
     headerTitle: {
       color: colors.text,
       fontSize: 20,
       fontWeight: "900",
       letterSpacing: -0.5,
+      marginLeft: 10,
     },
 
     content: {

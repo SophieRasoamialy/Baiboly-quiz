@@ -27,7 +27,7 @@ interface Props {
 }
 
 const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
-  const { mode, friendName, gameType = "duo" } = route.params;
+  const { mode, friendName, gameType = "duo", quizType = "standard" } = route.params;
   const [status, setStatus] = useState("searching"); // searching, found
   const [opponent, setOpponent] = useState<any>(null);
   
@@ -57,7 +57,8 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
         if (gameType === "team") {
           navigation.replace("TeamQuiz");
         } else {
-          navigation.replace("OnlineQuiz", { opponent: selectedOpponent });
+          const destination = quizType === "image" ? "OnlineImageQuiz" : "OnlineQuiz";
+          navigation.replace(destination as any, { opponent: selectedOpponent });
         }
       }, 3000);
     }, searchTime);
