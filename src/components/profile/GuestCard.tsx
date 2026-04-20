@@ -14,7 +14,7 @@ const GuestCard: React.FC<Props> = ({ styles, colors, onPressAuth }) => {
     <View style={styles.guestCard}>
       <View style={styles.giftBanner}>
         <LinearGradient
-          colors={["#FFB300", "#F9A825", "#FF8F00"]}
+          colors={[colors.secondary, colors.mode === "light" ? "#FBBF24" : "#B45309"]}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={styles.giftBannerContent}
@@ -41,7 +41,7 @@ const GuestCard: React.FC<Props> = ({ styles, colors, onPressAuth }) => {
                 marginTop: 2,
               }}
             >
-              Mamorona kaonty hahazoana
+              Mamorona kaonty mba hahazoana
             </Text>
           </View>
         </LinearGradient>
@@ -55,7 +55,7 @@ const GuestCard: React.FC<Props> = ({ styles, colors, onPressAuth }) => {
 
       <TouchableOpacity activeOpacity={0.88} onPress={onPressAuth} style={styles.primaryCta}>
         <LinearGradient
-          colors={["#00E5CC", "#00B894", "#00695C"]}
+          colors={[colors.primary, colors.mode === "light" ? "#34D399" : "#065F46"]}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={styles.primaryCtaInner}

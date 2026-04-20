@@ -217,6 +217,7 @@ const BibleScreen: React.FC<Props> = ({ navigation, route }) => {
           <View style={{ flex: 1 }}>
             <SearchScopeList
               styles={styles}
+              colors={colors}
               searchScope={searchScope}
               onChangeScope={setSearchScope}
               bibleData={bibleData}
@@ -274,6 +275,7 @@ const BibleScreen: React.FC<Props> = ({ navigation, route }) => {
             renderItem={({ item, index }) => (
               <BookCard
                 styles={styles}
+                colors={colors}
                 item={item}
                 index={index}
                 isOT={activeTab === "OT"}

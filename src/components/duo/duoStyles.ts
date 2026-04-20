@@ -18,7 +18,8 @@ export const createDuoStyles = (colors: any) =>
       width: 220,
       height: 220,
       borderRadius: 110,
-      backgroundColor: "rgba(0,184,148,0.08)",
+      backgroundColor: colors.primarySoft,
+      opacity: colors.mode === "light" ? 0.35 : 0.08,
     },
 
     glowRight: {
@@ -28,14 +29,15 @@ export const createDuoStyles = (colors: any) =>
       width: 180,
       height: 180,
       borderRadius: 90,
-      backgroundColor: "rgba(249,168,37,0.06)",
+      backgroundColor: colors.secondarySoft,
+      opacity: colors.mode === "light" ? 0.3 : 0.06,
     },
 
     playerSide: {
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      padding: 20,
+      padding: 12,
     },
 
     inverted: {
@@ -71,23 +73,29 @@ export const createDuoStyles = (colors: any) =>
 
     optionsContainer: {
       width: "100%",
-      gap: 12,
+      flexDirection: "row",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      gap: 8,
     },
 
     optionBtn: {
       backgroundColor: colors.card,
-      padding: 18,
+      paddingVertical: 12,
+      paddingHorizontal: 16,
       borderRadius: 16,
       borderWidth: 1,
       borderColor: colors.border,
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "center",
+      minWidth: "45%",
+      flexGrow: 1,
     },
 
     optionText: {
       color: colors.text,
-      fontSize: 16,
+      fontSize: 14,
       fontWeight: "700",
       textAlign: "center",
     },
@@ -114,7 +122,40 @@ export const createDuoStyles = (colors: any) =>
     score: {
       color: colors.text,
       fontWeight: "900",
+      fontSize: 14,
+    },
+
+    playerHeader: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginBottom: 10,
+      gap: 8,
+    },
+
+    playerAvatarSmall: {
+      width: 32,
+      height: 32,
+      borderRadius: 16,
+      backgroundColor: colors.surfaceSoft,
+      borderWidth: 1,
+      borderColor: colors.border,
+      overflow: "hidden",
+    },
+
+    playerName: {
+      color: colors.text,
       fontSize: 16,
+      fontWeight: "900",
+      textTransform: "capitalize",
+    },
+
+    scorePillInline: {
+      backgroundColor: colors.primary + "20",
+      paddingHorizontal: 10,
+      paddingVertical: 4,
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: colors.primary + "40",
     },
 
     questionCard: {
@@ -136,17 +177,29 @@ export const createDuoStyles = (colors: any) =>
       color: colors.text,
       textAlign: "center",
       fontWeight: "800",
-      fontSize: 18,
-      lineHeight: 26,
+      fontSize: 15,
+      lineHeight: 22,
     },
 
     counter: {
       color: colors.secondary,
-      fontSize: 12,
+      fontSize: 10,
       fontWeight: "900",
       letterSpacing: 2,
       textTransform: "uppercase",
-      marginBottom: 12,
+      marginBottom: 6,
+    },
+
+    inSideQuestionContainer: {
+      width: "100%",
+      paddingHorizontal: 12,
+      paddingVertical: 10,
+      marginBottom: 10,
+      backgroundColor: colors.card,
+      borderRadius: 16,
+      borderWidth: 1,
+      borderColor: colors.border,
+      alignItems: "center",
     },
 
     gameOver: {
@@ -162,6 +215,15 @@ export const createDuoStyles = (colors: any) =>
       color: colors.text,
       fontWeight: "900",
       marginBottom: 10,
+    },
+
+    winnerName: {
+      fontSize: 24,
+      color: colors.primary,
+      fontWeight: "900",
+      textAlign: "center",
+      marginTop: 20,
+      textTransform: "capitalize",
     },
 
     finalScore: {

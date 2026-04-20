@@ -4,6 +4,7 @@ import { Book } from "../../constants/bible";
 
 interface Props {
   styles: any;
+  colors: any;
   searchScope: string;
   onChangeScope: (scope: string) => void;
   bibleData: Book[];
@@ -11,6 +12,7 @@ interface Props {
 
 const SearchScopeList: React.FC<Props> = ({
   styles,
+  colors,
   searchScope,
   onChangeScope,
   bibleData,
@@ -39,10 +41,10 @@ const SearchScopeList: React.FC<Props> = ({
                 styles.searchScopeChip,
                 {
                   backgroundColor: isActive
-                    ? "rgba(0,229,204,0.2)"
+                    ? colors.primarySoft
                     : "rgba(255,255,255,0.05)",
                   borderColor: isActive
-                    ? "rgba(0,229,204,0.5)"
+                    ? colors.primary
                     : "rgba(255,255,255,0.1)",
                 },
               ]}
@@ -51,7 +53,7 @@ const SearchScopeList: React.FC<Props> = ({
                 style={[
                   styles.searchScopeChipText,
                   {
-                    color: isActive ? "#00E5CC" : "rgba(255,255,255,0.6)",
+            color: isActive ? colors.primary : "rgba(255,255,255,0.6)",
                     fontWeight: isActive ? "800" : "600",
                   },
                 ]}

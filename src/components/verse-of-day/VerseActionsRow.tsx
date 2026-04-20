@@ -27,7 +27,7 @@ const VerseActionsRow: React.FC<Props> = ({
 
       <VerseActionButton
         styles={styles}
-        colors={["#00E5CC", "#00B894"]}
+        colors={["#34D399", "#10B981"]}
         icon="share-variant"
         label="Hizara"
         onPress={onShareText}
@@ -35,7 +35,7 @@ const VerseActionsRow: React.FC<Props> = ({
 
       <VerseActionButton
         styles={styles}
-        colors={["#F9A825", "#E65100"]}
+        colors={["#FBBF24", "#F59E0B"]}
         icon="content-copy"
         label="Adika"
         onPress={onCopy}

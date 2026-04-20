@@ -11,6 +11,7 @@ interface GameModeCardProps {
   gradientColors: string[];
   onPress: () => void;
   isNew?: boolean;
+  isLocked?: boolean;
   styles: any;
   colors: any;
 }
@@ -22,11 +23,16 @@ export const GameModeCard: React.FC<GameModeCardProps> = ({
   iconColor,
   onPress,
   isNew,
+  isLocked,
   styles,
   colors,
 }) => {
   return (
-    <TouchableOpacity onPress={onPress} activeOpacity={0.8} style={styles.gameCard}>
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={0.8}
+      style={[styles.gameCard, isLocked && { opacity: 0.7 }]}
+    >
       <LinearGradient
         colors={[colors.card, colors.surfaceSoft]}
         start={{ x: 0, y: 0 }}
@@ -38,7 +44,12 @@ export const GameModeCard: React.FC<GameModeCardProps> = ({
         </View>
 
         <View style={styles.gameInfo}>
-          <Text style={styles.gameTitle}>{title}</Text>
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+            <Text style={styles.gameTitle}>{title}</Text>
+            {isLocked && (
+              <MaterialCommunityIcons name="lock" size={14} color={colors.textMuted} />
+            )}
+          </View>
           <Text style={styles.gameDesc}>{description}</Text>
         </View>
 
@@ -49,8 +60,8 @@ export const GameModeCard: React.FC<GameModeCardProps> = ({
         )}
 
         <MaterialCommunityIcons
-          name="chevron-right"
-          size={20}
+          name={isLocked ? "lock-outline" : "chevron-right"}
+          size={isLocked ? 18 : 20}
           color={colors.textMuted}
         />
       </LinearGradient>

@@ -18,6 +18,7 @@ export interface UserState {
   city: string | null;
   isLoggedIn: boolean;
   isLoading: boolean;
+  friends: any[];
 }
 
 export interface UserActions {
@@ -37,6 +38,9 @@ export interface UserActions {
 
   login: (name: string, church: string, city: string) => void;
   logout: () => void;
+
+  addFriend: (friend: any) => Promise<void>;
+  removeFriend: (id: string) => Promise<void>;
 }
 
 export type UserContextType = UserState & UserActions;

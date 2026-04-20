@@ -35,8 +35,8 @@ const TestamentTabs: React.FC<Props> = ({
               <LinearGradient
                 colors={
                   tab === "OT"
-                    ? ["#FFB300", "#E65100"]
-                    : ["#00E5CC", "#00695C"]
+                    ? ["#FBBF24", "#F59E0B"]
+                    : ["#34D399", "#10B981"]
                 }
                 style={{
                   position: "absolute",

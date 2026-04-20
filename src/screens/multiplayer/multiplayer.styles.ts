@@ -20,7 +20,8 @@ export const createMultiplayerStyles = (colors: any) =>
       width: 220,
       height: 220,
       borderRadius: 110,
-      backgroundColor: "rgba(0,184,148,0.08)",
+      backgroundColor: colors.primarySoft,
+      opacity: colors.mode === "light" ? 0.35 : 0.08,
     },
 
     glowRight: {
@@ -30,7 +31,8 @@ export const createMultiplayerStyles = (colors: any) =>
       width: 180,
       height: 180,
       borderRadius: 90,
-      backgroundColor: "rgba(249,168,37,0.06)",
+      backgroundColor: colors.secondarySoft,
+      opacity: colors.mode === "light" ? 0.3 : 0.06,
     },
 
     safeArea: {
@@ -189,6 +191,22 @@ export const createMultiplayerStyles = (colors: any) =>
       fontSize: 22,
       fontWeight: "900",
       letterSpacing: -0.5,
+    },
+
+    loginBtn: {
+      backgroundColor: colors.primary,
+      paddingHorizontal: 16,
+      paddingVertical: 8,
+      borderRadius: 12,
+      marginTop: 10,
+      alignSelf: "flex-start",
+    },
+
+    loginBtnText: {
+      color: "#052e16",
+      fontSize: 12,
+      fontWeight: "900",
+      letterSpacing: 0.2,
     },
 
     sectionTitle: {

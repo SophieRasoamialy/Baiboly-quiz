@@ -13,6 +13,7 @@ import { RootStackParamList } from "../../navigation";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
+import { useUser } from "../../context/user";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { MOCK_USERS } from "../../constants/friends";
 import { FriendItem } from "../../components/friend-search/FriendItem";
@@ -29,13 +30,16 @@ type FriendSearchScreenNavigationProp = StackNavigationProp<
 
 interface Props {
   navigation: FriendSearchScreenNavigationProp;
+  route: any;
 }
 
-const FriendSearchScreen: React.FC<Props> = ({ navigation }) => {
+const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
+  const { gameType = "duo" } = route.params || {};
+  const { friends, addFriend } = useUser();
+  const { colors, isLight } = useAppTheme();
   const [search, setSearch] = useState("");
   const [results, setResults] = useState<any[]>([]);
-  
-  const { colors, isLight } = useAppTheme();
+
   const styles = createFriendSearchStyles(colors);
 
   const handleSearch = (text: string) => {
@@ -55,6 +59,10 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation }) => {
       mode: "invite",
       friendName: friend.name,
     } as any);
+  };
+
+  const handleAddFriend = (friend: any) => {
+    addFriend(friend);
   };
 
   const gemsConfig = [
@@ -149,7 +157,14 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation }) => {
           <FlatList
             data={search.length > 0 ? results : []}
             renderItem={({ item }) => (
-              <FriendItem item={item} onInvite={inviteFriend} styles={styles} colors={colors} />
+              <FriendItem 
+                item={item} 
+                onInvite={inviteFriend}
+                onAddFriend={handleAddFriend}
+                isFriend={friends.some(f => f.id === item.id)}
+                styles={styles} 
+                colors={colors} 
+              />
             )}
             keyExtractor={(item) => item.id}
             contentContainerStyle={styles.listContent}

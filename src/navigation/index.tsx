@@ -11,6 +11,8 @@ import BibleScreen from "../screens/bible/BibleScreen";
 import VerseOfDayScreen from "../screens/verse-of-day/VerseOfDayScreen";
 import AuthScreen from "../screens/auth/AuthScreen";
 import DuoQuizScreen from "../screens/duo/DuoQuizScreen";
+import DuoSetupScreen from "../screens/duo/DuoSetupScreen";
+import FriendSelectionScreen from "../screens/multiplayer/FriendSelectionScreen";
 import MatchmakingScreen from "../screens/matchmaking/MatchmakingScreen";
 import FriendSearchScreen from "../screens/friend-search/FriendSearchScreen";
 import OnlineQuizScreen from "../screens/online-quiz/OnlineQuizScreen";
@@ -31,9 +33,11 @@ export type RootStackParamList = {
     | undefined;
   VerseOfDay: undefined;
   Auth: undefined;
-  DuoQuiz: undefined;
-  Matchmaking: { mode: "random" | "invite"; friendName?: string };
-  FriendSearch: undefined;
+  DuoQuiz: { p1: any; p2: any };
+  DuoSetup: undefined;
+  FriendSelection: { gameType: "duo" | "team" } | undefined;
+  Matchmaking: { mode: "random" | "invite"; friendName?: string; gameType?: "duo" | "team" };
+  FriendSearch: { gameType?: "duo" | "team" } | undefined;
   OnlineQuiz: { opponent: any };
   TeamQuiz: undefined;
   ImageQuiz: undefined;
@@ -63,6 +67,8 @@ const AppNavigator = () => {
       <Stack.Screen name="VerseOfDay" component={VerseOfDayScreen} />
       <Stack.Screen name="Auth" component={AuthScreen} />
       <Stack.Screen name="DuoQuiz" component={DuoQuizScreen} />
+      <Stack.Screen name="DuoSetup" component={DuoSetupScreen} />
+      <Stack.Screen name="FriendSelection" component={FriendSelectionScreen} />
       <Stack.Screen name="Matchmaking" component={MatchmakingScreen} />
       <Stack.Screen name="FriendSearch" component={FriendSearchScreen} />
       <Stack.Screen name="OnlineQuiz" component={OnlineQuizScreen} />

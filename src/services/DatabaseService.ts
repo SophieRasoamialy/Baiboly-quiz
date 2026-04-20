@@ -39,6 +39,14 @@ class DatabaseService {
         theme TEXT DEFAULT 'light',
         lastHeartRefill INTEGER
       );
+
+      CREATE TABLE IF NOT EXISTS friends (
+        id TEXT PRIMARY KEY NOT NULL,
+        name TEXT NOT NULL,
+        avatar TEXT,
+        church TEXT,
+        city TEXT
+      );
     `);
 
     // Ensure we have at least one row
@@ -76,8 +84,29 @@ class DatabaseService {
   async resetDatabase() {
     if (!this.db) await this.init();
     await this.db!.execAsync("DROP TABLE IF EXISTS user_state");
+    await this.db!.execAsync("DROP TABLE IF EXISTS friends");
     this.db = null;
     await this.init();
+  }
+
+  // Friend Management
+  async getFriends(): Promise<any[]> {
+    if (!this.db) await this.init();
+    return await this.db!.getAllAsync<any>("SELECT * FROM friends");
+  }
+
+  async addFriend(friend: any) {
+    if (!this.db) await this.init();
+    const { id, name, avatar, church, city } = friend;
+    await this.db!.runAsync(
+      "INSERT OR REPLACE INTO friends (id, name, avatar, church, city) VALUES (?, ?, ?, ?, ?)",
+      [id, name, avatar || null, church || null, city || null],
+    );
+  }
+
+  async removeFriend(id: string) {
+    if (!this.db) await this.init();
+    await this.db!.runAsync("DELETE FROM friends WHERE id = ?", [id]);
   }
 }
 

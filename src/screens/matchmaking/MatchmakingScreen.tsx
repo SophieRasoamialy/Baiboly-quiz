@@ -27,7 +27,7 @@ interface Props {
 }
 
 const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
-  const { mode, friendName } = route.params;
+  const { mode, friendName, gameType = "duo" } = route.params;
   const [status, setStatus] = useState("searching"); // searching, found
   const [opponent, setOpponent] = useState<any>(null);
   
@@ -35,7 +35,7 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
   const styles = createMatchmakingStyles(colors);
 
   useEffect(() => {
-    const searchTime = mode === "invite" ? 4000 : 3000 + Math.random() * 3000;
+    const searchTime = mode === "invite" ? 2000 : 2000 + Math.random() * 2000;
 
     const timer = setTimeout(() => {
       let selectedOpponent;
@@ -54,7 +54,11 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
       setStatus("found");
 
       setTimeout(() => {
-        navigation.replace("OnlineQuiz", { opponent: selectedOpponent });
+        if (gameType === "team") {
+          navigation.replace("TeamQuiz");
+        } else {
+          navigation.replace("OnlineQuiz", { opponent: selectedOpponent });
+        }
       }, 3000);
     }, searchTime);
 

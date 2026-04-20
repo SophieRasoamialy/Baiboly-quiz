@@ -1,5 +1,5 @@
 import React from "react";
-import { Animated, Image, Text, View } from "react-native";
+import { Animated, Image, Text, TouchableOpacity, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AVATAR_MAP } from "../../constants/avatar";
@@ -13,6 +13,7 @@ interface Props {
   username?: string | null;
   churchName?: string | null;
   city?: string | null;
+  onEdit?: () => void;
 }
 
 const ProfileHero: React.FC<Props> = ({
@@ -24,6 +25,7 @@ const ProfileHero: React.FC<Props> = ({
   username,
   churchName,
   city,
+  onEdit,
 }) => {
   const ringScale = pulseAnim.interpolate({
     inputRange: [0, 1],
@@ -37,37 +39,46 @@ const ProfileHero: React.FC<Props> = ({
 
   return (
     <View style={styles.heroWrap}>
-      <View style={{ alignItems: "center", justifyContent: "center" }}>
-        <Animated.View
-          style={[
-            styles.avatarOuterRing,
-            {
-              opacity: ringOpacity,
-              transform: [{ scale: ringScale }],
-              shadowColor: colors.secondary,
-              shadowOffset: { width: 0, height: 0 },
-              shadowOpacity: 0.6,
-              shadowRadius: 16,
-            },
-          ]}
-        />
-
-        <LinearGradient
-          colors={[colors.secondary, "#00897B", "#004D40"]}
-          style={styles.avatarGradientWrap}
-        >
-          <View style={styles.avatarInnerWrap}>
-            <Image
-              source={AVATAR_MAP[avatar] || AVATAR_MAP.abraham}
-              style={{ width: "100%", height: "100%", resizeMode: "cover" }}
-            />
-          </View>
-        </LinearGradient>
-      </View>
-
       {isLoggedIn && (
         <>
-          <Text style={styles.userName}>{username}</Text>
+          <View style={{ alignItems: "center", justifyContent: "center" }}>
+            <Animated.View
+              style={[
+                styles.avatarOuterRing,
+                {
+                  opacity: ringOpacity,
+                  transform: [{ scale: ringScale }],
+                  shadowColor: colors.primary,
+                  shadowOffset: { width: 0, height: 0 },
+                  shadowOpacity: 0.6,
+                  shadowRadius: 16,
+                },
+              ]}
+            />
+
+            <LinearGradient
+              colors={[colors.primary, "#065F46", "#022C22"]}
+              style={styles.avatarGradientWrap}
+            >
+              <View style={styles.avatarInnerWrap}>
+                <Image
+                  source={AVATAR_MAP[avatar] || AVATAR_MAP.abraham}
+                  style={{ width: "100%", height: "100%", resizeMode: "cover" }}
+                />
+              </View>
+            </LinearGradient>
+          </View>
+
+          <View style={styles.userNameRow}>
+            <Text style={styles.userName}>{username}</Text>
+            <TouchableOpacity onPress={onEdit} style={styles.editButton}>
+              <MaterialCommunityIcons
+                name="pencil-outline"
+                size={18}
+                color={colors.primary}
+              />
+            </TouchableOpacity>
+          </View>
 
           <View style={styles.chipsRow}>
             {churchName && (

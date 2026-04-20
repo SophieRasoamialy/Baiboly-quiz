@@ -31,13 +31,14 @@ interface Props {
 }
 
 const AuthScreen: React.FC<Props> = ({ navigation }) => {
-  const { login, setAvatar, addGems } = useUser();
+  const { login, setAvatar, addGems, username, churchName, city, isLoggedIn } =
+    useUser();
   const { colors, isLight } = useAppTheme();
   const styles = createAuthStyles(colors);
 
-  const [name, setName] = useState("");
-  const [church, setChurch] = useState("");
-  const [city, setCity] = useState("");
+  const [name, setName] = useState(username || "");
+  const [church, setChurch] = useState(churchName || "");
+  const [cityName, setCityName] = useState(city || "");
   const [selectedAvatar, setSelectedAvatar] = useState(AVATARS[0].id);
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -61,16 +62,23 @@ const AuthScreen: React.FC<Props> = ({ navigation }) => {
   const isFormValid =
     name.trim().length >= 3 &&
     church.trim().length > 0 &&
-    city.trim().length > 0;
+    cityName.trim().length > 0;
 
   const handleStart = () => {
     if (!isFormValid) return;
 
-    setAvatar(selectedAvatar);
-    login(name.trim(), church.trim(), city.trim());
-    addGems(50);
+    if (!isLoggedIn) {
+      setAvatar(selectedAvatar);
+      addGems(50);
+    }
+    
+    login(name.trim(), church.trim(), cityName.trim());
 
-    navigation.replace("Home");
+    if (isLoggedIn) {
+      navigation.goBack();
+    } else {
+      navigation.replace("Home");
+    }
   };
 
   return (
@@ -108,8 +116,12 @@ const AuthScreen: React.FC<Props> = ({ navigation }) => {
                 transform: [{ translateY: slideAnim }],
               }}
             >
-              <AuthHeader styles={styles} colors={colors} />
-              <AuthRewardCard styles={styles} colors={colors} />
+              <AuthHeader
+                styles={styles}
+                colors={colors}
+                isEditing={isLoggedIn}
+              />
+              {!isLoggedIn && <AuthRewardCard styles={styles} colors={colors} />}
             </Animated.View>
 
             <Animated.View
@@ -144,22 +156,25 @@ const AuthScreen: React.FC<Props> = ({ navigation }) => {
                   label="Tanàna"
                   icon="city-variant-outline"
                   placeholder="Ny tanàna misy anao"
-                  value={city}
-                  onChangeText={setCity}
+                  value={cityName}
+                  onChangeText={setCityName}
                   maxLength={25}
                 />
 
-                <AuthAvatarPicker
-                  styles={styles}
-                  colors={colors}
-                  selectedAvatar={selectedAvatar}
-                  onSelectAvatar={setSelectedAvatar}
-                />
+                {!isLoggedIn && (
+                  <AuthAvatarPicker
+                    styles={styles}
+                    colors={colors}
+                    selectedAvatar={selectedAvatar}
+                    onSelectAvatar={setSelectedAvatar}
+                  />
+                )}
 
                 <AuthSubmitButton
                   styles={styles}
                   colors={colors}
                   disabled={!isFormValid}
+                  label={isLoggedIn ? "HANAVAO PROFIL" : "HANOMBOKA"}
                   onPress={handleStart}
                 />
               </View>

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { View, Text, TouchableOpacity, Animated, ScrollView, Dimensions } from "react-native";
+import { View, Text, TouchableOpacity, Animated, ScrollView, Dimensions, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation";
@@ -47,9 +47,20 @@ const MultiplayerScreen: React.FC<Props> = ({ navigation }) => {
     { x: width * 0.45, size: 22, delay: 3000, duration: 10000, opacity: 0.45 },
   ];
 
-  if (!isLoggedIn) {
-    return <MultiplayerGuestPrompt onNavigateToAuth={() => navigation.navigate("Auth")} />;
-  }
+  const handleOnlineMode = (navFn: () => void) => {
+    if (!isLoggedIn) {
+      Alert.alert(
+        "Mila Kaonty",
+        "Mila misoratra anarana ianao raha te hilalao amin'ny namana an-tserasera na hifaninana amin'ny mpilalao hafa.",
+        [
+          { text: "Aoka ihany", style: "cancel" },
+          { text: "Hiditra", onPress: () => navigation.navigate("Auth") },
+        ]
+      );
+      return;
+    }
+    navFn();
+  };
 
   return (
     <View style={styles.container}>
@@ -98,51 +109,30 @@ const MultiplayerScreen: React.FC<Props> = ({ navigation }) => {
             city={city}
             styles={styles}
             colors={colors}
+            onLoginPress={() => navigation.navigate("Auth")}
           />
 
           <Text style={styles.sectionTitle}>Lalao Afaka Atao</Text>
 
           <GameModeCard
-            title="Duo Quiz"
+            title="Duo Quiz (Local)"
             description="Milalao amin'ny namana amin'ny finday iray ihany (Split Screen)."
             icon="sword-cross"
             iconColor={colors.secondary}
             gradientColors={[colors.secondarySoft, colors.secondarySoft]}
-            onPress={() => navigation.navigate("DuoQuiz")}
+            onPress={() => navigation.navigate("DuoSetup")}
             styles={styles}
             colors={colors}
           />
 
           <GameModeCard
-            title="Lalao Vetivety"
-            description="Hifanandrina amin'ny mpilalao hafa kisendrasendra (Matchmaking)."
-            icon="lightning-bolt"
+            title="Duo Quiz (Online)"
+            description="Lalao an-tserasera (Matchmaking na fanasana namana)."
+            icon="earth"
             iconColor={colors.primary}
             gradientColors={[colors.primarySoft, colors.primarySoft]}
-            onPress={() => navigation.navigate("Matchmaking", { mode: "random" } as any)}
-            styles={styles}
-            colors={colors}
-          />
-
-          <GameModeCard
-            title="Mikaroka Namana"
-            description="Asao ny namanao hilalao (Search by username)."
-            icon="account-search-outline"
-            iconColor="#40C4FF"
-            gradientColors={["rgba(64,196,255,0.1)", "rgba(0,176,255,0.05)"]}
-            onPress={() => navigation.navigate("FriendSearch")}
-            styles={styles}
-            colors={colors}
-          />
-
-          <GameModeCard
-            title="Teny Telo (2 vs 2)"
-            description="Milalao ekipa: Manazava teny amin'ny alalan'ny teny 3 monja."
-            icon="account-group"
-            iconColor="#AB47BC"
-            gradientColors={["rgba(171,71,188,0.1)", "rgba(123,31,162,0.05)"]}
-            onPress={() => navigation.navigate("TeamQuiz")}
-            isNew={true}
+            onPress={() => handleOnlineMode(() => navigation.navigate("FriendSelection", { gameType: "duo" }))}
+            isLocked={!isLoggedIn}
             styles={styles}
             colors={colors}
           />

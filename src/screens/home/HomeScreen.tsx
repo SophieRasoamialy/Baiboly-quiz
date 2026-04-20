@@ -112,7 +112,24 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
             styles={styles}
             colors={colors}
             isLight={isLight}
-            onPressItem={(route) => navigation.navigate(route as never)}
+            onPressItem={(route) => {
+              if (route === "TeamQuiz") {
+                if (!isLoggedIn) {
+                  Alert.alert(
+                    "Mila Kaonty",
+                    "Mila misoratra anarana ianao raha te hilalao amin'ny namana an-tserasera.",
+                    [
+                      { text: "Aoka ihany", style: "cancel" },
+                      { text: "Hiditra", onPress: () => navigation.navigate("Auth") },
+                    ]
+                  );
+                  return;
+                }
+                navigation.navigate("FriendSelection", { gameType: "team" });
+                return;
+              }
+              navigation.navigate(route as never);
+            }}
           />
         </ScrollView>
       </SafeAreaView>

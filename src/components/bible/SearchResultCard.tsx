@@ -24,9 +24,9 @@ const SearchResultCard: React.FC<Props> = ({
         <Text
           key={index}
           style={{
-            color: "#00E5CC",
+            color: "#10B981",
             fontWeight: "900",
-            backgroundColor: "rgba(0,229,204,0.15)",
+            backgroundColor: "rgba(16,185,129,0.15)",
           }}
         >
           {part}

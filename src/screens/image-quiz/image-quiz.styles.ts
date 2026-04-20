@@ -22,7 +22,8 @@ export const createImageQuizStyles = (colors: any) =>
       width: 220,
       height: 220,
       borderRadius: 110,
-      backgroundColor: "rgba(0,184,148,0.08)",
+      backgroundColor: colors.primarySoft,
+      opacity: colors.mode === "light" ? 0.35 : 0.08,
     },
 
     glowRight: {
@@ -32,7 +33,8 @@ export const createImageQuizStyles = (colors: any) =>
       width: 180,
       height: 180,
       borderRadius: 90,
-      backgroundColor: "rgba(249,168,37,0.06)",
+      backgroundColor: colors.secondarySoft,
+      opacity: colors.mode === "light" ? 0.3 : 0.06,
     },
 
     safeArea: {

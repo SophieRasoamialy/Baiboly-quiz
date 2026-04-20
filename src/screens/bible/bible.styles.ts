@@ -26,7 +26,8 @@ export const createBibleStyles = (colors: any) =>
       width: 280,
       height: 280,
       borderRadius: 140,
-      backgroundColor: "rgba(0,184,148,0.08)",
+      backgroundColor: colors.primarySoft,
+      opacity: colors.mode === "light" ? 0.35 : 0.08,
     },
 
     topGlowRight: {
@@ -36,7 +37,8 @@ export const createBibleStyles = (colors: any) =>
       width: 220,
       height: 220,
       borderRadius: 110,
-      backgroundColor: "rgba(249,168,37,0.05)",
+      backgroundColor: colors.secondarySoft,
+      opacity: colors.mode === "light" ? 0.3 : 0.05,
     },
 
     headerWrap: {

@@ -5,9 +5,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 interface Props {
   styles: any;
   colors: any;
+  isEditing?: boolean;
 }
 
-const AuthHeader: React.FC<Props> = ({ styles, colors }) => {
+const AuthHeader: React.FC<Props> = ({ styles, colors, isEditing }) => {
   return (
     <View style={styles.header}>
       <View
@@ -20,15 +21,19 @@ const AuthHeader: React.FC<Props> = ({ styles, colors }) => {
         ]}
       >
         <MaterialCommunityIcons
-          name="account-plus-outline"
+          name={isEditing ? "account-edit-outline" : "account-plus-outline"}
           size={42}
           color={colors.secondary}
         />
       </View>
 
-      <Text style={styles.title}>Hamorona Kaonty</Text>
+      <Text style={styles.title}>
+        {isEditing ? "Amboary ny Profil" : "Hamorona Kaonty"}
+      </Text>
       <Text style={styles.subtitle}>
-        Fenoy ireto manaraka ireto mba hahafahanao milalao miaraka amin&apos;ny namana.
+        {isEditing
+          ? "Azonao ovaina eto ny mombamomba anao raha misy diso na tianao hovana."
+          : "Fenoy ireto manaraka ireto mba hahafahanao milalao miaraka amin'ny namana."}
       </Text>
     </View>
   );

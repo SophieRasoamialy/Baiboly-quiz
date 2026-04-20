@@ -22,21 +22,39 @@ export const createSettingsStyles = (colors: any) =>
       gap: 18,
     },
 
+    headerRow: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginBottom: 16,
+    },
+
+    backButton: {
+      width: 42,
+      height: 42,
+      borderRadius: 14,
+      backgroundColor: colors.surfaceSoft,
+      justifyContent: "center",
+      alignItems: "center",
+      borderWidth: 1,
+      borderColor: colors.border,
+      marginRight: 14,
+    },
+
     header: {
       paddingHorizontal: 20,
-      paddingTop: 8,
-      paddingBottom: 10,
+      paddingTop: 12,
+      paddingBottom: 8,
     },
 
     headerTitle: {
-      fontSize: 28,
+      fontSize: 26,
       fontWeight: "900",
       color: colors.text,
-      letterSpacing: -0.6,
+      letterSpacing: -0.4,
     },
 
     headerSubtitle: {
-      marginTop: 6,
+      marginTop: 2,
       fontSize: 14,
       lineHeight: 20,
       color: colors.textSecondary,
@@ -276,7 +294,8 @@ export const createSettingsStyles = (colors: any) =>
       width: 170,
       height: 170,
       borderRadius: 85,
-      backgroundColor: "rgba(0,184,148,0.08)",
+      backgroundColor: colors.primarySoft,
+      opacity: colors.mode === "light" ? 0.35 : 0.08,
     },
 
     topGlowRight: {
@@ -286,6 +305,7 @@ export const createSettingsStyles = (colors: any) =>
       width: 150,
       height: 150,
       borderRadius: 75,
-      backgroundColor: "rgba(249,168,37,0.06)",
+      backgroundColor: colors.secondarySoft,
+      opacity: colors.mode === "light" ? 0.3 : 0.06,
     },
   });

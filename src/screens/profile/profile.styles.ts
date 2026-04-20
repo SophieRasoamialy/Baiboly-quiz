@@ -125,14 +125,32 @@ export const createProfileStyles = (colors: any) =>
       alignItems: "center",
     },
 
+    userNameRow: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 10,
+      marginTop: 16,
+      marginBottom: 8,
+    },
+
     userName: {
       color: colors.text,
       fontSize: 24,
       fontWeight: "900",
       letterSpacing: 0.3,
-      marginBottom: 8,
-      marginTop: 16,
       textAlign: "center",
+    },
+
+    editButton: {
+      width: 32,
+      height: 32,
+      borderRadius: 10,
+      backgroundColor: colors.surfaceSoft,
+      justifyContent: "center",
+      alignItems: "center",
+      borderWidth: 1,
+      borderColor: colors.border,
     },
 
     chipsRow: {

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { Animated, Share, StyleSheet, Text, View } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -113,11 +113,23 @@ const VerseOfDayScreen: React.FC<Props> = ({ navigation }) => {
     [displayedVerse, displayedCategory],
   );
 
-  const heroScale = scrollY.interpolate({
-    inputRange: [-150, 0],
-    outputRange: [1.05, 1],
-    extrapolate: "clamp",
-  });
+  const heroScale = useMemo(
+    () =>
+      scrollY.interpolate({
+        inputRange: [-150, 0],
+        outputRange: [1.05, 1],
+        extrapolate: "clamp",
+      }),
+    [scrollY],
+  );
+
+  const handleScroll = useMemo(
+    () =>
+      Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
+        useNativeDriver: true,
+      }),
+    [scrollY],
+  );
 
   return (
     <View style={styles.container}>
@@ -128,7 +140,7 @@ const VerseOfDayScreen: React.FC<Props> = ({ navigation }) => {
           colors={
             isLight
               ? [colors.background, colors.backgroundSecondary]
-              : ["#08070A", "#121225", "#08070A"]
+              : ["#022C22", "#064E3B", "#022C22"]
           }
           style={{ flex: 1 }}
         />
@@ -146,10 +158,7 @@ const VerseOfDayScreen: React.FC<Props> = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
           scrollEventThrottle={16}
           contentContainerStyle={styles.scrollContent}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-            { useNativeDriver: true },
-          )}
+          onScroll={handleScroll}
         >
           <VerseHeroCard
             styles={styles}

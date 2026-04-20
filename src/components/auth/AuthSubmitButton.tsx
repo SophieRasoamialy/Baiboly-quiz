@@ -8,6 +8,7 @@ interface Props {
   colors: any;
   disabled: boolean;
   onPress: () => void;
+  label?: string;
 }
 
 const AuthSubmitButton: React.FC<Props> = ({
@@ -15,6 +16,7 @@ const AuthSubmitButton: React.FC<Props> = ({
   colors,
   disabled,
   onPress,
+  label = "Hanomboka",
 }) => {
   return (
     <TouchableOpacity
@@ -30,13 +32,13 @@ const AuthSubmitButton: React.FC<Props> = ({
         colors={
           disabled
             ? ["rgba(255,255,255,0.10)", "rgba(255,255,255,0.10)"]
-            : [colors.secondary, "#00695C"]
+            : [colors.primary, "#065F46"]
         }
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={styles.submitButtonInner}
       >
-        <Text style={styles.submitButtonText}>Hanomboka</Text>
+        <Text style={styles.submitButtonText}>{label}</Text>
         <MaterialCommunityIcons name="arrow-right" size={20} color="#fff" />
       </LinearGradient>
     </TouchableOpacity>

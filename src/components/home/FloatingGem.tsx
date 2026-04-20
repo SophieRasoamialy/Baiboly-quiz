@@ -75,8 +75,8 @@ const FloatingGem: React.FC<GemProps> = ({
       <LinearGradient
         colors={
           isLight
-            ? ["#D1FAF1", "#7CEFD8", "#20C9A6", "#0E9F84"]
-            : ["#A7FFEB", "#00E5CC", "#00897B", "#004D40"]
+            ? ["#D1FAE5", "#6EE7B7", "#10B981", "#059669"]
+            : ["#10B981", "#059669", "#064E3B", "#022C22"]
         }
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}

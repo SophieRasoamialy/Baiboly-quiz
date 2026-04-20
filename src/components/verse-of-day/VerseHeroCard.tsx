@@ -35,7 +35,7 @@ const VerseHeroCard: React.FC<Props> = ({
       ]}
     >
       <LinearGradient
-        colors={["#2B1842", "#1A237E"]}
+        colors={[primaryColor, "#065F46", "#022C22"]}
         style={styles.heroGradient}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -44,7 +44,7 @@ const VerseHeroCard: React.FC<Props> = ({
           <MaterialCommunityIcons
             name="star-four-points"
             size={180}
-            color="rgba(255, 213, 79, 0.05)"
+            color="rgba(16, 185, 129, 0.08)"
             style={styles.heroTextureBg}
           />
         </View>

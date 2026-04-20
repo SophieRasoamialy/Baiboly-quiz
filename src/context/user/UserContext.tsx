@@ -44,6 +44,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const [churchName, setChurchName] = useState<string | null>(null);
   const [city, setCity] = useState<string | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [friends, setFriends] = useState<any[]>([]);
 
   const [lastHeartRefill, setLastHeartRefill] = useState<number>(Date.now());
   const [nextRefillIn, setNextRefillIn] = useState<number>(HEART_REFILL_SECONDS);
@@ -75,6 +76,9 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
           if (savedState.language) {
             i18n.locale = savedState.language;
           }
+
+          const savedFriends = await databaseService.getFriends();
+          setFriends(savedFriends || []);
         }
       } catch (error) {
         console.error("Failed to init SQLite", error);
@@ -238,6 +242,17 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     });
   };
 
+  const addFriend = async (friend: any) => {
+    if (friends.some((f) => f.id === friend.id)) return;
+    await databaseService.addFriend(friend);
+    setFriends((prev) => [...prev, friend]);
+  };
+
+  const removeFriend = async (id: string) => {
+    await databaseService.removeFriend(id);
+    setFriends((prev) => prev.filter((f) => f.id !== id));
+  };
+
   const colors = theme === "light" ? lightColors : darkColors;
 
   const value = useMemo<UserContextType>(
@@ -256,6 +271,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       city,
       isLoggedIn,
       isLoading,
+      friends,
 
       addGems,
       removeGems,
@@ -269,6 +285,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       toggleTheme,
       login,
       logout,
+      addFriend,
+      removeFriend,
     }),
     [
       gems,
@@ -285,6 +303,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       city,
       isLoggedIn,
       isLoading,
+      friends,
     ],
   );
 

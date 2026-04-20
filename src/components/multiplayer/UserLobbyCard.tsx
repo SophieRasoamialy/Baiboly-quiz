@@ -1,15 +1,16 @@
 import React from "react";
-import { Image, Text, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AVATAR_MAP } from "../../constants/avatar";
 
 interface UserLobbyCardProps {
   username: string | null;
   avatar: string | null;
-  churchName?: string;
-  city?: string;
+  churchName?: string | null;
+  city?: string | null;
   styles: any;
   colors: any;
+  onLoginPress?: () => void;
 }
 
 export const UserLobbyCard: React.FC<UserLobbyCardProps> = ({
@@ -19,6 +20,7 @@ export const UserLobbyCard: React.FC<UserLobbyCardProps> = ({
   city,
   styles,
   colors,
+  onLoginPress,
 }) => {
   return (
     <View style={styles.userCard}>
@@ -34,8 +36,16 @@ export const UserLobbyCard: React.FC<UserLobbyCardProps> = ({
       </View>
 
       <View style={{ flex: 1 }}>
-        <Text style={styles.welcomeText}>Efa vonona ve ianao?</Text>
+        <Text style={styles.welcomeText}>
+          {username ? "Efa vonona ve ianao?" : "Miarahaba anao!"}
+        </Text>
         <Text style={styles.usernameText}>{username || "Mpitsidika"}</Text>
+
+        {!username && onLoginPress && (
+          <TouchableOpacity onPress={onLoginPress} style={styles.loginBtn}>
+            <Text style={styles.loginBtnText}>MIDITRA</Text>
+          </TouchableOpacity>
+        )}
 
         {(churchName || city) && (
           <View style={styles.badgeRow}>

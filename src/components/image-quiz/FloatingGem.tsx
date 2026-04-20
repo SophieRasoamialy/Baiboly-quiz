@@ -69,7 +69,7 @@ export const FloatingGem: React.FC<FloatingGemProps> = ({
       }}
     >
       <LinearGradient
-        colors={["#A7FFEB", "#00E5CC", "#00897B", "#004D40"]}
+        colors={["#10B981", "#059669", "#064E3B", "#022C22"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={{
@@ -77,7 +77,7 @@ export const FloatingGem: React.FC<FloatingGemProps> = ({
           height: size,
           transform: [{ rotate: "45deg" }],
           borderRadius: size * 0.12,
-          shadowColor: "#00E5CC",
+          shadowColor: "#10B981",
           shadowOffset: { width: 0, height: 0 },
           shadowOpacity: 1,
           shadowRadius: size,

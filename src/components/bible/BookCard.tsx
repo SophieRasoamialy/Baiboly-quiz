@@ -5,13 +5,21 @@ import { Book } from "../../constants/bible";
 
 interface Props {
   styles: any;
+  colors: any;
   item: Book;
   index: number;
   isOT: boolean;
   onPress: () => void;
 }
 
-const BookCard: React.FC<Props> = ({ styles, item, index, isOT, onPress }) => {
+const BookCard: React.FC<Props> = ({
+  styles,
+  colors,
+  item,
+  index,
+  isOT,
+  onPress,
+}) => {
   const mountAnim = useRef(new Animated.Value(0)).current;
   const pressAnim = useRef(new Animated.Value(0)).current;
 
@@ -56,9 +64,9 @@ const BookCard: React.FC<Props> = ({ styles, item, index, isOT, onPress }) => {
     outputRange: [0, 1],
   });
 
-  const accentColor = isOT ? "#F9A825" : "#00E5CC";
-  const badgeBg = isOT ? "rgba(249,168,37,0.12)" : "rgba(0,229,204,0.12)";
-  const badgeBorder = isOT ? "rgba(249,168,37,0.25)" : "rgba(0,229,204,0.25)";
+  const accentColor = isOT ? colors.secondary : colors.primary;
+  const badgeBg = isOT ? colors.secondarySoft : colors.primarySoft;
+  const badgeBorder = colors.border;
 
   return (
     <Animated.View

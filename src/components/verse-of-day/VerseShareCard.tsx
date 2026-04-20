@@ -16,7 +16,7 @@ const VerseShareCard = React.forwardRef<View, Props>(
     return (
       <View ref={ref} collapsable={false} style={styles.shareCardContainer}>
         <LinearGradient
-          colors={["#0D0B15", "#1A1A2E", "#08070A"]}
+          colors={["#022C22", "#064E3B", "#022C22"]}
           style={StyleSheet.absoluteFill}
         />
 
@@ -28,7 +28,7 @@ const VerseShareCard = React.forwardRef<View, Props>(
               left: -200,
               width: 800,
               height: 800,
-              backgroundColor: "rgba(106, 27, 154, 0.1)",
+              backgroundColor: "rgba(16, 185, 129, 0.1)",
             },
           ]}
         />
@@ -41,7 +41,7 @@ const VerseShareCard = React.forwardRef<View, Props>(
               right: -150,
               width: 600,
               height: 600,
-              backgroundColor: "rgba(0, 229, 204, 0.05)",
+              backgroundColor: "rgba(16, 185, 129, 0.05)",
             },
           ]}
         />
@@ -60,7 +60,7 @@ const VerseShareCard = React.forwardRef<View, Props>(
             <MaterialCommunityIcons
               name="format-quote-open"
               size={100}
-              color="rgba(0, 229, 204, 0.1)"
+              color="rgba(16, 185, 129, 0.1)"
               style={styles.quoteIconTop}
             />
             <Text style={styles.shareMainText}>{verse.text}</Text>
@@ -68,7 +68,7 @@ const VerseShareCard = React.forwardRef<View, Props>(
             <MaterialCommunityIcons
               name="format-quote-close"
               size={100}
-              color="rgba(0, 229, 204, 0.1)"
+              color="rgba(16, 185, 129, 0.1)"
               style={styles.quoteIconBottom}
             />
           </View>

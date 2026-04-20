@@ -100,16 +100,19 @@ const ProfileScreen = () => {
             onBack={() => navigation.goBack()}
           />
 
-          <ProfileHero
-            styles={styles}
-            colors={colors}
-            avatar={avatar ?? "default"}
-            pulseAnim={avatarPulse}
-            isLoggedIn={isLoggedIn}
-            username={username}
-            churchName={churchName}
-            city={city}
-          />
+          {isLoggedIn && (
+            <ProfileHero
+              styles={styles}
+              colors={colors}
+              avatar={avatar ?? "default"}
+              pulseAnim={avatarPulse}
+              isLoggedIn={isLoggedIn}
+              username={username}
+              churchName={churchName}
+              city={city}
+              onEdit={() => navigation.navigate("Auth")}
+            />
+          )}
 
           {!isLoggedIn && (
             <View style={{ paddingHorizontal: 20 }}>
@@ -121,18 +124,22 @@ const ProfileScreen = () => {
             </View>
           )}
 
-          <ProfileStats
-            styles={styles}
-            gems={gems}
-            medalCount={medals.length}
-            colors={colors}
-          />
+          {isLoggedIn && (
+            <>
+              <ProfileStats
+                styles={styles}
+                gems={gems}
+                medalCount={medals.length}
+                colors={colors}
+              />
 
-          <MedalSection
-            styles={styles}
-            colors={colors}
-            medals={medals}
-          />
+              <MedalSection
+                styles={styles}
+                colors={colors}
+                medals={medals}
+              />
+            </>
+          )}
 
           <AvatarSection
             styles={styles}

@@ -16,7 +16,12 @@ import ShopCard from "../../components/settings/ShopCard";
 import PreferencesCard from "../../components/settings/PreferencesCard";
 import AboutCard from "../../components/settings/AboutCard";
 
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../navigation";
+
 const SettingsScreen = () => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const {
     language,
     setLanguage,
@@ -74,7 +79,11 @@ const SettingsScreen = () => {
       )}
 
       <SafeAreaView style={styles.safeArea} edges={["top"]}>
-        <SettingsHeader styles={styles} />
+        <SettingsHeader
+          styles={styles}
+          colors={colors}
+          onBack={() => navigation.goBack()}
+        />
 
         <ScrollView
           showsVerticalScrollIndicator={false}

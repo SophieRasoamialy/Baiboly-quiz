@@ -55,13 +55,13 @@ export const createVerseOfDayStyles = (colors: any) =>
       marginBottom: 24,
       ...Platform.select({
         ios: {
-          shadowColor: "#1A237E",
-          shadowOffset: { width: 0, height: 18 },
-          shadowOpacity: 0.35,
-          shadowRadius: 28,
+          shadowColor: colors.shadow,
+          shadowOffset: { width: 0, height: 12 },
+          shadowOpacity: 0.2,
+          shadowRadius: 16,
         },
         android: {
-          elevation: 16,
+          elevation: 12,
         },
       }),
     },
@@ -126,9 +126,9 @@ export const createVerseOfDayStyles = (colors: any) =>
       paddingHorizontal: 10,
       paddingVertical: 7,
       borderRadius: 18,
-      backgroundColor: "rgba(255, 213, 79, 0.08)",
+      backgroundColor: colors.secondarySoft,
       borderWidth: 1,
-      borderColor: "rgba(255, 213, 79, 0.18)",
+      borderColor: colors.secondary,
     },
 
     resetPillText: {
@@ -335,7 +335,7 @@ export const createVerseOfDayStyles = (colors: any) =>
     },
 
     verseRowSelected: {
-      backgroundColor: "rgba(255, 213, 79, 0.08)",
+      backgroundColor: colors.secondarySoft,
     },
 
     verseRowText: {
@@ -360,9 +360,9 @@ export const createVerseOfDayStyles = (colors: any) =>
       paddingHorizontal: 10,
       paddingVertical: 6,
       borderRadius: 14,
-      backgroundColor: "rgba(255, 213, 79, 0.14)",
+      backgroundColor: colors.secondarySoft,
       borderWidth: 1,
-      borderColor: "rgba(255, 213, 79, 0.22)",
+      borderColor: colors.secondary,
     },
 
     selectedPillText: {
@@ -410,12 +410,12 @@ export const createVerseOfDayStyles = (colors: any) =>
       width: 140,
       height: 140,
       borderRadius: 70,
-      backgroundColor: "rgba(0, 229, 204, 0.1)",
+      backgroundColor: colors.primarySoft,
       justifyContent: "center",
       alignItems: "center",
       marginBottom: 30,
       borderWidth: 4,
-      borderColor: "rgba(0, 229, 204, 0.2)",
+      borderColor: colors.primary,
     },
 
     shareEmojiText: {
@@ -423,7 +423,7 @@ export const createVerseOfDayStyles = (colors: any) =>
     },
 
     shareCatName: {
-      color: "rgba(0, 229, 204, 0.85)",
+      color: colors.primary,
       fontSize: 28,
       fontWeight: "900",
       letterSpacing: 1,
