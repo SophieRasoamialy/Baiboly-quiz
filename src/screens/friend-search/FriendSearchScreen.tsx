@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,13 +9,13 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../navigation";
+import { RootStackParamList } from "../../navigation/types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import { useUser } from "../../context/user";
-import { useAppTheme } from "../../hooks/useAppTheme";
-import { MOCK_USERS } from "../../constants/friends";
+import { databaseService } from "../../services/DatabaseService";
+import { supabaseService } from "../../services/SupabaseService";
 import { FriendItem } from "../../components/friend-search/FriendItem";
 
 import { createFriendSearchStyles } from "./friend-search.styles";
@@ -33,30 +33,162 @@ interface Props {
   route: any;
 }
 
+import { RadarSearch } from "../../components/matchmaking/RadarSearch";
+import { useAppTheme } from "../../hooks/useAppTheme";
+
+/** Generate a short random session id */
+const makeSessionId = () =>
+  `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+
+const POLL_INTERVAL_MS = 2_000; // check every 2 s
+const SCAN_TIMEOUT_MS = 30_000; // give up after 30 s
+
 const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
   const { gameType = "duo" } = route.params || {};
-  const { friends, addFriend } = useUser();
+  const { friends, addFriend, username, avatar, churchName, city, profileId } = useUser();
   const { colors, isLight } = useAppTheme();
+
   const [search, setSearch] = useState("");
   const [results, setResults] = useState<any[]>([]);
+  const [searchStatus, setSearchStatus] = useState<
+    "idle" | "scanning" | "found" | "empty"
+  >("idle");
+
+  const sessionIdRef = useRef<string>("");
+  const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const styles = createFriendSearchStyles(colors);
 
+  // Clean up on unmount
+  useEffect(() => {
+    return () => {
+      stopScan();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  /** Search both local friends and online profiles */
   const handleSearch = (text: string) => {
     setSearch(text);
-    if (text.trim().length > 1) {
-      const filtered = MOCK_USERS.filter((user) =>
-        user.name.toLowerCase().includes(text.toLowerCase()),
-      );
-      setResults(filtered);
-    } else {
-      setResults([]);
+    
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
     }
+
+    if (text.trim().length < 2) {
+      setResults([]);
+      setSearchStatus("idle");
+      return;
+    }
+
+    setSearchStatus("scanning");
+
+    debounceTimerRef.current = setTimeout(async () => {
+      try {
+        // 1. Search local SQLite friends
+        const localMatched = await databaseService.searchFriends(text.trim());
+        const localMapped = localMatched.map((f: any) => ({ ...f, isLocal: true, status: "online" }));
+
+        // 2. Search online profiles from Supabase
+        const onlineMatched = await supabaseService.searchProfilesByName(text.trim());
+        
+        // Filter out those already in local results to avoid duplicates
+        const onlineFiltered = onlineMatched.filter(op => 
+          !localMapped.find(lp => lp.id === op.id || (op.profile_id && lp.id === op.profile_id))
+        ).map(p => ({
+          id: p.id,
+          profile_id: p.id,
+          name: p.name,
+          avatar: p.avatar,
+          church: p.church,
+          city: p.city,
+          status: "online", // Assume online if searchable, they'll check connection on invite
+          isLocal: false
+        }));
+
+        const unified = [...localMapped, ...onlineFiltered];
+        setResults(unified);
+        setSearchStatus(unified.length > 0 ? "found" : "empty");
+      } catch (err) {
+        console.error("Global search error:", err);
+      }
+    }, 500); // 500ms debounce
+  };
+
+  /** Stop polling & clean up the pool entry */
+  const stopScan = async () => {
+    if (pollRef.current) {
+      clearInterval(pollRef.current);
+      pollRef.current = null;
+    }
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    if (sessionIdRef.current) {
+      await supabaseService.leaveMatchmakingPool(sessionIdRef.current);
+      sessionIdRef.current = "";
+    }
+  };
+
+  /** Start a real matchmaking scan */
+  const startScan = async () => {
+    // Reset UI
+    setSearch("");
+    setResults([]);
+    setSearchStatus("scanning");
+
+    // Generate unique session id for this scan
+    const sid = makeSessionId();
+    sessionIdRef.current = sid;
+
+    // Register current user in the matchmaking pool
+    await supabaseService.joinMatchmakingPool(sid, {
+      name: username || "Mpilalao",
+      avatar: avatar || "default",
+      church: churchName,
+      city: city,
+      profile_id: profileId,
+    });
+
+    // Poll for all available users
+    pollRef.current = setInterval(async () => {
+      try {
+        const players = await supabaseService.findAllActivePlayers(sid);
+        if (players.length > 0) {
+          // Map all found users to our list
+          const mapped = players.map(p => ({
+            id: p.profile_id || p.session_id,
+            session_id: p.session_id,
+            name: p.name,
+            avatar: p.avatar,
+            church: p.church,
+            city: p.city,
+            status: "online",
+          }));
+          setResults(mapped);
+          setSearchStatus("found");
+        }
+      } catch (err) {
+        console.error("Matchmaking poll error:", err);
+      }
+    }, POLL_INTERVAL_MS);
+
+    // Timeout — no one found
+    timeoutRef.current = setTimeout(async () => {
+      if (searchStatus === "scanning" || pollRef.current) {
+        await stopScan();
+        setSearchStatus("empty");
+      }
+    }, SCAN_TIMEOUT_MS);
   };
 
   const inviteFriend = (friend: any) => {
     navigation.navigate("Matchmaking", {
       mode: "invite",
+      friendId: friend.id || friend.profile_id,
       friendName: friend.name,
     } as any);
   };
@@ -71,6 +203,25 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
   ];
 
   const renderEmptyState = () => {
+    if (searchStatus === "empty") {
+      return (
+        <View style={styles.emptyState}>
+          <MaterialCommunityIcons
+            name="cloud-search-outline"
+            size={80}
+            color={colors.surfaceSoft}
+          />
+          <Text style={styles.emptyText}>
+            Tsy nisy mpilalao hita mikaroka namana avy hatrany.{"\n"}
+            Andramo indray afaka fotoana voaditra.
+          </Text>
+          <TouchableOpacity style={styles.retryBtn} onPress={startScan}>
+            <Text style={styles.retryBtnText}>ANDRAMO INDRAY</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+
     if (search.length > 0 && results.length === 0) {
       return (
         <View style={styles.emptyState}>
@@ -85,6 +236,7 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
         </View>
       );
     }
+
     return (
       <View style={styles.emptyState}>
         <MaterialCommunityIcons
@@ -93,7 +245,8 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
           color={colors.surfaceSoft}
         />
         <Text style={styles.emptyText}>
-          Ampidiro ny anaran'ny namanao mba hikarohana azy.
+          Ampidiro ny anaran'ny namanao{"\n"}na karohy ireo mpilalao hafa eo
+          akaikinao.
         </Text>
       </View>
     );
@@ -102,7 +255,7 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <StatusBar style={isLight ? "dark" : "light"} />
-      
+
       <LinearGradient
         colors={
           isLight
@@ -129,7 +282,11 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
             onPress={() => navigation.goBack()}
             style={styles.backBtn}
           >
-            <MaterialCommunityIcons name="arrow-left" size={24} color={colors.text} />
+            <MaterialCommunityIcons
+              name="arrow-left"
+              size={24}
+              color={colors.text}
+            />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Mikaroka Namana</Text>
           <View style={{ width: 40 }} />
@@ -144,33 +301,57 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
             />
             <TextInput
               style={styles.input}
-              placeholder="Solon'anarana mpanampy..."
+              placeholder="Hikaroka amin'ny anarana..."
               placeholderTextColor={colors.textMuted}
               value={search}
               onChangeText={handleSearch}
-              autoFocus
             />
           </View>
         </View>
 
+        {searchStatus === "idle" && search.length === 0 && (
+          <TouchableOpacity
+            style={styles.scanButton}
+            onPress={startScan}
+            activeOpacity={0.8}
+          >
+            <MaterialCommunityIcons
+              name="account-search"
+              size={24}
+              color={isLight ? colors.white : colors.primary}
+            />
+            <Text style={styles.scanButtonText}>MIKAROKA MPILALAO HAFA</Text>
+          </TouchableOpacity>
+        )}
+
         <View style={styles.content}>
-          <FlatList
-            data={search.length > 0 ? results : []}
-            renderItem={({ item }) => (
-              <FriendItem 
-                item={item} 
-                onInvite={inviteFriend}
-                onAddFriend={handleAddFriend}
-                isFriend={friends.some(f => f.id === item.id)}
-                styles={styles} 
-                colors={colors} 
-              />
-            )}
-            keyExtractor={(item) => item.id}
-            contentContainerStyle={styles.listContent}
-            ListEmptyComponent={renderEmptyState()}
-            showsVerticalScrollIndicator={false}
-          />
+          {searchStatus === "scanning" ? (
+            <View style={styles.scanningContainer}>
+              <View style={styles.radarWrapper}>
+                <RadarSearch mode="match" />
+              </View>
+            </View>
+          ) : (
+            <FlatList
+              data={results}
+              renderItem={({ item }) => (
+                <View>
+                  <FriendItem
+                    item={item}
+                    onInvite={inviteFriend}
+                    onAddFriend={handleAddFriend}
+                    isFriend={friends.some((f) => f.id === item.id || (item.profile_id && f.id === item.profile_id))}
+                    styles={styles}
+                    colors={colors}
+                  />
+                </View>
+              )}
+              keyExtractor={(item) => item.id || item.session_id}
+              contentContainerStyle={styles.listContent}
+              ListEmptyComponent={renderEmptyState()}
+              showsVerticalScrollIndicator={false}
+            />
+          )}
         </View>
       </SafeAreaView>
     </View>

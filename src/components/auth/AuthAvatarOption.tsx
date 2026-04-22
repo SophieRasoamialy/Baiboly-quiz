@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Animated, Image, TouchableOpacity, View } from "react-native";
+import { Animated, Image, Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 interface Props {
@@ -11,21 +11,21 @@ interface Props {
   onPress: () => void;
 }
 
-const AuthAvatarOption: React.FC<Props> = ({
+function AuthAvatarOption({
   styles,
   item,
   isSelected,
   index,
   colors,
   onPress,
-}) => {
+}: Props) {
   const mountAnim = useRef(new Animated.Value(0)).current;
   const pressAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.spring(mountAnim, {
       toValue: 1,
-      delay: 150 + index * 40,
+      delay: 500 + index * 60,
       friction: 7,
       tension: 70,
       useNativeDriver: true,
@@ -50,7 +50,7 @@ const AuthAvatarOption: React.FC<Props> = ({
 
   const scale = pressAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: [1, 0.96],
+    outputRange: [1, 0.95],
   });
 
   return (
@@ -61,7 +61,7 @@ const AuthAvatarOption: React.FC<Props> = ({
           {
             scale: mountAnim.interpolate({
               inputRange: [0, 1],
-              outputRange: [0.8, 1],
+              outputRange: [0.7, 1],
             }),
           },
           { scale },
@@ -80,20 +80,24 @@ const AuthAvatarOption: React.FC<Props> = ({
             backgroundColor: isSelected ? colors.secondarySoft : colors.surfaceSoft,
             shadowColor: isSelected ? colors.secondary : "transparent",
             shadowOffset: { width: 0, height: 4 },
-            shadowOpacity: 0.25,
+            shadowOpacity: 0.3,
             shadowRadius: 10,
-            elevation: isSelected ? 6 : 2,
+            elevation: isSelected ? 8 : 2,
           },
         ]}
       >
         <Image
           source={item.img}
           style={{
-            width: "90%",
-            height: "90%",
+            width: "65%",
+            height: "65%",
             resizeMode: "contain",
           }}
         />
+
+        <Text style={styles.avatarName}>
+          {item.id.charAt(0).toUpperCase() + item.id.slice(1)}
+        </Text>
 
         {isSelected && (
           <View style={styles.avatarCheck}>

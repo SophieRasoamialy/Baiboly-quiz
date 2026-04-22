@@ -13,7 +13,7 @@ import ThemeList from "../../components/quiz-solo/ThemeList";
 import RandomThemeCard from "../../components/quiz-solo/RandomThemeCard";
 import FloatingGem from "../../components/home/FloatingGem";
 import { createThemeSelectionStyles } from "./theme-selection.styles";
-import { BackButton } from "../../components/ui/BackButton";
+import BackButton from "../../components/ui/BackButton";
 
 const { width } = Dimensions.get("window");
 

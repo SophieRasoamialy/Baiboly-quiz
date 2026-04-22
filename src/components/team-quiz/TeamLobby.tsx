@@ -1,8 +1,8 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
-import { AVATAR_MAP } from "../../constants/avatar";
+import { View, Text } from "react-native";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { createTeamQuizStyles } from "../../screens/team-quiz/team-quiz.styles";
+import UserAvatar from "../ui/UserAvatar";
 
 export interface Player {
   id: string;
@@ -19,13 +19,15 @@ export const TeamLobby: React.FC<{ players: Player[] }> = ({ players }) => {
     <View style={styles.centerPhase}>
       <Text style={styles.phaseTitle}>Fiandrasana...</Text>
       <Text style={styles.phaseSubtitle}>Mivory ny mpilalao rehetra...</Text>
+      
       <View style={styles.playerGrid}>
         {players.map((p) => (
           <View key={p.id} style={styles.playerSlot}>
             <View style={styles.avatarMini}>
-              <Image
-                source={AVATAR_MAP[p.avatar as keyof typeof AVATAR_MAP]}
-                style={StyleSheet.absoluteFillObject}
+              <UserAvatar 
+                avatar={p.avatar} 
+                size={58} 
+                borderWidth={2}
               />
               <View
                 style={[
@@ -36,7 +38,7 @@ export const TeamLobby: React.FC<{ players: Player[] }> = ({ players }) => {
                 <Text style={styles.teamText}>T{p.team}</Text>
               </View>
             </View>
-            <Text style={styles.playerName}>{p.name}</Text>
+            <Text style={styles.playerName} numberOfLines={1}>{p.name}</Text>
           </View>
         ))}
       </View>

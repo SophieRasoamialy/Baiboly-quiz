@@ -50,7 +50,7 @@ export const GuessingPhase: React.FC<GuessingPhaseProps> = ({
       />
 
       <TouchableOpacity style={styles.actionBtn} onPress={onSubmitGuess}>
-        <LinearGradient colors={[colors.secondary, colors.secondaryDark]} style={styles.btnGradient}>
+        <LinearGradient colors={[colors.secondary, "#B45309"]} style={styles.btnGradient}>
           <Text style={styles.btnText}>HAMARINO</Text>
         </LinearGradient>
       </TouchableOpacity>

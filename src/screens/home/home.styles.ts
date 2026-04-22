@@ -58,15 +58,8 @@ export const createHomeStyles = (colors: any) =>
     },
 
     avatarBtn: {
-      width: 46,
-      height: 46,
-      borderRadius: 23,
-      backgroundColor: colors.surfaceSoft,
       justifyContent: "center",
       alignItems: "center",
-      borderWidth: 1,
-      borderColor: colors.border,
-      overflow: "hidden",
     },
 
     scrollContent: {

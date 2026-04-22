@@ -98,7 +98,6 @@ export const createMultiplayerStyles = (colors: any) =>
     header: {
       flexDirection: "row",
       alignItems: "center",
-      justifyContent: "space-between",
       paddingHorizontal: 20,
       paddingVertical: 15,
     },
@@ -119,6 +118,7 @@ export const createMultiplayerStyles = (colors: any) =>
       fontSize: 20,
       fontWeight: "900",
       letterSpacing: -0.5,
+      marginLeft: 10,
     },
 
     lobbyContent: {

@@ -10,3 +10,4 @@ export const DEFAULT_AVATAR = "default";
 export const DEFAULT_MEDALS = ["bronze"];
 export const DEFAULT_GEMS = 20;
 export const DEFAULT_HEARTS = 5;
+export const DEFAULT_SOUND_ENABLED = true;

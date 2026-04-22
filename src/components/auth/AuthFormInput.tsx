@@ -12,7 +12,7 @@ interface Props {
   maxLength?: number;
 }
 
-const AuthFormInput: React.FC<Props> = ({
+function AuthFormInput({
   styles,
   label,
   icon,
@@ -20,7 +20,7 @@ const AuthFormInput: React.FC<Props> = ({
   value,
   onChangeText,
   maxLength,
-}) => {
+}: Props) {
   return (
     <View>
       <Text style={styles.sectionLabel}>{label}</Text>

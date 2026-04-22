@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useMemo, useState } from "
 import i18n from "../../i18n";
 import { lightColors, darkColors } from "../../theme";
 import { databaseService } from "../../services/DatabaseService";
+import { supabaseService } from "../../services/SupabaseService";
 
 import {
   DEFAULT_AVATAR,
@@ -10,6 +11,7 @@ import {
   DEFAULT_LANGUAGE,
   DEFAULT_MEDALS,
   DEFAULT_THEME,
+  DEFAULT_SOUND_ENABLED,
   HEART_PRICE_GEMS,
   HEART_REFILL_SECONDS,
   MAX_HEARTS,
@@ -40,6 +42,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const [language, setLanguageLocal] = useState<LanguageCode>(DEFAULT_LANGUAGE);
   const [theme, setThemeState] = useState<ThemeMode>(DEFAULT_THEME);
   const [points, setPoints] = useState(0);
+  const [soundEnabled, setSoundEnabledLocal] = useState(DEFAULT_SOUND_ENABLED);
 
   const [username, setUsername] = useState<string | null>(null);
   const [churchName, setChurchName] = useState<string | null>(null);
@@ -47,6 +50,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [friends, setFriends] = useState<any[]>([]);
 
+  const [profileId, setProfileId] = useState<string | null>(null);
   const [lastHeartRefill, setLastHeartRefill] = useState<number>(Date.now());
   const [nextRefillIn, setNextRefillIn] = useState<number>(HEART_REFILL_SECONDS);
 
@@ -74,6 +78,14 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
           setIsLoggedIn(!!savedState.username);
           setLastHeartRefill(savedState.lastHeartRefill || Date.now());
           setPoints(savedState.points || 0);
+          setSoundEnabledLocal(savedState.soundEnabled !== undefined ? !!savedState.soundEnabled : DEFAULT_SOUND_ENABLED);
+
+          let pid = savedState.profileId;
+          if (!pid) {
+            pid = `p-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+            await databaseService.saveUserState({ profileId: pid });
+          }
+          setProfileId(pid);
 
           if (savedState.language) {
             i18n.locale = savedState.language;
@@ -150,6 +162,18 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     setPoints((prev) => {
       const newValue = Math.max(0, prev + amount);
       updateDB({ points: newValue });
+      
+      // Sync to Supabase
+      if (profileId && (username || churchName)) {
+        supabaseService.upsertProfile(profileId, {
+          name: username || "Mpilalao",
+          avatar: avatar,
+          church: churchName,
+          city: city,
+          points: newValue,
+        }).catch(err => console.error("Auto-sync points error:", err));
+      }
+
       return newValue;
     });
   };
@@ -203,6 +227,17 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const setAvatar = (newAvatar: string) => {
     setAvatarLocal(newAvatar);
     updateDB({ avatar: newAvatar });
+
+    // Sync to Supabase
+    if (profileId && (username || churchName)) {
+      supabaseService.upsertProfile(profileId, {
+        name: username || "Mpilalao",
+        avatar: newAvatar,
+        church: churchName,
+        city: city,
+        points: points,
+      }).catch(err => console.error("Auto-sync avatar error:", err));
+    }
   };
 
   const addMedal = (medal: string) => {
@@ -218,6 +253,11 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const setTheme = (newTheme: ThemeMode) => {
     setThemeState(newTheme);
     updateDB({ theme: newTheme });
+  };
+
+  const setSoundEnabled = (enabled: boolean) => {
+    setSoundEnabledLocal(enabled);
+    updateDB({ soundEnabled: enabled ? 1 : 0 });
   };
 
   const toggleTheme = () => {
@@ -237,6 +277,32 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       churchName: church,
       city: cityName,
     });
+
+    // Sync to Supabase
+    if (profileId) {
+      supabaseService.upsertProfile(profileId, {
+        name: name,
+        avatar: avatar,
+        church: church,
+        city: cityName,
+        points: points,
+      }).catch(err => console.error("Sync profile login error:", err));
+    }
+  };
+
+  const syncProfile = async () => {
+    if (!profileId || !username) return;
+    try {
+      await supabaseService.upsertProfile(profileId, {
+        name: username,
+        avatar,
+        church: churchName,
+        city,
+        points,
+      });
+    } catch (error) {
+      console.error("Manual syncProfile error:", error);
+    }
   };
 
   const logout = () => {
@@ -283,6 +349,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       isLoading,
       friends,
       points,
+      soundEnabled,
 
       addGems,
       removeGems,
@@ -299,6 +366,9 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       logout,
       addFriend,
       removeFriend,
+      setSoundEnabled,
+      syncProfile,
+      profileId,
     }),
     [
       gems,
@@ -317,6 +387,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       isLoading,
       friends,
       points,
+      soundEnabled,
+      profileId,
     ],
   );
 

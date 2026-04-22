@@ -2,6 +2,7 @@ import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AVATAR_MAP } from "../../constants/avatar";
+import UserAvatar from "../ui/UserAvatar";
 
 interface UserLobbyCardProps {
   username: string | null;
@@ -24,16 +25,11 @@ export const UserLobbyCard: React.FC<UserLobbyCardProps> = ({
 }) => {
   return (
     <View style={styles.userCard}>
-      <View style={styles.avatarCircle}>
-        {avatar ? (
-          <Image
-            source={AVATAR_MAP[avatar as keyof typeof AVATAR_MAP] || AVATAR_MAP.david}
-            style={styles.avatarImage}
-          />
-        ) : (
-          <MaterialCommunityIcons name="account" size={32} color={colors.textMuted} />
-        )}
-      </View>
+      <UserAvatar 
+        avatar={avatar} 
+        size={62} 
+        borderWidth={2}
+      />
 
       <View style={{ flex: 1 }}>
         <Text style={styles.welcomeText}>

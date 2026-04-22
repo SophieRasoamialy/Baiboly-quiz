@@ -59,12 +59,13 @@ export const createTeamQuizStyles = (colors: any) =>
       flexDirection: "row",
       alignItems: "center",
       gap: 12,
-      backgroundColor: colors.surfaceSoft,
-      paddingHorizontal: 16,
-      paddingVertical: 8,
+      backgroundColor: colors.mode === 'light' ? colors.surfaceSoft : 'rgba(255,255,255,0.05)',
+      paddingHorizontal: 20,
+      paddingVertical: 10,
       borderRadius: 999,
       borderWidth: 1,
       borderColor: colors.border,
+      //backdropFilter: "blur(10px)",
     },
 
     scorePoint: {
@@ -96,19 +97,20 @@ export const createTeamQuizStyles = (colors: any) =>
 
     phaseTitle: {
       color: colors.text,
-      fontSize: 36,
+      fontSize: 38,
       fontWeight: "900",
       marginTop: 10,
-      letterSpacing: -0.5,
+      letterSpacing: -1,
       textAlign: "center",
     },
 
     phaseSubtitle: {
       color: colors.textMuted,
-      fontSize: 15,
-      marginTop: 5,
+      fontSize: 16,
+      marginTop: 8,
       textAlign: "center",
-      lineHeight: 22,
+      lineHeight: 24,
+      maxWidth: '85%',
     },
 
     playerGrid: {
@@ -121,24 +123,31 @@ export const createTeamQuizStyles = (colors: any) =>
 
     playerSlot: {
       alignItems: "center",
-      width: 80,
+      width: 100,
+      backgroundColor: colors.mode === 'light' ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.03)',
+      padding: 12,
+      borderRadius: 24,
+      borderWidth: 1,
+      borderColor: colors.border,
     },
 
     avatarMini: {
-      width: 64,
-      height: 64,
-      borderRadius: 32,
-      borderWidth: 2,
+      width: 68,
+      height: 68,
+      borderRadius: 24,
+      borderWidth: 1,
       borderColor: colors.border,
       backgroundColor: colors.surfaceSoft,
-      overflow: "hidden",
+      justifyContent: 'center',
+      alignItems: 'center',
     },
 
     playerName: {
       color: colors.text,
-      fontSize: 12,
-      marginTop: 8,
-      fontWeight: "700",
+      fontSize: 13,
+      marginTop: 10,
+      fontWeight: "800",
+      textAlign: 'center',
     },
 
     teamBadge: {
@@ -169,12 +178,16 @@ export const createTeamQuizStyles = (colors: any) =>
 
     roleCard: {
       alignItems: "center",
-      padding: 24,
-      borderRadius: 32,
-      backgroundColor: colors.card,
+      padding: 30,
+      borderRadius: 36,
+      backgroundColor: colors.mode === 'light' ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.05)',
       borderWidth: 1,
       borderColor: colors.border,
       width: "100%",
+      shadowColor: colors.shadow,
+      shadowOffset: { width: 0, height: 10 },
+      shadowOpacity: 0.1,
+      shadowRadius: 20,
     },
 
     roleLabel: {
@@ -234,20 +247,20 @@ export const createTeamQuizStyles = (colors: any) =>
     },
 
     instructionBox: {
-      backgroundColor: colors.secondarySoft,
-      padding: 20,
-      borderRadius: 20,
+      backgroundColor: colors.mode === 'light' ? colors.secondarySoft : 'rgba(251,191,36,0.05)',
+      padding: 24,
+      borderRadius: 24,
       marginBottom: 30,
       borderWidth: 1,
-      borderColor: colors.secondary,
+      borderColor: colors.mode === 'light' ? colors.secondary : 'rgba(251,191,36,0.2)',
     },
 
     instructionText: {
-      color: colors.secondaryDark,
-      fontSize: 14,
-      fontWeight: "700",
+      color: colors.mode === 'light' ? colors.secondaryDark : colors.secondary,
+      fontSize: 15,
+      fontWeight: "800",
       textAlign: "center",
-      lineHeight: 20,
+      lineHeight: 22,
     },
 
     wordInputs: {

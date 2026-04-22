@@ -2,7 +2,7 @@ import React from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Book, Chapter, BibleViewState, OLD_TESTAMENT_BOOKS } from "../../constants/bible";
-import { BackButton } from "../ui/BackButton";
+import BackButton from "../ui/BackButton";
 
 interface Props {
   styles: any;

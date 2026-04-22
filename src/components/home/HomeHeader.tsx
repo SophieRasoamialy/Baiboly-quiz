@@ -2,6 +2,7 @@ import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AVATAR_MAP } from "../../constants/avatar";
+import UserAvatar from "../ui/UserAvatar";
 
 interface Props {
   styles: any;
@@ -31,14 +32,11 @@ const HomeHeader: React.FC<Props> = ({
   return (
     <View style={styles.header}>
       <TouchableOpacity style={styles.avatarBtn} onPress={onPressProfile} activeOpacity={0.8}>
-        {isLoggedIn && avatar ? (
-          <Image
-            source={AVATAR_MAP[avatar] || AVATAR_MAP.david}
-            style={{ width: "100%", height: "100%", borderRadius: 24 }}
-          />
-        ) : (
-          <MaterialCommunityIcons name="account-circle" size={38} color={colors.text} />
-        )}
+        <UserAvatar 
+          avatar={isLoggedIn ? avatar : null} 
+          size={46} 
+          borderWidth={2}
+        />
       </TouchableOpacity>
 
       <View style={styles.userStats}>
@@ -48,8 +46,14 @@ const HomeHeader: React.FC<Props> = ({
         </View>
 
         <View style={styles.statPill}>
-          <MaterialCommunityIcons name="trophy-variant" size={14} color="#F59E0B" />
-          <Text style={styles.statText}>{points}</Text>
+          <MaterialCommunityIcons
+            name="trophy-variant"
+            size={14}
+            color={isLoggedIn ? "#F59E0B" : colors.textMuted}
+          />
+          <Text style={[styles.statText, !isLoggedIn && { color: colors.textMuted }]}>
+            {points}
+          </Text>
         </View>
 
         <TouchableOpacity style={styles.statPill} onPress={onPressHeart} activeOpacity={0.8}>

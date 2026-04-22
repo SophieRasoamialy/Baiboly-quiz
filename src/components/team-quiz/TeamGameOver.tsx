@@ -35,7 +35,7 @@ export const TeamGameOver: React.FC<TeamGameOverProps> = ({
       </View>
 
       <TouchableOpacity style={styles.actionBtn} onPress={onHomePress}>
-        <LinearGradient colors={[colors.primary, "#FF8F00"]} style={styles.btnGradient}>
+        <LinearGradient colors={[colors.primary, colors.primaryDark]} style={styles.btnGradient}>
           <Text style={styles.btnText}>HIVERINA MODY</Text>
         </LinearGradient>
       </TouchableOpacity>

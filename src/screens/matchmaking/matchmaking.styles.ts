@@ -204,4 +204,112 @@ export const createMatchmakingStyles = (colors: any) =>
       fontSize: 14,
       fontWeight: "800",
     },
+
+    // New Lobby Styles
+    lobbyTitleGroup: {
+      width: "100%",
+      marginBottom: 20,
+    },
+    lobbyTitle: {
+      color: colors.text,
+      fontSize: 24,
+      fontWeight: "900",
+    },
+    lobbySub: {
+      color: colors.textMuted,
+      fontSize: 14,
+    },
+    playerList: {
+      width: "100%",
+      flex: 1,
+    },
+    playerCard: {
+      flexDirection: "row",
+      alignItems: "center",
+      backgroundColor: colors.card,
+      padding: 16,
+      borderRadius: 20,
+      marginBottom: 12,
+      borderWidth: 1,
+      borderColor: colors.border,
+    },
+    playerInfo: {
+      flex: 1,
+      marginLeft: 12,
+    },
+    playerName: {
+      color: colors.text,
+      fontSize: 16,
+      fontWeight: "800",
+    },
+    playerMeta: {
+      color: colors.textMuted,
+      fontSize: 12,
+    },
+    inviteBtn: {
+      backgroundColor: colors.primary,
+      paddingHorizontal: 16,
+      paddingVertical: 8,
+      borderRadius: 12,
+    },
+    inviteBtnText: {
+      color: colors.background,
+      fontSize: 12,
+      fontWeight: "900",
+    },
+    
+    // Modal Styles
+    modalOverlay: {
+      flex: 1,
+      backgroundColor: "rgba(0,0,0,0.6)",
+      justifyContent: "center",
+      alignItems: "center",
+      padding: 20,
+    },
+    modalContent: {
+      width: "90%",
+      backgroundColor: colors.card,
+      borderRadius: 30,
+      padding: 30,
+      alignItems: "center",
+      borderWidth: 1,
+      borderColor: colors.border,
+    },
+    modalTitle: {
+      color: colors.text,
+      fontSize: 22,
+      fontWeight: "900",
+      marginTop: 20,
+      textAlign: "center",
+    },
+    modalSub: {
+      color: colors.textMuted,
+      fontSize: 15,
+      textAlign: "center",
+      marginTop: 10,
+      marginBottom: 30,
+    },
+    modalButtons: {
+      flexDirection: "row",
+      gap: 15,
+      width: "100%",
+    },
+    modalBtn: {
+      flex: 1,
+      paddingVertical: 15,
+      borderRadius: 15,
+      alignItems: "center",
+    },
+    acceptBtn: {
+      backgroundColor: colors.primary,
+    },
+    declineBtn: {
+      backgroundColor: colors.surfaceSoft,
+      borderWidth: 1,
+      borderColor: colors.border,
+    },
+    btnText: {
+      fontSize: 14,
+      fontWeight: "900",
+    },
   });

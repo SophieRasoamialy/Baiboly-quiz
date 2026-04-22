@@ -33,7 +33,7 @@ export const StealPhase: React.FC<StealPhaseProps> = ({
       />
 
       <TouchableOpacity style={styles.actionBtn} onPress={onSubmitGuess}>
-        <LinearGradient colors={[colors.accent, "#E53935"]} style={styles.btnGradient}>
+        <LinearGradient colors={[colors.accent, "#D32F2F"]} style={styles.btnGradient}>
           <Text style={styles.btnText}>MANGALATRA ISA</Text>
         </LinearGradient>
       </TouchableOpacity>

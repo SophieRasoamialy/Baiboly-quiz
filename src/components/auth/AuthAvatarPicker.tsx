@@ -10,16 +10,45 @@ interface Props {
   onSelectAvatar: (avatarId: string) => void;
 }
 
-const AuthAvatarPicker: React.FC<Props> = ({
+function AuthAvatarPicker({
   styles,
   colors,
   selectedAvatar,
   onSelectAvatar,
-}) => {
+}: Props) {
   return (
-    <View>
-      <Text style={styles.sectionLabel}>Misafidiana Sary</Text>
+    <View style={{ marginTop: 8 }}>
+      {/* Section Header — matches Profile AvatarSection style */}
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          gap: 10,
+          marginBottom: 16,
+          marginTop: 6,
+        }}
+      >
+        <View
+          style={{
+            width: 4,
+            height: 20,
+            borderRadius: 2,
+            backgroundColor: colors.secondary,
+          }}
+        />
+        <Text
+          style={{
+            color: colors.text,
+            fontSize: 16,
+            fontWeight: "800",
+            letterSpacing: 0.3,
+          }}
+        >
+          Misafidiana Sary
+        </Text>
+      </View>
 
+      {/* Avatar Grid */}
       <View style={styles.avatarGrid}>
         {AVATARS.map((item, index) => (
           <AuthAvatarOption
@@ -35,6 +64,6 @@ const AuthAvatarPicker: React.FC<Props> = ({
       </View>
     </View>
   );
-};
+}
 
 export default AuthAvatarPicker;

@@ -10,9 +10,10 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../navigation";
+import { RootStackParamList } from "../../navigation/types";
 import { useUser } from "../../context/user/UserContext";
 import { useAppTheme } from "../../hooks/useAppTheme";
+import { useAlert } from "../../context/AlertContext";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
@@ -22,7 +23,8 @@ import { QUIZ_IMAGE_MAP } from "../../constants/quizImages";
 import { createImageQuizStyles, TIMER_SECONDS } from "./image-quiz.styles";
 import FloatingGem from "../../components/home/FloatingGem";
 import { OptionButton } from "../../components/image-quiz/OptionButton";
-import { BackButton } from "../../components/ui/BackButton";
+import BackButton from "../../components/ui/BackButton";
+import { soundHelper } from "../../utils/SoundHelper";
 
 const { width } = Dimensions.get("window");
 
@@ -36,9 +38,10 @@ interface Props {
 }
 
 const ImageQuizScreen: React.FC<Props> = ({ navigation }) => {
-  const { hearts, gems, removeHeart, addGems, buyHeartWithGems, nextRefillIn } =
+  const { hearts, gems, removeHeart, addGems, buyHeartWithGems, nextRefillIn, soundEnabled } =
     useUser();
   const { colors, isLight } = useAppTheme();
+  const { showAlert } = useAlert();
   const styles = createImageQuizStyles(colors);
 
   const [questions, setQuestions] = useState<any[]>([]);
@@ -107,8 +110,10 @@ const ImageQuizScreen: React.FC<Props> = ({ navigation }) => {
     const correct = option === questions[currentIndex].answer;
     if (correct) {
       addGems(5);
+      soundHelper.playCorrect(soundEnabled);
     } else {
       removeHeart();
+      soundHelper.playWrong(soundEnabled);
     }
 
     // Auto-navigate to next question after delay
@@ -125,6 +130,7 @@ const ImageQuizScreen: React.FC<Props> = ({ navigation }) => {
       setTimer(TIMER_SECONDS);
       nextBtnAnim.setValue(0);
     } else {
+      soundHelper.playWin(soundEnabled);
       navigation.goBack();
     }
   };
@@ -161,7 +167,10 @@ const ImageQuizScreen: React.FC<Props> = ({ navigation }) => {
             style={styles.buyBtn}
             onPress={() => {
               if (!buyHeartWithGems())
-                Alert.alert("Tsy ampy vatosoa", "Mila 20 vatosoa ianao.");
+                showAlert({
+                  title: "Tsy ampy vatosoa",
+                  message: "Mila 20 vatosoa ianao.",
+                });
             }}
           >
             <LinearGradient

@@ -2,9 +2,10 @@ import React, { useEffect, useRef } from "react";
 import { View, Text, TouchableOpacity, Animated, ScrollView, Dimensions, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../navigation";
+import { RootStackParamList } from "../../navigation/types";
 import { useUser } from "../../context/user";
 import { useAppTheme } from "../../hooks/useAppTheme";
+import { useAlert } from "../../context/AlertContext";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
@@ -14,7 +15,7 @@ import { MultiplayerGuestPrompt } from "../../components/multiplayer/Multiplayer
 import { UserLobbyCard } from "../../components/multiplayer/UserLobbyCard";
 import { GameModeCard } from "../../components/multiplayer/GameModeCard";
 import FloatingGem from "../../components/home/FloatingGem";
-import { BackButton } from "../../components/ui/BackButton";
+import BackButton from "../../components/ui/BackButton";
 
 const { width } = Dimensions.get("window");
 
@@ -30,6 +31,7 @@ interface Props {
 const MultiplayerScreen: React.FC<Props> = ({ navigation }) => {
   const { isLoggedIn, username, avatar, churchName, city } = useUser();
   const { colors, isLight } = useAppTheme();
+  const { showAlert } = useAlert();
   const styles = createMultiplayerStyles(colors);
   
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -50,14 +52,14 @@ const MultiplayerScreen: React.FC<Props> = ({ navigation }) => {
 
   const handleOnlineMode = (navFn: () => void) => {
     if (!isLoggedIn) {
-      Alert.alert(
-        "Mila Kaonty",
-        "Mila misoratra anarana ianao raha te hilalao amin'ny namana an-tserasera na hifaninana amin'ny mpilalao hafa.",
-        [
+      showAlert({
+        title: "Mila Kaonty",
+        message: "Mila misoratra anarana ianao raha te hilalao amin'ny namana an-tserasera na hifaninana amin'ny mpilalao hafa.",
+        buttons: [
           { text: "Aoka ihany", style: "cancel" },
           { text: "Hiditra", onPress: () => navigation.navigate("Auth") },
         ]
-      );
+      });
       return;
     }
     navFn();

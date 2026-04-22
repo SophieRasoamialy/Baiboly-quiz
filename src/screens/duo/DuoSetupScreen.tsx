@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../navigation";
+import { RootStackParamList } from "../../navigation/types";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
@@ -17,7 +17,7 @@ import { StatusBar } from "expo-status-bar";
 import { AVATARS } from "../../constants/avatar";
 
 import { createMultiplayerStyles } from "../multiplayer/multiplayer.styles";
-import { BackButton } from "../../components/ui/BackButton";
+import BackButton from "../../components/ui/BackButton";
 
 const { width, height } = Dimensions.get("window");
 

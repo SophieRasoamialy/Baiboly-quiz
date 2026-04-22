@@ -6,10 +6,11 @@ interface Props {
   styles: any;
   gems: number;
   medalCount: number;
+  points: number;
   colors: any;
 }
 
-const ProfileStats: React.FC<Props> = ({ styles, gems, medalCount, colors }) => {
+const ProfileStats: React.FC<Props> = ({ styles, gems, medalCount, points, colors }) => {
   return (
     <View style={styles.statsRow}>
       <ProfileStatCard
@@ -21,6 +22,17 @@ const ProfileStats: React.FC<Props> = ({ styles, gems, medalCount, colors }) => 
         accentBg={colors.secondarySoft}
         accentBorder={colors.border}
         mountDelay={200}
+      />
+
+      <ProfileStatCard
+        styles={styles}
+        icon="trophy-variant"
+        iconColor="#F59E0B"
+        label="Isa"
+        value={points}
+        accentBg="rgba(245, 158, 11, 0.12)"
+        accentBorder={colors.border}
+        mountDelay={250}
       />
 
       <ProfileStatCard

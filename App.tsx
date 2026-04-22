@@ -11,6 +11,8 @@ import * as SplashScreen from "expo-splash-screen";
 
 import AppNavigator from "./src/navigation";
 import { UserProvider, useUser } from "./src/context/user";
+import { AlertProvider } from "./src/context/AlertContext";
+import CustomAlert from "./src/components/ui/CustomAlert";
 import { lightColors, darkColors } from "./src/theme/colors";
 
 // Ignore some warnings in dev
@@ -45,6 +47,7 @@ function AppContent() {
         <AppNavigator />
       </NavigationContainer>
 
+      <CustomAlert />
       <StatusBar style={isLight ? "dark" : "light"} />
     </>
   );
@@ -69,9 +72,11 @@ export default function App() {
 
   return (
     <UserProvider>
-      <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-        <AppContent />
-      </View>
+      <AlertProvider>
+        <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+          <AppContent />
+        </View>
+      </AlertProvider>
     </UserProvider>
   );
 }

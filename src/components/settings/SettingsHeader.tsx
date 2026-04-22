@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-import { BackButton } from "../ui/BackButton";
+import BackButton from "../ui/BackButton";
 
 interface Props {
   styles: any;

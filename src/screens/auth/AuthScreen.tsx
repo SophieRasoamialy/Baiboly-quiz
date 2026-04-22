@@ -11,17 +11,19 @@ import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import { StackNavigationProp } from "@react-navigation/stack";
 
-import { RootStackParamList } from "../../navigation";
+import { RootStackParamList } from "../../navigation/types";
 import { useUser } from "../../context/user";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { createAuthStyles } from "./auth.styles";
+import { supabaseService } from "../../services/SupabaseService";
+import { useAlert } from "../../context/AlertContext";
 
 import AuthHeader from "../../components/auth/AuthHeader";
 import AuthRewardCard from "../../components/auth/AuthRewardCard";
 import AuthFormInput from "../../components/auth/AuthFormInput";
 import AuthAvatarPicker from "../../components/auth/AuthAvatarPicker";
 import AuthSubmitButton from "../../components/auth/AuthSubmitButton";
-import { BackButton } from "../../components/ui/BackButton";
+import BackButton from "../../components/ui/BackButton";
 
 import { AVATARS } from "../../constants/avatar";
 
@@ -31,7 +33,7 @@ interface Props {
   navigation: AuthScreenNavigationProp;
 }
 
-const AuthScreen: React.FC<Props> = ({ navigation }) => {
+function AuthScreen({ navigation }: Props) {
   const { login, setAvatar, addGems, username, churchName, city, isLoggedIn } =
     useUser();
   const { colors, isLight } = useAppTheme();
@@ -41,6 +43,9 @@ const AuthScreen: React.FC<Props> = ({ navigation }) => {
   const [church, setChurch] = useState(churchName || "");
   const [cityName, setCityName] = useState(city || "");
   const [selectedAvatar, setSelectedAvatar] = useState(AVATARS[0].id);
+  const [isChecking, setIsChecking] = useState(false);
+  const { profileId } = useUser();
+  const { showAlert } = useAlert();
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(24)).current;
@@ -65,20 +70,45 @@ const AuthScreen: React.FC<Props> = ({ navigation }) => {
     church.trim().length > 0 &&
     cityName.trim().length > 0;
 
-  const handleStart = () => {
-    if (!isFormValid) return;
+  const handleStart = async () => {
+    if (!isFormValid || isChecking) return;
 
-    if (!isLoggedIn) {
-      setAvatar(selectedAvatar);
-      addGems(50);
-    }
-    
-    login(name.trim(), church.trim(), cityName.trim());
+    setIsChecking(true);
+    try {
+      // Check for username uniqueness
+      const isTaken = await supabaseService.isUsernameTaken(name.trim(), profileId || undefined);
+      
+      if (isTaken) {
+        setIsChecking(false);
+        showAlert({
+          title: "Efa misy mampiasa io anarana io",
+          message: "Azafady, fidio anarana hafa fa efa misy mampiasa ity anarana ity.",
+          buttons: [{ text: "Eny" }]
+        });
+        return;
+      }
 
-    if (isLoggedIn) {
-      navigation.goBack();
-    } else {
-      navigation.replace("Home");
+      if (!isLoggedIn) {
+        setAvatar(selectedAvatar);
+        addGems(50);
+      }
+      
+      login(name.trim(), church.trim(), cityName.trim());
+
+      if (isLoggedIn) {
+        navigation.goBack();
+      } else {
+        navigation.replace("Home");
+      }
+    } catch (err) {
+      console.error("Auth error:", err);
+      showAlert({
+        title: "Olana",
+        message: "Nisy olana teo am-panamarinana ny anaranao. Andramo indray azafady.",
+        buttons: [{ text: "Eny" }]
+      });
+    } finally {
+      setIsChecking(false);
     }
   };
 
@@ -178,7 +208,7 @@ const AuthScreen: React.FC<Props> = ({ navigation }) => {
                 <AuthSubmitButton
                   styles={styles}
                   colors={colors}
-                  disabled={!isFormValid}
+                  disabled={!isFormValid || isChecking}
                   label={isLoggedIn ? "HANAVAO PROFIL" : "HANOMBOKA"}
                   onPress={handleStart}
                 />

@@ -2,7 +2,8 @@ import { Dimensions, StyleSheet } from "react-native";
 
 const { width } = Dimensions.get("window");
 
-export const AUTH_AVATAR_SIZE = (width - 40 - 28) / 3;
+// 40 = scrollContent horizontal padding, 32 = formCard inner padding (16*2), 24 = two gaps between 3 items
+export const AUTH_AVATAR_SIZE = (width - 40 - 32 - 24) / 3;
 
 export const createAuthStyles = (colors: any) =>
   StyleSheet.create({
@@ -183,7 +184,7 @@ export const createAuthStyles = (colors: any) =>
     avatarGrid: {
       flexDirection: "row",
       flexWrap: "wrap",
-      gap: 14,
+      gap: 10,
       justifyContent: "space-between",
       marginTop: 4,
       marginBottom: 24,
@@ -191,19 +192,28 @@ export const createAuthStyles = (colors: any) =>
 
     avatarOption: {
       width: AUTH_AVATAR_SIZE,
-      height: AUTH_AVATAR_SIZE,
+      height: AUTH_AVATAR_SIZE + 25, // Extra space for name
       borderRadius: 20,
       justifyContent: "center",
       alignItems: "center",
       borderWidth: 2,
-      overflow: "hidden",
+      paddingTop: 8, // Shift image up slightly
+    },
+
+    avatarName: {
+      fontSize: 10,
+      fontWeight: "900",
+      color: colors.textSecondary,
+      marginTop: 4,
+      textTransform: "uppercase",
+      letterSpacing: 0.5,
     },
 
     avatarCheck: {
       position: "absolute",
-      top: 6,
-      right: 6,
-      backgroundColor: "rgba(0,0,0,0.5)",
+      top: 4,
+      right: 4,
+      backgroundColor: colors.card,
       borderRadius: 12,
       padding: 1,
     },

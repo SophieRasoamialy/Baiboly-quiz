@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Animated, Image, TouchableOpacity, View } from "react-native";
+import { Animated, Image, Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 interface Props {
@@ -11,14 +11,14 @@ interface Props {
   onPress: () => void;
 }
 
-const AvatarOption: React.FC<Props> = ({
+function AvatarOption({
   styles,
   item,
   isSelected,
   index,
   colors,
   onPress,
-}) => {
+}: Props) {
   const mountAnim = useRef(new Animated.Value(0)).current;
   const pressAnim = useRef(new Animated.Value(0)).current;
 
@@ -89,13 +89,15 @@ const AvatarOption: React.FC<Props> = ({
         <Image
           source={item.img}
           style={{
-            width: "90%",
-            height: "90%",
+            width: "65%",
+            height: "65%",
             resizeMode: "contain",
-            alignSelf: "center",
-            marginTop: "5%",
           }}
         />
+
+        <Text style={styles.avatarName}>
+          {item.id.charAt(0).toUpperCase() + item.id.slice(1)}
+        </Text>
 
         {isSelected && (
           <View style={styles.avatarCheck}>

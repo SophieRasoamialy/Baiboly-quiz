@@ -6,7 +6,7 @@ import { useAppTheme } from "../../hooks/useAppTheme";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../navigation";
+import { RootStackParamList } from "../../navigation/types";
 
 import { createTeamQuizStyles } from "./team-quiz.styles";
 import TEAM_WORDS from "../../data/team_words_mg.json";
@@ -19,6 +19,7 @@ import { GuessingPhase } from "../../components/team-quiz/GuessingPhase";
 import { StealPhase } from "../../components/team-quiz/StealPhase";
 import { ResultPhase } from "../../components/team-quiz/ResultPhase";
 import { TeamGameOver } from "../../components/team-quiz/TeamGameOver";
+import { soundHelper } from "../../utils/SoundHelper";
 
 const { width } = Dimensions.get("window");
 
@@ -38,7 +39,7 @@ type GamePhase =
   | "GAME_OVER";
 
 const TeamQuizScreen: React.FC<Props> = ({ navigation }) => {
-  const { username, avatar } = useUser();
+  const { username, avatar, soundEnabled } = useUser();
   const { colors, isLight } = useAppTheme();
   const styles = createTeamQuizStyles(colors);
 
@@ -140,7 +141,12 @@ const TeamQuizScreen: React.FC<Props> = ({ navigation }) => {
   const handleGuessSubmit = () => {
     const isCorrect = guess.trim().toLowerCase() === currentWord.word.toLowerCase();
     if (isCorrect) {
+      soundHelper.playCorrect(soundEnabled);
       handleRoundEnd(true, phase === "STEAL");
+    } else {
+      // In Team Quiz, a wrong guess during guessing phase doesn't necessarily end the round immediately,
+      // but we play a subtle wrong sound for feedback.
+      soundHelper.playWrong(soundEnabled);
     }
   };
 
@@ -163,6 +169,7 @@ const TeamQuizScreen: React.FC<Props> = ({ navigation }) => {
         setCurrentRound((r) => r + 1);
         setupRound();
       } else {
+        soundHelper.playWin(soundEnabled);
         setPhase("GAME_OVER");
         setWinner(team1Score > team2Score ? 1 : team2Score > team1Score ? 2 : null);
         startPhaseAnimation();

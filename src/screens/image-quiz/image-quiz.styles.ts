@@ -2,7 +2,7 @@ import { StyleSheet, Dimensions } from "react-native";
 
 const { width } = Dimensions.get("window");
 
-export const TIMER_SECONDS = 15;
+export const TIMER_SECONDS = 20;
 
 export const createImageQuizStyles = (colors: any) =>
   StyleSheet.create({

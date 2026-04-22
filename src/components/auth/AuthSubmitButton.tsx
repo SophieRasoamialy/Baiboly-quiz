@@ -11,13 +11,13 @@ interface Props {
   label?: string;
 }
 
-const AuthSubmitButton: React.FC<Props> = ({
+function AuthSubmitButton({
   styles,
   colors,
   disabled,
   onPress,
   label = "Hanomboka",
-}) => {
+}: Props) {
   return (
     <TouchableOpacity
       activeOpacity={0.88}

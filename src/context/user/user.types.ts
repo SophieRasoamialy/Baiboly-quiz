@@ -10,6 +10,7 @@ export interface UserState {
   theme: ThemeMode;
   colors: any;
   points: number;
+  soundEnabled: boolean;
 
 
   lastHeartRefill: number;
@@ -21,6 +22,7 @@ export interface UserState {
   isLoggedIn: boolean;
   isLoading: boolean;
   friends: any[];
+  profileId: string | null;
 }
 
 export interface UserActions {
@@ -38,12 +40,14 @@ export interface UserActions {
 
   setTheme: (theme: ThemeMode) => void;
   toggleTheme: () => void;
+  setSoundEnabled: (enabled: boolean) => void;
 
   login: (name: string, church: string, city: string) => void;
   logout: () => void;
 
   addFriend: (friend: any) => Promise<void>;
   removeFriend: (id: string) => Promise<void>;
+  syncProfile: () => Promise<void>;
 }
 
 export type UserContextType = UserState & UserActions;

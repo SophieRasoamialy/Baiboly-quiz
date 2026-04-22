@@ -60,7 +60,7 @@ export const DescribingPhase: React.FC<DescribingPhaseProps> = ({
         disabled={!isReady}
         onPress={onStartGuessing}
       >
-        <LinearGradient colors={[colors.primary, "#FF8F00"]} style={styles.btnGradient}>
+        <LinearGradient colors={[colors.primary, colors.primaryDark]} style={styles.btnGradient}>
           <Text style={styles.btnText}>HIDITRA NY NAMANA</Text>
         </LinearGradient>
       </TouchableOpacity>

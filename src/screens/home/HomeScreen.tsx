@@ -1,13 +1,14 @@
 import React from "react";
-import { Alert, Animated, ScrollView, View, Dimensions } from "react-native";
+import { Animated, ScrollView, View, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import { StackNavigationProp } from "@react-navigation/stack";
 
-import { RootStackParamList } from "../../navigation";
+import { RootStackParamList } from "../../navigation/types";
 import { useUser } from "../../context/user";
 import { useAppTheme } from "../../hooks/useAppTheme";
+import { useAlert } from "../../context/AlertContext";
 import { getHomeMenuItems } from "../../constants/menuItems";
 import { createHomeStyles } from "./home.styles";
 
@@ -28,6 +29,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const { gems, hearts, buyHeartWithGems, nextRefillIn, avatar, isLoggedIn, points } =
     useUser();
 
+  const { showAlert } = useAlert();
   const { colors, isLight } = useAppTheme();
   const styles = createHomeStyles(colors);
 
@@ -46,21 +48,21 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 
   const handleBuyHeart = () => {
     if (hearts < 5) {
-      Alert.alert(
-        "Mividy fo",
-        "Mila vatosoa 20 ianao mba hividianana fo. Te hanohy ve ianao?",
-        [
+      showAlert({
+        title: "Mividy fo",
+        message: "Mila vatosoa 20 ianao mba hividianana fo. Te hanohy ve ianao?",
+        buttons: [
           { text: "Tsia", style: "cancel" },
           {
             text: "Eny",
             onPress: () => {
               if (!buyHeartWithGems()) {
-                Alert.alert("Tsy ampy vatosoa", "Mila vatosoa 20 ianao.");
+                showAlert({ title: "Tsy ampy vatosoa", message: "Mila vatosoa 20 ianao." });
               }
             },
           },
         ],
-      );
+      });
     }
   };
 
@@ -116,14 +118,14 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
             onPressItem={(route) => {
               if (route === "TeamQuiz") {
                 if (!isLoggedIn) {
-                  Alert.alert(
-                    "Mila Kaonty",
-                    "Mila misoratra anarana ianao raha te hilalao amin'ny namana an-tserasera.",
-                    [
+                  showAlert({
+                    title: "Mila Kaonty",
+                    message: "Mila misoratra anarana ianao raha te hilalao amin'ny namana an-tserasera.",
+                    buttons: [
                       { text: "Aoka ihany", style: "cancel" },
                       { text: "Hiditra", onPress: () => navigation.navigate("Auth") },
-                    ]
-                  );
+                    ],
+                  });
                   return;
                 }
                 navigation.navigate("FriendSelection", { gameType: "team" });

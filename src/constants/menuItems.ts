@@ -56,7 +56,7 @@ export const getHomeMenuItems = (colors: any): HomeMenuItem[] => [
   },
   {
     title: "TENY HO ANAO",
-    subtitle: "Tenin'Andriamannitra ho fankaherezana",
+    subtitle: "Tenin'Andriamanitra ho fampaherezana",
     icon: "script-text-outline",
     accent: "#8B5CF6",
     softAccent: "rgba(139,92,246,0.14)",

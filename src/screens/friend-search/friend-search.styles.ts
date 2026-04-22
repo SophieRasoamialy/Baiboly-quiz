@@ -219,4 +219,78 @@ export const createFriendSearchStyles = (colors: any) =>
       marginTop: 20,
       lineHeight: 22,
     },
+
+    scanButton: {
+      marginHorizontal: 20,
+      marginTop: 10,
+      marginBottom: 20,
+      height: 60,
+      borderRadius: 20,
+      backgroundColor: colors.mode === 'light' ? colors.primary : colors.surface,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 1,
+      borderColor: colors.border,
+      elevation: 6,
+      shadowColor: colors.primary,
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.2,
+      shadowRadius: 10,
+      gap: 12,
+    },
+
+    scanButtonText: {
+      color: colors.mode === 'light' ? colors.white : colors.text,
+      fontSize: 17,
+      fontWeight: '900',
+      letterSpacing: 0.5,
+    },
+
+    scanningContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingBottom: 60,
+    },
+
+    radarWrapper: {
+      width: width * 0.8,
+      height: width * 0.8,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+
+    retryBtn: {
+      marginTop: 24,
+      paddingHorizontal: 24,
+      paddingVertical: 12,
+      borderRadius: 15,
+      backgroundColor: colors.primarySoft,
+      borderWidth: 1,
+      borderColor: colors.primary,
+    },
+
+    retryBtnText: {
+      color: colors.primary,
+      fontWeight: '800',
+      fontSize: 14,
+    },
+
+    matchBanner: {
+      position: 'absolute',
+      top: -20,
+      alignSelf: 'center',
+      backgroundColor: colors.secondary,
+      paddingHorizontal: 12,
+      paddingVertical: 4,
+      borderRadius: 8,
+      elevation: 4,
+    },
+
+    matchBannerText: {
+      color: "#000",
+      fontSize: 10,
+      fontWeight: '900',
+    },
   });

@@ -7,7 +7,7 @@ interface Props {
   colors: any;
 }
 
-const AuthRewardCard: React.FC<Props> = ({ styles, colors }) => {
+function AuthRewardCard({ styles, colors }: Props) {
   return (
     <View style={styles.rewardCard}>
       <View style={styles.rewardRow}>

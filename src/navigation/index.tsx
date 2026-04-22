@@ -23,31 +23,8 @@ import ImageQuizScreen from "../screens/image-quiz/ImageQuizScreen";
 import ImageQuizModeScreen from "../screens/image-quiz/ImageQuizModeScreen";
 import { useUser } from "../context/user";
 
-export type RootStackParamList = {
-  Home: undefined;
-  ThemeSelection: undefined;
-  SoloQuiz: { theme: string };
-  Multiplayer: undefined;
-  Profile: undefined;
-  Settings: undefined;
-  Ranking: undefined;
-  Bible:
-    | { initialBook?: string; initialChapter?: number; initialVerse?: number }
-    | undefined;
-  VerseOfDay: undefined;
-  Auth: undefined;
-  DuoQuiz: { p1: any; p2: any };
-  DuoImageQuiz: { p1: any; p2: any };
-  DuoSetup: { quizType?: "standard" | "image" } | undefined;
-  FriendSelection: { gameType: "duo" | "team"; quizType?: "standard" | "image" } | undefined;
-  Matchmaking: { mode: "random" | "invite"; friendName?: string; gameType?: "duo" | "team" };
-  FriendSearch: { gameType?: "duo" | "team" } | undefined;
-  OnlineQuiz: { opponent: any };
-  OnlineImageQuiz: { opponent: any };
-  TeamQuiz: undefined;
-  ImageQuiz: undefined;
-  ImageQuizMode: undefined;
-};
+import { RootStackParamList } from "./types";
+
 
 const Stack = createStackNavigator<RootStackParamList>();
 

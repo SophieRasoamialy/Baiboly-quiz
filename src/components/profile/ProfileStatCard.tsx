@@ -38,7 +38,7 @@ const ProfileStatCard: React.FC<Props> = ({
   return (
     <Animated.View
       style={{
-        width: "48%",
+        width: "31%",
         opacity: mountAnim,
         transform: [
           {

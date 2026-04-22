@@ -3,6 +3,7 @@ import { Animated, Image, Text, TouchableOpacity, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AVATAR_MAP } from "../../constants/avatar";
+import UserAvatar from "../ui/UserAvatar";
 
 interface Props {
   styles: any;
@@ -42,31 +43,11 @@ const ProfileHero: React.FC<Props> = ({
       {isLoggedIn && (
         <>
           <View style={{ alignItems: "center", justifyContent: "center" }}>
-            <Animated.View
-              style={[
-                styles.avatarOuterRing,
-                {
-                  opacity: ringOpacity,
-                  transform: [{ scale: ringScale }],
-                  shadowColor: colors.primary,
-                  shadowOffset: { width: 0, height: 0 },
-                  shadowOpacity: 0.6,
-                  shadowRadius: 16,
-                },
-              ]}
+            <UserAvatar 
+              avatar={avatar} 
+              size={100} 
+              showPulse={true} 
             />
-
-            <LinearGradient
-              colors={[colors.primary, "#065F46", "#022C22"]}
-              style={styles.avatarGradientWrap}
-            >
-              <View style={styles.avatarInnerWrap}>
-                <Image
-                  source={AVATAR_MAP[avatar] || AVATAR_MAP.abraham}
-                  style={{ width: "100%", height: "100%", resizeMode: "cover" }}
-                />
-              </View>
-            </LinearGradient>
           </View>
 
           <View style={styles.userNameRow}>

@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import questionsData from "../data/questions_mg.json";
 import { GAME_CONFIG } from "../constants/duoGame";
+import { soundHelper } from "../utils/SoundHelper";
+import { useUser } from "../context/user/UserContext";
 
 export const useDuoGame = (p1: any, p2: any) => {
+  const { soundEnabled, addPoints, isLoggedIn } = useUser();
   const [questions, setQuestions] = useState<any[]>([]);
   const [index, setIndex] = useState(0);
 
@@ -18,7 +21,11 @@ export const useDuoGame = (p1: any, p2: any) => {
 
   useEffect(() => {
     const shuffled = [...questionsData].sort(() => 0.5 - Math.random());
-    setQuestions(shuffled.slice(0, GAME_CONFIG.QUESTIONS_COUNT));
+    const selected = shuffled.slice(0, GAME_CONFIG.QUESTIONS_COUNT).map((q) => ({
+      ...q,
+      options: [...q.options].sort(() => 0.5 - Math.random())
+    }));
+    setQuestions(selected);
   }, []);
 
   const nextQuestion = () => {
@@ -45,15 +52,23 @@ export const useDuoGame = (p1: any, p2: any) => {
     else setP2Answered(true);
 
     if (correct) {
-      if (player === 1) setP1Score(p => p + 1);
+      if (player === 1) {
+        setP1Score(p => p + 1);
+        if (isLoggedIn) addPoints(10);
+      }
       else setP2Score(p => p + 1);
+      soundHelper.playCorrect(soundEnabled);
       // First correct answer ends the question
       setQuestionDone(true);
       nextQuestion();
     } else {
       // Wrong answer: lose a point, still can be answered by other player
-      if (player === 1) setP1Score(p => Math.max(0, p - 1));
+      if (player === 1) {
+        setP1Score(p => Math.max(0, p - 1));
+        if (isLoggedIn) addPoints(-5);
+      }
       else setP2Score(p => Math.max(0, p - 1));
+      soundHelper.playWrong(soundEnabled);
 
       // If both players have answered and both were wrong, move on
       const otherAnswered = player === 1 ? p2Answered : p1Answered;
@@ -63,6 +78,12 @@ export const useDuoGame = (p1: any, p2: any) => {
       }
     }
   };
+
+  useEffect(() => {
+    if (isGameOver) {
+      soundHelper.playWin(soundEnabled);
+    }
+  }, [isGameOver, soundEnabled]);
 
   return {
     questions,

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import quizImageData from "../data/quiz-image.json";
 import { useUser } from "../context/user/UserContext";
+import { soundHelper } from "../utils/SoundHelper";
 
 export const useImageQuizGame = (p1?: any, p2?: any, questionsCount: number = 5) => {
-  const { addPoints, isLoggedIn } = useUser();
+  const { addPoints, isLoggedIn, soundEnabled } = useUser();
   const [questions, setQuestions] = useState<any[]>([]);
   const [index, setIndex] = useState(0);
 
@@ -65,6 +66,7 @@ export const useImageQuizGame = (p1?: any, p2?: any, questionsCount: number = 5)
         setP2Score(p => p + 1);
       }
       setQuestionDone(true);
+      soundHelper.playCorrect(soundEnabled);
       nextQuestion();
     } else {
       if (player === 1) {
@@ -73,6 +75,7 @@ export const useImageQuizGame = (p1?: any, p2?: any, questionsCount: number = 5)
       } else {
         setP2Score(p => Math.max(0, p - 1));
       }
+      soundHelper.playWrong(soundEnabled);
 
       const otherAnswered = player === 1 ? p2Answered : p1Answered;
       if (otherAnswered) {
@@ -81,6 +84,12 @@ export const useImageQuizGame = (p1?: any, p2?: any, questionsCount: number = 5)
       }
     }
   };
+
+  useEffect(() => {
+    if (isGameOver) {
+      soundHelper.playWin(soundEnabled);
+    }
+  }, [isGameOver, soundEnabled]);
 
   return {
     questions,

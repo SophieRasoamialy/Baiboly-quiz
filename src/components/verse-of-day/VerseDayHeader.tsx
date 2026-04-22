@@ -2,7 +2,7 @@ import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import { BackButton } from "../ui/BackButton";
+import BackButton from "../ui/BackButton";
 
 interface Props {
   styles: any;

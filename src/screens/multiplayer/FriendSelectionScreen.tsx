@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, ScrollView, Image, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../navigation";
+import { RootStackParamList } from "../../navigation/types";
 import { useUser } from "../../context/user";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -12,7 +12,7 @@ import { AVATAR_MAP } from "../../constants/avatar";
 
 import { createFriendSelectionStyles } from "./friend-selection.styles";
 import FloatingGem from "../../components/home/FloatingGem";
-import { BackButton } from "../../components/ui/BackButton";
+import BackButton from "../../components/ui/BackButton";
 
 const { width } = Dimensions.get("window");
 

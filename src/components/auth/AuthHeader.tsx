@@ -8,7 +8,7 @@ interface Props {
   isEditing?: boolean;
 }
 
-const AuthHeader: React.FC<Props> = ({ styles, colors, isEditing }) => {
+function AuthHeader({ styles, colors, isEditing }: Props) {
   return (
     <View style={styles.header}>
       <View

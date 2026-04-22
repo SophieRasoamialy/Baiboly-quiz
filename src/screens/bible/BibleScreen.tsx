@@ -13,7 +13,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import { RootStackParamList } from "../../navigation";
+import { RootStackParamList } from "../../navigation/types";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { useBibleData } from "../../hooks/useBibleData";
 import { useBibleSearch } from "../../hooks/useBibleSearch";

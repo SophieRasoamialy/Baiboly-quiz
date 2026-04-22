@@ -26,7 +26,7 @@ const RandomThemeCard: React.FC<Props> = ({ onPress, total, styles, colors }) =>
           </View>
           <View style={{ flex: 1 }}>
             <Text style={styles.randomTitle}>Kisendrasendra</Text>
-            <Text style={styles.randomSub}>Fanontaniana mifangaro • {total}</Text>
+            <Text style={styles.randomSub}>Fanontaniana mifangaro</Text>
           </View>
           <MaterialCommunityIcons name="chevron-right" size={24} color="#fff" style={styles.randomArrow} />
         </LinearGradient>

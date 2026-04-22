@@ -6,6 +6,7 @@ import { StatusBar } from "expo-status-bar";
 
 import { useUser } from "../../context/user";
 import { useAppTheme } from "../../hooks/useAppTheme";
+import { useAlert } from "../../context/AlertContext";
 import { createSettingsStyles } from "./settings.styles";
 
 import SettingsHeader from "../../components/settings/SettingsHeader";
@@ -18,10 +19,11 @@ import AboutCard from "../../components/settings/AboutCard";
 
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../navigation";
+import { RootStackParamList } from "../../navigation/types";
 
 const SettingsScreen = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const { showAlert } = useAlert();
   const {
     language,
     setLanguage,
@@ -31,26 +33,36 @@ const SettingsScreen = () => {
     setTheme,
     addHeart,
     removeGems,
+    soundEnabled,
+    setSoundEnabled,
   } = useUser();
 
   const { colors, isLight } = useAppTheme();
   const styles = createSettingsStyles(colors);
 
-  const [soundEnabled, setSoundEnabled] = useState(true);
   const [notificationEnabled, setNotificationEnabled] = useState(false);
 
   const handleBuyHeart = () => {
     if (hearts >= 5) {
-      Alert.alert("Efa feno", "Efa manana fo 5 ianao.");
+      showAlert({
+        title: "Efa feno",
+        message: "Efa manana fo 5 ianao.",
+      });
       return;
     }
 
     if (gems >= 50) {
       removeGems(50);
       addHeart();
-      Alert.alert("Vita", "Nahazo fo 1 ianao.");
+      showAlert({
+        title: "Vita",
+        message: "Nahazo fo 1 ianao.",
+      });
     } else {
-      Alert.alert("Tsy ampy", "Mila vatosoa 50 ianao hividianana fo.");
+      showAlert({
+        title: "Tsy ampy",
+        message: "Mila vatosoa 50 ianao hividianana fo.",
+      });
     }
   };
 

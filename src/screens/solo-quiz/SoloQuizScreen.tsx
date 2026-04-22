@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { View, Text, TouchableOpacity, ScrollView, Dimensions, Alert } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -12,6 +12,7 @@ import { useQuizGame } from "../../hooks/useQuizGame";
 import { useTimer } from "../../hooks/useTimer";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { useUser } from "../../context/user/UserContext";
+import { useAlert } from "../../context/AlertContext";
 
 import AnswersList from "../../components/quiz-solo/AnswersList";
 import HeartsBar from "../../components/quiz-solo/HeartsBar";
@@ -19,7 +20,8 @@ import GemsCounter from "../../components/quiz-solo/GemsCounter";
 import TimerBar from "../../components/quiz-solo/TimerBar";
 import FloatingGem from "../../components/home/FloatingGem";
 import { createSoloQuizStyles } from "./solo-quiz.styles";
-import { BackButton } from "../../components/ui/BackButton";
+import BackButton from "../../components/ui/BackButton";
+import { soundHelper } from "../../utils/SoundHelper";
 
 const { width } = Dimensions.get("window");
 
@@ -36,7 +38,8 @@ const SoloQuizScreen = () => {
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
   const { themeId, random } = route.params || {};
-  const { buyHeartWithGems, nextRefillIn } = useUser();
+  const { buyHeartWithGems, nextRefillIn, soundEnabled } = useUser();
+  const { showAlert } = useAlert();
 
   const quizQuestions = useMemo(() => {
     let filtered = [...questionsData];
@@ -50,7 +53,7 @@ const SoloQuizScreen = () => {
     return shuffled.map((q: any) => ({
       id: q.id.toString(),
       question: q.question,
-      answers: q.options,
+      answers: shuffle(q.options),
       correctAnswer: q.answer,
     }));
   }, [themeId, random]);
@@ -60,6 +63,12 @@ const SoloQuizScreen = () => {
   const timer = useTimer(QUIZ_CONFIG.TIME_PER_QUESTION, () => {
     game.next();
   });
+
+  useEffect(() => {
+    if (game.isFinished) {
+      soundHelper.playWin(soundEnabled);
+    }
+  }, [game.isFinished, soundEnabled]);
 
   const { colors, isLight } = useAppTheme();
   const styles = createSoloQuizStyles(colors);
@@ -108,7 +117,10 @@ const SoloQuizScreen = () => {
             }}
             onPress={() => {
               if (!buyHeartWithGems())
-                Alert.alert("Tsy ampy vatosoa", "Mila 20 vatosoa ianao.");
+                showAlert({
+                  title: "Tsy ampy vatosoa",
+                  message: "Mila 20 vatosoa ianao.",
+                });
             }}
           >
             <Text style={{ color: '#fff', fontWeight: 'bold' }}>Mividy fo (20 vatosoa)</Text>

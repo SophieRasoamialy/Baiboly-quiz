@@ -12,8 +12,11 @@ export interface UserDBState {
   medals: string; // Stored as comma-separated string
   avatar: string;
   language: string;
+  theme: string;
   points: number;
+  soundEnabled: number; // 0 or 1 (SQLite boolean)
   lastHeartRefill: number;
+  profileId: string | null;
 }
 
 class DatabaseService {
@@ -38,7 +41,9 @@ class DatabaseService {
         language TEXT DEFAULT 'mg',
         theme TEXT DEFAULT 'light',
         points INTEGER DEFAULT 0,
-        lastHeartRefill INTEGER
+        soundEnabled INTEGER DEFAULT 1,
+        lastHeartRefill INTEGER,
+        profileId TEXT
       );
 
       CREATE TABLE IF NOT EXISTS friends (
@@ -48,7 +53,40 @@ class DatabaseService {
         church TEXT,
         city TEXT
       );
+
+      CREATE TABLE IF NOT EXISTS matchmaking_pool (
+        session_id TEXT PRIMARY KEY NOT NULL,
+        name TEXT NOT NULL,
+        avatar TEXT,
+        church TEXT,
+        city TEXT,
+        joined_at INTEGER NOT NULL
+      );
     `);
+
+    try {
+      await this.db.execAsync(
+        "ALTER TABLE user_state ADD COLUMN soundEnabled INTEGER DEFAULT 1"
+      );
+    } catch (_) {
+      // Column already exists — safe to ignore
+    }
+
+    try {
+      await this.db.execAsync(
+        "ALTER TABLE user_state ADD COLUMN points INTEGER DEFAULT 0"
+      );
+    } catch (_) {
+      // Column already exists — safe to ignore
+    }
+
+    try {
+      await this.db.execAsync(
+        "ALTER TABLE user_state ADD COLUMN profileId TEXT"
+      );
+    } catch (_) {
+      // Column already exists — safe to ignore
+    }
 
     // Ensure we have at least one row
     const result = await this.db.getFirstAsync<{ count: number }>(
@@ -56,7 +94,7 @@ class DatabaseService {
     );
     if (result && result.count === 0) {
       await this.db.runAsync(
-        'INSERT INTO user_state (id, gems, hearts, medals, avatar, language, theme, points, lastHeartRefill) VALUES (1, 100, 5, "bronze", "default", "mg", "light", 0, ?)',
+        'INSERT INTO user_state (id, gems, hearts, medals, avatar, language, theme, points, soundEnabled, lastHeartRefill) VALUES (1, 100, 5, "bronze", "default", "mg", "light", 0, 1, ?)',
         [Date.now()],
       );
     }
@@ -64,9 +102,10 @@ class DatabaseService {
 
   async getUserState(): Promise<UserDBState | null> {
     if (!this.db) await this.init();
-    return await this.db!.getFirstAsync<UserDBState>(
+    const state = await this.db!.getFirstAsync<UserDBState>(
       "SELECT * FROM user_state WHERE id = 1",
     );
+    return state;
   }
 
   async saveUserState(state: Partial<UserDBState>) {
@@ -108,6 +147,15 @@ class DatabaseService {
   async removeFriend(id: string) {
     if (!this.db) await this.init();
     await this.db!.runAsync("DELETE FROM friends WHERE id = ?", [id]);
+  }
+
+  async searchFriends(query: string): Promise<any[]> {
+    if (!this.db) await this.init();
+    const like = `%${query}%`;
+    return await this.db!.getAllAsync<any>(
+      "SELECT * FROM friends WHERE name LIKE ? LIMIT 20",
+      [like],
+    );
   }
 }
 

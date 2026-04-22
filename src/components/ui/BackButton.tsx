@@ -15,7 +15,7 @@ interface BackButtonProps {
  * A standardized BackButton component used across the application.
  * Matches the design language found in Bible and Profile screens.
  */
-export const BackButton: React.FC<BackButtonProps> = ({
+const BackButton: React.FC<BackButtonProps> = ({
   onPress,
   colors,
   variant = "default",

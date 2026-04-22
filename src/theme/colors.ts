@@ -29,6 +29,8 @@ export const lightColors = {
   textSecondary: "#374151",
   textMuted: "#6B7280",
   primary: PALETTE.emerald,
+  primaryDark: PALETTE.emeraldDark,
+  primaryDeep: PALETTE.emeraldDeep,
   primarySoft: "#D1FAE5",
   secondary: PALETTE.gold,
   secondaryDark: PALETTE.goldDark,
@@ -51,6 +53,8 @@ export const darkColors = {
   textSecondary: "#94A3B8", // Cool Grey (Slate 400)
   textMuted: "#64748B", // Muted Slate (Slate 500)
   primary: PALETTE.emerald,
+  primaryDark: PALETTE.emeraldDark,
+  primaryDeep: PALETTE.emeraldDeep,
   primarySoft: "rgba(16,185,129,0.16)",
   secondary: PALETTE.gold,
   secondaryDark: PALETTE.goldDark,

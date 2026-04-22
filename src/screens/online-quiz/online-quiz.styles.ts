@@ -228,53 +228,76 @@ export const createOnlineQuizStyles = (colors: any) =>
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      padding: 40,
+      padding: 30,
     },
 
-    medalCircle: {
-      width: 140,
-      height: 140,
-      borderRadius: 70,
-      backgroundColor: colors.surfaceSoft,
-      justifyContent: "center",
-      alignItems: "center",
+    resultBanner: {
+      width: "100%",
+      borderRadius: 30,
+      overflow: "hidden",
       marginBottom: 30,
-      borderWidth: 1,
-      borderColor: colors.border,
+      elevation: 10,
+      shadowColor: colors.primary,
+      shadowOffset: { width: 0, height: 8 },
+      shadowOpacity: 0.3,
+      shadowRadius: 15,
     },
 
-    resultTitle: {
-      color: colors.text,
-      fontSize: 32,
+    bannerGradient: {
+      padding: 30,
+      alignItems: "center",
+    },
+
+    winnerAvatarRow: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginBottom: 20,
+      gap: 15,
+    },
+
+    avatarMiniCircle: {
+      width: 70,
+      height: 70,
+      borderRadius: 35,
+      borderWidth: 3,
+      borderColor: "#FFF",
+      overflow: "hidden",
+      backgroundColor: "rgba(255,255,255,0.2)",
+    },
+
+    bannerTitle: {
+      fontSize: 22,
       fontWeight: "900",
-      marginBottom: 10,
+      textAlign: "center",
       letterSpacing: -0.5,
     },
 
     resultScores: {
       color: colors.primary,
-      fontSize: 40,
+      fontSize: 48,
       fontWeight: "900",
-      marginBottom: 50,
+      marginBottom: 40,
     },
 
-    homeBtn: {
+    actionGroup: {
+      width: "100%",
+      gap: 15,
+    },
+
+    resultActionBtn: {
       width: "100%",
       height: 60,
       borderRadius: 20,
-      overflow: "hidden",
-    },
-
-    homeGradient: {
-      flex: 1,
+      flexDirection: "row",
       justifyContent: "center",
       alignItems: "center",
+      gap: 12,
     },
 
-    homeText: {
-      color: "#fff",
-      fontSize: 17,
-      fontWeight: "900",
+    actionText: {
+      color: "#FFF",
+      fontSize: 15,
+      fontWeight: "800",
       letterSpacing: 0.5,
     },
   });

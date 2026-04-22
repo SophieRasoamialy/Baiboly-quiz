@@ -1,5 +1,6 @@
 import React from "react";
 import { Alert, Text, View } from "react-native";
+import { useAlert } from "../../context/AlertContext";
 import AvatarOption from "./AvatarOption";
 import { AVATARS } from "../../constants/avatar";
 
@@ -18,6 +19,8 @@ const AvatarSection: React.FC<Props> = ({
   avatar,
   setAvatar,
 }) => {
+  const { showAlert } = useAlert();
+
   return (
     <View style={styles.sectionWrap}>
       <View style={styles.sectionTitleRow}>
@@ -52,10 +55,10 @@ const AvatarSection: React.FC<Props> = ({
             colors={colors}
             onPress={() => {
               if (!isLoggedIn) {
-                Alert.alert(
-                  "Mila Kaonty",
-                  "Mamorona kaonty hahafahanao misafidy sary manokana ho anao.",
-                );
+                showAlert({
+                  title: "Mila Kaonty",
+                  message: "Mamorona kaonty hahafahanao misafidy sary manokana ho anao.",
+                });
                 return;
               }
 

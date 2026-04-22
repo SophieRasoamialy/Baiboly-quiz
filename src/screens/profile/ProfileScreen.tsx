@@ -6,7 +6,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 
-import { RootStackParamList } from "../../navigation";
+import { RootStackParamList } from "../../navigation/types";
 import { useUser } from "../../context/user";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { createProfileStyles } from "./profile.styles";
@@ -34,6 +34,7 @@ const ProfileScreen = () => {
     churchName,
     city,
     logout,
+    points,
   } = useUser();
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -130,6 +131,7 @@ const ProfileScreen = () => {
                 styles={styles}
                 gems={gems}
                 medalCount={medals.length}
+                points={points}
                 colors={colors}
               />
 

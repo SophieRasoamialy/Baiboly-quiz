@@ -290,7 +290,7 @@ export const createProfileStyles = (colors: any) =>
     },
 
     statCard: {
-      width: "48%",
+      width: "100%",
       backgroundColor: colors.card,
       borderWidth: 1,
       borderColor: colors.border,
@@ -384,19 +384,29 @@ export const createProfileStyles = (colors: any) =>
 
     avatarOption: {
       width: AVATAR_OPTION_SIZE,
-      height: AVATAR_OPTION_SIZE,
+      height: AVATAR_OPTION_SIZE + 25, // Extra space for name
       borderRadius: 20,
-      overflow: "hidden",
       borderWidth: 2,
       justifyContent: "center",
       alignItems: "center",
+      paddingTop: 8, // Shift image up slightly
+    },
+
+    avatarName: {
+      fontSize: 10,
+      fontWeight: "900",
+      color: colors.textSecondary,
+      marginTop: 4,
+      textTransform: "uppercase",
+      letterSpacing: 0.5,
+      textAlign: "center",
     },
 
     avatarCheck: {
       position: "absolute",
-      top: 6,
-      right: 6,
-      backgroundColor: "rgba(0,0,0,0.55)",
+      top: 4,
+      right: 4,
+      backgroundColor: colors.card,
       borderRadius: 12,
       padding: 1,
     },
