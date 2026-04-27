@@ -15,12 +15,16 @@ import { AlertProvider } from "./src/context/AlertContext";
 import CustomAlert from "./src/components/ui/CustomAlert";
 import { lightColors, darkColors } from "./src/theme/colors";
 
+import { NotificationService } from "./src/services/NotificationService";
+
 // Ignore some warnings in dev
 LogBox.ignoreLogs([
   "Sending `onAnimatedValueUpdate` with no listeners registered",
 ]);
 
 SplashScreen.preventAutoHideAsync();
+
+NotificationService.init();
 
 function AppContent() {
   const { theme } = useUser();

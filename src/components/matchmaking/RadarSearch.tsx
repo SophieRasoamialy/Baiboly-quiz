@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react";
-import { Animated, Easing, Image, Text, View } from "react-native";
+import { Animated, Easing, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useUser } from "../../context/user";
 import { useAppTheme } from "../../hooks/useAppTheme";
-import { AVATAR_MAP } from "../../constants/avatar";
 import { createMatchmakingStyles } from "../../screens/matchmaking/matchmaking.styles";
+import UserAvatar from "../ui/UserAvatar";
 
 interface RadarSearchProps {
   mode: string;
@@ -12,7 +12,7 @@ interface RadarSearchProps {
 }
 
 export const RadarSearch: React.FC<RadarSearchProps> = ({ mode, friendName }) => {
-  const { avatar } = useUser();
+  const { avatar, points } = useUser();
   const { colors } = useAppTheme();
   const styles = createMatchmakingStyles(colors);
   
@@ -40,14 +40,12 @@ export const RadarSearch: React.FC<RadarSearchProps> = ({ mode, friendName }) =>
         <Animated.View style={[styles.radarLine, { transform: [{ rotate }] }]} />
         
         <View style={styles.centerAvatar}>
-          {avatar ? (
-            <Image
-              source={AVATAR_MAP[avatar as keyof typeof AVATAR_MAP] || AVATAR_MAP.david}
-              style={styles.avatarImg}
-            />
-          ) : (
-            <MaterialCommunityIcons name="account" size={40} color={colors.textMuted} />
-          )}
+          <UserAvatar 
+            avatar={avatar} 
+            size={70} 
+            points={points} 
+            showPulse={false} 
+          />
         </View>
       </View>
 

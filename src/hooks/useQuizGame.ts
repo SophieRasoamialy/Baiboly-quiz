@@ -7,6 +7,7 @@ export const useQuizGame = (questions: any[]) => {
   const { addPoints, isLoggedIn, hearts, gems, addGems, removeHeart, soundEnabled } = useUser();
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
+  const [correctCount, setCorrectCount] = useState(0);
 
   const currentQuestion = questions[index];
 
@@ -16,6 +17,7 @@ export const useQuizGame = (questions: any[]) => {
     setSelected(choice);
 
     if (choice === currentQuestion.correctAnswer) {
+      setCorrectCount(prev => prev + 1);
       addGems(QUIZ_CONFIG.REWARD_GEMS);
       if (isLoggedIn) addPoints(10);
       soundHelper.playCorrect(soundEnabled);
@@ -40,6 +42,7 @@ export const useQuizGame = (questions: any[]) => {
     hearts,
     gems,
     selected,
+    correctCount,
     answer,
     next,
     isFinished,

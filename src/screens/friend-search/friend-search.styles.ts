@@ -123,10 +123,8 @@ export const createFriendSearchStyles = (colors: any) =>
     itemAvatar: {
       width: 54,
       height: 54,
-      borderRadius: 27,
-      backgroundColor: colors.surfaceSoft,
-      borderWidth: 1,
-      borderColor: colors.border,
+      justifyContent: "center",
+      alignItems: "center",
     },
 
     statusDot: {

@@ -1,14 +1,17 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { Animated, ScrollView, View, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import { StackNavigationProp } from "@react-navigation/stack";
+import * as Notifications from "expo-notifications";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { RootStackParamList } from "../../navigation/types";
 import { useUser } from "../../context/user";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { useAlert } from "../../context/AlertContext";
+import { useDailyPromiseVerse } from "../../hooks/useDailyPromiseVerse";
 import { getHomeMenuItems } from "../../constants/menuItems";
 import { createHomeStyles } from "./home.styles";
 
@@ -16,6 +19,7 @@ import FloatingGem from "../../components/home/FloatingGem";
 import HomeHeader from "../../components/home/HomeHeader";
 import HomeHero from "../../components/home/HomeHero";
 import MenuGrid from "../../components/home/MenuGrid";
+import VerseOfDayModal from "../../components/home/VerseOfDayModal";
 
 const { width } = Dimensions.get("window");
 
@@ -25,6 +29,8 @@ interface Props {
   navigation: HomeScreenNavigationProp;
 }
 
+const VERSE_SHOWN_DATE_KEY = "@verse_shown_date";
+
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const { gems, hearts, buyHeartWithGems, nextRefillIn, avatar, isLoggedIn, points } =
     useUser();
@@ -32,6 +38,33 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const { showAlert } = useAlert();
   const { colors, isLight } = useAppTheme();
   const styles = createHomeStyles(colors);
+
+  const { dateStr, dailyVerse, dateDisplay } = useDailyPromiseVerse();
+  const [isVerseModalVisible, setIsVerseModalVisible] = useState(false);
+
+  useEffect(() => {
+    const checkVerseModal = async () => {
+      const lastShownDate = await AsyncStorage.getItem(VERSE_SHOWN_DATE_KEY);
+      if (lastShownDate !== dateStr) {
+        setIsVerseModalVisible(true);
+        await AsyncStorage.setItem(VERSE_SHOWN_DATE_KEY, dateStr);
+      }
+    };
+
+    const setupNotifications = () => {
+      const subscription = Notifications.addNotificationResponseReceivedListener(response => {
+        const data = response.notification.request.content.data;
+        if (data?.screen === "VerseOfDay") {
+          navigation.navigate("VerseOfDay");
+        }
+      });
+
+      return () => subscription.remove();
+    };
+
+    checkVerseModal();
+    return setupNotifications();
+  }, [dateStr, navigation]);
 
   const gemsConfig = [
     { x: width * 0.05, size: 18, delay: 0, duration: 7000, opacity: 0.75 },
@@ -69,6 +102,18 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <StatusBar style={isLight ? "dark" : "light"} />
+
+      <VerseOfDayModal
+        isVisible={isVerseModalVisible}
+        onClose={() => setIsVerseModalVisible(false)}
+        onViewDetails={() => {
+          setIsVerseModalVisible(false);
+          navigation.navigate("VerseOfDay");
+        }}
+        verse={dailyVerse}
+        dateDisplay={dateDisplay}
+        colors={colors}
+      />
 
       <LinearGradient
         colors={

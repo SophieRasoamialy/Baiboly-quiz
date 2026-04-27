@@ -36,6 +36,7 @@ const HomeHeader: React.FC<Props> = ({
           avatar={isLoggedIn ? avatar : null} 
           size={46} 
           borderWidth={2}
+          points={isLoggedIn ? points : 0}
         />
       </TouchableOpacity>
 

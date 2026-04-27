@@ -2,13 +2,13 @@ import React from "react";
 import { Animated, Image, Text, TouchableOpacity, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { AVATAR_MAP } from "../../constants/avatar";
 import UserAvatar from "../ui/UserAvatar";
 
 interface Props {
   styles: any;
   colors: any;
   avatar: string;
+  points: number;
   pulseAnim: Animated.Value;
   isLoggedIn: boolean;
   username?: string | null;
@@ -21,6 +21,7 @@ const ProfileHero: React.FC<Props> = ({
   styles,
   colors,
   avatar,
+  points,
   pulseAnim,
   isLoggedIn,
   username,
@@ -47,6 +48,7 @@ const ProfileHero: React.FC<Props> = ({
               avatar={avatar} 
               size={100} 
               showPulse={true} 
+              points={points}
             />
           </View>
 

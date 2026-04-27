@@ -22,7 +22,18 @@ export interface MatchmakingPlayer {
   church: string | null;
   city: string | null;
   profile_id: string | null;
+  points: number;
   joined_at?: string;
+}
+
+export interface PublicProfile {
+  id: string;
+  name: string;
+  avatar: string | null;
+  church: string | null;
+  city: string | null;
+  points: number;
+  updated_at?: string;
 }
 
 class SupabaseService {
@@ -36,6 +47,8 @@ class SupabaseService {
     church: string | null;
     city: string | null;
     profile_id: string | null;
+    game_type: string;
+    quiz_type: string;
   }) {
     const { error } = await supabase.from("matchmaking_pool").insert([
       {
@@ -45,6 +58,8 @@ class SupabaseService {
         church: user.church,
         city: user.city,
         profile_id: user.profile_id,
+        game_type: user.game_type,
+        quiz_type: user.quiz_type,
         matched_with: null,
       },
     ]);
@@ -72,13 +87,15 @@ class SupabaseService {
   /**
    * Fetch all players currently in the pool who aren't matched.
    */
-  async findAllActivePlayers(mySessionId: string): Promise<MatchmakingPlayer[]> {
+  async findAllActivePlayers(mySessionId: string, gameType: string, quizType: string): Promise<MatchmakingPlayer[]> {
     const { data, error } = await supabase
       .from("matchmaking_pool")
       .select("*")
       .neq("session_id", mySessionId)
+      .eq("game_type", gameType)
+      .eq("quiz_type", quizType)
       .is("matched_with", null)
-      .order("joined_at", { ascending: true });
+      .order("joined_at", { ascending: false });
 
     if (error) {
       console.error("Supabase Find All Players Error:", error);
@@ -98,6 +115,7 @@ class SupabaseService {
     avatar: string;
     church: string | null;
     city: string | null;
+    points: number;
   }) {
     const payload = {
       type: "invitation",
@@ -125,6 +143,7 @@ class SupabaseService {
     avatar: string;
     church: string | null;
     city: string | null;
+    points: number;
   }) {
     const payload = {
       type: "accepted",
@@ -263,6 +282,25 @@ class SupabaseService {
     return data;
   }
 
+  /**
+   * Fetch the global leaderboard ordered by points.
+   */
+  async getLeaderboard(limit = 50): Promise<PublicProfile[]> {
+    const { data, error } = await supabase
+      .from("public_profiles")
+      .select("*")
+      .order("points", { ascending: false })
+      .order("updated_at", { ascending: false })
+      .limit(limit);
+
+    if (error) {
+      console.error("Supabase Get Leaderboard Error:", error);
+      return [];
+    }
+
+    return (data as PublicProfile[]) || [];
+  }
+
   // ── Game Synchronization (Broadcast) ─────────────────────────────
 
   /**
@@ -321,21 +359,31 @@ class SupabaseService {
   /**
    * Search for public profiles by name.
    */
-  async searchProfilesByName(searchQuery: string): Promise<any[]> {
-    if (!searchQuery || searchQuery.length < 2) return [];
-
+  async searchProfilesByName(query: string) {
     const { data, error } = await supabase
       .from("public_profiles")
       .select("*")
-      .ilike("name", `%${searchQuery}%`)
-      .limit(20);
+      .ilike("name", `%${query}%`)
+      .limit(10);
 
     if (error) {
       console.error("Supabase Search Profiles Error:", error);
       return [];
     }
+    return data;
+  }
 
-    return data || [];
+  async getProfilesByIds(ids: string[]) {
+    const { data, error } = await supabase
+      .from("public_profiles")
+      .select("*")
+      .in("id", ids);
+
+    if (error) {
+      console.error("Supabase Get Profiles By IDs Error:", error);
+      return [];
+    }
+    return data;
   }
 }
 

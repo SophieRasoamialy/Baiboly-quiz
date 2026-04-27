@@ -21,7 +21,7 @@ const { width } = Dimensions.get("window");
 
 const OnlineQuizScreen: React.FC<any> = ({ navigation, route }) => {
   const { opponent, mySessionId, opponentSessionId } = route.params;
-  const { username, avatar: userAvatar, soundEnabled, isLoggedIn, addPoints, addFriend } = useUser();
+  const { username, avatar: userAvatar, soundEnabled, isLoggedIn, addPoints, addFriend, points } = useUser();
   const { colors, isLight } = useAppTheme();
   const { showAlert } = useAlert();
   const styles = createOnlineQuizStyles(colors);
@@ -36,6 +36,9 @@ const OnlineQuizScreen: React.FC<any> = ({ navigation, route }) => {
   const [timeLeft, setTimeLeft] = useState(15);
   const [questions, setQuestions] = useState<any[]>([]);
   const [isSyncing, setIsSyncing] = useState(true);
+  const [sessionPoints, setSessionPoints] = useState(0);
+  const [playerTimestamp, setPlayerTimestamp] = useState<number>(0);
+  const [opponentTimestamp, setOpponentTimestamp] = useState<number>(0);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const channelRef = useRef<any>(null);
@@ -103,6 +106,7 @@ const OnlineQuizScreen: React.FC<any> = ({ navigation, route }) => {
         break;
       case "ANSWER_SELECTED":
         setOpponentSelected(data.index);
+        setOpponentTimestamp(data.timestamp || Date.now());
         break;
     }
   };
@@ -146,10 +150,12 @@ const OnlineQuizScreen: React.FC<any> = ({ navigation, route }) => {
 
   const handleAnswerSelect = (index: number) => {
     if (selectedAnswer !== null || showResult || isSyncing) return;
+    const now = Date.now();
     setSelectedAnswer(index);
+    setPlayerTimestamp(now);
 
     // Broadcast our choice to the opponent
-    supabaseService.broadcastGameAction(channelRef.current, "ANSWER_SELECTED", { index });
+    supabaseService.broadcastGameAction(channelRef.current, "ANSWER_SELECTED", { index, timestamp: now });
   };
 
   const revealAnswers = () => {
@@ -157,17 +163,51 @@ const OnlineQuizScreen: React.FC<any> = ({ navigation, route }) => {
     setShowResult(true);
 
     const question = questions[currentQuestionIndex];
-    if (selectedAnswer === question.correctAnswer) {
+    const isPlayerCorrect = selectedAnswer === question.correctAnswer;
+    const isOpponentCorrect = opponentSelected === question.correctAnswer;
+    
+    // First-to-answer logic:
+    // If both are correct, only the one with the smaller timestamp gets points.
+    let playerEarnsPoints = isPlayerCorrect;
+    if (isPlayerCorrect && isOpponentCorrect) {
+      if (opponentTimestamp < playerTimestamp) {
+        playerEarnsPoints = false; // Opponent was faster
+      } else if (opponentTimestamp === playerTimestamp) {
+        // Tie-breaker: host gets points (or they both get it, but let's be strict)
+        if (!isHost) playerEarnsPoints = false;
+      }
+    }
+
+    if (playerEarnsPoints) {
       setPlayerScore((s) => s + 20);
-      if (isLoggedIn) addPoints(10);
+      if (isLoggedIn) {
+        addPoints(10);
+        setSessionPoints(prev => prev + 10);
+      }
       soundHelper.playCorrect(soundEnabled);
-    } else if (selectedAnswer !== null) {
-      if (isLoggedIn) addPoints(-5);
+    } else if (selectedAnswer !== null && !isPlayerCorrect) {
+      // ONLY deduct points if the answer was actually WRONG.
+      // If it was CORRECT but just SLOWER, we don't deduct points.
+      if (isLoggedIn) {
+        addPoints(-5);
+        setSessionPoints(prev => prev - 5);
+      }
       soundHelper.playWrong(soundEnabled);
     }
 
-    if (opponentSelected === question.correctAnswer)
-      setOpponentScore((s) => s + 20);
+    if (isOpponentCorrect) {
+      let opponentEarnsPoints = true;
+      if (isPlayerCorrect) {
+        if (playerTimestamp < opponentTimestamp) {
+          opponentEarnsPoints = false;
+        } else if (playerTimestamp === opponentTimestamp) {
+          if (isHost) opponentEarnsPoints = false;
+        }
+      }
+      if (opponentEarnsPoints) {
+        setOpponentScore((s) => s + 20);
+      }
+    }
 
     // Wait and move to next question/end
     setTimeout(() => {
@@ -226,6 +266,7 @@ const OnlineQuizScreen: React.FC<any> = ({ navigation, route }) => {
           opponentScore={opponentScore}
           username={username}
           userAvatar={userAvatar}
+          totalPoints={points}
           opponent={opponent}
           timeLeft={timeLeft}
           styles={styles}
@@ -270,7 +311,10 @@ const OnlineQuizScreen: React.FC<any> = ({ navigation, route }) => {
           <GameOverView
             playerScore={playerScore}
             opponentScore={opponentScore}
+            sessionPoints={sessionPoints}
             username={username || "Mpilalao"}
+            userAvatar={userAvatar}
+            points={points}
             opponent={opponent}
             onHomePress={() => navigation.popToTop()}
             onReplayPress={() => navigation.replace("Matchmaking", { mode: "lobby" })}

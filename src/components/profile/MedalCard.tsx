@@ -47,6 +47,8 @@ const MedalCard: React.FC<Props> = ({ styles, medal, hasMedal, index, colors }) 
           styles.medalCard,
           {
             borderColor: hasMedal ? medal.color : colors.border,
+            opacity: hasMedal ? 1 : 0.6,
+            backgroundColor: hasMedal ? colors.card : colors.surfaceSoft,
           },
         ]}
       >
@@ -54,13 +56,13 @@ const MedalCard: React.FC<Props> = ({ styles, medal, hasMedal, index, colors }) 
           style={[
             styles.medalIconWrap,
             {
-              backgroundColor: hasMedal ? `${medal.color}25` : colors.surfaceSoft,
-              borderColor: hasMedal ? `${medal.color}50` : colors.border,
+              backgroundColor: hasMedal ? `${medal.color}20` : "rgba(0,0,0,0.05)",
+              borderColor: hasMedal ? `${medal.color}40` : colors.border,
             },
           ]}
         >
           <MaterialCommunityIcons
-            name={(hasMedal ? medal.icon : "lock-outline") as any}
+            name={(hasMedal ? medal.icon : "lock") as any}
             size={28}
             color={hasMedal ? medal.color : colors.textMuted}
           />
@@ -69,21 +71,35 @@ const MedalCard: React.FC<Props> = ({ styles, medal, hasMedal, index, colors }) 
         <Text
           style={[
             styles.medalName,
-            { color: hasMedal ? colors.text : colors.textMuted },
+            { 
+              color: hasMedal ? colors.text : colors.textMuted,
+              fontWeight: hasMedal ? "900" : "600" 
+            },
           ]}
         >
           {medal.name}
         </Text>
 
-        {hasMedal && (
+        {hasMedal ? (
           <View
             style={[
               styles.medalBadge,
-              { backgroundColor: `${medal.color}30` },
+              { backgroundColor: `${medal.color}25` },
             ]}
           >
-            <Text style={[styles.medalBadgeText, { color: medal.color }]}>
+            <Text style={[styles.medalBadgeText, { color: medal.color, fontSize: 10, fontWeight: "900" }]}>
               AZONAO
+            </Text>
+          </View>
+        ) : (
+           <View
+            style={[
+              styles.medalBadge,
+              { backgroundColor: colors.surfaceSoft, opacity: 0.5 },
+            ]}
+          >
+            <Text style={[styles.medalBadgeText, { color: colors.textMuted, fontSize: 10, fontWeight: "700" }]}>
+              Mbola mihidy
             </Text>
           </View>
         )}

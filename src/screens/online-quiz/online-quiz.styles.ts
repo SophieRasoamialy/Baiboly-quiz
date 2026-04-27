@@ -56,11 +56,8 @@ export const createOnlineQuizStyles = (colors: any) =>
     avatarMini: {
       width: 50,
       height: 50,
-      borderRadius: 25,
-      borderWidth: 1,
-      borderColor: colors.border,
-      overflow: "hidden",
-      backgroundColor: colors.surfaceSoft,
+      justifyContent: "center",
+      alignItems: "center",
     },
 
     avatarImg: {
@@ -256,13 +253,21 @@ export const createOnlineQuizStyles = (colors: any) =>
     },
 
     avatarMiniCircle: {
-      width: 70,
-      height: 70,
-      borderRadius: 35,
-      borderWidth: 3,
-      borderColor: "#FFF",
-      overflow: "hidden",
-      backgroundColor: "rgba(255,255,255,0.2)",
+      width: 80,
+      height: 80,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+
+    trophyBadge: {
+      width: 60,
+      height: 60,
+      borderRadius: 15,
+      backgroundColor: "rgba(255,255,255,0.25)",
+      justifyContent: "center",
+      alignItems: "center",
+      borderWidth: 1,
+      borderColor: "rgba(255,255,255,0.4)",
     },
 
     bannerTitle: {

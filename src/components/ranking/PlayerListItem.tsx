@@ -28,6 +28,7 @@ export const PlayerListItem: React.FC<PlayerListItemProps> = ({ player, colors }
         avatar={player.avatar} 
         size={40} 
         borderWidth={2} 
+        points={player.score}
       />
 
       <Text style={[styles.playerName, { color: colors.text }]} numberOfLines={1}>

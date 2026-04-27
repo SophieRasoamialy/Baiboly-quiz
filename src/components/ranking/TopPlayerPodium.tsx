@@ -47,6 +47,7 @@ export const TopPlayerPodium: React.FC<TopPlayerPodiumProps> = ({ player, colors
         <UserAvatar 
           avatar={player.avatar} 
           size={isFirst ? 82 : 64} 
+          points={player.score}
         />
         <View style={[styles.rankBadge, { backgroundColor: rankColor, borderColor: colors.background }]}>
           <Text style={[styles.rankBadgeText, { color: colors.background }]}>{player.rank}</Text>
@@ -63,7 +64,7 @@ export const TopPlayerPodium: React.FC<TopPlayerPodiumProps> = ({ player, colors
         {player.name}
       </Text>
       <Text style={[styles.topPlayerScore, { color: colors.secondary }]}>
-        {player.score} pts
+        {player.score.toLocaleString()} pts
       </Text>
     </View>
   );

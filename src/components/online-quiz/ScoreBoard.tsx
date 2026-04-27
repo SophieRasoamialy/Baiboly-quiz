@@ -1,12 +1,13 @@
 import React from "react";
-import { Image, Text, View } from "react-native";
-import { AVATAR_MAP } from "../../constants/avatar";
+import { Text, View } from "react-native";
+import UserAvatar from "../ui/UserAvatar";
 
 interface ScoreBoardProps {
   playerScore: number;
   opponentScore: number;
   username: string | null;
   userAvatar: string | null;
+  totalPoints: number;
   opponent: any;
   timeLeft: number;
   styles: any;
@@ -18,6 +19,7 @@ export const ScoreBoard: React.FC<ScoreBoardProps> = ({
   opponentScore,
   username,
   userAvatar,
+  totalPoints,
   opponent,
   timeLeft,
   styles,
@@ -29,9 +31,10 @@ export const ScoreBoard: React.FC<ScoreBoardProps> = ({
       <View style={styles.playerInfo}>
         <Text style={styles.nameText}>{username || "Hianao"}</Text>
         <View style={styles.avatarMini}>
-          <Image
-            source={AVATAR_MAP[userAvatar as keyof typeof AVATAR_MAP] || AVATAR_MAP.david}
-            style={styles.avatarImg}
+          <UserAvatar 
+            avatar={userAvatar} 
+            size={40} 
+            points={totalPoints}
           />
         </View>
         <View style={styles.scorePill}>
@@ -52,9 +55,10 @@ export const ScoreBoard: React.FC<ScoreBoardProps> = ({
       <View style={styles.playerInfo}>
         <Text style={styles.nameText}>{opponent?.name || "Mpilalao"}</Text>
         <View style={styles.avatarMini}>
-          <Image
-            source={AVATAR_MAP[opponent?.avatar as keyof typeof AVATAR_MAP] || AVATAR_MAP.elder}
-            style={styles.avatarImg}
+          <UserAvatar 
+            avatar={opponent?.avatar} 
+            size={40} 
+            points={opponent?.points || 0} 
           />
         </View>
         <View style={styles.scorePill}>

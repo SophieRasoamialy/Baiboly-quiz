@@ -22,6 +22,7 @@ import FloatingGem from "../../components/home/FloatingGem";
 import { createSoloQuizStyles } from "./solo-quiz.styles";
 import BackButton from "../../components/ui/BackButton";
 import { soundHelper } from "../../utils/SoundHelper";
+import { SoloGameOverView } from "../../components/ui/SoloGameOverView";
 
 const { width } = Dimensions.get("window");
 
@@ -130,7 +131,7 @@ const SoloQuizScreen = () => {
     );
   }
 
-  if (!game.currentQuestion) return null;
+  // No early return, handle states in the main return block
 
   return (
     <View style={styles.container}>
@@ -169,35 +170,45 @@ const SoloQuizScreen = () => {
         <TimerBar time={timer.timeLeft} totalTime={20} styles={styles} colors={colors} />
 
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1 }}>
-          <View style={styles.body}>
-            {/* Question */}
-            <View style={styles.questionCard}>
-              <Text style={styles.questionNumber}>
-                Fanontaniana {game.index + 1} / {quizQuestions.length}
-              </Text>
-              <Text style={styles.question}>
-                {game.currentQuestion.question}
-              </Text>
-            </View>
-
-            {/* Answers */}
-            <AnswersList
-              answers={game.currentQuestion.answers}
-              onSelect={(answer) => {
-                game.answer(answer);
-                timer.stop();
-                setTimeout(() => {
-                  game.next();
-                  timer.reset();
-                }, 1500);
-              }}
-              selectedAnswer={game.selected}
-              correctAnswer={game.currentQuestion.correctAnswer}
-              disabled={!!game.selected}
-              styles={styles}
+          {game.isFinished ? (
+            <SoloGameOverView
+              score={game.correctCount}
+              totalQuestions={quizQuestions.length}
+              onHomePress={() => navigation.popToTop()}
+              onReplayPress={() => navigation.replace("SoloQuiz", { themeId, random })}
               colors={colors}
             />
-          </View>
+          ) : game.currentQuestion ? (
+            <View style={styles.body}>
+              {/* Question */}
+              <View style={styles.questionCard}>
+                <Text style={styles.questionNumber}>
+                  Fanontaniana {game.index + 1} / {quizQuestions.length}
+                </Text>
+                <Text style={styles.question}>
+                  {game.currentQuestion.question}
+                </Text>
+              </View>
+
+              {/* Answers */}
+              <AnswersList
+                answers={game.currentQuestion.answers}
+                onSelect={(answer) => {
+                  game.answer(answer);
+                  timer.stop();
+                  setTimeout(() => {
+                    game.next();
+                    timer.reset();
+                  }, 1500);
+                }}
+                selectedAnswer={game.selected}
+                correctAnswer={game.currentQuestion.correctAnswer}
+                disabled={!!game.selected}
+                styles={styles}
+                colors={colors}
+              />
+            </View>
+          ) : null}
         </ScrollView>
       </SafeAreaView>
     </View>

@@ -1,8 +1,9 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useContext, useEffect, useMemo, useState, useCallback } from "react";
 import i18n from "../../i18n";
 import { lightColors, darkColors } from "../../theme";
 import { databaseService } from "../../services/DatabaseService";
 import { supabaseService } from "../../services/SupabaseService";
+import { MEDALS, getMedalForPoints, getMedalsForPoints, MedalInfo } from "../../utils/medal";
 
 import {
   DEFAULT_AVATAR,
@@ -53,6 +54,10 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const [profileId, setProfileId] = useState<string | null>(null);
   const [lastHeartRefill, setLastHeartRefill] = useState<number>(Date.now());
   const [nextRefillIn, setNextRefillIn] = useState<number>(HEART_REFILL_SECONDS);
+  
+  // Medal unlock callback for notifications
+  const [newlyUnlockedMedal, setNewlyUnlockedMedal] = useState<MedalInfo | null>(null);
+  const [onMedalUnlocked, setOnMedalUnlocked] = useState<((medal: MedalInfo) => void) | null>(null);
 
   const updateDB = (data: Record<string, any>) => {
     return databaseService.saveUserState(data);
@@ -158,10 +163,40 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     return true;
   };
 
+  // Check and unlock medals based on points
+  const checkAndUnlockMedals = useCallback((currentPoints: number) => {
+    const earnedMedals = getMedalsForPoints(currentPoints);
+    const newMedals: string[] = [];
+    
+    earnedMedals.forEach(medal => {
+      if (!medals.includes(medal.id)) {
+        newMedals.push(medal.id);
+      }
+    });
+    
+    if (newMedals.length > 0) {
+      setMedals(prev => {
+        const updated = [...prev, ...newMedals];
+        updateDB({ medals: updated.join(",") });
+        return updated;
+      });
+      
+      // Trigger callback for the most recently unlocked medal
+      const latestMedal = earnedMedals[earnedMedals.length - 1];
+      setNewlyUnlockedMedal(latestMedal);
+      if (onMedalUnlocked) {
+        onMedalUnlocked(latestMedal);
+      }
+    }
+  }, [medals, onMedalUnlocked]);
+
   const addPoints = (amount: number) => {
     setPoints((prev) => {
       const newValue = Math.max(0, prev + amount);
       updateDB({ points: newValue });
+      
+      // Check for new medal unlocks after points update
+      setTimeout(() => checkAndUnlockMedals(newValue), 100);
       
       // Sync to Supabase
       if (profileId && (username || churchName)) {
@@ -249,6 +284,24 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       return newValue;
     });
   };
+  
+  // Set callback for medal unlock notifications
+  const setMedalUnlockCallback = useCallback((callback: (medal: MedalInfo) => void | null) => {
+    setOnMedalUnlocked(() => callback);
+  }, []);
+  
+  // Clear the newly unlocked medal notification
+  const clearNewlyUnlockedMedal = useCallback(() => {
+    setNewlyUnlockedMedal(null);
+  }, []);
+  
+  // Get current medal based on points
+  const currentMedal = useMemo(() => getMedalForPoints(points), [points]);
+  
+  // Get next medal to unlock
+  const nextMedal = useMemo(() => {
+    return MEDALS.find(m => points < m.minPoints) || null;
+  }, [points]);
 
   const setTheme = (newTheme: ThemeMode) => {
     setThemeState(newTheme);

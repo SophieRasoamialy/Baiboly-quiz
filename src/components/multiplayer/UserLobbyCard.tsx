@@ -7,6 +7,7 @@ import UserAvatar from "../ui/UserAvatar";
 interface UserLobbyCardProps {
   username: string | null;
   avatar: string | null;
+  points?: number;
   churchName?: string | null;
   city?: string | null;
   styles: any;
@@ -17,6 +18,7 @@ interface UserLobbyCardProps {
 export const UserLobbyCard: React.FC<UserLobbyCardProps> = ({
   username,
   avatar,
+  points = 0,
   churchName,
   city,
   styles,
@@ -29,6 +31,7 @@ export const UserLobbyCard: React.FC<UserLobbyCardProps> = ({
         avatar={avatar} 
         size={62} 
         borderWidth={2}
+        points={points}
       />
 
       <View style={{ flex: 1 }}>

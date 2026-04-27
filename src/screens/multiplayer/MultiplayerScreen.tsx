@@ -29,7 +29,7 @@ interface Props {
 }
 
 const MultiplayerScreen: React.FC<Props> = ({ navigation }) => {
-  const { isLoggedIn, username, avatar, churchName, city } = useUser();
+  const { isLoggedIn, username, avatar, churchName, city, points } = useUser();
   const { colors, isLight } = useAppTheme();
   const { showAlert } = useAlert();
   const styles = createMultiplayerStyles(colors);
@@ -102,6 +102,7 @@ const MultiplayerScreen: React.FC<Props> = ({ navigation }) => {
           <UserLobbyCard
             username={username}
             avatar={avatar}
+            points={points}
             churchName={churchName}
             city={city}
             styles={styles}

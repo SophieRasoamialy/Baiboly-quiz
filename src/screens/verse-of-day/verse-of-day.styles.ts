@@ -245,7 +245,7 @@ export const createVerseOfDayStyles = (colors: any) =>
     },
 
     actionLabel: {
-      color: "rgba(255,255,255,0.62)",
+      color: colors.textSecondary,
       fontSize: 11,
       fontWeight: "800",
     },

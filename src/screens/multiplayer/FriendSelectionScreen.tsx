@@ -13,6 +13,7 @@ import { AVATAR_MAP } from "../../constants/avatar";
 import { createFriendSelectionStyles } from "./friend-selection.styles";
 import FloatingGem from "../../components/home/FloatingGem";
 import BackButton from "../../components/ui/BackButton";
+import UserAvatar from "../../components/ui/UserAvatar";
 
 const { width } = Dimensions.get("window");
 
@@ -26,11 +27,44 @@ interface Props {
   route: any;
 }
 
+import { useEffect } from "react";
+import { supabaseService } from "../../services/SupabaseService";
+import { databaseService } from "../../services/DatabaseService";
+
 const FriendSelectionScreen: React.FC<Props> = ({ navigation, route }) => {
   const { gameType = "duo", quizType = "standard" } = route.params || {};
-  const { friends } = useUser();
+  const { friends, addFriend } = useUser();
   const { colors, isLight } = useAppTheme();
   const styles = createFriendSelectionStyles(colors);
+
+  useEffect(() => {
+    const syncFriends = async () => {
+      if (friends.length === 0) return;
+      
+      try {
+        const friendIds = friends.map(f => f.id);
+        const freshProfiles = await supabaseService.getProfilesByIds(friendIds);
+        
+        for (const profile of freshProfiles) {
+          const localFriend = friends.find(f => f.id === profile.id);
+          if (localFriend && localFriend.points !== profile.points) {
+            await databaseService.addFriend({
+              ...localFriend,
+              points: profile.points,
+              avatar: profile.avatar,
+              name: profile.name,
+              church: profile.church,
+              city: profile.city,
+            });
+          }
+        }
+      } catch (err) {
+        console.error("Friend sync error:", err);
+      }
+    };
+
+    syncFriends();
+  }, []);
 
   const gemsConfig = [
     { x: width * 0.1, size: 14, delay: 0, duration: 8000, opacity: 0.5 },
@@ -121,9 +155,10 @@ const FriendSelectionScreen: React.FC<Props> = ({ navigation, route }) => {
               friends.map((friend) => (
                 <View key={friend.id} style={styles.friendRow}>
                   <View style={styles.friendAvatar}>
-                    <Image
-                      source={AVATAR_MAP[friend.avatar as keyof typeof AVATAR_MAP] || AVATAR_MAP.david}
-                      style={styles.friendImage}
+                    <UserAvatar 
+                      avatar={friend.avatar} 
+                      size={40} 
+                      points={friend.points || 0} 
                     />
                   </View>
                   <View style={styles.friendInfo}>

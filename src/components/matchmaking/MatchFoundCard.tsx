@@ -1,9 +1,9 @@
 import React from "react";
-import { Image, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { AVATAR_MAP } from "../../constants/avatar";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { createMatchmakingStyles } from "../../screens/matchmaking/matchmaking.styles";
+import UserAvatar from "../ui/UserAvatar";
 
 interface MatchFoundCardProps {
   opponent: any;
@@ -18,9 +18,10 @@ export const MatchFoundCard: React.FC<MatchFoundCardProps> = ({ opponent }) => {
       <Text style={styles.foundText}>Mpilalao Hita!</Text>
 
       <View style={styles.opponentAvatarCircle}>
-        <Image
-          source={AVATAR_MAP[opponent?.avatar as keyof typeof AVATAR_MAP] || AVATAR_MAP.elder}
-          style={styles.avatarImg}
+        <UserAvatar 
+          avatar={opponent?.avatar} 
+          size={110} 
+          points={opponent?.points || 0} 
         />
       </View>
 

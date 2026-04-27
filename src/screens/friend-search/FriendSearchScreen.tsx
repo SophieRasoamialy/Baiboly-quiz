@@ -44,7 +44,7 @@ const POLL_INTERVAL_MS = 2_000; // check every 2 s
 const SCAN_TIMEOUT_MS = 30_000; // give up after 30 s
 
 const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
-  const { gameType = "duo" } = route.params || {};
+  const { gameType = "duo", quizType = "standard" } = route.params || {};
   const { friends, addFriend, username, avatar, churchName, city, profileId } = useUser();
   const { colors, isLight } = useAppTheme();
 
@@ -104,11 +104,28 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
           avatar: p.avatar,
           church: p.church,
           city: p.city,
+          points: p.points || 0,
           status: "online", // Assume online if searchable, they'll check connection on invite
           isLocal: false
         }));
 
         const unified = [...localMapped, ...onlineFiltered];
+        
+        // Background: Update local friends' points if they appear in online results
+        onlineMatched.forEach(async (p) => {
+          const isFriend = localMapped.find(f => f.id === p.id);
+          if (isFriend) {
+            await databaseService.addFriend({
+              id: p.id,
+              name: p.name,
+              avatar: p.avatar,
+              church: p.church,
+              city: p.city,
+              points: p.points
+            });
+          }
+        });
+
         setResults(unified);
         setSearchStatus(unified.length > 0 ? "found" : "empty");
       } catch (err) {
@@ -151,12 +168,14 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
       church: churchName,
       city: city,
       profile_id: profileId,
+      game_type: gameType,
+      quiz_type: quizType,
     });
 
     // Poll for all available users
     pollRef.current = setInterval(async () => {
       try {
-        const players = await supabaseService.findAllActivePlayers(sid);
+        const players = await supabaseService.findAllActivePlayers(sid, gameType, quizType);
         if (players.length > 0) {
           // Map all found users to our list
           const mapped = players.map(p => ({
@@ -166,6 +185,7 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
             avatar: p.avatar,
             church: p.church,
             city: p.city,
+            points: p.points || 0,
             status: "online",
           }));
           setResults(mapped);

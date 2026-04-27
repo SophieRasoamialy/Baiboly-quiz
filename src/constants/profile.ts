@@ -1,9 +1,11 @@
-export const ALL_MEDALS = [
-  { id: "bronze", name: "Alimo", color: "#CD7F32", icon: "medal" },
-  { id: "silver", name: "Volafotsy", color: "#C0C0C0", icon: "medal" },
-  { id: "gold", name: "Volamena", color: "#FFD700", icon: "medal" },
-  { id: "platinum", name: "Platina", color: "#E5E4E2", icon: "crown" },
-];
+import { MEDALS } from "../utils/medal";
+
+export const ALL_MEDALS = MEDALS.map(m => ({
+  id: m.id,
+  name: m.nameMg,
+  color: m.color,
+  icon: m.icon
+}));
 
 export const PROFILE_GEMS_CONFIG = [
   { xRatio: 0.04, size: 12, delay: 0, duration: 8000, opacity: 0.45 },

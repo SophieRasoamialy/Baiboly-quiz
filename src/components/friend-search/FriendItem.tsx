@@ -1,7 +1,7 @@
 import React from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { AVATAR_MAP } from "../../constants/avatar";
+import UserAvatar from "../ui/UserAvatar";
 
 interface FriendItemProps {
   item: any;
@@ -23,9 +23,10 @@ export const FriendItem: React.FC<FriendItemProps> = ({
   return (
     <View style={styles.userItem}>
       <View style={styles.avatarWrapper}>
-        <Image
-          source={AVATAR_MAP[item.avatar as keyof typeof AVATAR_MAP] || AVATAR_MAP.david}
-          style={styles.itemAvatar}
+        <UserAvatar 
+          avatar={item.avatar} 
+          size={50} 
+          points={item.points || 0}
         />
         <View
           style={[

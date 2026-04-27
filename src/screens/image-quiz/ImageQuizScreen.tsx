@@ -25,6 +25,7 @@ import FloatingGem from "../../components/home/FloatingGem";
 import { OptionButton } from "../../components/image-quiz/OptionButton";
 import BackButton from "../../components/ui/BackButton";
 import { soundHelper } from "../../utils/SoundHelper";
+import { SoloGameOverView } from "../../components/ui/SoloGameOverView";
 
 const { width } = Dimensions.get("window");
 
@@ -38,7 +39,7 @@ interface Props {
 }
 
 const ImageQuizScreen: React.FC<Props> = ({ navigation }) => {
-  const { hearts, gems, removeHeart, addGems, buyHeartWithGems, nextRefillIn, soundEnabled } =
+  const { hearts, gems, removeHeart, addGems, buyHeartWithGems, nextRefillIn, soundEnabled, isLoggedIn, addPoints } =
     useUser();
   const { colors, isLight } = useAppTheme();
   const { showAlert } = useAlert();
@@ -49,6 +50,8 @@ const ImageQuizScreen: React.FC<Props> = ({ navigation }) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [revealed, setRevealed] = useState(false);
   const [timer, setTimer] = useState(TIMER_SECONDS);
+  const [score, setScore] = useState(0);
+  const [isFinished, setIsFinished] = useState(false);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const cardAnim = useRef(new Animated.Value(0)).current;
@@ -109,10 +112,13 @@ const ImageQuizScreen: React.FC<Props> = ({ navigation }) => {
 
     const correct = option === questions[currentIndex].answer;
     if (correct) {
+      setScore(s => s + 1);
       addGems(5);
+      if (isLoggedIn) addPoints(10);
       soundHelper.playCorrect(soundEnabled);
     } else {
       removeHeart();
+      if (isLoggedIn) addPoints(-5);
       soundHelper.playWrong(soundEnabled);
     }
 
@@ -131,14 +137,14 @@ const ImageQuizScreen: React.FC<Props> = ({ navigation }) => {
       nextBtnAnim.setValue(0);
     } else {
       soundHelper.playWin(soundEnabled);
-      navigation.goBack();
+      setIsFinished(true);
     }
   };
 
   if (questions.length === 0) return null;
 
   const currentQ = questions[currentIndex];
-  const imageSource = QUIZ_IMAGE_MAP[currentQ.imageKey];
+  const imageSource = currentQ ? QUIZ_IMAGE_MAP[currentQ.imageKey] : null;
 
   if (hearts === 0) {
     return (
@@ -231,69 +237,93 @@ const ImageQuizScreen: React.FC<Props> = ({ navigation }) => {
         </View>
 
         <View style={styles.main}>
-          {/* Timer Progress */}
-          <View style={styles.timerTrack}>
-            <Animated.View
-              style={[
-                styles.timerBar,
-                {
-                  width: (timer / TIMER_SECONDS) * (width - 40),
-                  backgroundColor: timer < 5 ? colors.accent : colors.secondary,
-                },
-              ]}
+          {isFinished ? (
+            <SoloGameOverView
+              score={score}
+              totalQuestions={questions.length}
+              onHomePress={() => navigation.popToTop()}
+              onReplayPress={() => {
+                const shuffled = shuffle(quizImageData).map((q) => ({
+                  ...q,
+                  options: shuffle(q.options),
+                }));
+                setQuestions(shuffled.slice(0, 10));
+                setCurrentIndex(0);
+                setSelectedOption(null);
+                setRevealed(false);
+                setTimer(TIMER_SECONDS);
+                setScore(0);
+                setIsFinished(false);
+              }}
+              colors={colors}
             />
-          </View>
-
-          <Animated.View
-            style={[
-              styles.quizCard,
-              {
-                opacity: cardAnim,
-                transform: [
-                  {
-                    translateY: cardAnim.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [40, 0],
-                    }),
-                  },
-                ],
-              },
-            ]}
-          >
-            <View style={styles.imageContainer}>
-              <Image
-                source={imageSource}
-                style={styles.quizImage}
-                resizeMode="contain"
-              />
-              <LinearGradient
-                colors={["transparent", "rgba(0,0,0,0.6)"]}
-                style={styles.imageOverlay}
-              />
-              <View style={styles.themeTag}>
-                <Text style={styles.themeText}>{currentQ.theme.toUpperCase()}</Text>
-              </View>
-            </View>
-
-            <Text style={styles.questionText}>{currentQ.question}</Text>
-
-            <View style={styles.optionsArea}>
-              {currentQ.options.map((opt: string, i: number) => (
-                <OptionButton
-                  key={opt}
-                  option={opt}
-                  index={i}
-                  revealed={revealed}
-                  isAnswer={opt === currentQ.answer}
-                  isSelected={opt === selectedOption}
-                  disabled={revealed}
-                  onPress={() => handleAnswer(opt)}
-                  styles={styles}
-                  colors={colors}
+          ) : (
+            <>
+              {/* Timer Progress */}
+              <View style={styles.timerTrack}>
+                <Animated.View
+                  style={[
+                    styles.timerBar,
+                    {
+                      width: (timer / TIMER_SECONDS) * (width - 40),
+                      backgroundColor: timer < 5 ? colors.accent : colors.secondary,
+                    },
+                  ]}
                 />
-              ))}
-            </View>
-          </Animated.View>
+              </View>
+
+              <Animated.View
+                style={[
+                  styles.quizCard,
+                  {
+                    opacity: cardAnim,
+                    transform: [
+                      {
+                        translateY: cardAnim.interpolate({
+                          inputRange: [0, 1],
+                          outputRange: [40, 0],
+                        }),
+                      },
+                    ],
+                  },
+                ]}
+              >
+                <View style={styles.imageContainer}>
+                  <Image
+                    source={imageSource}
+                    style={styles.quizImage}
+                    resizeMode="contain"
+                  />
+                  <LinearGradient
+                    colors={["transparent", "rgba(0,0,0,0.6)"]}
+                    style={styles.imageOverlay}
+                  />
+                  <View style={styles.themeTag}>
+                    <Text style={styles.themeText}>{currentQ.theme.toUpperCase()}</Text>
+                  </View>
+                </View>
+
+                <Text style={styles.questionText}>{currentQ.question}</Text>
+
+                <View style={styles.optionsArea}>
+                  {currentQ.options.map((opt: string, i: number) => (
+                    <OptionButton
+                      key={opt}
+                      option={opt}
+                      index={i}
+                      revealed={revealed}
+                      isAnswer={opt === currentQ.answer}
+                      isSelected={opt === selectedOption}
+                      disabled={revealed}
+                      onPress={() => handleAnswer(opt)}
+                      styles={styles}
+                      colors={colors}
+                    />
+                  ))}
+                </View>
+              </Animated.View>
+            </>
+          )}
         </View>
 
 

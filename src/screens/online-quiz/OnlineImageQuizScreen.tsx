@@ -22,7 +22,7 @@ const { width } = Dimensions.get("window");
 
 const OnlineImageQuizScreen: React.FC<any> = ({ navigation, route }) => {
   const { opponent, mySessionId, opponentSessionId } = route.params;
-  const { username, avatar: userAvatar, soundEnabled, isLoggedIn, addPoints, addFriend } = useUser();
+  const { username, avatar: userAvatar, soundEnabled, isLoggedIn, addPoints, addFriend, points } = useUser();
   const { colors, isLight } = useAppTheme();
   const { showAlert } = useAlert();
   const styles = createOnlineQuizStyles(colors);
@@ -37,6 +37,9 @@ const OnlineImageQuizScreen: React.FC<any> = ({ navigation, route }) => {
   const [timeLeft, setTimeLeft] = useState(15);
   const [questions, setQuestions] = useState<any[]>([]);
   const [isSyncing, setIsSyncing] = useState(true);
+  const [sessionPoints, setSessionPoints] = useState(0);
+  const [playerTimestamp, setPlayerTimestamp] = useState<number>(0);
+  const [opponentTimestamp, setOpponentTimestamp] = useState<number>(0);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const channelRef = useRef<any>(null);
@@ -100,6 +103,7 @@ const OnlineImageQuizScreen: React.FC<any> = ({ navigation, route }) => {
         break;
       case "ANSWER_SELECTED":
         setOpponentSelected(data.index);
+        setOpponentTimestamp(data.timestamp || Date.now());
         break;
     }
   };
@@ -143,10 +147,12 @@ const OnlineImageQuizScreen: React.FC<any> = ({ navigation, route }) => {
 
   const handleAnswerSelect = (index: number) => {
     if (selectedAnswer !== null || showResult || isSyncing) return;
+    const now = Date.now();
     setSelectedAnswer(index);
+    setPlayerTimestamp(now);
 
     // Broadcast our choice to the opponent
-    supabaseService.broadcastGameAction(channelRef.current, "ANSWER_SELECTED", { index });
+    supabaseService.broadcastGameAction(channelRef.current, "ANSWER_SELECTED", { index, timestamp: now });
   };
 
   const revealAnswers = () => {
@@ -156,17 +162,48 @@ const OnlineImageQuizScreen: React.FC<any> = ({ navigation, route }) => {
     const question = questions[currentQuestionIndex];
     const correctIdx = question.shuffledOptions.indexOf(question.answer);
     
-    if (selectedAnswer === correctIdx) {
+    const isPlayerCorrect = selectedAnswer === correctIdx;
+    const isOpponentCorrect = opponentSelected === correctIdx;
+
+    // First-to-answer logic:
+    // If both are correct, only the one with the smaller timestamp gets points.
+    let playerEarnsPoints = isPlayerCorrect;
+    if (isPlayerCorrect && isOpponentCorrect) {
+      if (opponentTimestamp < playerTimestamp) {
+        playerEarnsPoints = false; // Opponent was faster
+      } else if (opponentTimestamp === playerTimestamp) {
+        if (!isHost) playerEarnsPoints = false;
+      }
+    }
+
+    if (playerEarnsPoints) {
       setPlayerScore((s) => s + 20);
-      if (isLoggedIn) addPoints(10);
+      if (isLoggedIn) {
+        addPoints(10);
+        setSessionPoints(prev => prev + 10);
+      }
       soundHelper.playCorrect(soundEnabled);
-    } else if (selectedAnswer !== null) {
-      if (isLoggedIn) addPoints(-5);
+    } else if (selectedAnswer !== null && !isPlayerCorrect) {
+      if (isLoggedIn) {
+        addPoints(-5);
+        setSessionPoints(prev => prev - 5);
+      }
       soundHelper.playWrong(soundEnabled);
     }
 
-    if (opponentSelected === correctIdx)
-      setOpponentScore((s) => s + 20);
+    if (isOpponentCorrect) {
+      let opponentEarnsPoints = true;
+      if (isPlayerCorrect) {
+        if (playerTimestamp < opponentTimestamp) {
+          opponentEarnsPoints = false;
+        } else if (playerTimestamp === opponentTimestamp) {
+          if (isHost) opponentEarnsPoints = false;
+        }
+      }
+      if (opponentEarnsPoints) {
+        setOpponentScore((s) => s + 20);
+      }
+    }
 
     // Wait and move to next question/end
     setTimeout(() => {
@@ -227,6 +264,7 @@ const OnlineImageQuizScreen: React.FC<any> = ({ navigation, route }) => {
           opponentScore={opponentScore}
           username={username}
           userAvatar={userAvatar}
+          totalPoints={points}
           opponent={opponent}
           timeLeft={timeLeft}
           styles={styles}
@@ -272,7 +310,10 @@ const OnlineImageQuizScreen: React.FC<any> = ({ navigation, route }) => {
           <GameOverView
             playerScore={playerScore}
             opponentScore={opponentScore}
+            sessionPoints={sessionPoints}
             username={username || "Mpilalao"}
+            userAvatar={userAvatar}
+            points={points}
             opponent={opponent}
             onHomePress={() => navigation.popToTop()}
             onReplayPress={() => navigation.replace("Matchmaking", { mode: "lobby" })}

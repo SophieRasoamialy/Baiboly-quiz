@@ -1,18 +1,28 @@
 import React from "react";
-import { View, Text, Animated, Easing, TouchableOpacity, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  Animated,
+  Easing,
+  TouchableOpacity,
+  Dimensions,
+  ActivityIndicator,
+  RefreshControl,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
 import { useUser } from "../../context/user/UserContext";
 import { styles } from "./ranking.styles";
 import { TopPlayerPodium } from "../../components/ranking/TopPlayerPodium";
 import { PlayerListItem } from "../../components/ranking/PlayerListItem";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation/types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BackButton from "../../components/ui/BackButton";
 import FloatingGem from "../../components/home/FloatingGem";
+import { supabaseService } from "../../services/SupabaseService";
 
 interface RankingPlayer {
   id: string;
@@ -25,9 +35,13 @@ interface RankingPlayer {
 const { width } = Dimensions.get("window");
 
 const RankingScreen = () => {
-  const { colors, theme, points, username, avatar, isLoggedIn } = useUser();
+  const { colors, theme, points, username, avatar, isLoggedIn, profileId, syncProfile } = useUser();
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const isLight = theme === "light";
+  const [players, setPlayers] = React.useState<RankingPlayer[]>([]);
+  const [isLoadingLeaderboard, setIsLoadingLeaderboard] = React.useState(true);
+  const [isRefreshing, setIsRefreshing] = React.useState(false);
+  const [loadError, setLoadError] = React.useState<string | null>(null);
 
   const fadeAnim = React.useRef(new Animated.Value(0)).current;
   const slideAnim = React.useRef(new Animated.Value(30)).current;
@@ -47,6 +61,79 @@ const RankingScreen = () => {
       }),
     ]).start();
   }, [isLoggedIn]);
+
+  const buildLeaderboard = React.useCallback(
+    (profiles: Array<{ id: string; name: string; avatar: string | null; points: number }>): RankingPlayer[] => {
+      const normalizedPlayers = profiles
+        .filter((profile) => profile.id && profile.name)
+        .map((profile) => ({
+          id: profile.id,
+          name: profile.id === profileId ? username || profile.name || "Izaho" : profile.name || "Mpilalao",
+          score: profile.id === profileId ? points : profile.points || 0,
+          avatar: profile.id === profileId ? avatar || profile.avatar || "abraham" : profile.avatar || "abraham",
+          rank: 0,
+        }));
+
+      const hasCurrentUser =
+        !!profileId && normalizedPlayers.some((player) => player.id === profileId);
+
+      if (profileId && username && !hasCurrentUser) {
+        normalizedPlayers.push({
+          id: profileId,
+          name: username,
+          score: points,
+          avatar: avatar || "abraham",
+          rank: 0,
+        });
+      }
+
+      return normalizedPlayers
+        .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name))
+        .map((player, index) => ({
+          ...player,
+          rank: index + 1,
+        }));
+    },
+    [avatar, points, profileId, username],
+  );
+
+  const fetchLeaderboard = React.useCallback(
+    async (refresh = false) => {
+      if (refresh) {
+        setIsRefreshing(true);
+      } else {
+        setIsLoadingLeaderboard(true);
+      }
+
+      setLoadError(null);
+
+      try {
+        if (isLoggedIn) {
+          await syncProfile();
+        }
+
+        const leaderboard = await supabaseService.getLeaderboard(50);
+        setPlayers(buildLeaderboard(leaderboard));
+      } catch (error) {
+        console.error("Failed to load leaderboard", error);
+        setPlayers(buildLeaderboard([]));
+        setLoadError("Tsy azo ny laharana amin'izao. Andramo indray avy eo.");
+      } finally {
+        if (refresh) {
+          setIsRefreshing(false);
+        } else {
+          setIsLoadingLeaderboard(false);
+        }
+      }
+    },
+    [buildLeaderboard, isLoggedIn, syncProfile],
+  );
+
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchLeaderboard();
+    }, [fetchLeaderboard]),
+  );
 
   if (!isLoggedIn) {
     // ... (Login prompt UI remains similar, just applying theme colors)
@@ -74,26 +161,14 @@ const RankingScreen = () => {
     );
   }
 
-  const allPlayers = React.useMemo((): RankingPlayer[] => {
-    // Mock data for demonstration - in real app, these would come from an API
-    return [
-      { id: '1', name: 'R. Mamy', score: 12450, avatar: 'abraham', rank: 1 },
-      { id: '2', name: 'S. Finy', score: 10200, avatar: 'estera', rank: 2 },
-      { id: '3', name: 'J. Naivo', score: 9800, avatar: 'davida', rank: 3 },
-      { id: '4', name: 'L. Soa', score: 8500, avatar: 'maria', rank: 4 },
-      { id: '5', name: 'B. Koto', score: 7200, avatar: 'josoa', rank: 5 },
-      { id: 'me', name: username || "Izaho", score: points, avatar: avatar || "abraham", rank: 12 }
-    ];
-  }, [points, username, avatar]);
-
   // Reorder top 3 for the podium layout: [2nd, 1st, 3rd]
   const podiumPlayers = React.useMemo(() => {
-    const top3 = allPlayers.slice(0, 3);
+    const top3 = players.slice(0, 3);
     if (top3.length < 3) return top3;
     return [top3[1], top3[0], top3[2]];
-  }, [allPlayers]);
+  }, [players]);
 
-  const remaining = allPlayers.slice(3);
+  const remaining = players.slice(3);
 
   const gems = [
     { x: width * 0.1, size: 14, delay: 0, duration: 6000, opacity: 0.35 },
@@ -143,10 +218,53 @@ const RankingScreen = () => {
       <Animated.ScrollView 
         contentContainerStyle={styles.listContent}
         style={{ opacity: fadeAnim, transform: [{ translateY: slideAnim }] }}
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefreshing}
+            onRefresh={() => fetchLeaderboard(true)}
+            tintColor={colors.primary}
+          />
+        }
       >
-        {remaining.map((player) => (
-          <PlayerListItem key={player.id} player={player} colors={colors} />
-        ))}
+        {isLoadingLeaderboard ? (
+          <View style={{ paddingVertical: 40, alignItems: "center" }}>
+            <ActivityIndicator size="large" color={colors.primary} />
+            <Text style={{ marginTop: 12, color: colors.textSecondary }}>
+              Maka ny laharana farany...
+            </Text>
+          </View>
+        ) : (
+          <>
+            {loadError ? (
+              <View
+                style={{
+                  marginBottom: 16,
+                  padding: 14,
+                  borderRadius: 16,
+                  backgroundColor: colors.surface,
+                  borderWidth: 1,
+                  borderColor: colors.border,
+                }}
+              >
+                <Text style={{ color: colors.textSecondary, textAlign: "center" }}>
+                  {loadError}
+                </Text>
+              </View>
+            ) : null}
+
+            {players.length === 0 ? (
+              <View style={{ paddingVertical: 40, alignItems: "center" }}>
+                <Text style={{ color: colors.textSecondary, textAlign: "center" }}>
+                  Tsy mbola misy mpilalao hita ao amin&apos;ny laharana.
+                </Text>
+              </View>
+            ) : (
+              remaining.map((player) => (
+                <PlayerListItem key={player.id} player={player} colors={colors} />
+              ))
+            )}
+          </>
+        )}
       </Animated.ScrollView>
     </View>
   );

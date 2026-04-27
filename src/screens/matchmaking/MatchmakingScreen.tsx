@@ -25,6 +25,7 @@ import { MatchFoundCard } from "../../components/matchmaking/MatchFoundCard";
 import { RadarSearch } from "../../components/matchmaking/RadarSearch";
 import FloatingGem from "../../components/home/FloatingGem";
 import { QUIZ_IMAGE_MAP } from "../../constants/quizImages";
+import UserAvatar from "../../components/ui/UserAvatar";
 
 const { width } = Dimensions.get("window");
 
@@ -54,7 +55,7 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
   const [isJoining, setIsJoining] = useState(false);
   
   const { colors, isLight } = useAppTheme();
-  const { username, avatar, churchName, city, profileId } = useUser();
+  const { username, avatar, churchName, city, profileId, points } = useUser();
   const { showAlert } = useAlert();
   const styles = createMatchmakingStyles(colors);
 
@@ -63,11 +64,15 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
   const handshakeSubRef = useRef<any>(null);
   const processedRef = useRef<boolean>(false);
 
-  const cleanup = async () => {
+  const stopLobbyPolling = () => {
     if (lobbyPollRef.current) {
       clearInterval(lobbyPollRef.current);
       lobbyPollRef.current = null;
     }
+  };
+
+  const cleanup = async () => {
+    stopLobbyPolling();
     if (handshakeSubRef.current) {
       handshakeSubRef.current.unsubscribe();
       handshakeSubRef.current = null;
@@ -96,6 +101,8 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
       church: churchName,
       city: city,
       profile_id: profileId,
+      game_type: gameType,
+      quiz_type: quizType,
     });
 
     // 2. Subscribe to "Handshake" (Detect Invitations or Acceptances)
@@ -105,22 +112,40 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
       if (payload.type === "invitation") {
         console.log("Received Invitation from:", payload.sender.name);
         setIncomingInvite(payload.sender);
-      } else if (payload.type === "accepted") {
-        console.log("Invitation Accepted by:", payload.sender.name);
-        setInvitingPlayer(null);
-        handleMatchFound(payload.sender, payload.sender.session_id);
+      } else if (payload.type === "acceptance") {
+        console.log("Invitation Accepted by:", payload.partner.name);
+        setOpponent(payload.partner);
+        setStatus("found");
+        stopLobbyPolling();
       }
     });
 
-    // 3. Initial fetch and start polling for players
-    fetchPlayers();
-    lobbyPollRef.current = setInterval(fetchPlayers, POLL_INTERVAL_MS);
-  };
+    // 3. Periodic Poll for Lobby List (for "random" mode or just seeing others)
+    lobbyPollRef.current = setInterval(async () => {
+      try {
+        const players = await supabaseService.findAllActivePlayers(sid, gameType, quizType);
+        setAvailablePlayers(players);
 
-  const fetchPlayers = async () => {
-    if (processedRef.current || isJoining) return;
-    const players = await supabaseService.findAllActivePlayers(sessionIdRef.current);
-    setAvailablePlayers(players);
+        // If in "random" mode and someone found, auto-invite the first one
+        if (mode === "random" && players.length > 0 && !processedRef.current) {
+          processedRef.current = true;
+          const target = players[0];
+          console.log("Auto-inviting random player:", target.name);
+          setInvitingPlayer(target);
+          await supabaseService.sendInvitation(target.session_id, {
+            profile_id: profileId || "",
+            session_id: sid,
+            name: username || "Mpilalao",
+            avatar: avatar || "default",
+            church: churchName,
+            city: city,
+            points: points,
+          });
+        }
+      } catch (err) {
+        console.error("Lobby poll error:", err);
+      }
+    }, 3000);
   };
 
   const handleInvite = async (player: MatchmakingPlayer) => {
@@ -133,6 +158,7 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
         avatar: avatar || "default",
         church: churchName,
         city: city,
+        points: points,
       });
     } catch (err) {
       setInvitingPlayer(null);
@@ -158,6 +184,7 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
         avatar: avatar || "default",
         church: churchName,
         city: city,
+        points: points,
       });
       // Now both players should have information to start the game
       handleMatchFound(sender, sender.session_id);
@@ -201,9 +228,10 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
   const renderPlayerItem = ({ item }: { item: MatchmakingPlayer }) => (
     <View style={styles.playerCard}>
       <View style={styles.centerAvatar}>
-        <Image 
-          source={QUIZ_IMAGE_MAP ? (QUIZ_IMAGE_MAP as any)[item.avatar] : null} 
-          style={styles.avatarImg} 
+        <UserAvatar 
+          avatar={item.avatar} 
+          size={50} 
+          points={item.points || 0} 
         />
       </View>
       <View style={styles.playerInfo}>
@@ -286,9 +314,10 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
               <View style={styles.opponentAvatarCircle}>
-                <Image 
-                  source={QUIZ_IMAGE_MAP ? (QUIZ_IMAGE_MAP as any)[incomingInvite?.avatar] : null} 
-                  style={styles.avatarImg} 
+                <UserAvatar 
+                  avatar={incomingInvite?.avatar} 
+                  size={90} 
+                  points={incomingInvite?.points || 0} 
                 />
               </View>
               <Text style={styles.modalTitle}>{incomingInvite?.name}</Text>

@@ -31,6 +31,7 @@ export const RoleAnnounce: React.FC<RoleAnnounceProps> = ({
           avatar={dPlayer?.avatar} 
           size={100} 
           borderWidth={3} 
+          points={dPlayer?.points || 0}
         />
         <Text style={styles.roleName}>{dPlayer?.name}</Text>
       </View>
@@ -43,6 +44,7 @@ export const RoleAnnounce: React.FC<RoleAnnounceProps> = ({
           avatar={gPlayer?.avatar} 
           size={100} 
           borderWidth={3} 
+          points={gPlayer?.points || 0}
         />
         <Text style={styles.roleName}>{gPlayer?.name}</Text>
       </View>

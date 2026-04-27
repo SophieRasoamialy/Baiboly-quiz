@@ -51,7 +51,8 @@ class DatabaseService {
         name TEXT NOT NULL,
         avatar TEXT,
         church TEXT,
-        city TEXT
+        city TEXT,
+        points INTEGER DEFAULT 0
       );
 
       CREATE TABLE IF NOT EXISTS matchmaking_pool (
@@ -86,6 +87,14 @@ class DatabaseService {
       );
     } catch (_) {
       // Column already exists — safe to ignore
+    }
+
+    try {
+      await this.db.execAsync(
+        "ALTER TABLE friends ADD COLUMN points INTEGER DEFAULT 0"
+      );
+    } catch (_) {
+      // Column already exists
     }
 
     // Ensure we have at least one row
@@ -137,10 +146,10 @@ class DatabaseService {
 
   async addFriend(friend: any) {
     if (!this.db) await this.init();
-    const { id, name, avatar, church, city } = friend;
+    const { id, name, avatar, church, city, points } = friend;
     await this.db!.runAsync(
-      "INSERT OR REPLACE INTO friends (id, name, avatar, church, city) VALUES (?, ?, ?, ?, ?)",
-      [id, name, avatar || null, church || null, city || null],
+      "INSERT OR REPLACE INTO friends (id, name, avatar, church, city, points) VALUES (?, ?, ?, ?, ?, ?)",
+      [id, name, avatar || null, church || null, city || null, points || 0],
     );
   }
 

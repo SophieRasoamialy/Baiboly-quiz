@@ -94,13 +94,8 @@ export const createMatchmakingStyles = (colors: any) =>
     centerAvatar: {
       width: 80,
       height: 80,
-      borderRadius: 40,
-      backgroundColor: colors.card,
       justifyContent: "center",
       alignItems: "center",
-      borderWidth: 1,
-      borderColor: colors.border,
-      overflow: "hidden",
     },
 
     statusTitle: {
@@ -147,12 +142,9 @@ export const createMatchmakingStyles = (colors: any) =>
     opponentAvatarCircle: {
       width: 120,
       height: 120,
-      borderRadius: 60,
-      borderWidth: 3,
-      borderColor: colors.primary,
-      overflow: "hidden",
+      justifyContent: "center",
+      alignItems: "center",
       marginBottom: 20,
-      backgroundColor: colors.surfaceSoft,
     },
 
     avatarImg: {

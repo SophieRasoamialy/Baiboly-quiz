@@ -133,12 +133,8 @@ export const createFriendSelectionStyles = (colors: any) =>
     friendAvatar: {
       width: 44,
       height: 44,
-      borderRadius: 22,
-      backgroundColor: colors.surfaceSoft,
       justifyContent: "center",
       alignItems: "center",
-      borderWidth: 1,
-      borderColor: colors.border,
     },
 
     friendImage: {

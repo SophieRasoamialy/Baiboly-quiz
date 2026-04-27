@@ -106,6 +106,7 @@ const ProfileScreen = () => {
               styles={styles}
               colors={colors}
               avatar={avatar ?? "default"}
+              points={points}
               pulseAnim={avatarPulse}
               isLoggedIn={isLoggedIn}
               username={username}

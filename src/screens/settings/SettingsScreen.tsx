@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
+import { NotificationService } from "../../services/NotificationService";
 
 import { useUser } from "../../context/user";
 import { useAppTheme } from "../../hooks/useAppTheme";
@@ -41,6 +42,32 @@ const SettingsScreen = () => {
   const styles = createSettingsStyles(colors);
 
   const [notificationEnabled, setNotificationEnabled] = useState(false);
+
+  useEffect(() => {
+    const checkNotifStatus = async () => {
+      const enabled = await NotificationService.isDailyVerseEnabled();
+      setNotificationEnabled(enabled);
+    };
+    checkNotifStatus();
+  }, []);
+
+  const handleToggleNotification = async (value: boolean) => {
+    if (value) {
+      const hasPermission = await NotificationService.requestPermissions();
+      if (hasPermission) {
+        await NotificationService.scheduleDailyVerseNotification();
+        setNotificationEnabled(true);
+      } else {
+        showAlert({
+          title: "Fampilazana",
+          message: "Mila manome alalana ianao vao afaka mandray fampilazana.",
+        });
+      }
+    } else {
+      await NotificationService.cancelDailyVerseNotification();
+      setNotificationEnabled(false);
+    }
+  };
 
   const handleBuyHeart = () => {
     if (hearts >= 5) {
@@ -137,7 +164,7 @@ const SettingsScreen = () => {
               soundEnabled={soundEnabled}
               notificationEnabled={notificationEnabled}
               onToggleSound={setSoundEnabled}
-              onToggleNotification={setNotificationEnabled}
+              onToggleNotification={handleToggleNotification}
             />
           </SettingsSection>
 
