@@ -12,7 +12,8 @@
       "backgroundColor": "#022C22"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.hasindrae.baibolyquizapp"
     },
     "android": {
       "adaptiveIcon": {
