@@ -4,6 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useAlert } from "../../context/AlertContext";
 import { useUser } from "../../context/user";
+import i18n from "../../i18n";
 
 interface Props {
   styles: any;
@@ -16,12 +17,12 @@ const LogoutButton: React.FC<Props> = ({ styles, onPress }) => {
 
   const handleLogoutPress = () => {
     showAlert({
-      title: "Hiala ve ianao?",
-      message: "Tena te hiala amin'ny kaontinao ve ianao? Mety ho voafafa ny fivoaranao raha mbola tsy voatahiry.",
+      title: i18n.t("logout_confirm_title"),
+      message: i18n.t("logout_confirm_msg"),
       buttons: [
-        { text: "Aoka ihany", style: "cancel" },
+        { text: i18n.t("later"), style: "cancel" },
         { 
-          text: "Eny, Hiala", 
+          text: i18n.t("logout_confirm_btn"), 
           style: "destructive",
           onPress: logout 
         },
@@ -40,7 +41,9 @@ const LogoutButton: React.FC<Props> = ({ styles, onPress }) => {
         style={[styles.logoutInner, { paddingVertical: 12 }]}
       >
         <MaterialCommunityIcons name="logout" size={18} color="#FF5252" />
-        <Text style={[styles.logoutText, { color: "#FF5252", fontSize: 14 }]}>Hiala</Text>
+        <Text style={[styles.logoutText, { color: "#FF5252", fontSize: 14 }]}>
+          {i18n.t("logout_btn_text")}
+        </Text>
       </LinearGradient>
     </TouchableOpacity>
   );

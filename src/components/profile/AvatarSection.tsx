@@ -1,5 +1,6 @@
 import React from "react";
 import { Alert, Text, View } from "react-native";
+import i18n from "../../i18n";
 import { useAlert } from "../../context/AlertContext";
 import AvatarOption from "./AvatarOption";
 import { AVATARS } from "../../constants/avatar";
@@ -25,7 +26,7 @@ const AvatarSection: React.FC<Props> = ({
     <View style={styles.sectionWrap}>
       <View style={styles.sectionTitleRow}>
         <View style={[styles.sectionMarker, { backgroundColor: colors.secondary }]} />
-        <Text style={styles.sectionTitle}>Misafidiana Sary</Text>
+        <Text style={styles.sectionTitle}>{i18n.t("select_avatar")}</Text>
 
         {!isLoggedIn && (
           <View
@@ -38,7 +39,7 @@ const AvatarSection: React.FC<Props> = ({
             ]}
           >
             <Text style={[styles.lockedBadgeText, { color: colors.primary }]}>
-              🔒 MILA KAONTY
+              {i18n.t("account_required_badge")}
             </Text>
           </View>
         )}
@@ -56,8 +57,8 @@ const AvatarSection: React.FC<Props> = ({
             onPress={() => {
               if (!isLoggedIn) {
                 showAlert({
-                  title: "Mila Kaonty",
-                  message: "Mamorona kaonty hahafahanao misafidy sary manokana ho anao.",
+                  title: i18n.t("account_required"),
+                  message: i18n.t("select_avatar_msg"),
                 });
                 return;
               }

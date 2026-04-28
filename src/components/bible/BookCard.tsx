@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Animated, Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Book } from "../../constants/bible";
+import i18n from "../../i18n";
 
 interface Props {
   styles: any;
@@ -110,7 +111,7 @@ const BookCard: React.FC<Props> = ({
             ]}
           >
             <Text style={[styles.chapterBadgeText, { color: accentColor }]}>
-              {item.chapters.length} toko
+              {i18n.t("chapters_count", { count: item.chapters.length })}
             </Text>
           </View>
 

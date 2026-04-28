@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { createTeamQuizStyles } from "../../screens/team-quiz/team-quiz.styles";
+import i18n from "../../i18n";
 
 interface GuessingPhaseProps {
   timeLeft: number;
@@ -38,20 +39,20 @@ export const GuessingPhase: React.FC<GuessingPhaseProps> = ({
         ))}
       </View>
 
-      <Text style={styles.guessHint}>Inona ny teny afenina?</Text>
+      <Text style={styles.guessHint}>{i18n.t("guess_prompt")}</Text>
       
       <TextInput
         style={styles.mainGuessInput}
         value={guess}
         onChangeText={setGuess}
-        placeholder="Soraty eto..."
+        placeholder={i18n.t("write_here")}
         placeholderTextColor={colors.textMuted}
         autoFocus
       />
 
       <TouchableOpacity style={styles.actionBtn} onPress={onSubmitGuess}>
         <LinearGradient colors={[colors.secondary, "#B45309"]} style={styles.btnGradient}>
-          <Text style={styles.btnText}>HAMARINO</Text>
+          <Text style={styles.btnText}>{i18n.t("verify")}</Text>
         </LinearGradient>
       </TouchableOpacity>
     </View>

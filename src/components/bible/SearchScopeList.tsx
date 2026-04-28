@@ -1,6 +1,7 @@
 import React from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { Book } from "../../constants/bible";
+import i18n from "../../i18n";
 
 interface Props {
   styles: any;
@@ -18,9 +19,9 @@ const SearchScopeList: React.FC<Props> = ({
   bibleData,
 }) => {
   const scopes = [
-    "Rehetra",
-    "Testamenta Taloha",
-    "Testamenta Vaovao",
+    i18n.t("all"),
+    i18n.t("old_testament"),
+    i18n.t("new_testament"),
     ...bibleData.map((b) => b.name),
   ];
 
@@ -42,10 +43,10 @@ const SearchScopeList: React.FC<Props> = ({
                 {
                   backgroundColor: isActive
                     ? colors.primarySoft
-                    : "rgba(255,255,255,0.05)",
+                    : colors.surfaceSoft,
                   borderColor: isActive
                     ? colors.primary
-                    : "rgba(255,255,255,0.1)",
+                    : colors.border,
                 },
               ]}
             >
@@ -53,7 +54,7 @@ const SearchScopeList: React.FC<Props> = ({
                 style={[
                   styles.searchScopeChipText,
                   {
-            color: isActive ? colors.primary : "rgba(255,255,255,0.6)",
+            color: isActive ? colors.primary : colors.textMuted,
                     fontWeight: isActive ? "800" : "600",
                   },
                 ]}

@@ -20,6 +20,7 @@ import { FriendItem } from "../../components/friend-search/FriendItem";
 
 import { createFriendSearchStyles } from "./friend-search.styles";
 import FloatingGem from "../../components/home/FloatingGem";
+import i18n from "../../i18n";
 
 const { width } = Dimensions.get("window");
 
@@ -41,7 +42,7 @@ const makeSessionId = () =>
   `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 
 const POLL_INTERVAL_MS = 2_000; // check every 2 s
-const SCAN_TIMEOUT_MS = 30_000; // give up after 30 s
+const SCAN_TIMEOUT_MS = 20_000; // give up after 20 s
 
 const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
   const { gameType = "duo", quizType = "standard" } = route.params || {};
@@ -51,7 +52,7 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
   const [search, setSearch] = useState("");
   const [results, setResults] = useState<any[]>([]);
   const [searchStatus, setSearchStatus] = useState<
-    "idle" | "scanning" | "found" | "empty"
+    "idle" | "scanning" | "found" | "empty" | "timeout"
   >("idle");
 
   const sessionIdRef = useRef<string>("");
@@ -91,41 +92,37 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
         const localMatched = await databaseService.searchFriends(text.trim());
         const localMapped = localMatched.map((f: any) => ({ ...f, isLocal: true, status: "online" }));
 
-        // 2. Search online profiles from Supabase
-        const onlineMatched = await supabaseService.searchProfilesByName(text.trim());
+        // 2. Search only ACTIVE players from the matchmaking pool
+        const onlineMatched = await supabaseService.searchActivePlayersByName(text.trim());
         
-        // Filter out those already in local results to avoid duplicates
-        const onlineFiltered = onlineMatched.filter(op => 
-          !localMapped.find(lp => lp.id === op.id || (op.profile_id && lp.id === op.profile_id))
-        ).map(p => ({
-          id: p.id,
-          profile_id: p.id,
+        // Filter and map online players
+        const onlineFiltered = onlineMatched.map(p => ({
+          id: p.profile_id || p.id,
+          session_id: p.session_id,
+          profile_id: p.profile_id,
           name: p.name,
           avatar: p.avatar,
           church: p.church,
           city: p.city,
           points: p.points || 0,
-          status: "online", // Assume online if searchable, they'll check connection on invite
+          status: "online",
           isLocal: false
         }));
 
-        const unified = [...localMapped, ...onlineFiltered];
-        
-        // Background: Update local friends' points if they appear in online results
-        onlineMatched.forEach(async (p) => {
-          const isFriend = localMapped.find(f => f.id === p.id);
-          if (isFriend) {
-            await databaseService.addFriend({
-              id: p.id,
-              name: p.name,
-              avatar: p.avatar,
-              church: p.church,
-              city: p.city,
-              points: p.points
-            });
+        // Deduplicate: If multiple sessions exist for the same profile_id, keep the newest one
+        const deduplicated = new Map();
+        [...localMapped, ...onlineFiltered].forEach(item => {
+          const key = item.profile_id || item.id;
+          // Filter out yourself
+          if (key === profileId) return;
+          
+          if (!deduplicated.has(key)) {
+            deduplicated.set(key, item);
           }
         });
 
+        const unified = Array.from(deduplicated.values());
+        
         setResults(unified);
         setSearchStatus(unified.length > 0 ? "found" : "empty");
       } catch (err) {
@@ -150,6 +147,12 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
     }
   };
 
+  /** Cancel current scan and reset to idle */
+  const cancelScan = async () => {
+    await stopScan();
+    setSearchStatus("idle");
+  };
+
   /** Start a real matchmaking scan */
   const startScan = async () => {
     // Reset UI
@@ -163,7 +166,7 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
 
     // Register current user in the matchmaking pool
     await supabaseService.joinMatchmakingPool(sid, {
-      name: username || "Mpilalao",
+      name: username || i18n.t("visitor"),
       avatar: avatar || "default",
       church: churchName,
       city: city,
@@ -200,7 +203,7 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
     timeoutRef.current = setTimeout(async () => {
       if (searchStatus === "scanning" || pollRef.current) {
         await stopScan();
-        setSearchStatus("empty");
+        setSearchStatus("timeout");
       }
     }, SCAN_TIMEOUT_MS);
   };
@@ -232,11 +235,28 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
             color={colors.surfaceSoft}
           />
           <Text style={styles.emptyText}>
-            Tsy nisy mpilalao hita mikaroka namana avy hatrany.{"\n"}
-            Andramo indray afaka fotoana voaditra.
+            {i18n.t("no_players_found_msg")}
           </Text>
           <TouchableOpacity style={styles.retryBtn} onPress={startScan}>
-            <Text style={styles.retryBtnText}>ANDRAMO INDRAY</Text>
+            <Text style={styles.retryBtnText}>{i18n.t("retry")}</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+
+    if (searchStatus === "timeout") {
+      return (
+        <View style={styles.emptyState}>
+          <MaterialCommunityIcons
+            name="timer-sand-empty"
+            size={80}
+            color={colors.surfaceSoft}
+          />
+          <Text style={styles.emptyText}>
+            {i18n.t("search_timeout_msg")}
+          </Text>
+          <TouchableOpacity style={styles.retryBtn} onPress={startScan}>
+            <Text style={styles.retryBtnText}>{i18n.t("retry")}</Text>
           </TouchableOpacity>
         </View>
       );
@@ -251,7 +271,7 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
             color={colors.surfaceSoft}
           />
           <Text style={styles.emptyText}>
-            Tsy nisy mpilalao hita amin'io anarana io.
+            {i18n.t("no_players_with_name")}
           </Text>
         </View>
       );
@@ -265,8 +285,7 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
           color={colors.surfaceSoft}
         />
         <Text style={styles.emptyText}>
-          Ampidiro ny anaran'ny namanao{"\n"}na karohy ireo mpilalao hafa eo
-          akaikinao.
+          {i18n.t("friend_search_empty_hint")}
         </Text>
       </View>
     );
@@ -308,7 +327,7 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
               color={colors.text}
             />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Mikaroka Namana</Text>
+          <Text style={styles.headerTitle}>{i18n.t("search_friends_title")}</Text>
           <View style={{ width: 40 }} />
         </View>
 
@@ -321,7 +340,7 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
             />
             <TextInput
               style={styles.input}
-              placeholder="Hikaroka amin'ny anarana..."
+              placeholder={i18n.t("search_by_name_placeholder")}
               placeholderTextColor={colors.textMuted}
               value={search}
               onChangeText={handleSearch}
@@ -340,7 +359,7 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
               size={24}
               color={isLight ? colors.white : colors.primary}
             />
-            <Text style={styles.scanButtonText}>MIKAROKA MPILALAO HAFA</Text>
+            <Text style={styles.scanButtonText}>{i18n.t("search_other_players_btn")}</Text>
           </TouchableOpacity>
         )}
 
@@ -350,6 +369,12 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
               <View style={styles.radarWrapper}>
                 <RadarSearch mode="match" />
               </View>
+              <TouchableOpacity
+                style={styles.cancelScanBtn}
+                onPress={cancelScan}
+              >
+                <Text style={styles.cancelScanText}>{i18n.t("cancel")}</Text>
+              </TouchableOpacity>
             </View>
           ) : (
             <FlatList

@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import i18n from "../../i18n";
 
 interface Props {
   styles: any;
@@ -28,12 +29,12 @@ function AuthHeader({ styles, colors, isEditing }: Props) {
       </View>
 
       <Text style={styles.title}>
-        {isEditing ? "Amboary ny Profil" : "Hamorona Kaonty"}
+        {isEditing ? i18n.t("auth_header_edit_title") : i18n.t("auth_header_create_title")}
       </Text>
       <Text style={styles.subtitle}>
         {isEditing
-          ? "Azonao ovaina eto ny mombamomba anao raha misy diso na tianao hovana."
-          : "Fenoy ireto manaraka ireto mba hahafahanao milalao miaraka amin'ny namana."}
+          ? i18n.t("auth_header_edit_subtitle")
+          : i18n.t("auth_header_create_subtitle")}
       </Text>
     </View>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import i18n from "../../i18n";
 
 interface Props {
   styles: any;
@@ -23,7 +24,7 @@ const TestamentTabs: React.FC<Props> = ({
     <View style={styles.tabWrap}>
       {(["OT", "NT"] as const).map((tab) => {
         const isActive = activeTab === tab;
-        const label = tab === "OT" ? "Testamenta Taloha" : "Testamenta Vaovao";
+        const label = tab === "OT" ? i18n.t("old_testament") : i18n.t("new_testament");
         const count = tab === "OT" ? otCount : ntCount;
 
         return (
@@ -66,7 +67,7 @@ const TestamentTabs: React.FC<Props> = ({
                 { color: isActive ? "rgba(255,255,255,0.85)" : (colors.mode === "light" ? "rgba(0,0,0,0.25)" : "rgba(255,255,255,0.25)") },
               ]}
             >
-              {count} boky
+              {i18n.t("books_count", { count })}
             </Text>
           </TouchableOpacity>
         );

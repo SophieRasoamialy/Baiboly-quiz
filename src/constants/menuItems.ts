@@ -1,3 +1,5 @@
+import i18n from "../i18n";
+
 export interface HomeMenuItem {
   title: string;
   subtitle: string;
@@ -10,8 +12,8 @@ export interface HomeMenuItem {
 
 export const getHomeMenuItems = (colors: any): HomeMenuItem[] => [
   {
-    title: "SOLO",
-    subtitle: "Milalaova irery",
+    title: i18n.t("menu_solo_title"),
+    subtitle: i18n.t("menu_solo_subtitle"),
     icon: "book-open-variant",
     accent: colors.primary,
     softAccent: colors.primarySoft,
@@ -19,8 +21,8 @@ export const getHomeMenuItems = (colors: any): HomeMenuItem[] => [
     bgImage: require("../../assets/menu/menu_solo.png"),
   },
   {
-    title: "DUO",
-    subtitle: "Mifaninana amin'ny namana",
+    title: i18n.t("menu_duo_title"),
+    subtitle: i18n.t("menu_duo_subtitle"),
     icon: "account-group",
     accent: colors.secondary,
     softAccent: colors.secondarySoft,
@@ -28,8 +30,8 @@ export const getHomeMenuItems = (colors: any): HomeMenuItem[] => [
     bgImage: require("../../assets/menu/menu_duo.png"),
   },
   {
-    title: "LALAO TENY TELO",
-    subtitle: "Mifaninana an-ekipa 2 vs 2",
+    title: i18n.t("menu_team_title"),
+    subtitle: i18n.t("menu_team_subtitle"),
     icon: "account-multiple-plus",
     accent: colors.accent,
     softAccent: "rgba(255,107,107,0.14)",
@@ -37,8 +39,8 @@ export const getHomeMenuItems = (colors: any): HomeMenuItem[] => [
     bgImage: require("../../assets/menu/menu_team.png"),
   },
   {
-    title: "SARY",
-    subtitle: "Fantaro ny sary",
+    title: i18n.t("menu_image_title"),
+    subtitle: i18n.t("menu_image_subtitle"),
     icon: "image-multiple-outline",
     accent: "#0EA5E9",
     softAccent: "rgba(14,165,233,0.14)",
@@ -46,8 +48,8 @@ export const getHomeMenuItems = (colors: any): HomeMenuItem[] => [
     bgImage: require("../../assets/menu/menu_image.png"),
   },
   {
-    title: "BAIBOLY",
-    subtitle: "Vakio ny Tenin’Andriamanitra",
+    title: i18n.t("menu_bible_title"),
+    subtitle: i18n.t("menu_bible_subtitle"),
     icon: "book-outline",
     accent: colors.primary,
     softAccent: colors.primarySoft,
@@ -55,8 +57,8 @@ export const getHomeMenuItems = (colors: any): HomeMenuItem[] => [
     bgImage: require("../../assets/menu/menu_bible.png"),
   },
   {
-    title: "TENY HO ANAO",
-    subtitle: "Tenin'Andriamanitra ho fampaherezana",
+    title: i18n.t("menu_verse_title"),
+    subtitle: i18n.t("menu_verse_subtitle"),
     icon: "script-text-outline",
     accent: "#8B5CF6",
     softAccent: "rgba(139,92,246,0.14)",
@@ -64,8 +66,8 @@ export const getHomeMenuItems = (colors: any): HomeMenuItem[] => [
     bgImage: require("../../assets/menu/menu_verse.png"),
   },
   {
-    title: "LAHARANA",
-    subtitle: "Filaharana eo anivon'ny mpilalao",
+    title: i18n.t("menu_ranking_title"),
+    subtitle: i18n.t("menu_ranking_subtitle"),
     icon: "trophy-outline",
     accent: colors.secondary,
     softAccent: colors.secondarySoft,
@@ -73,8 +75,8 @@ export const getHomeMenuItems = (colors: any): HomeMenuItem[] => [
     bgImage: require("../../assets/menu/menu_ranking.png"),
   },
   {
-    title: "FANOVANA",
-    subtitle: "Safidy sy fikirakirana",
+    title: i18n.t("menu_settings_title"),
+    subtitle: i18n.t("menu_settings_subtitle"),
     icon: "cog-outline",
     accent: colors.textSecondary,
     softAccent: colors.mode === "light"

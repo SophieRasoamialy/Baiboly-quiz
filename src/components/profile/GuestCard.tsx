@@ -2,6 +2,7 @@ import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import i18n from "../../i18n";
 
 interface Props {
   styles: any;
@@ -31,7 +32,7 @@ const GuestCard: React.FC<Props> = ({ styles, colors, onPressAuth }) => {
                 fontWeight: "900",
               }}
             >
-              Vato soa 50 maimaim-poana!
+              {i18n.t("gift_50_gems")}
             </Text>
             <Text
               style={{
@@ -41,16 +42,15 @@ const GuestCard: React.FC<Props> = ({ styles, colors, onPressAuth }) => {
                 marginTop: 2,
               }}
             >
-              Mamorona kaonty mba hahazoana
+              {i18n.t("create_account_to_get")}
             </Text>
           </View>
         </LinearGradient>
       </View>
 
-      <Text style={styles.guestTitle}>Tsy mbola manana kaonty</Text>
+      <Text style={styles.guestTitle}>{i18n.t("no_account_yet")}</Text>
       <Text style={styles.guestText}>
-        Mamorona kaonty mba hahafahanao milalao miaraka amin&apos;ny namanao sady
-        mahazoa vatosoa kadoa.
+        {i18n.t("guest_desc")}
       </Text>
 
       <TouchableOpacity activeOpacity={0.88} onPress={onPressAuth} style={styles.primaryCta}>
@@ -69,7 +69,7 @@ const GuestCard: React.FC<Props> = ({ styles, colors, onPressAuth }) => {
               letterSpacing: 0.4,
             }}
           >
-            Hamorona Kaonty
+            {i18n.t("create_account_btn")}
           </Text>
         </LinearGradient>
       </TouchableOpacity>

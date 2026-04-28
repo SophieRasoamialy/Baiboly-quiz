@@ -2,6 +2,7 @@ import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { THEME_OPTIONS, ThemeMode } from "../../constants/settings";
+import i18n from "../../i18n";
 
 interface Props {
   styles: any;
@@ -20,6 +21,8 @@ const ThemeSelector: React.FC<Props> = ({
     <View style={styles.themeSelector}>
       {THEME_OPTIONS.map((item) => {
         const isActive = currentTheme === item.mode;
+        const label = item.mode === "light" ? i18n.t("theme_light_label") : i18n.t("theme_dark_label");
+        const sublabel = item.mode === "light" ? "Light" : "Dark";
 
         return (
           <TouchableOpacity
@@ -63,7 +66,7 @@ const ThemeSelector: React.FC<Props> = ({
                 { color: isActive ? colors.primary : colors.text },
               ]}
             >
-              {item.label}
+              {label}
             </Text>
 
             <Text
@@ -72,7 +75,7 @@ const ThemeSelector: React.FC<Props> = ({
                 { color: isActive ? colors.primary : colors.textSecondary },
               ]}
             >
-              {item.sublabel}
+              {sublabel}
             </Text>
           </TouchableOpacity>
         );

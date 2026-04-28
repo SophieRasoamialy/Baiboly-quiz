@@ -15,6 +15,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import { AVATARS } from "../../constants/avatar";
+import i18n from "../../i18n";
 
 import { createMultiplayerStyles } from "../multiplayer/multiplayer.styles";
 import BackButton from "../../components/ui/BackButton";
@@ -54,7 +55,7 @@ const DuoSetupScreen: React.FC<Props> = ({ navigation, route }) => {
   ) => (
     <View style={inverted ? { transform: [{ rotate: "180deg" }], flex: 1, justifyContent: 'center' } : { flex: 1, justifyContent: 'center' }}>
       <Text style={[styles.sectionTitle, { textAlign: 'center', marginBottom: 10 }]}>
-        Hifidy ny anaranao
+        {i18n.t("choose_character")}
       </Text>
       <ScrollView 
         horizontal 
@@ -121,7 +122,7 @@ const DuoSetupScreen: React.FC<Props> = ({ navigation, route }) => {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.header}>
             <BackButton colors={colors} onPress={() => navigation.goBack()} />
-            <Text style={styles.headerTitle}>Fidiana Mpilalao</Text>
+            <Text style={styles.headerTitle}>{i18n.t("player_selection")}</Text>
         </View>
 
         <View style={{ flex: 1 }}>
@@ -143,7 +144,7 @@ const DuoSetupScreen: React.FC<Props> = ({ navigation, route }) => {
                         opacity: (p1Selection && p2Selection) ? 1 : 0.5
                     }}
                 >
-                    <Text style={{ color: (p1Selection && p2Selection) ? '#000' : colors.textMuted, fontWeight: '900', fontSize: 16 }}>HANOMBOKA</Text>
+                    <Text style={{ color: (p1Selection && p2Selection) ? '#000' : colors.textMuted, fontWeight: '900', fontSize: 16 }}>{i18n.t("start_btn")}</Text>
                 </TouchableOpacity>
             </View>
 

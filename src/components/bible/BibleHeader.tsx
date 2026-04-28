@@ -3,6 +3,7 @@ import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Book, Chapter, BibleViewState, OLD_TESTAMENT_BOOKS } from "../../constants/bible";
 import BackButton from "../ui/BackButton";
+import i18n from "../../i18n";
 
 interface Props {
   styles: any;
@@ -36,7 +37,7 @@ const BibleHeader: React.FC<Props> = ({
 
         <View style={{ flex: 1 }}>
           {viewState === "BOOKS" ? (
-            <Text style={styles.headerTitle}>Baiboly</Text>
+            <Text style={styles.headerTitle}>{i18n.t("bible")}</Text>
           ) : viewState === "SEARCH" ? (
             <TextInput
               style={{
@@ -46,7 +47,7 @@ const BibleHeader: React.FC<Props> = ({
                 paddingVertical: 2,
                 width: "100%",
               }}
-              placeholder="Hitady ao amin'ny Baiboly..."
+              placeholder={i18n.t("search_placeholder")}
               placeholderTextColor={colors.textMuted}
               value={searchQuery}
               onChangeText={onChangeSearch}
@@ -56,7 +57,7 @@ const BibleHeader: React.FC<Props> = ({
             <Text style={styles.headerTitle}>{selectedBook?.name}</Text>
           ) : (
             <Text style={styles.headerSubtitleTitle}>
-              Toko faha {selectedChapter?.chapter}
+              {i18n.t("chapter_faha")} {selectedChapter?.chapter}
             </Text>
           )}
         </View>
@@ -64,7 +65,9 @@ const BibleHeader: React.FC<Props> = ({
         {viewState === "BOOKS" && (
           <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
             <View style={styles.badge}>
-              <Text style={styles.badgeText}>{totalBooks} boky</Text>
+              <Text style={styles.badgeText}>
+                {i18n.t("books_count", { count: totalBooks })}
+              </Text>
             </View>
 
             <TouchableOpacity onPress={onOpenSearch} style={styles.backButton}>
@@ -75,7 +78,9 @@ const BibleHeader: React.FC<Props> = ({
 
         {viewState === "CHAPTERS" && selectedBook && (
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>{selectedBook.chapters.length} toko</Text>
+            <Text style={styles.badgeText}>
+              {i18n.t("chapters_count", { count: selectedBook.chapters.length })}
+            </Text>
           </View>
         )}
       </View>

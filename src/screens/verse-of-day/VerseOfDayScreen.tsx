@@ -19,6 +19,7 @@ import VerseHeroCard from "../../components/verse-of-day/VerseHeroCard";
 import VerseActionsRow from "../../components/verse-of-day/VerseActionsRow";
 import PromiseCategoryList from "../../components/verse-of-day/PromiseCategoryList";
 import VerseShareCard from "../../components/verse-of-day/VerseShareCard";
+import i18n from "../../i18n";
 
 type VerseOfDayScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -96,7 +97,7 @@ const VerseOfDayScreen: React.FC<Props> = ({ navigation }) => {
           if (await Sharing.isAvailableAsync()) {
             await Sharing.shareAsync(uri, {
               mimeType: "image/png",
-              dialogTitle: "Hizara ny Teny Fikasana",
+              dialogTitle: i18n.t("share_promise_title"),
             });
           }
           return;
@@ -105,7 +106,7 @@ const VerseOfDayScreen: React.FC<Props> = ({ navigation }) => {
         await Share.share({
           message: `${
             displayedCategory?.emoji || "✨"
-          } ${displayedCategory?.category || "Teny Fikasana"}\n\n📖 ${
+          } ${displayedCategory?.category || i18n.t("promise_default")}\n\n📖 ${
             displayedVerse.reference
           }\n"${displayedVerse.text}"\n\n— Baiboly Quiz App`,
         });
@@ -153,7 +154,7 @@ const VerseOfDayScreen: React.FC<Props> = ({ navigation }) => {
         <VerseDayHeader
           styles={styles}
           colors={colors}
-          title="Teny Fikasana"
+          title={i18n.t("promise_default")}
           onBack={() => navigation.goBack()}
         />
 
@@ -184,9 +185,9 @@ const VerseOfDayScreen: React.FC<Props> = ({ navigation }) => {
           />
 
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Sokajy rehetra</Text>
+            <Text style={styles.sectionTitle}>{i18n.t("all_categories")}</Text>
             <Text style={styles.sectionSubtitle}>
-              Tsindrio ny sokajy iray hijerena ireo andininy
+              {i18n.t("category_click_hint")}
             </Text>
           </View>
 

@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import SettingsCard from "./SettingsCard";
+import i18n from "../../i18n";
 
 interface Props {
   styles: any;
@@ -38,8 +39,8 @@ const PreferencesCard: React.FC<Props> = ({
           </View>
 
           <View style={styles.rowTextWrap}>
-            <Text style={styles.rowTitle}>Feo</Text>
-            <Text style={styles.rowSubtitle}>Alefa na ajanona ny feon’ny lalao</Text>
+            <Text style={styles.rowTitle}>{i18n.t("sound")}</Text>
+            <Text style={styles.rowSubtitle}>{i18n.t("sound_desc")}</Text>
           </View>
         </View>
 
@@ -69,8 +70,8 @@ const PreferencesCard: React.FC<Props> = ({
           </View>
 
           <View style={styles.rowTextWrap}>
-            <Text style={styles.rowTitle}>Fampilazana</Text>
-            <Text style={styles.rowSubtitle}>Mahazoa fanairana sy vaovao vaovao</Text>
+            <Text style={styles.rowTitle}>{i18n.t("notifications")}</Text>
+            <Text style={styles.rowSubtitle}>{i18n.t("notif_desc")}</Text>
           </View>
         </View>
 

@@ -14,6 +14,7 @@ import { createFriendSelectionStyles } from "./friend-selection.styles";
 import FloatingGem from "../../components/home/FloatingGem";
 import BackButton from "../../components/ui/BackButton";
 import UserAvatar from "../../components/ui/UserAvatar";
+import i18n from "../../i18n";
 
 const { width } = Dimensions.get("window");
 
@@ -99,12 +100,12 @@ const FriendSelectionScreen: React.FC<Props> = ({ navigation, route }) => {
         <View style={styles.header}>
           <BackButton colors={colors} onPress={() => navigation.goBack()} />
           <Text style={styles.headerTitle}>
-            {gameType === "team" ? "Hifidy Mpilalao (2v2)" : "Hifidy Mpilalao"}
+            {gameType === "team" ? i18n.t("select_player_team") : i18n.t("select_player")}
           </Text>
         </View>
 
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
-          <Text style={styles.sectionTitle}>Fomba hitadiavana</Text>
+          <Text style={styles.sectionTitle}>{i18n.t("search_method")}</Text>
           
           <View style={styles.cardGroup}>
             <TouchableOpacity 
@@ -120,8 +121,8 @@ const FriendSelectionScreen: React.FC<Props> = ({ navigation, route }) => {
                   <MaterialCommunityIcons name="radar" size={30} color={colors.primary} />
                 </View>
                 <View style={styles.cardInfo}>
-                  <Text style={styles.cardTitle}>Lalao Kisendrasendra</Text>
-                  <Text style={styles.cardDesc}>Hikaroka mpilalao hafa mifandray aminao.</Text>
+                  <Text style={styles.cardTitle}>{i18n.t("random_match_title")}</Text>
+                  <Text style={styles.cardDesc}>{i18n.t("random_match_desc")}</Text>
                 </View>
                 <MaterialCommunityIcons name="chevron-right" size={20} color={colors.textMuted} />
               </LinearGradient>
@@ -140,15 +141,15 @@ const FriendSelectionScreen: React.FC<Props> = ({ navigation, route }) => {
                   <MaterialCommunityIcons name="account-search-outline" size={30} color={colors.secondary} />
                 </View>
                 <View style={styles.cardInfo}>
-                  <Text style={styles.cardTitle}>Mikaroka Namana</Text>
-                  <Text style={styles.cardDesc}>Tadiavo amin'ny anarany ny namanao.</Text>
+                  <Text style={styles.cardTitle}>{i18n.t("search_friend_title")}</Text>
+                  <Text style={styles.cardDesc}>{i18n.t("search_friend_desc")}</Text>
                 </View>
                 <MaterialCommunityIcons name="chevron-right" size={20} color={colors.textMuted} />
               </LinearGradient>
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.sectionTitle}>Ny Namako ({friends.length})</Text>
+          <Text style={styles.sectionTitle}>{i18n.t("my_friends_count", { count: friends.length })}</Text>
 
           <View style={styles.friendsList}>
             {friends.length > 0 ? (
@@ -173,7 +174,7 @@ const FriendSelectionScreen: React.FC<Props> = ({ navigation, route }) => {
                     style={styles.inviteBtn}
                     onPress={() => navigation.navigate("Matchmaking", { mode: "invite", friendName: friend.name, gameType, quizType } as any)}
                   >
-                    <Text style={styles.inviteText}>ASAO</Text>
+                    <Text style={styles.inviteText}>{i18n.t("invite_btn_text")}</Text>
                   </TouchableOpacity>
                 </View>
               ))
@@ -181,7 +182,7 @@ const FriendSelectionScreen: React.FC<Props> = ({ navigation, route }) => {
               <View style={styles.emptyFriends}>
                 <MaterialCommunityIcons name="account-heart-outline" size={48} color={colors.textMuted} />
                 <Text style={styles.emptyFriendsText}>
-                  Tsy mbola manana namana voatahiry ianao. Mikaroha namana mba hanampiana azy eto.
+                  {i18n.t("no_friends_yet")}
                 </Text>
               </View>
             )}

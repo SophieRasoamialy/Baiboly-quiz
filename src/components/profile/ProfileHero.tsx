@@ -1,4 +1,4 @@
-import React from "react";
+// No changes needed as no hardcoded strings found.
 import { Animated, Image, Text, TouchableOpacity, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialCommunityIcons } from "@expo/vector-icons";

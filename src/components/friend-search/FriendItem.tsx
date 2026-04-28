@@ -2,6 +2,7 @@ import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import UserAvatar from "../ui/UserAvatar";
+import i18n from "../../i18n";
 
 interface FriendItemProps {
   item: any;
@@ -64,7 +65,7 @@ export const FriendItem: React.FC<FriendItemProps> = ({
           disabled={item.status !== "online"}
         >
           <Text style={[styles.inviteText, item.status !== "online" && styles.inviteTextDisabled]}>
-            ASAO
+            {i18n.t("invite_btn_text")}
           </Text>
         </TouchableOpacity>
       </View>

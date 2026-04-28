@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { createMultiplayerStyles } from "../../screens/multiplayer/multiplayer.styles";
+import i18n from "../../i18n";
 
 interface MultiplayerGuestPromptProps {
   onNavigateToAuth: () => void;
@@ -35,9 +36,9 @@ export const MultiplayerGuestPrompt: React.FC<MultiplayerGuestPromptProps> = ({
           />
         </View>
 
-        <Text style={styles.title}>Lalao Maromaro</Text>
+        <Text style={styles.title}>{i18n.t("multiplayer_title")}</Text>
         <Text style={styles.description}>
-          Mila mifandray ianao raha te hilalao amin'ny namana an-tserasera na hifaninana amin'ny mpilalao hafa.
+          {i18n.t("multiplayer_online_msg")}
         </Text>
 
         <TouchableOpacity
@@ -49,7 +50,7 @@ export const MultiplayerGuestPrompt: React.FC<MultiplayerGuestPromptProps> = ({
             colors={[colors.primary, "#FF8F00"]}
             style={styles.buttonGradient}
           >
-            <Text style={styles.buttonText}>MIDITRA / HISORATRA ANARANA</Text>
+            <Text style={styles.buttonText}>{i18n.t("multi_guest_btn")}</Text>
           </LinearGradient>
         </TouchableOpacity>
       </View>

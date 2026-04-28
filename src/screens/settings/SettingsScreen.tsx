@@ -8,6 +8,7 @@ import { NotificationService } from "../../services/NotificationService";
 import { useUser } from "../../context/user";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { useAlert } from "../../context/AlertContext";
+import i18n from "../../i18n";
 import { createSettingsStyles } from "./settings.styles";
 
 import SettingsHeader from "../../components/settings/SettingsHeader";
@@ -59,8 +60,8 @@ const SettingsScreen = () => {
         setNotificationEnabled(true);
       } else {
         showAlert({
-          title: "Fampilazana",
-          message: "Mila manome alalana ianao vao afaka mandray fampilazana.",
+          title: i18n.t("notifications"),
+          message: i18n.t("notif_permission_msg"),
         });
       }
     } else {
@@ -72,8 +73,8 @@ const SettingsScreen = () => {
   const handleBuyHeart = () => {
     if (hearts >= 5) {
       showAlert({
-        title: "Efa feno",
-        message: "Efa manana fo 5 ianao.",
+        title: i18n.t("already_full"),
+        message: i18n.t("hearts_full_msg"),
       });
       return;
     }
@@ -82,13 +83,13 @@ const SettingsScreen = () => {
       removeGems(50);
       addHeart();
       showAlert({
-        title: "Vita",
-        message: "Nahazo fo 1 ianao.",
+        title: i18n.t("finish"),
+        message: i18n.t("received_heart_msg"),
       });
     } else {
       showAlert({
-        title: "Tsy ampy",
-        message: "Mila vatosoa 50 ianao hividianana fo.",
+        title: i18n.t("insufficient"),
+        message: i18n.t("need_gems_shop_msg"),
       });
     }
   };
@@ -128,7 +129,7 @@ const SettingsScreen = () => {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.content}
         >
-          <SettingsSection title="Fiteny" styles={styles}>
+          <SettingsSection title={i18n.t("language")} styles={styles}>
             <LanguageSelector
               styles={styles}
               colors={colors}
@@ -137,7 +138,7 @@ const SettingsScreen = () => {
             />
           </SettingsSection>
 
-          <SettingsSection title="Endrika" styles={styles}>
+          <SettingsSection title={i18n.t("appearance")} styles={styles}>
             <ThemeSelector
               styles={styles}
               colors={colors}
@@ -146,18 +147,18 @@ const SettingsScreen = () => {
             />
           </SettingsSection>
 
-          <SettingsSection title="Varotra" styles={styles}>
+          <SettingsSection title={i18n.t("shop")} styles={styles}>
             <ShopCard
               styles={styles}
               colors={colors}
               price={50}
-              title="Hividy fo (1)"
-              subtitle="Ampitomboy ny vintanao"
+              title={i18n.t("buy_heart_shop")}
+              subtitle={i18n.t("boost_luck")}
               onPress={handleBuyHeart}
             />
           </SettingsSection>
 
-          <SettingsSection title="Safidy" styles={styles}>
+          <SettingsSection title={i18n.t("preferences")} styles={styles}>
             <PreferencesCard
               styles={styles}
               colors={colors}

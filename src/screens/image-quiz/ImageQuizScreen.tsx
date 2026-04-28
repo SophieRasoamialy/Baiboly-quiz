@@ -22,6 +22,7 @@ import quizImageData from "../../data/quiz-image.json";
 import { QUIZ_IMAGE_MAP } from "../../constants/quizImages";
 import { createImageQuizStyles, TIMER_SECONDS } from "./image-quiz.styles";
 import FloatingGem from "../../components/home/FloatingGem";
+import i18n from "../../i18n";
 import { OptionButton } from "../../components/image-quiz/OptionButton";
 import BackButton from "../../components/ui/BackButton";
 import { soundHelper } from "../../utils/SoundHelper";
@@ -164,18 +165,19 @@ const ImageQuizScreen: React.FC<Props> = ({ navigation }) => {
             size={80}
             color={colors.accent}
           />
-          <Text style={styles.noHeartsTitle}>Lany ny fo!</Text>
+          <Text style={styles.noHeartsTitle}>{i18n.t("no_hearts_title")}</Text>
           <Text style={styles.noHeartsSub}>
-            Haverina afaka: {Math.floor(nextRefillIn / 60)}:
-            {(nextRefillIn % 60).toString().padStart(2, "0")}
+            {i18n.t("refill_in", {
+              time: `${Math.floor(nextRefillIn / 60)}:${(nextRefillIn % 60).toString().padStart(2, "0")}`
+            })}
           </Text>
           <TouchableOpacity
             style={styles.buyBtn}
             onPress={() => {
               if (!buyHeartWithGems())
                 showAlert({
-                  title: "Tsy ampy vatosoa",
-                  message: "Mila 20 vatosoa ianao.",
+                  title: i18n.t("not_enough_gems"),
+                  message: i18n.t("need_gems_msg"),
                 });
             }}
           >
@@ -183,7 +185,7 @@ const ImageQuizScreen: React.FC<Props> = ({ navigation }) => {
               colors={[colors.secondary, colors.secondaryDark]}
               style={styles.buyGradient}
             >
-              <Text style={styles.buyText}>Mividy fo (20 vatosoa)</Text>
+              <Text style={styles.buyText}>{i18n.t("buy_heart_btn")}</Text>
             </LinearGradient>
           </TouchableOpacity>
           <TouchableOpacity
@@ -191,7 +193,7 @@ const ImageQuizScreen: React.FC<Props> = ({ navigation }) => {
             style={{ marginTop: 24 }}
           >
             <Text style={{ color: colors.textMuted, fontWeight: "700" }}>
-              HIVERINA
+              {i18n.t("back").toUpperCase()}
             </Text>
           </TouchableOpacity>
         </View>

@@ -1,5 +1,6 @@
 import React from "react";
 import { ScrollView, Text, View } from "react-native";
+import i18n from "../../i18n";
 import MedalCard from "./MedalCard";
 import { ALL_MEDALS } from "../../constants/profile";
 
@@ -14,7 +15,7 @@ const MedalSection: React.FC<Props> = ({ styles, colors, medals }) => {
     <View style={styles.sectionWrap}>
       <View style={styles.sectionTitleRow}>
         <View style={[styles.sectionMarker, { backgroundColor: colors.primary }]} />
-        <Text style={styles.sectionTitle}>Meday misy</Text>
+        <Text style={styles.sectionTitle}>{i18n.t("medals_count")}</Text>
 
         <View
           style={[

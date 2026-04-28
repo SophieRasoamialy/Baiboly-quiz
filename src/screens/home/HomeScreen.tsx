@@ -12,6 +12,7 @@ import { useUser } from "../../context/user";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { useAlert } from "../../context/AlertContext";
 import { useDailyPromiseVerse } from "../../hooks/useDailyPromiseVerse";
+import i18n from "../../i18n";
 import { getHomeMenuItems } from "../../constants/menuItems";
 import { createHomeStyles } from "./home.styles";
 
@@ -82,15 +83,15 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const handleBuyHeart = () => {
     if (hearts < 5) {
       showAlert({
-        title: "Mividy fo",
-        message: "Mila vatosoa 20 ianao mba hividianana fo. Te hanohy ve ianao?",
+        title: i18n.t("buy_heart_title"),
+        message: i18n.t("buy_heart_msg"),
         buttons: [
-          { text: "Tsia", style: "cancel" },
+          { text: i18n.t("later"), style: "cancel" },
           {
-            text: "Eny",
+            text: i18n.t("ok"),
             onPress: () => {
               if (!buyHeartWithGems()) {
-                showAlert({ title: "Tsy ampy vatosoa", message: "Mila vatosoa 20 ianao." });
+                showAlert({ title: i18n.t("not_enough_gems"), message: i18n.t("need_gems_msg") });
               }
             },
           },
@@ -162,18 +163,11 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
             isLight={isLight}
             onPressItem={(route) => {
               if (route === "TeamQuiz") {
-                if (!isLoggedIn) {
-                  showAlert({
-                    title: "Mila Kaonty",
-                    message: "Mila misoratra anarana ianao raha te hilalao amin'ny namana an-tserasera.",
-                    buttons: [
-                      { text: "Aoka ihany", style: "cancel" },
-                      { text: "Hiditra", onPress: () => navigation.navigate("Auth") },
-                    ],
-                  });
-                  return;
-                }
-                navigation.navigate("FriendSelection", { gameType: "team" });
+                showAlert({
+                  title: i18n.t("coming_soon"),
+                  message: i18n.t("coming_soon_msg"),
+                  buttons: [{ text: i18n.t("ok"), style: "cancel" }],
+                });
                 return;
               }
               navigation.navigate(route as never);

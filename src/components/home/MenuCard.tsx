@@ -120,49 +120,35 @@ const MenuCard: React.FC<Props> = ({
           elevation: 4,
         }}
       >
-        {/* Image instead of icon */}
-        {item.bgImage ? (
-          <Image
-            source={item.bgImage}
-            style={{
-              width: 64,
-              height: 64,
-              borderRadius: 18,
-              marginBottom: 8,
-            }}
-            resizeMode="cover"
-          />
-        ) : (
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
           <View
             style={{
-              width: 64,
-              height: 64,
-              borderRadius: 18,
+              width: 44,
+              height: 44,
+              borderRadius: 12,
               backgroundColor: item.softAccent,
               alignItems: "center",
               justifyContent: "center",
-              marginBottom: 8,
             }}
           >
             <MaterialCommunityIcons
               name={item.icon as any}
-              size={28}
+              size={22}
               color={item.accent}
             />
           </View>
-        )}
+
+          <View style={{ flex: 1 }}>
+            <Text
+              style={{ fontWeight: "700", fontSize: 15, color: colors.text }}
+            >
+              {item.title}
+            </Text>
+          </View>
+        </View>
 
         {/* Text */}
         <View>
-          <Text
-            style={{
-              color: colors.text,
-              fontSize: 17,
-              fontWeight: "800",
-            }}
-          >
-            {item.title}
-          </Text>
 
           <Text
             style={{

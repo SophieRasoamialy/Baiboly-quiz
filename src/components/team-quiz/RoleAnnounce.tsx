@@ -4,6 +4,7 @@ import { AVATAR_MAP } from "../../constants/avatar";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import UserAvatar from "../ui/UserAvatar";
 import { createTeamQuizStyles } from "../../screens/team-quiz/team-quiz.styles";
+import i18n from "../../i18n";
 
 interface RoleAnnounceProps {
   currentRound: number;
@@ -23,10 +24,10 @@ export const RoleAnnounce: React.FC<RoleAnnounceProps> = ({
 
   return (
     <Animated.View style={[styles.centerPhase, { opacity: phaseAnim, transform: [{ scale: phaseAnim.interpolate({ inputRange: [0, 1], outputRange: [0.95, 1] }) }] }]}>
-      <Text style={styles.roundText}>FANOMBOHANA ROUND {currentRound}</Text>
+      <Text style={styles.roundText}>{i18n.t("round_start", { round: currentRound })}</Text>
 
       <View style={styles.roleCard}>
-        <Text style={styles.roleLabel}>MPIAZAFA (DESCRIBER)</Text>
+        <Text style={styles.roleLabel}>{i18n.t("describer_role")}</Text>
         <UserAvatar 
           avatar={dPlayer?.avatar} 
           size={100} 
@@ -39,7 +40,7 @@ export const RoleAnnounce: React.FC<RoleAnnounceProps> = ({
       <View style={{ height: 30 }} />
 
       <View style={styles.roleCard}>
-        <Text style={styles.roleLabel}>MPIKASOKA (GUESSER)</Text>
+        <Text style={styles.roleLabel}>{i18n.t("guesser_role")}</Text>
         <UserAvatar 
           avatar={gPlayer?.avatar} 
           size={100} 

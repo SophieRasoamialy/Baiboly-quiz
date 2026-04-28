@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { createTeamQuizStyles } from "../../screens/team-quiz/team-quiz.styles";
 import UserAvatar from "../ui/UserAvatar";
+import i18n from "../../i18n";
 
 export interface Player {
   id: string;
@@ -17,8 +18,8 @@ export const TeamLobby: React.FC<{ players: Player[] }> = ({ players }) => {
 
   return (
     <View style={styles.centerPhase}>
-      <Text style={styles.phaseTitle}>Fiandrasana...</Text>
-      <Text style={styles.phaseSubtitle}>Mivory ny mpilalao rehetra...</Text>
+      <Text style={styles.phaseTitle}>{i18n.t("waiting")}</Text>
+      <Text style={styles.phaseSubtitle}>{i18n.t("players_gathering")}</Text>
       
       <View style={styles.playerGrid}>
         {players.map((p) => (
@@ -35,7 +36,7 @@ export const TeamLobby: React.FC<{ players: Player[] }> = ({ players }) => {
                   { backgroundColor: p.team === 1 ? colors.secondary : colors.primary },
                 ]}
               >
-                <Text style={styles.teamText}>T{p.team}</Text>
+                <Text style={styles.teamText}>{i18n.t("team_short")}{p.team}</Text>
               </View>
             </View>
             <Text style={styles.playerName} numberOfLines={1}>{p.name}</Text>

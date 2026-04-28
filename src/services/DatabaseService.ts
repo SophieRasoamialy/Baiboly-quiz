@@ -36,7 +36,7 @@ class DatabaseService {
         city TEXT,
         gems INTEGER DEFAULT 100,
         hearts INTEGER DEFAULT 5,
-        medals TEXT DEFAULT 'bronze',
+        medals TEXT,
         avatar TEXT DEFAULT 'default',
         language TEXT DEFAULT 'mg',
         theme TEXT DEFAULT 'light',

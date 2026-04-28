@@ -2,6 +2,7 @@ import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AVATAR_MAP } from "../../constants/avatar";
+import i18n from "../../i18n";
 import UserAvatar from "../ui/UserAvatar";
 
 interface UserLobbyCardProps {
@@ -12,6 +13,7 @@ interface UserLobbyCardProps {
   city?: string | null;
   styles: any;
   colors: any;
+  isLoggedIn: boolean;
   onLoginPress?: () => void;
 }
 
@@ -23,26 +25,27 @@ export const UserLobbyCard: React.FC<UserLobbyCardProps> = ({
   city,
   styles,
   colors,
+  isLoggedIn,
   onLoginPress,
 }) => {
   return (
     <View style={styles.userCard}>
       <UserAvatar 
-        avatar={avatar} 
+        avatar={isLoggedIn ? avatar : null} 
         size={62} 
         borderWidth={2}
-        points={points}
+        points={isLoggedIn ? points : 0}
       />
 
       <View style={{ flex: 1 }}>
         <Text style={styles.welcomeText}>
-          {username ? "Efa vonona ve ianao?" : "Miarahaba anao!"}
+          {username ? i18n.t("ready_msg") : i18n.t("welcome_msg")}
         </Text>
-        <Text style={styles.usernameText}>{username || "Mpitsidika"}</Text>
+        <Text style={styles.usernameText}>{username || i18n.t("visitor")}</Text>
 
         {!username && onLoginPress && (
           <TouchableOpacity onPress={onLoginPress} style={styles.loginBtn}>
-            <Text style={styles.loginBtnText}>MIDITRA</Text>
+            <Text style={styles.loginBtnText}>{i18n.t("login_btn")}</Text>
           </TouchableOpacity>
         )}
 

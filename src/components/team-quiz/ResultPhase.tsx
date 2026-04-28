@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { createTeamQuizStyles } from "../../screens/team-quiz/team-quiz.styles";
+import i18n from "../../i18n";
 
 export const ResultPhase: React.FC<{ guess: string; currentWord: any }> = ({
   guess,
@@ -24,7 +25,7 @@ export const ResultPhase: React.FC<{ guess: string; currentWord: any }> = ({
       <View style={styles.resultWordContainer}>
         <Text style={styles.resultWord}>{currentWord?.word}</Text>
         <Text style={styles.resultStatus}>
-          {isCorrect ? "BRAVO! Marina ny valiny." : "Oadray! Tsy marina ny valiny."}
+          {isCorrect ? i18n.t("bravo_correct") : i18n.t("oups_wrong")}
         </Text>
       </View>
     </View>

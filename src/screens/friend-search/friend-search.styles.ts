@@ -291,4 +291,18 @@ export const createFriendSearchStyles = (colors: any) =>
       fontSize: 10,
       fontWeight: '900',
     },
+    cancelScanBtn: {
+      marginTop: 30,
+      paddingHorizontal: 30,
+      paddingVertical: 14,
+      borderRadius: 25,
+      backgroundColor: colors.surfaceSoft,
+      borderWidth: 1,
+      borderColor: colors.border,
+    },
+    cancelScanText: {
+      color: colors.text,
+      fontSize: 15,
+      fontWeight: '800',
+    },
   });

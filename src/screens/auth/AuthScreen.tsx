@@ -17,6 +17,7 @@ import { useAppTheme } from "../../hooks/useAppTheme";
 import { createAuthStyles } from "./auth.styles";
 import { supabaseService } from "../../services/SupabaseService";
 import { useAlert } from "../../context/AlertContext";
+import i18n from "../../i18n";
 
 import AuthHeader from "../../components/auth/AuthHeader";
 import AuthRewardCard from "../../components/auth/AuthRewardCard";
@@ -81,9 +82,9 @@ function AuthScreen({ navigation }: Props) {
       if (isTaken) {
         setIsChecking(false);
         showAlert({
-          title: "Efa misy mampiasa io anarana io",
-          message: "Azafady, fidio anarana hafa fa efa misy mampiasa ity anarana ity.",
-          buttons: [{ text: "Eny" }]
+          title: i18n.t("username_taken_title"),
+          message: i18n.t("username_taken_msg"),
+          buttons: [{ text: i18n.t("ok") }]
         });
         return;
       }
@@ -103,9 +104,9 @@ function AuthScreen({ navigation }: Props) {
     } catch (err) {
       console.error("Auth error:", err);
       showAlert({
-        title: "Olana",
-        message: "Nisy olana teo am-panamarinana ny anaranao. Andramo indray azafady.",
-        buttons: [{ text: "Eny" }]
+        title: i18n.t("auth_error_title"),
+        message: i18n.t("auth_error_msg"),
+        buttons: [{ text: i18n.t("ok") }]
       });
     } finally {
       setIsChecking(false);
@@ -168,9 +169,9 @@ function AuthScreen({ navigation }: Props) {
               <View style={styles.formCard}>
                 <AuthFormInput
                   styles={styles}
-                  label="Solon'anarana"
+                  label={i18n.t("username_label")}
                   icon="at"
-                  placeholder="Ohatra: Mpitory"
+                  placeholder={i18n.t("username_placeholder")}
                   value={name}
                   onChangeText={setName}
                   maxLength={15}
@@ -178,9 +179,9 @@ function AuthScreen({ navigation }: Props) {
 
                 <AuthFormInput
                   styles={styles}
-                  label="Fiangonana"
+                  label={i18n.t("church_label")}
                   icon="church-outline"
-                  placeholder="Ny anaran'ny fiangonanao"
+                  placeholder={i18n.t("church_placeholder")}
                   value={church}
                   onChangeText={setChurch}
                   maxLength={30}
@@ -188,9 +189,9 @@ function AuthScreen({ navigation }: Props) {
 
                 <AuthFormInput
                   styles={styles}
-                  label="Tanàna"
+                  label={i18n.t("city_label")}
                   icon="city-variant-outline"
-                  placeholder="Ny tanàna misy anao"
+                  placeholder={i18n.t("city_placeholder")}
                   value={cityName}
                   onChangeText={setCityName}
                   maxLength={25}
@@ -209,7 +210,7 @@ function AuthScreen({ navigation }: Props) {
                   styles={styles}
                   colors={colors}
                   disabled={!isFormValid || isChecking}
-                  label={isLoggedIn ? "HANAVAO PROFIL" : "HANOMBOKA"}
+                  label={isLoggedIn ? i18n.t("update_profile_btn") : i18n.t("start_btn")}
                   onPress={handleStart}
                 />
               </View>

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Text, TouchableOpacity, View, Animated, Dimensions, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import i18n from "../../i18n";
 
 const { width } = Dimensions.get("window");
 
@@ -47,9 +48,9 @@ export const SoloGameOverView: React.FC<SoloGameOverViewProps> = ({
   }, []);
 
   const getFeedbackText = () => {
-    if (isGood) return "Tena tsara be!";
-    if (needsImprovement) return "Mbola mila ezaka kely...";
-    return "Tsara fa azo hatsaraina!";
+    if (isGood) return i18n.t("excellent");
+    if (needsImprovement) return i18n.t("needs_effort");
+    return i18n.t("good_but_better");
   };
 
   const getFeedbackIcon = () => {
@@ -76,19 +77,19 @@ export const SoloGameOverView: React.FC<SoloGameOverViewProps> = ({
         </LinearGradient>
 
         <View style={styles.content}>
-          <Text style={[styles.scoreTitle, { color: colors.textMuted }]}>Ny vokatry ny lalao</Text>
+          <Text style={[styles.scoreTitle, { color: colors.textMuted }]}>{i18n.t("game_result")}</Text>
           <Text style={[styles.scoreValue, { color: isGood ? colors.secondary : colors.primary }]}>
             {score} / {totalQuestions}
           </Text>
           
           <View style={[styles.statsRow, { borderTopColor: colors.border }]}>
             <View style={styles.statItem}>
-              <Text style={[styles.statLabel, { color: colors.textMuted }]}>Isa (Points)</Text>
+              <Text style={[styles.statLabel, { color: colors.textMuted }]}>{i18n.t("points_label")}</Text>
               <Text style={[styles.statValue, { color: colors.text }]}>+{pointsEarned} ⭐️</Text>
             </View>
             <View style={[styles.divider, { backgroundColor: colors.border }]} />
             <View style={styles.statItem}>
-              <Text style={[styles.statLabel, { color: colors.textMuted }]}>Vatosoa azo</Text>
+              <Text style={[styles.statLabel, { color: colors.textMuted }]}>{i18n.t("gems_earned")}</Text>
               <Text style={[styles.statValue, { color: colors.text }]}>+{score * 5} 💎</Text>
             </View>
           </View>
@@ -100,7 +101,7 @@ export const SoloGameOverView: React.FC<SoloGameOverViewProps> = ({
             onPress={onReplayPress}
           >
             <MaterialCommunityIcons name="refresh" size={24} color="#FFF" />
-            <Text style={styles.btnText}>HILALAO INDRAY</Text>
+            <Text style={styles.btnText}>{i18n.t("replay")}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -108,7 +109,7 @@ export const SoloGameOverView: React.FC<SoloGameOverViewProps> = ({
             onPress={onHomePress}
           >
             <MaterialCommunityIcons name="home" size={24} color={colors.text} />
-            <Text style={[styles.btnText, { color: colors.text }]}>HIVERINA MODY</Text>
+            <Text style={[styles.btnText, { color: colors.text }]}>{i18n.t("go_home")}</Text>
           </TouchableOpacity>
         </View>
       </Animated.View>

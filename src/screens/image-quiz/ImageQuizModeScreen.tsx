@@ -14,6 +14,7 @@ import { createMultiplayerStyles } from "../multiplayer/multiplayer.styles";
 import { GameModeCard } from "../../components/multiplayer/GameModeCard";
 import FloatingGem from "../../components/home/FloatingGem";
 import BackButton from "../../components/ui/BackButton";
+import i18n from "../../i18n";
 
 const { width } = Dimensions.get("window");
 
@@ -41,11 +42,11 @@ const ImageQuizModeScreen: React.FC<Props> = ({ navigation }) => {
   const handleOnlineMode = (navFn: () => void) => {
     if (!isLoggedIn) {
       showAlert({
-        title: "Mila Kaonty",
-        message: "Mila misoratra anarana ianao raha te hilalao amin'ny namana an-tserasera.",
+        title: i18n.t("account_required"),
+        message: i18n.t("multiplayer_online_msg"),
         buttons: [
-          { text: "Aoka ihany", style: "cancel" },
-          { text: "Hiditra", onPress: () => navigation.navigate("Auth") },
+          { text: i18n.t("later"), style: "cancel" },
+          { text: i18n.t("login"), onPress: () => navigation.navigate("Auth") },
         ]
       });
       return;
@@ -73,18 +74,18 @@ const ImageQuizModeScreen: React.FC<Props> = ({ navigation }) => {
       <SafeAreaView style={styles.safeArea} edges={["top"]}>
         <View style={styles.header}>
           <BackButton colors={colors} onPress={() => navigation.goBack()} />
-          <Text style={styles.headerTitle}>Lalao Sary</Text>
+          <Text style={styles.headerTitle}>{i18n.t("image_quiz_title")}</Text>
         </View>
 
         <ScrollView 
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.lobbyContent}
         >
-          <Text style={styles.sectionTitle}>Misafidy ny fomba filalao</Text>
+          <Text style={styles.sectionTitle}>{i18n.t("choose_game_mode")}</Text>
 
           <GameModeCard
-            title="Sary Solo (Irery)"
-            description="Maminany sary irery ianao mba hahazoana vatosoa."
+            title={i18n.t("image_solo_title")}
+            description={i18n.t("image_solo_desc")}
             icon="account-outline"
             iconColor={colors.primary}
             gradientColors={[colors.primarySoft, colors.primarySoft]}
@@ -94,8 +95,8 @@ const ImageQuizModeScreen: React.FC<Props> = ({ navigation }) => {
           />
 
           <GameModeCard
-            title="Sary Duo (Local)"
-            description="Hifaninana amin'ny sary amin'ny finday iray ihany (Split Screen)."
+            title={i18n.t("image_duo_local_title")}
+            description={i18n.t("image_duo_local_desc")}
             icon="sword-cross"
             iconColor={colors.secondary}
             gradientColors={[colors.secondarySoft, colors.secondarySoft]}
@@ -105,8 +106,8 @@ const ImageQuizModeScreen: React.FC<Props> = ({ navigation }) => {
           />
 
           <GameModeCard
-            title="Sary Duo (Online)"
-            description="Hifaninana an-tserasera amin'ny sary amin'ny namana."
+            title={i18n.t("image_duo_online_title")}
+            description={i18n.t("image_duo_online_desc")}
             icon="earth"
             iconColor={colors.primary}
             gradientColors={[colors.primarySoft, colors.primarySoft]}

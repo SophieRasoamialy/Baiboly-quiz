@@ -1,6 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import VerseActionButton from "./VerseActionButton";
+import i18n from "../../i18n";
 
 interface Props {
   styles: any;
@@ -21,7 +22,7 @@ const VerseActionsRow: React.FC<Props> = ({
         styles={styles}
         colors={["#AB47BC", "#7B1FA2"]}
         icon="image-plus"
-        label="Sary"
+        label={i18n.t("image_label")}
         onPress={onShareImage}
       />
 
@@ -29,7 +30,7 @@ const VerseActionsRow: React.FC<Props> = ({
         styles={styles}
         colors={["#34D399", "#10B981"]}
         icon="share-variant"
-        label="Hizara"
+        label={i18n.t("share")}
         onPress={onShareText}
       />
 
@@ -37,7 +38,7 @@ const VerseActionsRow: React.FC<Props> = ({
         styles={styles}
         colors={["#FBBF24", "#F59E0B"]}
         icon="content-copy"
-        label="Adika"
+        label={i18n.t("copy_label")}
         onPress={onCopy}
       />
     </View>

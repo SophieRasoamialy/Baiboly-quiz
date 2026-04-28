@@ -23,7 +23,9 @@ export const createHomeStyles = (colors: any) =>
       alignItems: "center",
       paddingHorizontal: 20,
       paddingTop: 8,
-      paddingBottom: 6,
+      paddingBottom: 10,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.border,
       minHeight: 64,
     },
 
@@ -82,21 +84,6 @@ export const createHomeStyles = (colors: any) =>
       color: colors.textSecondary,
     },
 
-    heroTitle: {
-      fontSize: 34,
-      fontWeight: "900",
-      letterSpacing: -0.8,
-      textAlign: "center",
-    },
-
-    heroSubtitle: {
-      fontSize: 14,
-      marginTop: 8,
-      textAlign: "center",
-      lineHeight: 20,
-      maxWidth: 280,
-    },
-
     menuGrid: {
       paddingHorizontal: 20,
       flexDirection: "row",
@@ -125,5 +112,48 @@ export const createHomeStyles = (colors: any) =>
       borderRadius: 90,
       backgroundColor: colors.secondarySoft,
       opacity: colors.mode === "light" ? 0.3 : 0.06,
+    },
+
+    heroContainer: {
+      paddingHorizontal: 24,
+      paddingTop: 20,
+      paddingBottom: 20,
+    },
+
+    heroGreeting: {
+      fontSize: 14,
+      color: colors.textMuted,
+      marginBottom: 6,
+    },
+
+    heroTitle: {
+      fontSize: 28,
+      fontWeight: "900",
+      color: colors.text,
+      lineHeight: 34,
+    },
+
+    heroSubtitle: {
+      fontSize: 14,
+      color: colors.textSecondary,
+      marginTop: 6,
+    },
+
+    playButton: {
+      marginTop: 18,
+      backgroundColor: colors.primary,
+      paddingVertical: 14,
+      borderRadius: 16,
+      alignItems: "center",
+      shadowColor: colors.primary,
+      shadowOpacity: 0.25,
+      shadowRadius: 12,
+      elevation: 3,
+    },
+
+    playText: {
+      color: "#fff",
+      fontWeight: "800",
+      fontSize: 15,
     },
   });

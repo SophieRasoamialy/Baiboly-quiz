@@ -24,6 +24,7 @@ import { createMatchmakingStyles } from "./matchmaking.styles";
 import { MatchFoundCard } from "../../components/matchmaking/MatchFoundCard";
 import { RadarSearch } from "../../components/matchmaking/RadarSearch";
 import FloatingGem from "../../components/home/FloatingGem";
+import i18n from "../../i18n";
 import { QUIZ_IMAGE_MAP } from "../../constants/quizImages";
 import UserAvatar from "../../components/ui/UserAvatar";
 
@@ -42,12 +43,12 @@ interface Props {
 const makeSessionId = () =>
   `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 
-const POLL_INTERVAL_MS = 5_000;
-const SCAN_TIMEOUT_MS = 60_000;
+const POLL_INTERVAL_MS = 3_000;
+const SCAN_TIMEOUT_MS = 20_000; // give up after 20 s
 
 const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
   const { mode, friendName, gameType = "duo", quizType = "standard" } = route.params;
-  const [status, setStatus] = useState("lobby"); // lobby, found
+  const [status, setStatus] = useState("lobby"); // lobby, found, timeout
   const [availablePlayers, setAvailablePlayers] = useState<MatchmakingPlayer[]>([]);
   const [incomingInvite, setIncomingInvite] = useState<any>(null);
   const [invitingPlayer, setInvitingPlayer] = useState<any>(null);
@@ -61,6 +62,7 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
 
   const sessionIdRef = useRef<string>("");
   const lobbyPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const handshakeSubRef = useRef<any>(null);
   const processedRef = useRef<boolean>(false);
 
@@ -68,6 +70,10 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
     if (lobbyPollRef.current) {
       clearInterval(lobbyPollRef.current);
       lobbyPollRef.current = null;
+    }
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
     }
   };
 
@@ -96,7 +102,7 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
 
     // 1. Join the cloud pool
     await supabaseService.joinMatchmakingPool(sid, {
-      name: username || "Mpilalao",
+      name: username || i18n.t("visitor"),
       avatar: avatar || "default",
       church: churchName,
       city: city,
@@ -110,13 +116,15 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
       if (!payload) return;
 
       if (payload.type === "invitation") {
-        console.log("Received Invitation from:", payload.sender.name);
-        setIncomingInvite(payload.sender);
-      } else if (payload.type === "acceptance") {
-        console.log("Invitation Accepted by:", payload.partner.name);
-        setOpponent(payload.partner);
+        console.log("Received Invitation from:", payload.sender.name, "for", payload.quiz_type);
+        // Store the full payload so we know the game mode
+        setIncomingInvite(payload);
+      } else if (payload.type === "accepted") {
+        console.log("Invitation Accepted by:", payload.sender.name);
+        setOpponent(payload.sender);
         setStatus("found");
         stopLobbyPolling();
+        handleMatchFound(payload.sender, payload.sender.session_id, payload.quiz_type);
       }
     });
 
@@ -124,28 +132,39 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
     lobbyPollRef.current = setInterval(async () => {
       try {
         const players = await supabaseService.findAllActivePlayers(sid, gameType, quizType);
-        setAvailablePlayers(players);
+        
+        // Deduplicate by profile_id so each person only appears once
+        const deduplicated = new Map();
+        players.forEach(p => {
+          // Skip if it's our own profile
+          if (p.profile_id === profileId) return;
+          
+          // If multiple sessions exist for the same profile, keep the most recent one
+          if (!deduplicated.has(p.profile_id)) {
+            deduplicated.set(p.profile_id, p);
+          }
+        });
 
-        // If in "random" mode and someone found, auto-invite the first one
-        if (mode === "random" && players.length > 0 && !processedRef.current) {
-          processedRef.current = true;
-          const target = players[0];
-          console.log("Auto-inviting random player:", target.name);
-          setInvitingPlayer(target);
-          await supabaseService.sendInvitation(target.session_id, {
-            profile_id: profileId || "",
-            session_id: sid,
-            name: username || "Mpilalao",
-            avatar: avatar || "default",
-            church: churchName,
-            city: city,
-            points: points,
-          });
+        const filtered = Array.from(deduplicated.values());
+        setAvailablePlayers(filtered as MatchmakingPlayer[]);
+        
+        // If we found people, clear the timeout
+        if (filtered.length > 0 && timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+          timeoutRef.current = null;
         }
       } catch (err) {
         console.error("Lobby poll error:", err);
       }
-    }, 3000);
+    }, POLL_INTERVAL_MS);
+
+    // 4. Set the 20s timeout
+    timeoutRef.current = setTimeout(async () => {
+      if (status === "lobby" && availablePlayers.length === 0) {
+        stopLobbyPolling();
+        setStatus("timeout");
+      }
+    }, SCAN_TIMEOUT_MS);
   };
 
   const handleInvite = async (player: MatchmakingPlayer) => {
@@ -159,13 +178,15 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
         church: churchName,
         city: city,
         points: points,
+        game_type: gameType,
+        quiz_type: quizType,
       });
     } catch (err) {
       setInvitingPlayer(null);
       showAlert({
-        title: "Fahadisoana",
-        message: "Tsy nahomby ny fandefasana fanasana.",
-        buttons: [{ text: "Eny" }]
+        title: i18n.t("match_error"),
+        message: i18n.t("invite_failed"),
+        buttons: [{ text: "OK" }]
       });
     }
   };
@@ -173,11 +194,11 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
   const handleAccept = async () => {
     if (!incomingInvite) return;
     setIsJoining(true);
-    const sender = incomingInvite;
+    const payload = incomingInvite;
     setIncomingInvite(null);
 
     try {
-      await supabaseService.acceptInvitation(sender.session_id, {
+      await supabaseService.acceptInvitation(payload.sender.session_id, {
         profile_id: profileId!,
         session_id: sessionIdRef.current,
         name: username || "Mpilalao",
@@ -185,15 +206,17 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
         church: churchName,
         city: city,
         points: points,
+        game_type: payload.game_type, // Sync to inviter's mode
+        quiz_type: payload.quiz_type,
       });
       // Now both players should have information to start the game
-      handleMatchFound(sender, sender.session_id);
+      handleMatchFound(payload.sender, payload.sender.session_id, payload.quiz_type);
     } catch (err) {
       setIsJoining(false);
       showAlert({
-        title: "Fahadisoana",
-        message: "Tsy nahomby ny fidirana amin'ny lalao.",
-        buttons: [{ text: "Eny" }]
+        title: i18n.t("match_error"),
+        message: i18n.t("join_failed"),
+        buttons: [{ text: "OK" }]
       });
     }
   };
@@ -203,15 +226,18 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
     await supabaseService.declineInvitation(sessionIdRef.current);
   };
 
-  const handleMatchFound = (selectedOpponent: any, opponentSessionId: string) => {
+  const handleMatchFound = (selectedOpponent: any, opponentSessionId: string, remoteQuizType?: string) => {
     if (processedRef.current) return;
     processedRef.current = true;
+
+    // Use the remote quiz type if provided (e.g. from an invitation)
+    const activeQuizType = remoteQuizType || quizType;
 
     setOpponent(selectedOpponent);
     setStatus("found");
 
     setTimeout(() => {
-      const destination = quizType === "image" ? "OnlineImageQuiz" : "OnlineQuiz";
+      const destination = activeQuizType === "image" ? "OnlineImageQuiz" : "OnlineQuiz";
       navigation.replace(destination as any, { 
         opponent: selectedOpponent,
         mySessionId: sessionIdRef.current,
@@ -236,13 +262,13 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
       </View>
       <View style={styles.playerInfo}>
         <Text style={styles.playerName}>{item.name}</Text>
-        <Text style={styles.playerMeta}>{item.city || "Toerana tsy fantatra"}</Text>
+        <Text style={styles.playerMeta}>{item.city || i18n.t("unknown_location")}</Text>
       </View>
       <TouchableOpacity 
         style={styles.inviteBtn}
         onPress={() => handleInvite(item)}
       >
-        <Text style={styles.inviteBtnText}>HANASA</Text>
+        <Text style={styles.inviteBtnText}>{i18n.t("invite_btn_text")}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -281,8 +307,8 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
             {status === "lobby" ? (
               <View style={styles.playerList}>
                 <View style={styles.lobbyTitleGroup}>
-                  <Text style={styles.lobbyTitle}>Mpilalao Online</Text>
-                  <Text style={styles.lobbySub}>Fididio ny mpilalao tianao hihaika</Text>
+                  <Text style={styles.lobbyTitle}>{i18n.t("online_players")}</Text>
+                  <Text style={styles.lobbySub}>{i18n.t("choose_opponent")}</Text>
                 </View>
 
                 {availablePlayers.length > 0 ? (
@@ -296,8 +322,44 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
                 ) : (
                   <View style={{ flex: 1, justifyContent: "center", alignItems: "center", width: "100%" }}>
                     <RadarSearch mode="match" />
+                    <TouchableOpacity
+                      style={styles.cancelScanBtn}
+                      onPress={() => navigation.goBack()}
+                    >
+                      <Text style={styles.cancelScanText}>{i18n.t("cancel")}</Text>
+                    </TouchableOpacity>
                   </View>
                 )}
+              </View>
+            ) : status === "timeout" ? (
+              <View style={styles.emptyState}>
+                <MaterialCommunityIcons
+                  name="timer-sand-empty"
+                  size={80}
+                  color={colors.surfaceSoft}
+                />
+                <Text style={styles.emptyText}>
+                  {i18n.t("search_timeout_msg")}
+                </Text>
+                
+                <View style={styles.timeoutButtons}>
+                  <TouchableOpacity 
+                    style={styles.secondaryBtn} 
+                    onPress={() => navigation.goBack()}
+                  >
+                    <Text style={styles.secondaryBtnText}>{i18n.t("cancel")}</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity 
+                    style={styles.retryBtn} 
+                    onPress={() => {
+                      setStatus("lobby");
+                      startLobby();
+                    }}
+                  >
+                    <Text style={styles.retryBtnText}>{i18n.t("retry")}</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             ) : (
               <MatchFoundCard opponent={opponent} />
@@ -315,26 +377,30 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
             <View style={styles.modalContent}>
               <View style={styles.opponentAvatarCircle}>
                 <UserAvatar 
-                  avatar={incomingInvite?.avatar} 
+                  avatar={incomingInvite?.sender?.avatar} 
                   size={90} 
-                  points={incomingInvite?.points || 0} 
+                  points={incomingInvite?.sender?.points || 0} 
                 />
               </View>
-              <Text style={styles.modalTitle}>{incomingInvite?.name}</Text>
-              <Text style={styles.modalSub}>Manasa anao hiady hevitra amin'ny Baiboly!</Text>
+              <Text style={styles.modalTitle}>{incomingInvite?.sender?.name}</Text>
+              <Text style={styles.modalSub}>
+                {incomingInvite?.quiz_type === "image" 
+                  ? i18n.t("duel_invitation_image") || "Duel Image Quiz!"
+                  : i18n.t("duel_invitation") || "Duel Quiz!"}
+              </Text>
               
               <View style={styles.modalButtons}>
                 <TouchableOpacity 
                   style={[styles.modalBtn, styles.declineBtn]}
                   onPress={handleDecline}
                 >
-                  <Text style={[styles.btnText, { color: colors.text }]}>HANDA</Text>
+                  <Text style={[styles.btnText, { color: colors.text }]}>{i18n.t("decline")}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
                   style={[styles.modalBtn, styles.acceptBtn]}
                   onPress={handleAccept}
                 >
-                  <Text style={[styles.btnText, { color: colors.background }]}>MANAIKY</Text>
+                  <Text style={[styles.btnText, { color: colors.background }]}>{i18n.t("accept")}</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -350,14 +416,14 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
               <ActivityIndicator size="large" color={colors.primary} />
-              <Text style={styles.modalTitle}>Miandry ny valiny...</Text>
-              <Text style={styles.modalSub}>Mandefa fanasana ho an'i {invitingPlayer?.name}</Text>
+              <Text style={styles.modalTitle}>{i18n.t("waiting_response")}</Text>
+              <Text style={styles.modalSub}>{i18n.t("sending_invite_to", { name: invitingPlayer?.name })}</Text>
               
               <TouchableOpacity 
                 style={[styles.modalBtn, styles.declineBtn, { width: "100%" }]}
                 onPress={() => setInvitingPlayer(null)}
               >
-                <Text style={[styles.btnText, { color: colors.text }]}>FOANO</Text>
+                <Text style={[styles.btnText, { color: colors.text }]}>{i18n.t("cancel")}</Text>
               </TouchableOpacity>
             </View>
           </View>

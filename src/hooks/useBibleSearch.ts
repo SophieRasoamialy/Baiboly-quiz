@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Book, Chapter, Verse } from "../constants/bible";
 import { OLD_TESTAMENT_BOOKS } from "../constants/bible";
+import i18n from "../i18n";
 
 export interface SearchResult {
   book: Book;
@@ -32,13 +33,13 @@ export const useBibleSearch = (
       for (const book of bibleData) {
         const isOT = OLD_TESTAMENT_BOOKS.includes(book.name);
 
-        if (searchScope === "Testamenta Taloha" && !isOT) continue;
-        if (searchScope === "Testamenta Vaovao" && isOT) continue;
+        if (searchScope === i18n.t("old_testament") && !isOT) continue;
+        if (searchScope === i18n.t("new_testament") && isOT) continue;
 
         if (
-          searchScope !== "Rehetra" &&
-          searchScope !== "Testamenta Taloha" &&
-          searchScope !== "Testamenta Vaovao" &&
+          searchScope !== i18n.t("all") &&
+          searchScope !== i18n.t("old_testament") &&
+          searchScope !== i18n.t("new_testament") &&
           searchScope !== book.name
         ) {
           continue;

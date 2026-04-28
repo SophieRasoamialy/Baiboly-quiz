@@ -59,19 +59,22 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   podiumTier: {
-    position: 'absolute',
-    bottom: -15,
-    paddingHorizontal: 12,
-    paddingVertical: 2,
-    borderRadius: 12,
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    marginTop: 10,
+    alignSelf: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    borderRadius: 20,
+    backgroundColor: 'rgba(0,0,0,0.25)',
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.1)',
+    borderColor: 'rgba(255,255,255,0.15)',
+    maxWidth: 110,
   },
   podiumTierText: {
     color: '#FFF',
-    fontSize: 10,
+    fontSize: 9,
     fontWeight: '800',
+    textAlign: 'center',
+    letterSpacing: 0.5,
   },
   rankBadge: {
     position: "absolute",
@@ -90,11 +93,21 @@ export const styles = StyleSheet.create({
   },
   topPlayerName: {
     fontWeight: "bold",
-    fontSize: 14,
+    fontSize: 13,
+    textAlign: 'center',
+    width: '100%',
   },
   topPlayerScore: {
     fontSize: 12,
     fontWeight: "bold",
+  },
+  podiumSubInfo: {
+    fontSize: 9,
+    marginTop: 1,
+    opacity: 0.7,
+    textAlign: 'center',
+    fontWeight: '500',
+    paddingHorizontal: 4,
   },
   listContent: {
     padding: spacing.lg,
@@ -103,7 +116,7 @@ export const styles = StyleSheet.create({
   playerItem: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 14,
+    paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 20,
     marginBottom: 12,
@@ -121,11 +134,19 @@ export const styles = StyleSheet.create({
     opacity: 0.5,
   },
   // UserAvatar in the list handled by component size prop
-  playerName: {
+  playerNameCol: {
     flex: 1,
-    fontWeight: "700",
-    fontSize: 16,
     marginLeft: 12,
+    justifyContent: 'center',
+  },
+  playerName: {
+    fontWeight: "700",
+    fontSize: 15,
+  },
+  playerSubInfo: {
+    fontSize: 11,
+    marginTop: 2,
+    opacity: 0.65,
   },
   playerScore: {
     fontWeight: "800",

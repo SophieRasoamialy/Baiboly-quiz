@@ -1,6 +1,7 @@
 import React from "react";
 import { FlatList, Text, View } from "react-native";
 import ThemeCard from "./ThemeCard";
+import i18n from "../../i18n";
 
 interface Props {
   themes: any[];
@@ -28,7 +29,7 @@ const ThemeList: React.FC<Props> = ({
       ListHeaderComponent={
         <>
           {ListHeaderComponent}
-          <Text style={styles.sectionLabel}>Lohahevitra</Text>
+          <Text style={styles.sectionLabel}>{i18n.t("themes_label")}</Text>
         </>
       }
       renderItem={({ item }) => (

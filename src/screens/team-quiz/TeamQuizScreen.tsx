@@ -7,6 +7,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation/types";
+import i18n from "../../i18n";
 
 import { createTeamQuizStyles } from "./team-quiz.styles";
 import TEAM_WORDS from "../../data/team_words_mg.json";
@@ -204,7 +205,7 @@ const TeamQuizScreen: React.FC<Props> = ({ navigation }) => {
       <SafeAreaView style={styles.safeArea} edges={["top"]}>
         <View style={styles.header}>
           <Text style={styles.roundIndicator}>
-            ROUND {currentRound} / {maxRounds}
+            {i18n.t("round_full", { current: currentRound, total: maxRounds })}
           </Text>
           <View style={styles.scoreTicker}>
             <Text style={[styles.scorePoint, { color: colors.secondary }]}>{team1Score}</Text>

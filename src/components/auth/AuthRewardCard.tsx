@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import i18n from "../../i18n";
 
 interface Props {
   styles: any;
@@ -25,9 +26,9 @@ function AuthRewardCard({ styles, colors }: Props) {
         </View>
 
         <View style={{ flex: 1 }}>
-          <Text style={styles.rewardTitle}>Bonus de bienvenue</Text>
+          <Text style={styles.rewardTitle}>{i18n.t("welcome_bonus_title")}</Text>
           <Text style={styles.rewardSubtitle}>
-            Reçois un cadeau dès la création de ton compte.
+            {i18n.t("welcome_bonus_subtitle")}
           </Text>
         </View>
 

@@ -10,6 +10,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 
+import i18n from "../../i18n";
 import { createMultiplayerStyles } from "./multiplayer.styles";
 import { MultiplayerGuestPrompt } from "../../components/multiplayer/MultiplayerGuestPrompt";
 import { UserLobbyCard } from "../../components/multiplayer/UserLobbyCard";
@@ -53,11 +54,11 @@ const MultiplayerScreen: React.FC<Props> = ({ navigation }) => {
   const handleOnlineMode = (navFn: () => void) => {
     if (!isLoggedIn) {
       showAlert({
-        title: "Mila Kaonty",
-        message: "Mila misoratra anarana ianao raha te hilalao amin'ny namana an-tserasera na hifaninana amin'ny mpilalao hafa.",
+        title: i18n.t("account_required"),
+        message: i18n.t("multiplayer_online_msg"),
         buttons: [
-          { text: "Aoka ihany", style: "cancel" },
-          { text: "Hiditra", onPress: () => navigation.navigate("Auth") },
+          { text: i18n.t("later"), style: "cancel" },
+          { text: i18n.t("login"), onPress: () => navigation.navigate("Auth") },
         ]
       });
       return;
@@ -92,7 +93,7 @@ const MultiplayerScreen: React.FC<Props> = ({ navigation }) => {
       <SafeAreaView style={styles.safeArea} edges={["top"]}>
         <View style={styles.header}>
           <BackButton colors={colors} onPress={() => navigation.goBack()} />
-          <Text style={styles.headerTitle}>Lalao Maromaro</Text>
+          <Text style={styles.headerTitle}>{i18n.t("multiplayer_title")}</Text>
         </View>
 
         <ScrollView 
@@ -107,14 +108,15 @@ const MultiplayerScreen: React.FC<Props> = ({ navigation }) => {
             city={city}
             styles={styles}
             colors={colors}
+            isLoggedIn={isLoggedIn}
             onLoginPress={() => navigation.navigate("Auth")}
           />
 
-          <Text style={styles.sectionTitle}>Lalao Afaka Atao</Text>
+          <Text style={styles.sectionTitle}>{i18n.t("available_games")}</Text>
 
           <GameModeCard
-            title="Duo Quiz (Local)"
-            description="Milalao amin'ny namana amin'ny finday iray ihany (Split Screen)."
+            title={i18n.t("duo_local_title")}
+            description={i18n.t("duo_local_desc")}
             icon="sword-cross"
             iconColor={colors.secondary}
             gradientColors={[colors.secondarySoft, colors.secondarySoft]}
@@ -124,8 +126,8 @@ const MultiplayerScreen: React.FC<Props> = ({ navigation }) => {
           />
 
           <GameModeCard
-            title="Duo Quiz (Online)"
-            description="Lalao an-tserasera (Matchmaking na fanasana namana)."
+            title={i18n.t("duo_online_title")}
+            description={i18n.t("duo_online_desc")}
             icon="earth"
             iconColor={colors.primary}
             gradientColors={[colors.primarySoft, colors.primarySoft]}

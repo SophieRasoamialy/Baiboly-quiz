@@ -23,6 +23,7 @@ import { createSoloQuizStyles } from "./solo-quiz.styles";
 import BackButton from "../../components/ui/BackButton";
 import { soundHelper } from "../../utils/SoundHelper";
 import { SoloGameOverView } from "../../components/ui/SoloGameOverView";
+import i18n from "../../i18n";
 
 const { width } = Dimensions.get("window");
 
@@ -102,9 +103,9 @@ const SoloQuizScreen = () => {
             size={80}
             color={colors.accent}
           />
-          <Text style={{ fontSize: 28, fontWeight: 'bold', color: colors.text, marginTop: 20 }}>Lany ny fo!</Text>
+          <Text style={{ fontSize: 28, fontWeight: 'bold', color: colors.text, marginTop: 20 }}>{i18n.t("no_hearts_title")}</Text>
           <Text style={{ fontSize: 16, color: colors.textSecondary, marginTop: 10 }}>
-            Haverina afaka: {Math.floor(nextRefillIn / 60)}:
+            {i18n.t("refill_in")} {Math.floor(nextRefillIn / 60)}:
             {(nextRefillIn % 60).toString().padStart(2, "0")}
           </Text>
           <TouchableOpacity
@@ -119,12 +120,12 @@ const SoloQuizScreen = () => {
             onPress={() => {
               if (!buyHeartWithGems())
                 showAlert({
-                  title: "Tsy ampy vatosoa",
-                  message: "Mila 20 vatosoa ianao.",
+                  title: i18n.t("insufficient_gems"),
+                  message: i18n.t("need_20_gems"),
                 });
             }}
           >
-            <Text style={{ color: '#fff', fontWeight: 'bold' }}>Mividy fo (20 vatosoa)</Text>
+            <Text style={{ color: '#fff', fontWeight: 'bold' }}>{i18n.t("buy_heart_btn")}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -183,7 +184,7 @@ const SoloQuizScreen = () => {
               {/* Question */}
               <View style={styles.questionCard}>
                 <Text style={styles.questionNumber}>
-                  Fanontaniana {game.index + 1} / {quizQuestions.length}
+                  {i18n.t("question_count", { count: game.index + 1, total: quizQuestions.length })}
                 </Text>
                 <Text style={styles.question}>
                   {game.currentQuestion.question}

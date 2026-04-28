@@ -16,6 +16,7 @@ import FloatingGem from "../../components/home/FloatingGem";
 import { createOnlineQuizStyles } from "./online-quiz.styles";
 import { soundHelper } from "../../utils/SoundHelper";
 import { supabaseService } from "../../services/SupabaseService";
+import i18n from "../../i18n";
 
 const { width } = Dimensions.get("window");
 
@@ -228,7 +229,7 @@ const OnlineQuizScreen: React.FC<any> = ({ navigation, route }) => {
       <View style={[styles.container, { justifyContent: "center", alignItems: "center" }]}>
         <ActivityIndicator size="large" color={colors.primary} />
         <Text style={{ marginTop: 20, color: colors.text, fontStyle: "italic" }}>
-          Mampifandray ny lalao...
+          {i18n.t("syncing_game")}
         </Text>
       </View>
     );
@@ -327,9 +328,9 @@ const OnlineQuizScreen: React.FC<any> = ({ navigation, route }) => {
                 city: opp.city,
               });
               showAlert({
-                title: "Nambara ny namana",
-                message: `Tafiditra ao anatin'ny nambanao i ${opp.name}`,
-                buttons: [{ text: "Misaotra" }]
+                title: i18n.t("friend_added_title"),
+                message: i18n.t("friend_added_msg", { name: opp.name }),
+                buttons: [{ text: i18n.t("thanks") }]
               });
             }}
             styles={styles}

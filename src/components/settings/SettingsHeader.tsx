@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, View } from "react-native";
+import i18n from "../../i18n";
 
 import BackButton from "../ui/BackButton";
 
@@ -14,7 +15,7 @@ const SettingsHeader: React.FC<Props> = ({ styles, colors, onBack }) => {
     <View style={styles.header}>
       <View style={styles.headerRow}>
         <BackButton colors={colors} onPress={onBack} />
-        <Text style={styles.headerTitle}>Fanovana</Text>
+        <Text style={styles.headerTitle}>{i18n.t("settings")}</Text>
       </View>
     </View>
   );

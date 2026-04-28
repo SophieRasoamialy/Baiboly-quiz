@@ -2,6 +2,8 @@ import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+import i18n from "../../i18n";
+
 interface Props {
   styles: any;
   colors: any;
@@ -19,7 +21,7 @@ const AboutCard: React.FC<Props> = ({
     <View style={styles.aboutCard}>
       <Text style={styles.aboutTitle}>Baiboly Quiz {version}</Text>
       <Text style={styles.aboutText}>
-        Namboarina ho app tsotra, madio ary mahafinaritra hianarana ny Baiboly.
+        {i18n.t("about_desc")}
       </Text>
 
       <TouchableOpacity
@@ -39,7 +41,7 @@ const AboutCard: React.FC<Props> = ({
           color={colors.secondary}
         />
         <Text style={[styles.shareText, { color: colors.secondary }]}>
-          Hizara ny lalao
+          {i18n.t("share_game")}
         </Text>
       </TouchableOpacity>
     </View>

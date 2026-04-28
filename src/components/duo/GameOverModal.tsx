@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, Modal, Animated, Dimensions } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import i18n from "../../i18n";
 
 const { width } = Dimensions.get("window");
 
@@ -18,8 +19,8 @@ interface GameOverModalProps {
 export const GameOverModal: React.FC<GameOverModalProps> = ({
   p1,
   p2,
-  p1Name = "Mpilalao 1",
-  p2Name = "Mpilalao 2",
+  p1Name = i18n.t("player_1"),
+  p2Name = i18n.t("player_2"),
   onExit,
   styles,
   colors,
@@ -69,7 +70,7 @@ export const GameOverModal: React.FC<GameOverModalProps> = ({
               color={winner !== 0 ? "#FFF" : colors.textMuted} 
             />
             <Text style={{ color: winner !== 0 ? "#FFF" : colors.text, fontSize: 24, fontWeight: "900", marginTop: 10 }}>
-              {winner === 0 ? "SAHALA NY LALAO!" : `${winnerName.toUpperCase()} MANDRESY!`}
+              {winner === 0 ? i18n.t("game_tie") : i18n.t("player_wins", { name: (winnerName ?? "").toUpperCase() })}
             </Text>
           </LinearGradient>
 
@@ -99,7 +100,7 @@ export const GameOverModal: React.FC<GameOverModalProps> = ({
               onPress={onExit}
             >
               <MaterialCommunityIcons name="home" size={24} color="#FFF" />
-              <Text style={{ color: "#FFF", fontWeight: "900", fontSize: 16 }}>HIVERINA MODY</Text>
+              <Text style={{ color: "#FFF", fontWeight: "900", fontSize: 16 }}>{i18n.t("go_home")}</Text>
             </TouchableOpacity>
           </View>
         </Animated.View>

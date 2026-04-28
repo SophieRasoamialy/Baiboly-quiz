@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import i18n from "../../i18n";
 
 import BackButton from "../ui/BackButton";
 
@@ -17,7 +18,7 @@ const ProfileHeader: React.FC<Props> = ({ styles, colors, onBack }) => {
         <BackButton colors={colors} onPress={onBack} />
 
         <View style={{ flex: 1 }}>
-          <Text style={styles.headerTitle}>Profiliko</Text>
+          <Text style={styles.headerTitle}>{i18n.t("profile_title")}</Text>
         </View>
       </View>
 

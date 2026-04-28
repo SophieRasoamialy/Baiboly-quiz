@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import UserAvatar from "../ui/UserAvatar";
 import { useUser } from "../../context/user";
+import i18n from "../../i18n";
 
 interface GameOverViewProps {
   playerScore: number;
@@ -96,11 +97,15 @@ export const GameOverView: React.FC<GameOverViewProps> = ({
           </View>
           
           <Text style={[styles.bannerTitle, { color: "#FFF" }]}>
-            {isWinner ? `${username} NANDRESY!` : isDraw ? "SAHALA NY LALAO!" : `${opponent.name} NANDRESY!`}
+            {isWinner 
+              ? i18n.t("player_won", { name: username }) 
+              : isDraw 
+                ? i18n.t("game_tie") 
+                : i18n.t("player_won", { name: opponent.name })}
           </Text>
           <View style={{ backgroundColor: "rgba(255,255,255,0.2)", paddingHorizontal: 15, paddingVertical: 5, borderRadius: 20, marginTop: 10 }}>
             <Text style={{ color: "#FFF", fontWeight: "900", fontSize: 14 }}>
-               {sessionPoints >= 0 ? `+${sessionPoints}` : sessionPoints} Points Azo
+               {i18n.t("points_gained", { points: sessionPoints >= 0 ? `+${sessionPoints}` : sessionPoints })}
             </Text>
           </View>
         </LinearGradient>
@@ -117,7 +122,7 @@ export const GameOverView: React.FC<GameOverViewProps> = ({
           activeOpacity={0.8}
         >
           <MaterialCommunityIcons name="refresh" size={24} color="#FFF" />
-          <Text style={styles.actionText}>HILALAO INDRAY</Text>
+          <Text style={styles.actionText}>{i18n.t("replay")}</Text>
         </TouchableOpacity>
 
         {!isAlreadyFriend && (
@@ -127,7 +132,7 @@ export const GameOverView: React.FC<GameOverViewProps> = ({
             activeOpacity={0.8}
           >
             <MaterialCommunityIcons name="account-plus" size={24} color="#FFF" />
-            <Text style={styles.actionText}>HAMPIDITRA HO NAMANA</Text>
+            <Text style={styles.actionText}>{i18n.t("add_friend_btn")}</Text>
           </TouchableOpacity>
         )}
 
@@ -137,7 +142,7 @@ export const GameOverView: React.FC<GameOverViewProps> = ({
           activeOpacity={0.8}
         >
           <MaterialCommunityIcons name="home" size={24} color={colors.text} />
-          <Text style={[styles.actionText, { color: colors.text }]}>HIVERINA MODY</Text>
+          <Text style={[styles.actionText, { color: colors.text }]}>{i18n.t("go_home")}</Text>
         </TouchableOpacity>
       </View>
     </View>

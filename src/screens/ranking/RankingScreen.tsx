@@ -23,6 +23,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import BackButton from "../../components/ui/BackButton";
 import FloatingGem from "../../components/home/FloatingGem";
 import { supabaseService } from "../../services/SupabaseService";
+import i18n from "../../i18n";
 
 interface RankingPlayer {
   id: string;
@@ -30,12 +31,14 @@ interface RankingPlayer {
   score: number;
   avatar: string;
   rank: number;
+  church?: string | null;
+  city?: string | null;
 }
 
 const { width } = Dimensions.get("window");
 
 const RankingScreen = () => {
-  const { colors, theme, points, username, avatar, isLoggedIn, profileId, syncProfile } = useUser();
+  const { colors, theme, points, username, avatar, isLoggedIn, profileId, syncProfile, churchName, city } = useUser();
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const isLight = theme === "light";
   const [players, setPlayers] = React.useState<RankingPlayer[]>([]);
@@ -63,14 +66,16 @@ const RankingScreen = () => {
   }, [isLoggedIn]);
 
   const buildLeaderboard = React.useCallback(
-    (profiles: Array<{ id: string; name: string; avatar: string | null; points: number }>): RankingPlayer[] => {
+    (profiles: Array<{ id: string; name: string; avatar: string | null; points: number; church?: string | null; city?: string | null }>): RankingPlayer[] => {
       const normalizedPlayers = profiles
         .filter((profile) => profile.id && profile.name)
         .map((profile) => ({
           id: profile.id,
-          name: profile.id === profileId ? username || profile.name || "Izaho" : profile.name || "Mpilalao",
+          name: profile.id === profileId ? username || profile.name || i18n.t("me") : profile.name || i18n.t("player"),
           score: profile.id === profileId ? points : profile.points || 0,
           avatar: profile.id === profileId ? avatar || profile.avatar || "abraham" : profile.avatar || "abraham",
+          church: profile.church,
+          city: profile.city,
           rank: 0,
         }));
 
@@ -83,6 +88,8 @@ const RankingScreen = () => {
           name: username,
           score: points,
           avatar: avatar || "abraham",
+          church: churchName,
+          city: city,
           rank: 0,
         });
       }
@@ -117,7 +124,7 @@ const RankingScreen = () => {
       } catch (error) {
         console.error("Failed to load leaderboard", error);
         setPlayers(buildLeaderboard([]));
-        setLoadError("Tsy azo ny laharana amin'izao. Andramo indray avy eo.");
+        setLoadError(i18n.t("leaderboard_error"));
       } finally {
         if (refresh) {
           setIsRefreshing(false);
@@ -143,18 +150,18 @@ const RankingScreen = () => {
         
         <SafeAreaView style={[styles.navBar, { paddingHorizontal: 20 }]} edges={["top"]}>
           <BackButton colors={colors} onPress={() => navigation.goBack()} size={26} />
-          <Text style={[styles.headerTitle, { color: colors.text }]}>Laharana Globaly</Text>
+          <Text style={[styles.headerTitle, { color: colors.text }]}>{i18n.t("ranking_title")}</Text>
         </SafeAreaView>
 
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 }}>
           <MaterialCommunityIcons name="account-lock" size={80} color={colors.primary} style={{ marginBottom: 20 }} />
-          <Text style={{ fontSize: 22, fontWeight: 'bold', color: colors.text, textAlign: 'center', marginBottom: 10 }}>Miditra ho mpilalao</Text>
-          <Text style={{ fontSize: 16, color: colors.textSecondary, textAlign: 'center', marginBottom: 30 }}>Mila mifandray amin'ny kaontinao ianao vao afaka mijery ny filaharana eran-tany.</Text>
+          <Text style={{ fontSize: 22, fontWeight: 'bold', color: colors.text, textAlign: 'center', marginBottom: 10 }}>{i18n.t("login_to_view_ranking")}</Text>
+          <Text style={{ fontSize: 16, color: colors.textSecondary, textAlign: 'center', marginBottom: 30 }}>{i18n.t("ranking_login_msg")}</Text>
           <TouchableOpacity 
             style={{ backgroundColor: colors.primary, paddingHorizontal: 40, paddingVertical: 15, borderRadius: 30 }}
             onPress={() => navigation.navigate("Auth")}
           >
-            <Text style={{ color: colors.white, fontWeight: 'bold', fontSize: 16 }}>Hiditra / Hisoratra anarana</Text>
+            <Text style={{ color: colors.white, fontWeight: 'bold', fontSize: 16 }}>{i18n.t("multi_guest_btn")}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -200,7 +207,7 @@ const RankingScreen = () => {
             variant="glass"
             size={26}
           />
-          <Text style={[styles.headerTitle, { color: isLight ? colors.white : colors.text }]}>Laharana Globaly</Text>
+          <Text style={[styles.headerTitle, { color: isLight ? colors.white : colors.text }]}>{i18n.t("ranking_title")}</Text>
         </SafeAreaView>
 
         <Animated.View 
@@ -230,7 +237,7 @@ const RankingScreen = () => {
           <View style={{ paddingVertical: 40, alignItems: "center" }}>
             <ActivityIndicator size="large" color={colors.primary} />
             <Text style={{ marginTop: 12, color: colors.textSecondary }}>
-              Maka ny laharana farany...
+              {i18n.t("loading_leaderboard")}
             </Text>
           </View>
         ) : (
@@ -255,7 +262,7 @@ const RankingScreen = () => {
             {players.length === 0 ? (
               <View style={{ paddingVertical: 40, alignItems: "center" }}>
                 <Text style={{ color: colors.textSecondary, textAlign: "center" }}>
-                  Tsy mbola misy mpilalao hita ao amin&apos;ny laharana.
+                  {i18n.t("empty_leaderboard")}
                 </Text>
               </View>
             ) : (

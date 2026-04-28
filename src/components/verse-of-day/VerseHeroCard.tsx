@@ -3,6 +3,7 @@ import { Animated, Text, TouchableOpacity, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { PromiseCategory, PromiseVerse } from "../../constants/promises";
+import i18n from "../../i18n";
 
 interface Props {
   styles: any;
@@ -54,7 +55,7 @@ const VerseHeroCard: React.FC<Props> = ({
             <View style={styles.heroStatusBadge}>
               <View style={styles.pulseDot} />
               <Text style={styles.heroStatusText}>
-                {isManualSelection ? "Teny voafidy" : "Teny ho an'ny androany"}
+                {isManualSelection ? i18n.t("verse_selected") : i18n.t("verse_today")}
               </Text>
             </View>
 
@@ -69,7 +70,7 @@ const VerseHeroCard: React.FC<Props> = ({
                   size={14}
                   color={primaryColor}
                 />
-                <Text style={styles.resetPillText}>Averina</Text>
+                <Text style={styles.resetPillText}>{i18n.t("reset")}</Text>
               </TouchableOpacity>
             )}
           </View>
@@ -81,7 +82,7 @@ const VerseHeroCard: React.FC<Props> = ({
               {displayedCategory?.emoji || "✨"}
             </Text>
             <Text style={styles.categoryMiniText}>
-              {displayedCategory?.category || "Teny Fikasana"}
+              {displayedCategory?.category || i18n.t("promise_default")}
             </Text>
           </View>
 
@@ -114,7 +115,7 @@ const VerseHeroCard: React.FC<Props> = ({
                   size={18}
                   color="#fff"
                 />
-                <Text style={styles.readMoreText}>Vakio ao anaty Baiboly</Text>
+                <Text style={styles.readMoreText}>{i18n.t("read_in_bible")}</Text>
               </LinearGradient>
             </TouchableOpacity>
           </View>

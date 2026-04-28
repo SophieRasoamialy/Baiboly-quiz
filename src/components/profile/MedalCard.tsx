@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import i18n from "../../i18n";
 
 interface Props {
   styles: any;
@@ -77,7 +78,7 @@ const MedalCard: React.FC<Props> = ({ styles, medal, hasMedal, index, colors }) 
             },
           ]}
         >
-          {medal.name}
+          {i18n.t(`medal_${medal.id.replace("-", "")}_name`)}
         </Text>
 
         {hasMedal ? (
@@ -88,7 +89,7 @@ const MedalCard: React.FC<Props> = ({ styles, medal, hasMedal, index, colors }) 
             ]}
           >
             <Text style={[styles.medalBadgeText, { color: medal.color, fontSize: 10, fontWeight: "900" }]}>
-              AZONAO
+              {i18n.t("medal_unlocked")}
             </Text>
           </View>
         ) : (
@@ -99,7 +100,7 @@ const MedalCard: React.FC<Props> = ({ styles, medal, hasMedal, index, colors }) 
             ]}
           >
             <Text style={[styles.medalBadgeText, { color: colors.textMuted, fontSize: 10, fontWeight: "700" }]}>
-              Mbola mihidy
+              {i18n.t("medal_locked")}
             </Text>
           </View>
         )}

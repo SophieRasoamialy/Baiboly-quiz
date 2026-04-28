@@ -25,6 +25,7 @@ import {
   BIBLE_GEMS_CONFIG,
 } from "../../constants/bible";
 import { createBibleStyles } from "./bible.styles";
+import i18n from "../../i18n";
 
 import FloatingGem from "../../components/home/FloatingGem";
 import BibleHeader from "../../components/bible/BibleHeader";
@@ -58,7 +59,7 @@ const BibleScreen: React.FC<Props> = ({ navigation, route }) => {
   const [activeTab, setActiveTab] = useState<"OT" | "NT">("OT");
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchScope, setSearchScope] = useState<string>("Rehetra");
+  const [searchScope, setSearchScope] = useState<string>(i18n.t("all"));
   const [previousState, setPreviousState] = useState<BibleViewState | null>(null);
   const [highlightedVerse, setHighlightedVerse] = useState<number | null>(null);
 
@@ -129,7 +130,7 @@ const BibleScreen: React.FC<Props> = ({ navigation, route }) => {
     } else if (viewState === "SEARCH") {
       setViewState("BOOKS");
       setSearchQuery("");
-      setSearchScope("Rehetra");
+      setSearchScope(i18n.t("all"));
       setPreviousState(null);
       Keyboard.dismiss();
     } else {
@@ -256,12 +257,12 @@ const BibleScreen: React.FC<Props> = ({ navigation, route }) => {
                         style={{ textAlign: "center", marginTop: 34 }}
                       />
                       <Animated.Text style={styles.emptyText}>
-                        Tsy misy valiny ho an'ny "{searchQuery}".
+                        {i18n.t("no_search_results", { query: searchQuery })}
                       </Animated.Text>
                     </View>
                   ) : (
                     <Animated.Text style={styles.emptyText}>
-                      Mampidira teny 3 farafahakeliny entina mikaroka.
+                      {i18n.t("search_min_chars")}
                     </Animated.Text>
                   )
                 }
@@ -360,8 +361,11 @@ const BibleScreen: React.FC<Props> = ({ navigation, route }) => {
                         color={colors.secondary}
                       />
                       <Animated.Text style={styles.chapterInfoText}>
-                        {selectedBook?.name} — Toko faha {chapter.chapter} —
-                        misy {chapter.verses.length} andininy
+                        {i18n.t("bible_info_header", {
+                          book: selectedBook?.name,
+                          chapter: chapter.chapter,
+                          count: chapter.verses.length
+                        })}
                       </Animated.Text>
                     </View>
                   }

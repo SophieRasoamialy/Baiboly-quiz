@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
+import i18n from "../../i18n";
 
 interface PlayerSideProps {
   player: number;
@@ -56,7 +57,9 @@ export const PlayerSide: React.FC<PlayerSideProps> = ({
 
       {/* Question */}
       <View style={styles.inSideQuestionContainer}>
-        <Text style={styles.counter}>FANONTANIANA {questionIndex + 1}</Text>
+        <Text style={styles.counter}>
+          {i18n.t("question_count_label", { count: questionIndex + 1 })}
+        </Text>
         {questionImage && (
           <View style={styles.quizImageContainerSmall}>
             <Image source={questionImage} style={styles.quizImageSmall} resizeMode="contain" />
@@ -67,7 +70,7 @@ export const PlayerSide: React.FC<PlayerSideProps> = ({
 
       {/* Answer options – always visible */}
       {hasAnswered && !questionDone ? (
-        <Text style={styles.waitText}>MANDRASA NY NAMANA...</Text>
+        <Text style={styles.waitText}>{i18n.t("wait_partner")}</Text>
       ) : (
         <View style={styles.optionsContainer}>
           {options.map((opt, i) => (

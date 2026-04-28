@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView } from "react-nativ
 import { LinearGradient } from "expo-linear-gradient";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { createTeamQuizStyles } from "../../screens/team-quiz/team-quiz.styles";
+import i18n from "../../i18n";
 
 interface DescribingPhaseProps {
   currentWord: any;
@@ -31,14 +32,14 @@ export const DescribingPhase: React.FC<DescribingPhaseProps> = ({
   return (
     <ScrollView contentContainerStyle={styles.scrollPhase} showsVerticalScrollIndicator={false}>
       <View style={styles.describerHeader}>
-        <Text style={styles.secretLabel}>TENY AFENINA</Text>
+        <Text style={styles.secretLabel}>{i18n.t("secret_word_label")}</Text>
         <Text style={styles.secretWord}>{currentWord?.word}</Text>
         <Text style={styles.secretHint}>{currentWord?.hint}</Text>
       </View>
 
       <View style={styles.instructionBox}>
         <Text style={styles.instructionText}>
-          Soraty eto ny teny 3 hanampy ny namanao hamantatra ny teny afenina.
+          {i18n.t("describe_instruction")}
         </Text>
       </View>
 
@@ -49,7 +50,7 @@ export const DescribingPhase: React.FC<DescribingPhaseProps> = ({
             style={styles.wordInput}
             value={w}
             onChangeText={(v) => updateWord(v, i)}
-            placeholder={`Teny faha-${i + 1}`}
+            placeholder={i18n.t("word_n_placeholder", { index: i + 1 })}
             placeholderTextColor={colors.textMuted}
           />
         ))}
@@ -61,7 +62,7 @@ export const DescribingPhase: React.FC<DescribingPhaseProps> = ({
         onPress={onStartGuessing}
       >
         <LinearGradient colors={[colors.primary, colors.primaryDark]} style={styles.btnGradient}>
-          <Text style={styles.btnText}>HIDITRA NY NAMANA</Text>
+          <Text style={styles.btnText}>{i18n.t("partner_turn")}</Text>
         </LinearGradient>
       </TouchableOpacity>
     </ScrollView>

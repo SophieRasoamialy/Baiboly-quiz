@@ -116,10 +116,14 @@ class SupabaseService {
     church: string | null;
     city: string | null;
     points: number;
+    game_type: string;
+    quiz_type: string;
   }) {
     const payload = {
       type: "invitation",
       sender: inviter,
+      game_type: inviter.game_type,
+      quiz_type: inviter.quiz_type,
     };
 
     const { error } = await supabase
@@ -144,10 +148,14 @@ class SupabaseService {
     church: string | null;
     city: string | null;
     points: number;
+    game_type: string;
+    quiz_type: string;
   }) {
     const payload = {
       type: "accepted",
       sender: acceptor,
+      game_type: acceptor.game_type,
+      quiz_type: acceptor.quiz_type,
     };
 
     const { error } = await supabase
@@ -354,6 +362,24 @@ class SupabaseService {
 
     const { data, error } = await query.maybeSingle();
     return !!data;
+  }
+
+  /**
+   * Search for profiles in the matchmaking pool who are actively searching.
+   */
+  async searchActivePlayersByName(query: string) {
+    const { data, error } = await supabase
+      .from("matchmaking_pool")
+      .select("*")
+      .ilike("name", `%${query}%`)
+      .is("matched_with", null) // Only unmatched players
+      .limit(20);
+
+    if (error) {
+      console.error("Supabase Search Active Players Error:", error);
+      return [];
+    }
+    return data;
   }
 
   /**
