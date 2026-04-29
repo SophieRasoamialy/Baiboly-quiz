@@ -7,7 +7,6 @@ export interface HomeMenuItem {
   accent: string;
   softAccent: string;
   route: string;
-  bgImage?: any;
 }
 
 export const getHomeMenuItems = (colors: any): HomeMenuItem[] => [
@@ -18,7 +17,6 @@ export const getHomeMenuItems = (colors: any): HomeMenuItem[] => [
     accent: colors.primary,
     softAccent: colors.primarySoft,
     route: "ThemeSelection",
-    bgImage: require("../../assets/menu/menu_solo.png"),
   },
   {
     title: i18n.t("menu_duo_title"),
@@ -27,7 +25,6 @@ export const getHomeMenuItems = (colors: any): HomeMenuItem[] => [
     accent: colors.secondary,
     softAccent: colors.secondarySoft,
     route: "Multiplayer",
-    bgImage: require("../../assets/menu/menu_duo.png"),
   },
   {
     title: i18n.t("menu_team_title"),
@@ -36,7 +33,6 @@ export const getHomeMenuItems = (colors: any): HomeMenuItem[] => [
     accent: colors.accent,
     softAccent: "rgba(255,107,107,0.14)",
     route: "TeamQuiz",
-    bgImage: require("../../assets/menu/menu_team.png"),
   },
   {
     title: i18n.t("menu_image_title"),
@@ -45,7 +41,6 @@ export const getHomeMenuItems = (colors: any): HomeMenuItem[] => [
     accent: "#0EA5E9",
     softAccent: "rgba(14,165,233,0.14)",
     route: "ImageQuizMode",
-    bgImage: require("../../assets/menu/menu_image.png"),
   },
   {
     title: i18n.t("menu_bible_title"),
@@ -54,7 +49,6 @@ export const getHomeMenuItems = (colors: any): HomeMenuItem[] => [
     accent: colors.primary,
     softAccent: colors.primarySoft,
     route: "Bible",
-    bgImage: require("../../assets/menu/menu_bible.png"),
   },
   {
     title: i18n.t("menu_verse_title"),
@@ -63,7 +57,6 @@ export const getHomeMenuItems = (colors: any): HomeMenuItem[] => [
     accent: "#8B5CF6",
     softAccent: "rgba(139,92,246,0.14)",
     route: "VerseOfDay",
-    bgImage: require("../../assets/menu/menu_verse.png"),
   },
   {
     title: i18n.t("menu_ranking_title"),
@@ -72,7 +65,6 @@ export const getHomeMenuItems = (colors: any): HomeMenuItem[] => [
     accent: colors.secondary,
     softAccent: colors.secondarySoft,
     route: "Ranking",
-    bgImage: require("../../assets/menu/menu_ranking.png"),
   },
   {
     title: i18n.t("menu_settings_title"),

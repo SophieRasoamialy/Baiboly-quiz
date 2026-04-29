@@ -19,7 +19,6 @@ interface Props {
     accent: string;
     softAccent: string;
     route: string;
-    bgImage?: any;
   };
   index: number;
   colors: any;
