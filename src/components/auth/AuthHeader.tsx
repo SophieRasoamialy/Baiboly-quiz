@@ -7,9 +7,28 @@ interface Props {
   styles: any;
   colors: any;
   isEditing?: boolean;
+  isLogin?: boolean;
 }
 
-function AuthHeader({ styles, colors, isEditing }: Props) {
+function AuthHeader({ styles, colors, isEditing, isLogin }: Props) {
+  const getIcon = () => {
+    if (isEditing) return "account-edit-outline";
+    if (isLogin) return "login-variant";
+    return "account-plus-outline";
+  };
+
+  const getTitle = () => {
+    if (isEditing) return i18n.t("auth_header_edit_title");
+    if (isLogin) return i18n.t("login_title");
+    return i18n.t("auth_header_create_title");
+  };
+
+  const getSubtitle = () => {
+    if (isEditing) return i18n.t("auth_header_edit_subtitle");
+    if (isLogin) return i18n.t("login_subtitle");
+    return i18n.t("auth_header_create_subtitle");
+  };
+
   return (
     <View style={styles.header}>
       <View
@@ -22,22 +41,16 @@ function AuthHeader({ styles, colors, isEditing }: Props) {
         ]}
       >
         <MaterialCommunityIcons
-          name={isEditing ? "account-edit-outline" : "account-plus-outline"}
+          name={getIcon()}
           size={42}
           color={colors.secondary}
         />
       </View>
 
-      <Text style={styles.title}>
-        {isEditing ? i18n.t("auth_header_edit_title") : i18n.t("auth_header_create_title")}
-      </Text>
-      <Text style={styles.subtitle}>
-        {isEditing
-          ? i18n.t("auth_header_edit_subtitle")
-          : i18n.t("auth_header_create_subtitle")}
-      </Text>
+      <Text style={styles.title}>{getTitle()}</Text>
+      <Text style={styles.subtitle}>{getSubtitle()}</Text>
     </View>
   );
-};
+}
 
 export default AuthHeader;

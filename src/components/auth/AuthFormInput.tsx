@@ -10,6 +10,7 @@ interface Props {
   value: string;
   onChangeText: (text: string) => void;
   maxLength?: number;
+  secureTextEntry?: boolean;
 }
 
 function AuthFormInput({
@@ -20,6 +21,7 @@ function AuthFormInput({
   value,
   onChangeText,
   maxLength,
+  secureTextEntry,
 }: Props) {
   return (
     <View>
@@ -41,6 +43,7 @@ function AuthFormInput({
           onChangeText={onChangeText}
           maxLength={maxLength}
           autoCorrect={false}
+          secureTextEntry={secureTextEntry}
         />
       </View>
     </View>

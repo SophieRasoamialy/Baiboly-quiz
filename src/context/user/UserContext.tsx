@@ -52,6 +52,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const [friends, setFriends] = useState<any[]>([]);
 
   const [profileId, setProfileId] = useState<string | null>(null);
+  const [password, setPasswordLocal] = useState<string | null>(null);
   const [lastHeartRefill, setLastHeartRefill] = useState<number>(Date.now());
   const [nextRefillIn, setNextRefillIn] = useState<number>(HEART_REFILL_SECONDS);
   
@@ -84,6 +85,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
           setLastHeartRefill(savedState.lastHeartRefill || Date.now());
           setPoints(savedState.points || 0);
           setSoundEnabledLocal(savedState.soundEnabled !== undefined ? !!savedState.soundEnabled : DEFAULT_SOUND_ENABLED);
+          setPasswordLocal(savedState.password ?? null);
 
           let pid = savedState.profileId;
           if (!pid) {
@@ -319,16 +321,18 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     updateDB({ theme: newTheme });
   };
 
-  const login = (name: string, church: string, cityName: string) => {
+  const login = (name: string, church: string, cityName: string, pass: string) => {
     setUsername(name);
     setChurchName(church);
     setCity(cityName);
+    setPasswordLocal(pass);
     setIsLoggedIn(true);
 
     updateDB({
       username: name,
       churchName: church,
       city: cityName,
+      password: pass,
     });
 
     // Sync to Supabase
@@ -339,8 +343,30 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
         church: church,
         city: cityName,
         points: points,
+        password: pass,
       }).catch(err => console.error("Sync profile login error:", err));
     }
+  };
+
+  const loginWithExistingProfile = (profile: any) => {
+    setProfileId(profile.id);
+    setUsername(profile.name);
+    setAvatarLocal(profile.avatar || DEFAULT_AVATAR);
+    setChurchName(profile.church);
+    setCity(profile.city);
+    setPoints(profile.points || 0);
+    setPasswordLocal(profile.password);
+    setIsLoggedIn(true);
+
+    updateDB({
+      profileId: profile.id,
+      username: profile.name,
+      avatar: profile.avatar || DEFAULT_AVATAR,
+      churchName: profile.church,
+      city: profile.city,
+      points: profile.points || 0,
+      password: profile.password,
+    });
   };
 
   const syncProfile = async () => {
@@ -416,6 +442,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       setTheme,
       toggleTheme,
       login,
+      loginWithExistingProfile,
       logout,
       addFriend,
       removeFriend,

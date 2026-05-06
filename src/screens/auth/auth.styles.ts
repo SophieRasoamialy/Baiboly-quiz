@@ -247,4 +247,18 @@ export const createAuthStyles = (colors: any) =>
       lineHeight: 18,
       color: colors.textMuted,
     },
+    toggleModeButton: {
+      marginTop: 20,
+      paddingVertical: 10,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    toggleModeText: {
+      fontSize: 14,
+      color: colors.textSecondary,
+    },
+    toggleModeLink: {
+      color: colors.primary,
+      fontWeight: "800",
+    },
   });

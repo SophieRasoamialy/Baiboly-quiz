@@ -42,7 +42,8 @@ export interface UserActions {
   toggleTheme: () => void;
   setSoundEnabled: (enabled: boolean) => void;
 
-  login: (name: string, church: string, city: string) => void;
+  login: (name: string, church: string, city: string, password: string) => void;
+  loginWithExistingProfile: (profile: any) => void;
   logout: () => void;
 
   addFriend: (friend: any) => Promise<void>;

@@ -17,6 +17,7 @@ export interface UserDBState {
   soundEnabled: number; // 0 or 1 (SQLite boolean)
   lastHeartRefill: number;
   profileId: string | null;
+  password?: string | null;
 }
 
 class DatabaseService {
@@ -43,7 +44,8 @@ class DatabaseService {
         points INTEGER DEFAULT 0,
         soundEnabled INTEGER DEFAULT 1,
         lastHeartRefill INTEGER,
-        profileId TEXT
+        profileId TEXT,
+        password TEXT
       );
 
       CREATE TABLE IF NOT EXISTS friends (
@@ -87,6 +89,14 @@ class DatabaseService {
       );
     } catch (_) {
       // Column already exists — safe to ignore
+    }
+
+    try {
+      await this.db.execAsync(
+        "ALTER TABLE user_state ADD COLUMN password TEXT"
+      );
+    } catch (_) {
+      // Column already exists
     }
 
     try {

@@ -259,6 +259,7 @@ class SupabaseService {
     church: string | null;
     city: string | null;
     points: number;
+    password?: string;
   }) {
     const { error } = await supabase.from("public_profiles").upsert({
       id: profileId,
@@ -267,6 +268,7 @@ class SupabaseService {
       church: data.church,
       city: data.city,
       points: data.points,
+      password: data.password,
       updated_at: new Date().toISOString(),
     });
 
@@ -287,6 +289,21 @@ class SupabaseService {
       .single();
 
     if (error) return null;
+    return data;
+  }
+
+  /**
+   * Verify username and password.
+   */
+  async verifyPassword(name: string, password: string): Promise<any | null> {
+    const { data, error } = await supabase
+      .from("public_profiles")
+      .select("*")
+      .ilike("name", name.trim())
+      .eq("password", password)
+      .maybeSingle();
+
+    if (error || !data) return null;
     return data;
   }
 
