@@ -155,6 +155,8 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
 
   /** Start a real matchmaking scan */
   const startScan = async () => {
+    supabaseService.cleanupMatchInvitations();
+
     // Reset UI
     setSearch("");
     setResults([]);

@@ -4,6 +4,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Text,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -27,6 +28,7 @@ import AuthSubmitButton from "../../components/auth/AuthSubmitButton";
 import BackButton from "../../components/ui/BackButton";
 
 import { AVATARS } from "../../constants/avatar";
+import { logger } from "../../utils/logger";
 
 type AuthScreenNavigationProp = StackNavigationProp<RootStackParamList, "Auth">;
 
@@ -34,20 +36,44 @@ interface Props {
   navigation: AuthScreenNavigationProp;
 }
 
+const isInvalidEmailError = (error: unknown) => {
+  if (!error || typeof error !== "object") return false;
+
+  const authError = error as { code?: string; message?: string };
+  const message = authError.message?.toLowerCase() || "";
+
+  return (
+    authError.code === "email_address_invalid" ||
+    (message.includes("email address") && message.includes("invalid"))
+  );
+};
+
 function AuthScreen({ navigation }: Props) {
-  const { login, setAvatar, addGems, username, churchName, city, isLoggedIn } =
-    useUser();
+  const {
+    signUp,
+    signIn,
+    updateProfile,
+    addGems,
+    setAvatar,
+    avatar,
+    email,
+    username,
+    churchName,
+    city,
+    isLoggedIn,
+    profileId,
+  } = useUser();
   const { colors, isLight } = useAppTheme();
   const styles = createAuthStyles(colors);
 
+  const [emailValue, setEmailValue] = useState(email || "");
   const [name, setName] = useState(username || "");
   const [church, setChurch] = useState(churchName || "");
   const [cityName, setCityName] = useState(city || "");
-  const [selectedAvatar, setSelectedAvatar] = useState(AVATARS[0].id);
+  const [selectedAvatar, setSelectedAvatar] = useState(avatar || AVATARS[0].id);
   const [password, setPassword] = useState("");
   const [isSignUp, setIsSignUp] = useState(true);
   const [isChecking, setIsChecking] = useState(false);
-  const { profileId } = useUser();
   const { showAlert } = useAlert();
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -68,18 +94,48 @@ function AuthScreen({ navigation }: Props) {
     ]).start();
   }, [fadeAnim, slideAnim]);
 
-  const isFormValid = isSignUp 
+  const isValidEmail = (value: string) => /\S+@\S+\.\S+/.test(value.trim());
+
+  const isFormValid = isLoggedIn
     ? (name.trim().length >= 3 &&
        church.trim().length > 0 &&
-       cityName.trim().length > 0 &&
-       password.trim().length >= 4)
-    : (name.trim().length >= 3 && password.trim().length >= 4);
+       cityName.trim().length > 0)
+    : isSignUp
+      ? (isValidEmail(emailValue) &&
+         name.trim().length >= 3 &&
+         church.trim().length > 0 &&
+         cityName.trim().length > 0 &&
+         password.trim().length >= 6)
+      : (isValidEmail(emailValue) && password.trim().length >= 6);
 
   const handleStart = async () => {
     if (!isFormValid || isChecking) return;
 
     setIsChecking(true);
     try {
+      if (isLoggedIn) {
+        const isTaken = await supabaseService.isUsernameTaken(name.trim(), profileId || undefined);
+
+        if (isTaken) {
+          setIsChecking(false);
+          showAlert({
+            title: i18n.t("username_taken_title"),
+            message: i18n.t("username_taken_msg"),
+            buttons: [{ text: i18n.t("ok") }]
+          });
+          return;
+        }
+
+        await updateProfile({
+          name: name.trim(),
+          church: church.trim(),
+          city: cityName.trim(),
+        });
+
+        navigation.goBack();
+        return;
+      }
+
       if (isSignUp) {
         // Check for username uniqueness
         const isTaken = await supabaseService.isUsernameTaken(name.trim(), profileId || undefined);
@@ -94,36 +150,46 @@ function AuthScreen({ navigation }: Props) {
           return;
         }
 
-        if (!isLoggedIn) {
-          setAvatar(selectedAvatar);
-          addGems(50);
-        }
-        
-        login(name.trim(), church.trim(), cityName.trim(), password.trim());
-      } else {
-        // Handle Login
-        const profile = await supabaseService.verifyPassword(name.trim(), password.trim());
-        
-        if (!profile) {
-          setIsChecking(false);
+        const result = await signUp(emailValue.trim(), password.trim(), {
+          name: name.trim(),
+          avatar: selectedAvatar,
+          church: church.trim(),
+          city: cityName.trim(),
+        });
+
+        if (result.needsEmailConfirmation) {
           showAlert({
-            title: i18n.t("invalid_credentials_title"),
-            message: i18n.t("invalid_credentials_msg"),
+            title: "Check your email",
+            message: "Your account was created. Confirm your email address, then sign in.",
             buttons: [{ text: i18n.t("ok") }]
           });
+          navigation.goBack();
           return;
         }
 
-        loginWithExistingProfile(profile);
+        setAvatar(selectedAvatar);
+        addGems(50);
+      } else {
+        await signIn(emailValue.trim(), password.trim());
       }
 
-      if (isLoggedIn || !isSignUp) {
+      if (!isSignUp) {
         navigation.goBack();
       } else {
         navigation.replace("Home");
       }
     } catch (err) {
-      console.error("Auth error:", err);
+      logger.error("AuthScreen", "Authentication flow failed", err);
+
+      if (isInvalidEmailError(err)) {
+        showAlert({
+          title: i18n.t("invalid_email_title"),
+          message: i18n.t("invalid_email_msg"),
+          buttons: [{ text: i18n.t("ok") }]
+        });
+        return;
+      }
+
       showAlert({
         title: i18n.t("auth_error_title"),
         message: i18n.t("auth_error_msg"),
@@ -189,26 +255,42 @@ function AuthScreen({ navigation }: Props) {
               }}
             >
               <View style={styles.formCard}>
-                <AuthFormInput
-                  styles={styles}
-                  label={i18n.t("username_label")}
-                  icon="at"
-                  placeholder={i18n.t("username_placeholder")}
-                  value={name}
-                  onChangeText={setName}
-                  maxLength={15}
-                />
+                {!isLoggedIn && (
+                  <AuthFormInput
+                    styles={styles}
+                    label="Email"
+                    icon="email-outline"
+                    placeholder="Enter your email"
+                    value={emailValue}
+                    onChangeText={setEmailValue}
+                    maxLength={60}
+                  />
+                )}
 
-                <AuthFormInput
-                  styles={styles}
-                  label={i18n.t("password_label")}
-                  icon="lock-outline"
-                  placeholder={i18n.t("password_placeholder")}
-                  value={password}
-                  onChangeText={setPassword}
-                  secureTextEntry
-                  maxLength={20}
-                />
+                {(isSignUp || isLoggedIn) && (
+                  <AuthFormInput
+                    styles={styles}
+                    label={i18n.t("username_label")}
+                    icon="at"
+                    placeholder={i18n.t("username_placeholder")}
+                    value={name}
+                    onChangeText={setName}
+                    maxLength={15}
+                  />
+                )}
+
+                {!isLoggedIn && (
+                  <AuthFormInput
+                    styles={styles}
+                    label={i18n.t("password_label")}
+                    icon="lock-outline"
+                    placeholder={i18n.t("password_placeholder")}
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry
+                    maxLength={30}
+                  />
+                )}
 
                 {(isSignUp || isLoggedIn) && (
                   <>
@@ -247,6 +329,7 @@ function AuthScreen({ navigation }: Props) {
                   styles={styles}
                   colors={colors}
                   disabled={!isFormValid || isChecking}
+                  loading={isChecking}
                   label={
                     isLoggedIn 
                       ? i18n.t("update_profile_btn") 

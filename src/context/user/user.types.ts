@@ -16,6 +16,7 @@ export interface UserState {
   lastHeartRefill: number;
   nextRefillIn: number;
 
+  email: string | null;
   username: string | null;
   churchName: string | null;
   city: string | null;
@@ -42,9 +43,14 @@ export interface UserActions {
   toggleTheme: () => void;
   setSoundEnabled: (enabled: boolean) => void;
 
-  login: (name: string, church: string, city: string, password: string) => void;
-  loginWithExistingProfile: (profile: any) => void;
-  logout: () => void;
+  signUp: (
+    email: string,
+    password: string,
+    profile: { name: string; avatar: string; church: string; city: string },
+  ) => Promise<{ needsEmailConfirmation: boolean }>;
+  signIn: (email: string, password: string) => Promise<void>;
+  updateProfile: (profile: { name: string; church: string; city: string }) => Promise<void>;
+  logout: () => Promise<void>;
 
   addFriend: (friend: any) => Promise<void>;
   removeFriend: (id: string) => Promise<void>;

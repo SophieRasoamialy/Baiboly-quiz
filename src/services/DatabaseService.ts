@@ -4,6 +4,7 @@ const DATABASE_NAME = "baiboly_quiz.db";
 
 export interface UserDBState {
   id: number;
+  email: string | null;
   username: string | null;
   churchName: string | null;
   city: string | null;
@@ -32,6 +33,7 @@ class DatabaseService {
       PRAGMA journal_mode = WAL;
       CREATE TABLE IF NOT EXISTS user_state (
         id INTEGER PRIMARY KEY NOT NULL,
+        email TEXT,
         username TEXT,
         churchName TEXT,
         city TEXT,
@@ -86,6 +88,14 @@ class DatabaseService {
     try {
       await this.db.execAsync(
         "ALTER TABLE user_state ADD COLUMN profileId TEXT"
+      );
+    } catch (_) {
+      // Column already exists — safe to ignore
+    }
+
+    try {
+      await this.db.execAsync(
+        "ALTER TABLE user_state ADD COLUMN email TEXT"
       );
     } catch (_) {
       // Column already exists — safe to ignore

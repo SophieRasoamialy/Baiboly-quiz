@@ -45,6 +45,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const [points, setPoints] = useState(0);
   const [soundEnabled, setSoundEnabledLocal] = useState(DEFAULT_SOUND_ENABLED);
 
+  const [email, setEmail] = useState<string | null>(null);
   const [username, setUsername] = useState<string | null>(null);
   const [churchName, setChurchName] = useState<string | null>(null);
   const [city, setCity] = useState<string | null>(null);
@@ -52,7 +53,6 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const [friends, setFriends] = useState<any[]>([]);
 
   const [profileId, setProfileId] = useState<string | null>(null);
-  const [password, setPasswordLocal] = useState<string | null>(null);
   const [lastHeartRefill, setLastHeartRefill] = useState<number>(Date.now());
   const [nextRefillIn, setNextRefillIn] = useState<number>(HEART_REFILL_SECONDS);
   
@@ -64,6 +64,74 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     return databaseService.saveUserState(data);
   };
 
+  const applyAuthenticatedProfile = useCallback(
+    async (
+      authUserId: string,
+      authEmail: string | null,
+      profile: {
+        name?: string | null;
+        avatar?: string | null;
+        church?: string | null;
+        city?: string | null;
+        points?: number | null;
+      } | null,
+    ) => {
+      const nextAvatar = profile?.avatar || DEFAULT_AVATAR;
+      const nextName = profile?.name ?? null;
+      const nextChurch = profile?.church ?? null;
+      const nextCity = profile?.city ?? null;
+      const nextPoints = profile?.points ?? 0;
+
+      setProfileId(authUserId);
+      setEmail(authEmail);
+      setUsername(nextName);
+      setAvatarLocal(nextAvatar);
+      setChurchName(nextChurch);
+      setCity(nextCity);
+      setPoints(nextPoints);
+      setIsLoggedIn(true);
+
+      await updateDB({
+        profileId: authUserId,
+        email: authEmail,
+        username: nextName,
+        avatar: nextAvatar,
+        churchName: nextChurch,
+        city: nextCity,
+        points: nextPoints,
+      });
+    },
+    [],
+  );
+
+  const getProfileDefaultsFromUser = useCallback(
+    (user: { email?: string | null; user_metadata?: Record<string, any> | null }) => ({
+      name: user.user_metadata?.name || user.email?.split("@")[0] || "Mpilalao",
+      avatar: user.user_metadata?.avatar || DEFAULT_AVATAR,
+      church: user.user_metadata?.church || null,
+      city: user.user_metadata?.city || null,
+      points: 0,
+    }),
+    [],
+  );
+
+  const clearAuthState = useCallback(async () => {
+    setProfileId(null);
+    setEmail(null);
+    setUsername(null);
+    setChurchName(null);
+    setCity(null);
+    setIsLoggedIn(false);
+
+    await updateDB({
+      profileId: null,
+      email: null,
+      username: null,
+      churchName: null,
+      city: null,
+    });
+  }, []);
+
   useEffect(() => {
     const initData = async () => {
       try {
@@ -72,6 +140,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
         const savedState = await databaseService.getUserState();
 
         if (savedState) {
+          setEmail(savedState.email ?? null);
           setGems(savedState.gems ?? DEFAULT_GEMS);
           setHearts(savedState.hearts ?? DEFAULT_HEARTS);
           setMedals(savedState.medals ? savedState.medals.split(",") : DEFAULT_MEDALS);
@@ -81,18 +150,11 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
           setUsername(savedState.username ?? null);
           setChurchName(savedState.churchName ?? null);
           setCity(savedState.city ?? null);
-          setIsLoggedIn(!!savedState.username);
+          setIsLoggedIn(false);
           setLastHeartRefill(savedState.lastHeartRefill || Date.now());
           setPoints(savedState.points || 0);
           setSoundEnabledLocal(savedState.soundEnabled !== undefined ? !!savedState.soundEnabled : DEFAULT_SOUND_ENABLED);
-          setPasswordLocal(savedState.password ?? null);
-
-          let pid = savedState.profileId;
-          if (!pid) {
-            pid = `p-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
-            await databaseService.saveUserState({ profileId: pid });
-          }
-          setProfileId(pid);
+          setProfileId(savedState.profileId ?? null);
 
           if (savedState.language) {
             i18n.locale = savedState.language;
@@ -100,6 +162,29 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 
           const savedFriends = await databaseService.getFriends();
           setFriends(savedFriends || []);
+        }
+
+        const currentUser = await supabaseService.getCurrentSessionUser().catch(() => null);
+
+        if (currentUser) {
+          let profile = await supabaseService.getProfile(currentUser.id);
+
+          if (!profile) {
+            const defaults = getProfileDefaultsFromUser(currentUser);
+            await supabaseService.upsertProfile(currentUser.id, {
+              name: savedState?.username || defaults.name,
+              avatar: savedState?.avatar || defaults.avatar,
+              church: savedState?.churchName || defaults.church,
+              city: savedState?.city || defaults.city,
+              points: savedState?.points || defaults.points,
+            });
+
+            profile = await supabaseService.getProfile(currentUser.id);
+          }
+
+          await applyAuthenticatedProfile(currentUser.id, currentUser.email ?? null, profile);
+        } else {
+          await clearAuthState();
         }
       } catch (error) {
         console.error("Failed to init SQLite", error);
@@ -109,7 +194,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     };
 
     initData();
-  }, []);
+  }, [applyAuthenticatedProfile, clearAuthState, getProfileDefaultsFromUser]);
 
   useEffect(() => {
     const refillInterval = setInterval(() => {
@@ -201,7 +286,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       setTimeout(() => checkAndUnlockMedals(newValue), 100);
       
       // Sync to Supabase
-      if (profileId && (username || churchName)) {
+      if (isLoggedIn && profileId && (username || churchName)) {
         supabaseService.upsertProfile(profileId, {
           name: username || "Mpilalao",
           avatar: avatar,
@@ -266,7 +351,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     updateDB({ avatar: newAvatar });
 
     // Sync to Supabase
-    if (profileId && (username || churchName)) {
+    if (isLoggedIn && profileId && (username || churchName)) {
       supabaseService.upsertProfile(profileId, {
         name: username || "Mpilalao",
         avatar: newAvatar,
@@ -321,51 +406,73 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     updateDB({ theme: newTheme });
   };
 
-  const login = (name: string, church: string, cityName: string, pass: string) => {
-    setUsername(name);
-    setChurchName(church);
-    setCity(cityName);
-    setPasswordLocal(pass);
-    setIsLoggedIn(true);
-
-    updateDB({
-      username: name,
-      churchName: church,
-      city: cityName,
-      password: pass,
+  const signUp = async (
+    nextEmail: string,
+    nextPassword: string,
+    profile: { name: string; avatar: string; church: string; city: string },
+  ) => {
+    const result = await supabaseService.signUpWithEmail(nextEmail, nextPassword, {
+      name: profile.name,
+      avatar: profile.avatar,
+      church: profile.church,
+      city: profile.city,
+      points: 0,
     });
 
-    // Sync to Supabase
-    if (profileId) {
-      supabaseService.upsertProfile(profileId, {
-        name: name,
-        avatar: avatar,
-        church: church,
-        city: cityName,
-        points: points,
-        password: pass,
-      }).catch(err => console.error("Sync profile login error:", err));
+    if (!result.needsEmailConfirmation) {
+      await applyAuthenticatedProfile(result.user.id, result.user.email ?? nextEmail.trim(), {
+        name: profile.name,
+        avatar: profile.avatar,
+        church: profile.church,
+        city: profile.city,
+        points: 0,
+      });
     }
+
+    return {
+      needsEmailConfirmation: result.needsEmailConfirmation,
+    };
   };
 
-  const loginWithExistingProfile = (profile: any) => {
-    setProfileId(profile.id);
+  const signIn = async (nextEmail: string, nextPassword: string) => {
+    const { user } = await supabaseService.signInWithEmail(nextEmail, nextPassword);
+
+    if (!user) {
+      throw new Error("Supabase sign in succeeded without a user.");
+    }
+
+    let profile = await supabaseService.getProfile(user.id);
+
+    if (!profile) {
+      await supabaseService.upsertProfile(user.id, getProfileDefaultsFromUser(user));
+
+      profile = await supabaseService.getProfile(user.id);
+    }
+
+    await applyAuthenticatedProfile(user.id, user.email ?? nextEmail.trim(), profile);
+  };
+
+  const updateProfile = async (profile: { name: string; church: string; city: string }) => {
+    if (!profileId) {
+      throw new Error("No authenticated profile to update.");
+    }
+
+    await supabaseService.upsertProfile(profileId, {
+      name: profile.name,
+      avatar,
+      church: profile.church,
+      city: profile.city,
+      points,
+    });
+
     setUsername(profile.name);
-    setAvatarLocal(profile.avatar || DEFAULT_AVATAR);
     setChurchName(profile.church);
     setCity(profile.city);
-    setPoints(profile.points || 0);
-    setPasswordLocal(profile.password);
-    setIsLoggedIn(true);
 
-    updateDB({
-      profileId: profile.id,
+    await updateDB({
       username: profile.name,
-      avatar: profile.avatar || DEFAULT_AVATAR,
       churchName: profile.church,
       city: profile.city,
-      points: profile.points || 0,
-      password: profile.password,
     });
   };
 
@@ -384,17 +491,12 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const logout = () => {
-    setUsername(null);
-    setChurchName(null);
-    setCity(null);
-    setIsLoggedIn(false);
-
-    updateDB({
-      username: null,
-      churchName: null,
-      city: null,
-    });
+  const logout = async () => {
+    try {
+      await supabaseService.signOut();
+    } finally {
+      await clearAuthState();
+    }
   };
 
   const addFriend = async (friend: any) => {
@@ -421,6 +523,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       colors,
       lastHeartRefill,
       nextRefillIn,
+      email,
       username,
       churchName,
       city,
@@ -441,8 +544,9 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       addMedal,
       setTheme,
       toggleTheme,
-      login,
-      loginWithExistingProfile,
+      signUp,
+      signIn,
+      updateProfile,
       logout,
       addFriend,
       removeFriend,
@@ -460,6 +564,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       colors,
       lastHeartRefill,
       nextRefillIn,
+      email,
       username,
       churchName,
       city,

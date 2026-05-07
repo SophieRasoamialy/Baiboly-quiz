@@ -17,7 +17,11 @@ import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { useUser } from "../../context/user";
-import { supabaseService, MatchmakingPlayer } from "../../services/SupabaseService";
+import {
+  supabaseService,
+  MatchInvitationPayload,
+  MatchmakingPlayer,
+} from "../../services/SupabaseService";
 import { useAlert } from "../../context/AlertContext";
 
 import { createMatchmakingStyles } from "./matchmaking.styles";
@@ -27,6 +31,7 @@ import FloatingGem from "../../components/home/FloatingGem";
 import i18n from "../../i18n";
 import { QUIZ_IMAGE_MAP } from "../../constants/quizImages";
 import UserAvatar from "../../components/ui/UserAvatar";
+import { logger } from "../../utils/logger";
 
 const { width } = Dimensions.get("window");
 
@@ -50,7 +55,7 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
   const { mode, friendName, gameType = "duo", quizType = "standard" } = route.params;
   const [status, setStatus] = useState("lobby"); // lobby, found, timeout
   const [availablePlayers, setAvailablePlayers] = useState<MatchmakingPlayer[]>([]);
-  const [incomingInvite, setIncomingInvite] = useState<any>(null);
+  const [incomingInvite, setIncomingInvite] = useState<MatchInvitationPayload | null>(null);
   const [invitingPlayer, setInvitingPlayer] = useState<any>(null);
   const [opponent, setOpponent] = useState<any>(null);
   const [isJoining, setIsJoining] = useState(false);
@@ -63,7 +68,9 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
   const sessionIdRef = useRef<string>("");
   const lobbyPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const handshakeSubRef = useRef<any>(null);
+  const incomingInviteSubRef = useRef<any>(null);
+  const sentInviteSubRef = useRef<any>(null);
+  const invitedPlayerRef = useRef<MatchmakingPlayer | null>(null);
   const processedRef = useRef<boolean>(false);
 
   const stopLobbyPolling = () => {
@@ -79,9 +86,13 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
 
   const cleanup = async () => {
     stopLobbyPolling();
-    if (handshakeSubRef.current) {
-      handshakeSubRef.current.unsubscribe();
-      handshakeSubRef.current = null;
+    if (incomingInviteSubRef.current) {
+      incomingInviteSubRef.current.unsubscribe();
+      incomingInviteSubRef.current = null;
+    }
+    if (sentInviteSubRef.current) {
+      sentInviteSubRef.current.unsubscribe();
+      sentInviteSubRef.current = null;
     }
     if (sessionIdRef.current) {
       await supabaseService.leaveMatchmakingPool(sessionIdRef.current);
@@ -97,6 +108,8 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
   }, []);
 
   const startLobby = async () => {
+    supabaseService.cleanupMatchInvitations();
+
     const sid = makeSessionId();
     sessionIdRef.current = sid;
 
@@ -111,22 +124,45 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
       quiz_type: quizType,
     });
 
-    // 2. Subscribe to "Handshake" (Detect Invitations or Acceptances)
-    handshakeSubRef.current = supabaseService.subscribeToMyMatch(sid, async (payload) => {
-      if (!payload) return;
+    if (profileId) {
+      incomingInviteSubRef.current = supabaseService.subscribeToIncomingInvitations(
+        profileId,
+        (invitation) => {
+          logger.info(
+            "MatchmakingScreen",
+            `Received invitation from ${invitation.sender.name} for ${invitation.quiz_type} quiz`,
+          );
+          setIncomingInvite(invitation);
+        },
+      );
 
-      if (payload.type === "invitation") {
-        console.log("Received Invitation from:", payload.sender.name, "for", payload.quiz_type);
-        // Store the full payload so we know the game mode
-        setIncomingInvite(payload);
-      } else if (payload.type === "accepted") {
-        console.log("Invitation Accepted by:", payload.sender.name);
-        setOpponent(payload.sender);
-        setStatus("found");
-        stopLobbyPolling();
-        handleMatchFound(payload.sender, payload.sender.session_id, payload.quiz_type);
-      }
-    });
+      sentInviteSubRef.current = supabaseService.subscribeToSentInvitations(
+        profileId,
+        (invitation) => {
+          if (invitation.status === "accepted" && invitation.recipient_session_id) {
+            logger.info(
+              "MatchmakingScreen",
+              `Invitation accepted by ${invitation.recipient_profile_id}`,
+            );
+            setInvitingPlayer(null);
+            setStatus("found");
+            stopLobbyPolling();
+            handleMatchFound(
+              {
+                ...(invitedPlayerRef.current || {}),
+                profile_id: invitation.recipient_profile_id,
+              },
+              invitation.recipient_session_id,
+              invitation.quiz_type,
+            );
+          }
+
+          if (invitation.status === "declined") {
+            setInvitingPlayer(null);
+          }
+        },
+      );
+    }
 
     // 3. Periodic Poll for Lobby List (for "random" mode or just seeing others)
     lobbyPollRef.current = setInterval(async () => {
@@ -169,15 +205,20 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
 
   const handleInvite = async (player: MatchmakingPlayer) => {
     setInvitingPlayer(player);
+    invitedPlayerRef.current = player;
+    setOpponent(player);
     try {
-      await supabaseService.sendInvitation(player.session_id, {
-        profile_id: profileId!,
-        session_id: sessionIdRef.current,
-        name: username || "Mpilalao",
-        avatar: avatar || "default",
-        church: churchName,
-        city: city,
-        points: points,
+      await supabaseService.sendInvitation({
+        sender: {
+          profile_id: profileId!,
+          session_id: sessionIdRef.current,
+          name: username || "Mpilalao",
+          avatar: avatar || "default",
+          church: churchName,
+          city: city,
+          points: points,
+        },
+        recipient_profile_id: player.profile_id!,
         game_type: gameType,
         quiz_type: quizType,
       });
@@ -194,23 +235,13 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
   const handleAccept = async () => {
     if (!incomingInvite) return;
     setIsJoining(true);
-    const payload = incomingInvite;
+    const invitation = incomingInvite;
     setIncomingInvite(null);
 
     try {
-      await supabaseService.acceptInvitation(payload.sender.session_id, {
-        profile_id: profileId!,
-        session_id: sessionIdRef.current,
-        name: username || "Mpilalao",
-        avatar: avatar || "default",
-        church: churchName,
-        city: city,
-        points: points,
-        game_type: payload.game_type, // Sync to inviter's mode
-        quiz_type: payload.quiz_type,
-      });
+      await supabaseService.acceptInvitation(invitation.id, sessionIdRef.current);
       // Now both players should have information to start the game
-      handleMatchFound(payload.sender, payload.sender.session_id, payload.quiz_type);
+      handleMatchFound(invitation.sender, invitation.sender.session_id, invitation.quiz_type);
     } catch (err) {
       setIsJoining(false);
       showAlert({
@@ -222,8 +253,10 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
   };
 
   const handleDecline = async () => {
+    if (!incomingInvite) return;
+    const invitationId = incomingInvite.id;
     setIncomingInvite(null);
-    await supabaseService.declineInvitation(sessionIdRef.current);
+    await supabaseService.declineInvitation(invitationId);
   };
 
   const handleMatchFound = (selectedOpponent: any, opponentSessionId: string, remoteQuizType?: string) => {

@@ -1,6 +1,7 @@
 import "react-native-url-polyfill/auto";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createClient } from "@supabase/supabase-js";
+import { logger } from "../utils/logger";
 
 // Keys provided by the user (Falling back to environment variables correctly prefixed for Expo)
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
@@ -26,6 +27,28 @@ export interface MatchmakingPlayer {
   joined_at?: string;
 }
 
+export interface MatchInvitationSender {
+  profile_id: string;
+  session_id: string;
+  name: string;
+  avatar: string;
+  church: string | null;
+  city: string | null;
+  points: number;
+}
+
+export interface MatchInvitationPayload {
+  id: string;
+  sender: MatchInvitationSender;
+  recipient_profile_id: string;
+  recipient_session_id?: string | null;
+  game_type: string;
+  quiz_type: string;
+  status: "pending" | "accepted" | "declined";
+  created_at?: string;
+  responded_at?: string | null;
+}
+
 export interface PublicProfile {
   id: string;
   name: string;
@@ -34,6 +57,14 @@ export interface PublicProfile {
   city: string | null;
   points: number;
   updated_at?: string;
+}
+
+export interface AuthProfileInput {
+  name: string;
+  avatar: string;
+  church: string | null;
+  city: string | null;
+  points: number;
 }
 
 class SupabaseService {
@@ -60,12 +91,11 @@ class SupabaseService {
         profile_id: user.profile_id,
         game_type: user.game_type,
         quiz_type: user.quiz_type,
-        matched_with: null,
       },
     ]);
 
     if (error) {
-      console.error("Supabase Join Pool Error:", error);
+      logger.error("SupabaseService", "Join pool failed", error);
       throw error;
     }
   }
@@ -80,7 +110,7 @@ class SupabaseService {
       .eq("session_id", sessionId);
 
     if (error) {
-      console.error("Supabase Leave Pool Error:", error);
+      logger.error("SupabaseService", "Leave pool failed", error);
     }
   }
 
@@ -94,11 +124,10 @@ class SupabaseService {
       .neq("session_id", mySessionId)
       .eq("game_type", gameType)
       .eq("quiz_type", quizType)
-      .is("matched_with", null)
       .order("joined_at", { ascending: false });
 
     if (error) {
-      console.error("Supabase Find All Players Error:", error);
+      logger.error("SupabaseService", "Find active players failed", error);
       return [];
     }
 
@@ -108,63 +137,53 @@ class SupabaseService {
   /**
    * Send a manual invitation to another player.
    */
-  async sendInvitation(targetSid: string, inviter: {
-    profile_id: string;
-    session_id: string;
-    name: string;
-    avatar: string;
-    church: string | null;
-    city: string | null;
-    points: number;
+  async sendInvitation(invitation: {
+    sender: MatchInvitationSender;
+    recipient_profile_id: string;
     game_type: string;
     quiz_type: string;
   }) {
-    const payload = {
-      type: "invitation",
-      sender: inviter,
-      game_type: inviter.game_type,
-      quiz_type: inviter.quiz_type,
-    };
-
-    const { error } = await supabase
-      .from("matchmaking_pool")
-      .update({ matched_with: JSON.stringify(payload) })
-      .eq("session_id", targetSid);
+    const { data, error } = await supabase
+      .from("match_invitations")
+      .insert({
+        sender_profile_id: invitation.sender.profile_id,
+        sender_session_id: invitation.sender.session_id,
+        sender_name: invitation.sender.name,
+        sender_avatar: invitation.sender.avatar,
+        sender_church: invitation.sender.church,
+        sender_city: invitation.sender.city,
+        sender_points: invitation.sender.points,
+        recipient_profile_id: invitation.recipient_profile_id,
+        game_type: invitation.game_type,
+        quiz_type: invitation.quiz_type,
+        status: "pending",
+      })
+      .select("*")
+      .single();
 
     if (error) {
-      console.error("Supabase Send Invitation Error:", error);
+      logger.error("SupabaseService", "Send invitation failed", error);
       throw error;
     }
+
+    return this.mapInvitationRecord(data);
   }
 
   /**
    * Accept an invitation.
    */
-  async acceptInvitation(senderSid: string, acceptor: {
-    profile_id: string;
-    session_id: string;
-    name: string;
-    avatar: string;
-    church: string | null;
-    city: string | null;
-    points: number;
-    game_type: string;
-    quiz_type: string;
-  }) {
-    const payload = {
-      type: "accepted",
-      sender: acceptor,
-      game_type: acceptor.game_type,
-      quiz_type: acceptor.quiz_type,
-    };
-
+  async acceptInvitation(invitationId: string, recipientSessionId: string) {
     const { error } = await supabase
-      .from("matchmaking_pool")
-      .update({ matched_with: JSON.stringify(payload) })
-      .eq("session_id", senderSid);
+      .from("match_invitations")
+      .update({
+        status: "accepted",
+        recipient_session_id: recipientSessionId,
+        responded_at: new Date().toISOString(),
+      })
+      .eq("id", invitationId);
 
     if (error) {
-      console.error("Supabase Accept Invitation Error:", error);
+      logger.error("SupabaseService", "Accept invitation failed", error);
       throw error;
     }
   }
@@ -172,14 +191,17 @@ class SupabaseService {
   /**
    * Decline an invitation (reset recipient's status).
    */
-  async declineInvitation(mySid: string) {
+  async declineInvitation(invitationId: string) {
     const { error } = await supabase
-      .from("matchmaking_pool")
-      .update({ matched_with: null })
-      .eq("session_id", mySid);
+      .from("match_invitations")
+      .update({
+        status: "declined",
+        responded_at: new Date().toISOString(),
+      })
+      .eq("id", invitationId);
 
     if (error) {
-      console.error("Supabase Decline Invitation Error:", error);
+      logger.error("SupabaseService", "Decline invitation failed", error);
       throw error;
     }
   }
@@ -188,25 +210,21 @@ class SupabaseService {
    * Subscribe to changes on my own matchmaking record.
    * Receives a parsed claimant object when someone claims us.
    */
-  subscribeToMyMatch(mySid: string, onMatch: (claimant: any) => void) {
+  subscribeToIncomingInvitations(profileId: string, onInvitation: (invitation: MatchInvitationPayload) => void) {
     const channel = supabase
-      .channel(`handshake_${mySid}`)
+      .channel(`incoming_invites_${profileId}`)
       .on(
         "postgres_changes",
         {
-          event: "UPDATE",
+          event: "INSERT",
           schema: "public",
-          table: "matchmaking_pool",
-          filter: `session_id=eq.${mySid}`,
+          table: "match_invitations",
+          filter: `recipient_profile_id=eq.${profileId}`,
         },
         (payload) => {
-          const raw = payload.new?.matched_with;
-          if (raw) {
-            try {
-              onMatch(JSON.parse(raw));
-            } catch {
-              onMatch(null); // fallback
-            }
+          const invitation = this.mapInvitationRecord(payload.new);
+          if (invitation.status === "pending") {
+            onInvitation(invitation);
           }
         }
       )
@@ -216,22 +234,26 @@ class SupabaseService {
   }
 
   /**
-   * One-time check if I've been matched (fallback for polling).
-   * Returns the parsed claimant object or null.
+   * Subscribe to updates for invitations I sent.
    */
-  async checkMyMatchStatus(mySid: string): Promise<any | null> {
-    const { data, error } = await supabase
-      .from("matchmaking_pool")
-      .select("matched_with")
-      .eq("session_id", mySid)
-      .single();
+  subscribeToSentInvitations(profileId: string, onInvitationUpdate: (invitation: MatchInvitationPayload) => void) {
+    const channel = supabase
+      .channel(`sent_invites_${profileId}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "UPDATE",
+          schema: "public",
+          table: "match_invitations",
+          filter: `sender_profile_id=eq.${profileId}`,
+        },
+        (payload) => {
+          onInvitationUpdate(this.mapInvitationRecord(payload.new));
+        }
+      )
+      .subscribe();
 
-    if (error || !data || !data.matched_with) return null;
-    try {
-      return JSON.parse(data.matched_with);
-    } catch {
-      return null;
-    }
+    return channel;
   }
 
   /**
@@ -253,14 +275,7 @@ class SupabaseService {
   /**
    * Sync the user's public info to Supabase.
    */
-  async upsertProfile(profileId: string, data: {
-    name: string;
-    avatar: string;
-    church: string | null;
-    city: string | null;
-    points: number;
-    password?: string;
-  }) {
+  async upsertProfile(profileId: string, data: AuthProfileInput) {
     const { error } = await supabase.from("public_profiles").upsert({
       id: profileId,
       name: data.name,
@@ -268,12 +283,11 @@ class SupabaseService {
       church: data.church,
       city: data.city,
       points: data.points,
-      password: data.password,
       updated_at: new Date().toISOString(),
     });
 
     if (error) {
-      console.error("Supabase Upsert Profile Error:", error);
+      logger.error("SupabaseService", "Upsert profile failed", error);
       throw error;
     }
   }
@@ -293,18 +307,83 @@ class SupabaseService {
   }
 
   /**
-   * Verify username and password.
+   * Create a new auth user and initialize their public profile.
    */
-  async verifyPassword(name: string, password: string): Promise<any | null> {
-    const { data, error } = await supabase
-      .from("public_profiles")
-      .select("*")
-      .ilike("name", name.trim())
-      .eq("password", password)
-      .maybeSingle();
+  async signUpWithEmail(email: string, password: string, profile: AuthProfileInput) {
+    const { data, error } = await supabase.auth.signUp({
+      email: email.trim(),
+      password,
+      options: {
+        data: {
+          name: profile.name,
+          avatar: profile.avatar,
+          church: profile.church,
+          city: profile.city,
+        },
+      },
+    });
 
-    if (error || !data) return null;
+    if (error) {
+      throw error;
+    }
+
+    const user = data.user;
+
+    if (!user) {
+      throw new Error("Supabase sign up succeeded without a user.");
+    }
+
+    if (data.session) {
+      await this.upsertProfile(user.id, profile);
+    }
+
+    return {
+      user,
+      needsEmailConfirmation: !data.session,
+    };
+  }
+
+  /**
+   * Sign in with Supabase Auth email/password.
+   */
+  async signInWithEmail(email: string, password: string) {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email.trim(),
+      password,
+    });
+
+    if (error) {
+      throw error;
+    }
+
     return data;
+  }
+
+  /**
+   * Sign out the active Supabase session.
+   */
+  async signOut() {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Read the currently authenticated user from the persisted session.
+   */
+  async getCurrentSessionUser() {
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.getSession();
+
+    if (error) {
+      throw error;
+    }
+
+    return session?.user ?? null;
   }
 
   /**
@@ -319,7 +398,7 @@ class SupabaseService {
       .limit(limit);
 
     if (error) {
-      console.error("Supabase Get Leaderboard Error:", error);
+      logger.error("SupabaseService", "Get leaderboard failed", error);
       return [];
     }
 
@@ -344,7 +423,7 @@ class SupabaseService {
       })
       .subscribe((status) => {
         if (status === "SUBSCRIBED") {
-          console.log(`Subscribed to channel: ${channelName}`);
+          logger.info("SupabaseService", `Subscribed to channel ${channelName}`);
         }
       });
 
@@ -389,11 +468,10 @@ class SupabaseService {
       .from("matchmaking_pool")
       .select("*")
       .ilike("name", `%${query}%`)
-      .is("matched_with", null) // Only unmatched players
       .limit(20);
 
     if (error) {
-      console.error("Supabase Search Active Players Error:", error);
+      logger.error("SupabaseService", "Search active players failed", error);
       return [];
     }
     return data;
@@ -410,7 +488,7 @@ class SupabaseService {
       .limit(10);
 
     if (error) {
-      console.error("Supabase Search Profiles Error:", error);
+      logger.error("SupabaseService", "Search profiles failed", error);
       return [];
     }
     return data;
@@ -423,10 +501,40 @@ class SupabaseService {
       .in("id", ids);
 
     if (error) {
-      console.error("Supabase Get Profiles By IDs Error:", error);
+      logger.error("SupabaseService", "Get profiles by ids failed", error);
       return [];
     }
     return data;
+  }
+
+  async cleanupMatchInvitations() {
+    const { error } = await supabase.rpc("cleanup_match_invitations");
+
+    if (error) {
+      logger.error("SupabaseService", "Cleanup match invitations failed", error);
+    }
+  }
+
+  private mapInvitationRecord(record: any): MatchInvitationPayload {
+    return {
+      id: record.id,
+      sender: {
+        profile_id: record.sender_profile_id,
+        session_id: record.sender_session_id,
+        name: record.sender_name,
+        avatar: record.sender_avatar,
+        church: record.sender_church,
+        city: record.sender_city,
+        points: record.sender_points || 0,
+      },
+      recipient_profile_id: record.recipient_profile_id,
+      recipient_session_id: record.recipient_session_id,
+      game_type: record.game_type,
+      quiz_type: record.quiz_type,
+      status: record.status,
+      created_at: record.created_at,
+      responded_at: record.responded_at,
+    };
   }
 }
 

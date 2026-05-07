@@ -1,6 +1,7 @@
-import React from "react";
-import { Text, TextInput, View } from "react-native";
+import React, { useState } from "react";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useAppTheme } from "../../hooks/useAppTheme";
 
 interface Props {
   styles: any;
@@ -23,6 +24,10 @@ function AuthFormInput({
   maxLength,
   secureTextEntry,
 }: Props) {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const isSecureField = !!secureTextEntry;
+  const { colors } = useAppTheme();
+
   return (
     <View>
       <Text style={styles.sectionLabel}>{label}</Text>
@@ -43,8 +48,21 @@ function AuthFormInput({
           onChangeText={onChangeText}
           maxLength={maxLength}
           autoCorrect={false}
-          secureTextEntry={secureTextEntry}
+          secureTextEntry={isSecureField && !isPasswordVisible}
         />
+
+        {isSecureField && (
+          <TouchableOpacity
+            onPress={() => setIsPasswordVisible((prev) => !prev)}
+            activeOpacity={0.7}
+          >
+            <MaterialCommunityIcons
+              name={isPasswordVisible ? "eye-off-outline" : "eye-outline"}
+              size={20}
+              color={colors.textSecondary}
+            />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );

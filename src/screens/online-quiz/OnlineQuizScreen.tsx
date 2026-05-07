@@ -3,6 +3,7 @@ import { View, Dimensions, ActivityIndicator, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useUser } from "../../context/user";
 import { useAppTheme } from "../../hooks/useAppTheme";
+import { logger } from "../../utils/logger";
 import { useAlert } from "../../context/AlertContext";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
@@ -103,7 +104,7 @@ const OnlineQuizScreen: React.FC<any> = ({ navigation, route }) => {
         break;
       case "ACK_SYNC":
         // Questions are synced on both sides
-        console.log("Game sync confirmed");
+        logger.info("OnlineQuizScreen", "Game sync confirmed");
         break;
       case "ANSWER_SELECTED":
         setOpponentSelected(data.index);

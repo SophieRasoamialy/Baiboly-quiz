@@ -113,6 +113,8 @@ const translations = {
     // Auth
     username_taken_title: "Efa misy mampiasa io anarana io",
     username_taken_msg: "Azafady, fidio anarana hafa fa efa misy mampiasa ity anarana ity.",
+    invalid_email_title: "Mailaka tsy mety",
+    invalid_email_msg: "Tsy mety io adiresy mailaka io. Hamarino tsara dia andramo indray.",
     auth_error_title: "Olana",
     auth_error_msg: "Nisy olana teo am-panamarinana ny anaranao. Andramo indray azafady.",
     username_label: "Solon'anarana",
@@ -414,6 +416,8 @@ const translations = {
     // Auth
     username_taken_title: "Nom déjà utilisé",
     username_taken_msg: "Désolé, ce nom est déjà pris par un autre utilisateur.",
+    invalid_email_title: "Email invalide",
+    invalid_email_msg: "Cette adresse email n'est pas valide. Vérifiez-la puis réessayez.",
     auth_error_title: "Problème",
     auth_error_msg: "Une erreur est survenue lors de la vérification. Veuillez réessayer.",
     username_label: "Nom d'utilisateur",
