@@ -4,7 +4,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation/types";
 import { useUser } from "../../context/user";
+import { useConnectivity } from "../../context/ConnectivityContext";
 import { useAppTheme } from "../../hooks/useAppTheme";
+import { useAlert } from "../../context/AlertContext";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
@@ -35,12 +37,15 @@ import { databaseService } from "../../services/DatabaseService";
 const FriendSelectionScreen: React.FC<Props> = ({ navigation, route }) => {
   const { gameType = "duo", quizType = "standard" } = route.params || {};
   const { friends, addFriend } = useUser();
+  const { isOnline } = useConnectivity();
   const { colors, isLight } = useAppTheme();
+  const { showAlert } = useAlert();
   const styles = createFriendSelectionStyles(colors);
 
   useEffect(() => {
     const syncFriends = async () => {
       if (friends.length === 0) return;
+      if (!isOnline) return;
       
       try {
         const friendIds = friends.map(f => f.id);
@@ -65,7 +70,20 @@ const FriendSelectionScreen: React.FC<Props> = ({ navigation, route }) => {
     };
 
     syncFriends();
-  }, []);
+  }, [friends, isOnline]);
+
+  const requireConnection = (callback: () => void) => {
+    if (!isOnline) {
+      showAlert({
+        title: i18n.t("offline_required_title"),
+        message: i18n.t("offline_required_msg"),
+        buttons: [{ text: i18n.t("ok") }]
+      });
+      return;
+    }
+
+    callback();
+  };
 
   const gemsConfig = [
     { x: width * 0.1, size: 14, delay: 0, duration: 8000, opacity: 0.5 },
@@ -111,7 +129,7 @@ const FriendSelectionScreen: React.FC<Props> = ({ navigation, route }) => {
             <TouchableOpacity 
               activeOpacity={0.85} 
               style={styles.selectionCard}
-              onPress={() => navigation.navigate("Matchmaking", { mode: "random", gameType, quizType } as any)}
+              onPress={() => requireConnection(() => navigation.navigate("Matchmaking", { mode: "random", gameType, quizType } as any))}
             >
               <LinearGradient
                 colors={[colors.card, colors.surfaceSoft]}
@@ -131,7 +149,7 @@ const FriendSelectionScreen: React.FC<Props> = ({ navigation, route }) => {
             <TouchableOpacity 
               activeOpacity={0.85} 
               style={styles.selectionCard}
-              onPress={() => navigation.navigate("FriendSearch", { gameType, quizType } as any)}
+              onPress={() => requireConnection(() => navigation.navigate("FriendSearch", { gameType, quizType } as any))}
             >
               <LinearGradient
                 colors={[colors.card, colors.surfaceSoft]}
@@ -172,7 +190,7 @@ const FriendSelectionScreen: React.FC<Props> = ({ navigation, route }) => {
                   </View>
                   <TouchableOpacity 
                     style={styles.inviteBtn}
-                    onPress={() => navigation.navigate("Matchmaking", { mode: "invite", friendName: friend.name, gameType, quizType } as any)}
+                    onPress={() => requireConnection(() => navigation.navigate("Matchmaking", { mode: "invite", friendName: friend.name, gameType, quizType } as any))}
                   >
                     <Text style={styles.inviteText}>{i18n.t("invite_btn_text")}</Text>
                   </TouchableOpacity>

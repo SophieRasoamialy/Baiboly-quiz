@@ -19,6 +19,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { RootStackParamList } from "../../navigation/types";
 import { useUser } from "../../context/user";
+import { useConnectivity } from "../../context/ConnectivityContext";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { createAuthStyles } from "./auth.styles";
 import { supabaseService } from "../../services/SupabaseService";
@@ -87,6 +88,7 @@ function AuthScreen({ navigation, route }: Props) {
     profileId,
   } = useUser();
   const { colors, isLight } = useAppTheme();
+  const { isOnline } = useConnectivity();
   const styles = createAuthStyles(colors);
 
   const [emailValue, setEmailValue] = useState(email || "");
@@ -190,6 +192,15 @@ function AuthScreen({ navigation, route }: Props) {
       : (isValidEmail(emailValue) && password.trim().length >= 6);
 
   const handleStart = async () => {
+    if (!isOnline) {
+      showAlert({
+        title: i18n.t("offline_required_title"),
+        message: i18n.t("offline_required_msg"),
+        buttons: [{ text: i18n.t("ok") }]
+      });
+      return;
+    }
+
     if (!isFormValid || isChecking) return;
 
     setIsChecking(true);
@@ -292,6 +303,15 @@ function AuthScreen({ navigation, route }: Props) {
   };
 
   const handleGoogleSignIn = async () => {
+    if (!isOnline) {
+      showAlert({
+        title: i18n.t("offline_required_title"),
+        message: i18n.t("offline_required_msg"),
+        buttons: [{ text: i18n.t("ok") }]
+      });
+      return;
+    }
+
     if (isChecking || isLoggedIn) return;
 
     setIsChecking(true);

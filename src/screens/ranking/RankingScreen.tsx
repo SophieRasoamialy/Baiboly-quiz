@@ -24,6 +24,7 @@ import BackButton from "../../components/ui/BackButton";
 import FloatingGem from "../../components/home/FloatingGem";
 import { supabaseService } from "../../services/SupabaseService";
 import i18n from "../../i18n";
+import { useConnectivity } from "../../context/ConnectivityContext";
 
 interface RankingPlayer {
   id: string;
@@ -39,6 +40,7 @@ const { width } = Dimensions.get("window");
 
 const RankingScreen = () => {
   const { colors, theme, points, username, avatar, isLoggedIn, profileId, syncProfile, churchName, city } = useUser();
+  const { isOnline } = useConnectivity();
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const isLight = theme === "light";
   const [players, setPlayers] = React.useState<RankingPlayer[]>([]);
@@ -106,6 +108,14 @@ const RankingScreen = () => {
 
   const fetchLeaderboard = React.useCallback(
     async (refresh = false) => {
+      if (!isOnline) {
+        setPlayers(buildLeaderboard([]));
+        setLoadError(i18n.t("offline_required_msg"));
+        setIsLoadingLeaderboard(false);
+        setIsRefreshing(false);
+        return;
+      }
+
       if (refresh) {
         setIsRefreshing(true);
       } else {
@@ -133,7 +143,7 @@ const RankingScreen = () => {
         }
       }
     },
-    [buildLeaderboard, isLoggedIn, syncProfile],
+    [buildLeaderboard, isLoggedIn, isOnline, syncProfile],
   );
 
   useFocusEffect(
@@ -163,6 +173,29 @@ const RankingScreen = () => {
           >
             <Text style={{ color: colors.white, fontWeight: 'bold', fontSize: 16 }}>{i18n.t("multi_guest_btn")}</Text>
           </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+
+  if (!isOnline) {
+    return (
+      <View style={[styles.container, { backgroundColor: colors.background }]}>
+        <StatusBar style={isLight ? "dark" : "light"} />
+
+        <SafeAreaView style={[styles.navBar, { paddingHorizontal: 20 }]} edges={["top"]}>
+          <BackButton colors={colors} onPress={() => navigation.goBack()} size={26} />
+          <Text style={[styles.headerTitle, { color: colors.text }]}>{i18n.t("ranking_title")}</Text>
+        </SafeAreaView>
+
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
+          <MaterialCommunityIcons name="wifi-off" size={80} color={colors.primary} style={{ marginBottom: 20 }} />
+          <Text style={{ fontSize: 22, fontWeight: "bold", color: colors.text, textAlign: "center", marginBottom: 10 }}>
+            {i18n.t("offline_required_title")}
+          </Text>
+          <Text style={{ fontSize: 16, color: colors.textSecondary, textAlign: "center", marginBottom: 30 }}>
+            {i18n.t("offline_required_msg")}
+          </Text>
         </View>
       </View>
     );

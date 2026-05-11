@@ -12,6 +12,7 @@ import * as SplashScreen from "expo-splash-screen";
 import AppNavigator from "./src/navigation";
 import { UserProvider, useUser } from "./src/context/user";
 import { AlertProvider } from "./src/context/AlertContext";
+import { ConnectivityProvider } from "./src/context/ConnectivityContext";
 import CustomAlert from "./src/components/ui/CustomAlert";
 import { lightColors, darkColors } from "./src/theme/colors";
 
@@ -77,9 +78,11 @@ export default function App() {
   return (
     <UserProvider>
       <AlertProvider>
-        <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-          <AppContent />
-        </View>
+        <ConnectivityProvider>
+          <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+            <AppContent />
+          </View>
+        </ConnectivityProvider>
       </AlertProvider>
     </UserProvider>
   );

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { View, Dimensions, ActivityIndicator, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useUser } from "../../context/user";
+import { useConnectivity } from "../../context/ConnectivityContext";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { logger } from "../../utils/logger";
 import { useAlert } from "../../context/AlertContext";
@@ -24,6 +25,7 @@ const { width } = Dimensions.get("window");
 const OnlineQuizScreen: React.FC<any> = ({ navigation, route }) => {
   const { opponent, mySessionId, opponentSessionId } = route.params;
   const { username, avatar: userAvatar, soundEnabled, isLoggedIn, addPoints, addFriend, points } = useUser();
+  const { isOnline } = useConnectivity();
   const { colors, isLight } = useAppTheme();
   const { showAlert } = useAlert();
   const styles = createOnlineQuizStyles(colors);
@@ -44,12 +46,24 @@ const OnlineQuizScreen: React.FC<any> = ({ navigation, route }) => {
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const channelRef = useRef<any>(null);
+  const offlineHandledRef = useRef(false);
   const isHost = mySessionId < opponentSessionId;
 
   const gemsConfig = [
     { x: width * 0.12, size: 14, delay: 0, duration: 7500, opacity: 0.4 },
     { x: width * 0.88, size: 18, delay: 2000, duration: 8500, opacity: 0.5 },
   ];
+
+  useEffect(() => {
+    if (!isOnline && !offlineHandledRef.current) {
+      offlineHandledRef.current = true;
+      showAlert({
+        title: i18n.t("offline_required_title"),
+        message: i18n.t("offline_required_msg"),
+        buttons: [{ text: i18n.t("ok"), onPress: () => navigation.goBack() }]
+      });
+    }
+  }, [isOnline, navigation, showAlert]);
 
   // 1. Setup Real-time Sync Channel
   useEffect(() => {

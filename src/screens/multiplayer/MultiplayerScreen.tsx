@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation/types";
 import { useUser } from "../../context/user";
+import { useConnectivity } from "../../context/ConnectivityContext";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { useAlert } from "../../context/AlertContext";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -31,6 +32,7 @@ interface Props {
 
 const MultiplayerScreen: React.FC<Props> = ({ navigation }) => {
   const { isLoggedIn, username, avatar, churchName, city, points } = useUser();
+  const { isOnline } = useConnectivity();
   const { colors, isLight } = useAppTheme();
   const { showAlert } = useAlert();
   const styles = createMultiplayerStyles(colors);
@@ -60,6 +62,14 @@ const MultiplayerScreen: React.FC<Props> = ({ navigation }) => {
           { text: i18n.t("later"), style: "cancel" },
           { text: i18n.t("login"), onPress: () => navigation.navigate("Auth") },
         ]
+      });
+      return;
+    }
+    if (!isOnline) {
+      showAlert({
+        title: i18n.t("offline_required_title"),
+        message: i18n.t("offline_required_msg"),
+        buttons: [{ text: i18n.t("ok") }]
       });
       return;
     }
@@ -132,7 +142,7 @@ const MultiplayerScreen: React.FC<Props> = ({ navigation }) => {
             iconColor={colors.primary}
             gradientColors={[colors.primarySoft, colors.primarySoft]}
             onPress={() => handleOnlineMode(() => navigation.navigate("FriendSelection", { gameType: "duo", quizType: "standard" }))}
-            isLocked={!isLoggedIn}
+            isLocked={!isLoggedIn || !isOnline}
             styles={styles}
             colors={colors}
           />

@@ -15,6 +15,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import { useUser } from "../../context/user";
+import { useConnectivity } from "../../context/ConnectivityContext";
 import { databaseService } from "../../services/DatabaseService";
 import {
   MatchInvitationPayload,
@@ -53,6 +54,7 @@ const SCAN_TIMEOUT_MS = 20_000; // give up after 20 s
 const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
   const { gameType = "duo", quizType = "standard" } = route.params || {};
   const { friends, addFriend, username, avatar, churchName, city, profileId } = useUser();
+  const { isOnline } = useConnectivity();
   const { colors, isLight } = useAppTheme();
   const { showAlert } = useAlert();
 
@@ -105,7 +107,9 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
         const localMapped = localMatched.map((f: any) => ({ ...f, isLocal: true, status: "online" }));
 
         // 2. Search only ACTIVE players from the matchmaking pool
-        const onlineMatched = await supabaseService.searchActivePlayersByName(text.trim());
+        const onlineMatched = isOnline
+          ? await supabaseService.searchActivePlayersByName(text.trim())
+          : [];
         
         // Filter and map online players
         const onlineFiltered = onlineMatched.map(p => ({
@@ -179,6 +183,14 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
       showAlert({
         title: i18n.t("account_required"),
         message: i18n.t("multiplayer_online_msg"),
+        buttons: [{ text: i18n.t("ok") }]
+      });
+      return;
+    }
+    if (!isOnline) {
+      showAlert({
+        title: i18n.t("offline_required_title"),
+        message: i18n.t("offline_required_msg"),
         buttons: [{ text: i18n.t("ok") }]
       });
       return;
@@ -258,6 +270,15 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
   };
 
   const inviteFriend = (friend: any) => {
+    if (!isOnline) {
+      showAlert({
+        title: i18n.t("offline_required_title"),
+        message: i18n.t("offline_required_msg"),
+        buttons: [{ text: i18n.t("ok") }]
+      });
+      return;
+    }
+
     navigation.navigate("Matchmaking", {
       mode: "invite",
       friendId: friend.id || friend.profile_id,
@@ -309,6 +330,12 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
   const handleAddFriend = (friend: any) => {
     addFriend(friend);
   };
+
+  useEffect(() => {
+    if (!isOnline) {
+      stopScan();
+    }
+  }, [isOnline]);
 
   const gemsConfig = [
     { x: width * 0.1, size: 12, delay: 0, duration: 8000, opacity: 0.4 },

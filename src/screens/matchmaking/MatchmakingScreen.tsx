@@ -17,6 +17,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import { useUser } from "../../context/user";
+import { useConnectivity } from "../../context/ConnectivityContext";
 import {
   supabaseService,
   MatchInvitationPayload,
@@ -61,6 +62,7 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
   const [isJoining, setIsJoining] = useState(false);
   
   const { colors, isLight } = useAppTheme();
+  const { isOnline } = useConnectivity();
   const { username, avatar, churchName, city, profileId, points } = useUser();
   const { showAlert } = useAlert();
   const styles = createMatchmakingStyles(colors);
@@ -113,7 +115,22 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isOnline) {
+      cleanup();
+    }
+  }, [isOnline]);
+
   const startLobby = async () => {
+    if (!isOnline) {
+      showAlert({
+        title: i18n.t("offline_required_title"),
+        message: i18n.t("offline_required_msg"),
+        buttons: [{ text: i18n.t("ok"), onPress: () => navigation.goBack() }]
+      });
+      return;
+    }
+
     if (!profileId) {
       showAlert({
         title: i18n.t("account_required"),
