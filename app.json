@@ -2,6 +2,7 @@
   "expo": {
     "name": "Baiboly Quiz",
     "slug": "baiboly-quiz-app",
+    "scheme": "baibolyquiz",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/logo/logo.png",
