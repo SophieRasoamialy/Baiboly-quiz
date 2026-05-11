@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780" role="img" aria-labelledby="title desc">
+  <title id="title">Capture d'écran de l'écran d'accueil Baiboly Quiz</title>
+  <desc id="desc">Aperçu mobile de l'application Baiboly Quiz avec les statistiques joueur, le message d'accueil et les cartes de menus quiz.</desc>
+  <defs>
+    <linearGradient id="pageBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ECFDF5"/>
+      <stop offset="0.52" stop-color="#F8FAFC"/>
+      <stop offset="1" stop-color="#FEF3C7"/>
+    </linearGradient>
+    <linearGradient id="phoneBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F8FAFC"/>
+      <stop offset="1" stop-color="#F1F5F9"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#064E3B" flood-opacity="0.22"/>
+    </filter>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#064E3B" flood-opacity="0.08"/>
+    </filter>
+    <clipPath id="screenClip">
+      <rect x="392" y="56" width="416" height="668" rx="44"/>
+    </clipPath>
+  </defs>
+
+  <rect width="1200" height="780" fill="url(#pageBg)"/>
+  <circle cx="245" cy="145" r="92" fill="#D1FAE5" opacity="0.8"/>
+  <circle cx="954" cy="621" r="122" fill="#FEF3C7" opacity="0.9"/>
+  <circle cx="1020" cy="155" r="74" fill="#FFF1F2" opacity="0.8"/>
+
+  <g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+    <text x="104" y="176" fill="#065F46" font-size="52" font-weight="900">Baiboly Quiz</text>
+    <text x="104" y="224" fill="#374151" font-size="24" font-weight="600">Apprenez la Bible en jouant.</text>
+    <text x="104" y="266" fill="#6B7280" font-size="18">Quiz solo, défis duo, images, Bible intégrée,</text>
+    <text x="104" y="294" fill="#6B7280" font-size="18">verset du jour, classement et progression.</text>
+
+    <g transform="translate(104 348)">
+      <rect width="214" height="54" rx="27" fill="#10B981"/>
+      <text x="32" y="35" fill="#FFFFFF" font-size="18" font-weight="800">▶ Commencer</text>
+    </g>
+
+    <g transform="translate(104 452)">
+      <rect width="278" height="86" rx="24" fill="#FFFFFF" opacity="0.88" filter="url(#cardShadow)"/>
+      <circle cx="48" cy="43" r="24" fill="#D1FAE5"/>
+      <text x="36" y="52" font-size="24">💎</text>
+      <text x="90" y="36" fill="#064E3B" font-size="16" font-weight="800">Progression ludique</text>
+      <text x="90" y="61" fill="#6B7280" font-size="14">Gemmes, vies, points et médailles</text>
+    </g>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="374" y="34" width="452" height="712" rx="58" fill="#0F172A"/>
+    <rect x="392" y="56" width="416" height="668" rx="44" fill="url(#phoneBg)"/>
+  </g>
+
+  <g clip-path="url(#screenClip)" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+    <rect x="392" y="56" width="416" height="668" fill="url(#phoneBg)"/>
+    <circle cx="430" cy="70" r="96" fill="#D1FAE5" opacity="0.7"/>
+    <circle cx="782" cy="88" r="76" fill="#FEF3C7" opacity="0.75"/>
+
+    <g transform="translate(416 84)">
+      <circle cx="24" cy="26" r="24" fill="#FFFFFF" stroke="#10B981" stroke-width="3"/>
+      <text x="10" y="35" font-size="25">🙂</text>
+      <g transform="translate(128 7)">
+        <rect width="62" height="38" rx="19" fill="#F0FDFA" stroke="#10B981" stroke-opacity="0.18"/>
+        <text x="12" y="25" font-size="16">💎</text>
+        <text x="34" y="25" fill="#064E3B" font-size="14" font-weight="800">40</text>
+      </g>
+      <g transform="translate(200 7)">
+        <rect width="62" height="38" rx="19" fill="#F0FDFA" stroke="#10B981" stroke-opacity="0.18"/>
+        <text x="12" y="25" font-size="16">🏆</text>
+        <text x="34" y="25" fill="#064E3B" font-size="14" font-weight="800">0</text>
+      </g>
+      <g transform="translate(272 7)">
+        <rect width="68" height="38" rx="19" fill="#F0FDFA" stroke="#10B981" stroke-opacity="0.18"/>
+        <text x="12" y="25" font-size="16">❤️</text>
+        <text x="38" y="25" fill="#064E3B" font-size="14" font-weight="800">5</text>
+      </g>
+    </g>
+
+    <line x1="392" y1="148" x2="808" y2="148" stroke="#10B981" stroke-opacity="0.11"/>
+
+    <g transform="translate(416 184)">
+      <text x="0" y="0" fill="#6B7280" font-size="14" font-weight="600">Bonjour 👋</text>
+      <text x="0" y="38" fill="#064E3B" font-size="31" font-weight="900">Prêt à jouer ?</text>
+      <text x="0" y="68" fill="#374151" font-size="15">Apprenez, jouez et défiez vos amis</text>
+    </g>
+
+    <g transform="translate(416 294)">
+      <g filter="url(#cardShadow)">
+        <rect width="176" height="142" rx="24" fill="#FFFFFF" stroke="#10B981" stroke-opacity="0.08"/>
+      </g>
+      <rect x="16" y="16" width="44" height="44" rx="12" fill="#D1FAE5"/>
+      <text x="27" y="45" font-size="23">📖</text>
+      <text x="72" y="43" fill="#064E3B" font-size="15" font-weight="800">SOLO</text>
+      <text x="16" y="104" fill="#374151" font-size="13">Jouer seul</text>
+      <text x="122" y="132" font-size="52" opacity="0.08">📖</text>
+    </g>
+
+    <g transform="translate(608 294)">
+      <g filter="url(#cardShadow)">
+        <rect width="176" height="142" rx="24" fill="#FFFFFF" stroke="#10B981" stroke-opacity="0.08"/>
+      </g>
+      <rect x="16" y="16" width="44" height="44" rx="12" fill="#FEF3C7"/>
+      <text x="26" y="45" font-size="23">👥</text>
+      <text x="72" y="43" fill="#064E3B" font-size="15" font-weight="800">DUO</text>
+      <text x="16" y="104" fill="#374151" font-size="13">Défier un ami</text>
+      <text x="120" y="132" font-size="52" opacity="0.08">👥</text>
+    </g>
+
+    <g transform="translate(416 454)">
+      <g filter="url(#cardShadow)">
+        <rect width="176" height="142" rx="24" fill="#FFFFFF" stroke="#10B981" stroke-opacity="0.08"/>
+      </g>
+      <rect x="16" y="16" width="44" height="44" rx="12" fill="#0EA5E9" opacity="0.14"/>
+      <text x="26" y="45" font-size="23">🖼️</text>
+      <text x="72" y="43" fill="#064E3B" font-size="15" font-weight="800">IMAGES</text>
+      <text x="16" y="104" fill="#374151" font-size="13">Devinez l'image</text>
+      <text x="121" y="132" font-size="52" opacity="0.08">🖼️</text>
+    </g>
+
+    <g transform="translate(608 454)">
+      <g filter="url(#cardShadow)">
+        <rect width="176" height="142" rx="24" fill="#FFFFFF" stroke="#10B981" stroke-opacity="0.08"/>
+      </g>
+      <rect x="16" y="16" width="44" height="44" rx="12" fill="#D1FAE5"/>
+      <text x="27" y="45" font-size="23">📚</text>
+      <text x="72" y="43" fill="#064E3B" font-size="15" font-weight="800">BIBLE</text>
+      <text x="16" y="104" fill="#374151" font-size="13">Lisez la Parole de Dieu</text>
+      <text x="122" y="132" font-size="52" opacity="0.08">📚</text>
+    </g>
+
+    <g transform="translate(416 624)">
+      <rect width="368" height="74" rx="24" fill="#10B981"/>
+      <text x="28" y="45" fill="#FFFFFF" font-size="18" font-weight="900">Verset du jour</text>
+      <text x="265" y="50" font-size="34" opacity="0.9">✨</text>
+    </g>
+  </g>
+</svg>
