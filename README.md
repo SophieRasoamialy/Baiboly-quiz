@@ -138,7 +138,7 @@ Télécharger la dernière version APK ici :
 
 <p align="center">
   <a href="https://drive.google.com/file/d/1yEgq2iWtkEgHWRgD8HdDUQuiOWCTL3x7/view?usp=sharing">
-    <img src="https://drive.google.com/file/d/1yEgq2iWtkEgHWRgD8HdDUQuiOWCTL3x7/view?usp=sharing" />
+    <img src="https://img.shields.io/badge/Download-APK-10B981?style=for-the-badge&logo=android&logoColor=white" />
   </a>
 </p>
 
