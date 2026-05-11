@@ -71,7 +71,7 @@ const OnlineQuizScreen: React.FC<any> = ({ navigation, route }) => {
   useEffect(() => {
     if (isHost && questions.length === 0) {
       const shuffled = [...QUESTIONS_DATA].sort(() => 0.5 - Math.random());
-      const selected = shuffled.slice(0, 5).map(q => {
+      const selected = shuffled.slice(0, 15).map(q => {
         const shuffledOptions = [...q.options].sort(() => 0.5 - Math.random());
         return {
           ...q,

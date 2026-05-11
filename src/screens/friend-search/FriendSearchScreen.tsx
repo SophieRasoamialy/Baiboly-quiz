@@ -6,6 +6,7 @@ import {
   TextInput,
   FlatList,
   Dimensions,
+  Modal,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -15,7 +16,10 @@ import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import { useUser } from "../../context/user";
 import { databaseService } from "../../services/DatabaseService";
-import { supabaseService } from "../../services/SupabaseService";
+import {
+  MatchInvitationPayload,
+  supabaseService,
+} from "../../services/SupabaseService";
 import { FriendItem } from "../../components/friend-search/FriendItem";
 
 import { createFriendSearchStyles } from "./friend-search.styles";
@@ -36,6 +40,8 @@ interface Props {
 
 import { RadarSearch } from "../../components/matchmaking/RadarSearch";
 import { useAppTheme } from "../../hooks/useAppTheme";
+import UserAvatar from "../../components/ui/UserAvatar";
+import { useAlert } from "../../context/AlertContext";
 
 /** Generate a short random session id */
 const makeSessionId = () =>
@@ -48,17 +54,23 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
   const { gameType = "duo", quizType = "standard" } = route.params || {};
   const { friends, addFriend, username, avatar, churchName, city, profileId } = useUser();
   const { colors, isLight } = useAppTheme();
+  const { showAlert } = useAlert();
 
   const [search, setSearch] = useState("");
   const [results, setResults] = useState<any[]>([]);
+  const [incomingInvite, setIncomingInvite] = useState<MatchInvitationPayload | null>(null);
+  const [isJoining, setIsJoining] = useState(false);
   const [searchStatus, setSearchStatus] = useState<
     "idle" | "scanning" | "found" | "empty" | "timeout"
   >("idle");
 
   const sessionIdRef = useRef<string>("");
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const incomingInvitePollRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const incomingInviteSubRef = useRef<any>(null);
+  const lastIncomingInviteIdRef = useRef<string | null>(null);
 
   const styles = createFriendSearchStyles(colors);
 
@@ -141,6 +153,14 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
+    if (incomingInvitePollRef.current) {
+      clearInterval(incomingInvitePollRef.current);
+      incomingInvitePollRef.current = null;
+    }
+    if (incomingInviteSubRef.current) {
+      incomingInviteSubRef.current.unsubscribe();
+      incomingInviteSubRef.current = null;
+    }
     if (sessionIdRef.current) {
       await supabaseService.leaveMatchmakingPool(sessionIdRef.current);
       sessionIdRef.current = "";
@@ -155,7 +175,14 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
 
   /** Start a real matchmaking scan */
   const startScan = async () => {
-    supabaseService.cleanupMatchInvitations();
+    if (!profileId) {
+      showAlert({
+        title: i18n.t("account_required"),
+        message: i18n.t("multiplayer_online_msg"),
+        buttons: [{ text: i18n.t("ok") }]
+      });
+      return;
+    }
 
     // Reset UI
     setSearch("");
@@ -177,15 +204,35 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
       quiz_type: quizType,
     });
 
+    incomingInviteSubRef.current = supabaseService.subscribeToIncomingInvitations(
+      profileId,
+      (invitation) => {
+        if (lastIncomingInviteIdRef.current === invitation.id) return;
+        lastIncomingInviteIdRef.current = invitation.id;
+        setIncomingInvite(invitation);
+      },
+    );
+
+    incomingInvitePollRef.current = setInterval(async () => {
+      const invitation = await supabaseService.getLatestPendingInvitation(profileId);
+      if (!invitation) return;
+      if (lastIncomingInviteIdRef.current === invitation.id) return;
+      lastIncomingInviteIdRef.current = invitation.id;
+      setIncomingInvite(invitation);
+    }, 1500);
+
     // Poll for all available users
     pollRef.current = setInterval(async () => {
       try {
         const players = await supabaseService.findAllActivePlayers(sid, gameType, quizType);
         if (players.length > 0) {
           // Map all found users to our list
-          const mapped = players.map(p => ({
-            id: p.profile_id || p.session_id,
+          const mapped = players
+            .filter((p) => !!p.profile_id && p.profile_id !== profileId)
+            .map(p => ({
+            id: p.profile_id!,
             session_id: p.session_id,
+            profile_id: p.profile_id,
             name: p.name,
             avatar: p.avatar,
             church: p.church,
@@ -215,7 +262,48 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
       mode: "invite",
       friendId: friend.id || friend.profile_id,
       friendName: friend.name,
+      gameType,
+      quizType,
     } as any);
+  };
+
+  const handleAcceptInvite = async () => {
+    if (!incomingInvite) return;
+
+    const invitation = incomingInvite;
+    const mySessionId = sessionIdRef.current || makeSessionId();
+
+    setIsJoining(true);
+    setIncomingInvite(null);
+    lastIncomingInviteIdRef.current = invitation.id;
+
+    try {
+      await supabaseService.acceptInvitation(invitation.id, mySessionId);
+      await stopScan();
+
+      const destination = invitation.quiz_type === "image" ? "OnlineImageQuiz" : "OnlineQuiz";
+      navigation.replace(destination as any, {
+        opponent: invitation.sender,
+        mySessionId,
+        opponentSessionId: invitation.sender.session_id,
+      });
+    } catch (err) {
+      setIsJoining(false);
+      showAlert({
+        title: i18n.t("match_error"),
+        message: i18n.t("join_failed"),
+        buttons: [{ text: i18n.t("ok") }]
+      });
+    }
+  };
+
+  const handleDeclineInvite = async () => {
+    if (!incomingInvite) return;
+
+    const invitationId = incomingInvite.id;
+    setIncomingInvite(null);
+    lastIncomingInviteIdRef.current = invitationId;
+    await supabaseService.declineInvitation(invitationId);
   };
 
   const handleAddFriend = (friend: any) => {
@@ -400,6 +488,43 @@ const FriendSearchScreen: React.FC<Props> = ({ navigation, route }) => {
             />
           )}
         </View>
+
+        <Modal visible={!!incomingInvite} transparent animationType="fade">
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalContent}>
+              <View style={styles.modalAvatarWrap}>
+                <UserAvatar
+                  avatar={incomingInvite?.sender?.avatar}
+                  size={88}
+                  points={incomingInvite?.sender?.points || 0}
+                />
+              </View>
+              <Text style={styles.modalTitle}>{incomingInvite?.sender?.name}</Text>
+              <Text style={styles.modalSub}>
+                {incomingInvite?.quiz_type === "image"
+                  ? (i18n.t("duel_invitation_image") || "Duel Image Quiz!")
+                  : (i18n.t("duel_invitation") || "Duel Quiz!")}
+              </Text>
+
+              <View style={styles.modalButtons}>
+                <TouchableOpacity
+                  style={[styles.modalBtn, styles.declineBtn]}
+                  onPress={handleDeclineInvite}
+                  disabled={isJoining}
+                >
+                  <Text style={[styles.btnText, { color: colors.text }]}>{i18n.t("decline")}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.modalBtn, styles.acceptBtn]}
+                  onPress={handleAcceptInvite}
+                  disabled={isJoining}
+                >
+                  <Text style={[styles.btnText, { color: colors.background }]}>{i18n.t("accept")}</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
       </SafeAreaView>
     </View>
   );

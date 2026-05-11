@@ -305,4 +305,73 @@ export const createFriendSearchStyles = (colors: any) =>
       fontSize: 15,
       fontWeight: '800',
     },
+
+    modalOverlay: {
+      flex: 1,
+      backgroundColor: "rgba(0,0,0,0.55)",
+      justifyContent: "center",
+      alignItems: "center",
+      padding: 24,
+    },
+
+    modalContent: {
+      width: "100%",
+      maxWidth: 340,
+      borderRadius: 26,
+      padding: 24,
+      backgroundColor: colors.card,
+      borderWidth: 1,
+      borderColor: colors.border,
+      alignItems: "center",
+    },
+
+    modalAvatarWrap: {
+      marginBottom: 14,
+    },
+
+    modalTitle: {
+      color: colors.text,
+      fontSize: 24,
+      fontWeight: "900",
+      textAlign: "center",
+    },
+
+    modalSub: {
+      color: colors.textSecondary,
+      fontSize: 14,
+      textAlign: "center",
+      lineHeight: 20,
+      marginTop: 8,
+      marginBottom: 20,
+    },
+
+    modalButtons: {
+      width: "100%",
+      flexDirection: "row",
+      gap: 12,
+    },
+
+    modalBtn: {
+      flex: 1,
+      minHeight: 52,
+      borderRadius: 16,
+      alignItems: "center",
+      justifyContent: "center",
+      borderWidth: 1,
+    },
+
+    declineBtn: {
+      backgroundColor: colors.surfaceSoft,
+      borderColor: colors.border,
+    },
+
+    acceptBtn: {
+      backgroundColor: colors.primary,
+      borderColor: colors.primary,
+    },
+
+    btnText: {
+      fontSize: 14,
+      fontWeight: "900",
+    },
   });

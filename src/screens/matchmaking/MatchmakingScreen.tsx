@@ -67,11 +67,13 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
 
   const sessionIdRef = useRef<string>("");
   const lobbyPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const incomingInvitePollRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const incomingInviteSubRef = useRef<any>(null);
   const sentInviteSubRef = useRef<any>(null);
   const invitedPlayerRef = useRef<MatchmakingPlayer | null>(null);
   const processedRef = useRef<boolean>(false);
+  const lastIncomingInviteIdRef = useRef<string | null>(null);
 
   const stopLobbyPolling = () => {
     if (lobbyPollRef.current) {
@@ -81,6 +83,10 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
+    }
+    if (incomingInvitePollRef.current) {
+      clearInterval(incomingInvitePollRef.current);
+      incomingInvitePollRef.current = null;
     }
   };
 
@@ -108,7 +114,14 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
   }, []);
 
   const startLobby = async () => {
-    supabaseService.cleanupMatchInvitations();
+    if (!profileId) {
+      showAlert({
+        title: i18n.t("account_required"),
+        message: i18n.t("multiplayer_online_msg"),
+        buttons: [{ text: i18n.t("ok"), onPress: () => navigation.goBack() }]
+      });
+      return;
+    }
 
     const sid = makeSessionId();
     sessionIdRef.current = sid;
@@ -128,6 +141,8 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
       incomingInviteSubRef.current = supabaseService.subscribeToIncomingInvitations(
         profileId,
         (invitation) => {
+          if (lastIncomingInviteIdRef.current === invitation.id) return;
+          lastIncomingInviteIdRef.current = invitation.id;
           logger.info(
             "MatchmakingScreen",
             `Received invitation from ${invitation.sender.name} for ${invitation.quiz_type} quiz`,
@@ -135,6 +150,14 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
           setIncomingInvite(invitation);
         },
       );
+
+      incomingInvitePollRef.current = setInterval(async () => {
+        const invitation = await supabaseService.getLatestPendingInvitation(profileId);
+        if (!invitation) return;
+        if (lastIncomingInviteIdRef.current === invitation.id) return;
+        lastIncomingInviteIdRef.current = invitation.id;
+        setIncomingInvite(invitation);
+      }, 1500);
 
       sentInviteSubRef.current = supabaseService.subscribeToSentInvitations(
         profileId,
@@ -173,7 +196,7 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
         const deduplicated = new Map();
         players.forEach(p => {
           // Skip if it's our own profile
-          if (p.profile_id === profileId) return;
+          if (!p.profile_id || p.profile_id === profileId) return;
           
           // If multiple sessions exist for the same profile, keep the most recent one
           if (!deduplicated.has(p.profile_id)) {
@@ -237,6 +260,7 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
     setIsJoining(true);
     const invitation = incomingInvite;
     setIncomingInvite(null);
+    lastIncomingInviteIdRef.current = invitation.id;
 
     try {
       await supabaseService.acceptInvitation(invitation.id, sessionIdRef.current);
@@ -256,6 +280,7 @@ const MatchmakingScreen: React.FC<Props> = ({ navigation, route }) => {
     if (!incomingInvite) return;
     const invitationId = incomingInvite.id;
     setIncomingInvite(null);
+    lastIncomingInviteIdRef.current = invitationId;
     await supabaseService.declineInvitation(invitationId);
   };
 

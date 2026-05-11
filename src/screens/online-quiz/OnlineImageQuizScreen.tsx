@@ -76,7 +76,7 @@ const OnlineImageQuizScreen: React.FC<any> = ({ navigation, route }) => {
         ...q,
         shuffledOptions: shuffle(q.options)
       }));
-      const selected = shuffled.slice(0, 5);
+      const selected = shuffled.slice(0, 15);
       
       setQuestions(selected);
       setIsSyncing(false);

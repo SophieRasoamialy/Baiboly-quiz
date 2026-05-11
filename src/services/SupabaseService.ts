@@ -127,6 +127,7 @@ class SupabaseService {
       .from("matchmaking_pool")
       .select("*")
       .neq("session_id", mySessionId)
+      .not("profile_id", "is", null)
       .eq("game_type", gameType)
       .eq("quiz_type", quizType)
       .order("joined_at", { ascending: false });
@@ -236,6 +237,26 @@ class SupabaseService {
       .subscribe();
 
     return channel;
+  }
+
+  /**
+   * Fallback fetch for the latest pending invitation addressed to a profile.
+   */
+  async getLatestPendingInvitation(profileId: string): Promise<MatchInvitationPayload | null> {
+    const { data, error } = await supabase
+      .from("match_invitations")
+      .select("*")
+      .eq("recipient_profile_id", profileId)
+      .eq("status", "pending")
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (error || !data) {
+      return null;
+    }
+
+    return this.mapInvitationRecord(data);
   }
 
   /**
@@ -537,7 +558,9 @@ class SupabaseService {
     const { data, error } = await supabase
       .from("matchmaking_pool")
       .select("*")
+      .not("profile_id", "is", null)
       .ilike("name", `%${query}%`)
+      .order("joined_at", { ascending: false })
       .limit(20);
 
     if (error) {
