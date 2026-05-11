@@ -4,8 +4,18 @@ Baiboly Quiz est une application mobile **Expo / React Native** dédiée à l'ap
 
 ## Capture d'écran
 
+## 📸 Captures d'écran
+
 <p align="center">
-  <img src="docs/screen-capture.svg" alt="Capture d'écran de l'écran d'accueil Baiboly Quiz" width="760" />
+  <img src="docs/home.jpeg" alt="Accueil Baiboly Quiz" width="220" />
+  <img src="docs/quiz.jpeg" alt="Écran Quiz" width="220" />
+  <img src="docs/ranking.jpeg" alt="Classement" width="220" />
+</p>
+
+<p align="center">
+  <img src="docs/profile.jpeg" alt="Profil utilisateur" width="220" />
+  <img src="docs/home-dark.jpeg" alt="Mode sombre" width="220" />
+  <img src="docs/quiz-dark.jpeg" alt="Mode sombre" width="220" />
 </p>
 
 ## Fonctionnalités principales
