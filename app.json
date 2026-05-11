@@ -3,7 +3,7 @@
     "name": "Baiboly Quiz",
     "slug": "baiboly-quiz-app",
     "scheme": "baibolyquiz",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/logo/logo.png",
     "userInterfaceStyle": "light",
