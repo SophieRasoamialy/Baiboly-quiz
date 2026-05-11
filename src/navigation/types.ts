@@ -10,7 +10,7 @@ export type RootStackParamList = {
     | { initialBook?: string; initialChapter?: number; initialVerse?: number }
     | undefined;
   VerseOfDay: undefined;
-  Auth: undefined;
+  Auth: { mode?: "signup" | "login" } | undefined;
   DuoQuiz: { p1: any; p2: any };
   DuoImageQuiz: { p1: any; p2: any };
   DuoSetup: { quizType?: "standard" | "image" } | undefined;

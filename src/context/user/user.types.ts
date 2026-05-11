@@ -49,6 +49,7 @@ export interface UserActions {
     profile: { name: string; avatar: string; church: string; city: string },
   ) => Promise<{ needsEmailConfirmation: boolean }>;
   signIn: (email: string, password: string) => Promise<void>;
+  signInWithGoogle: (callbackUrl: string) => Promise<{ profileComplete: boolean }>;
   updateProfile: (profile: { name: string; church: string; city: string }) => Promise<void>;
   logout: () => Promise<void>;
 

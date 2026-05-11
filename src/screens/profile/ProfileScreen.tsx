@@ -121,7 +121,8 @@ const ProfileScreen = () => {
               <GuestCard
                 styles={styles}
                 colors={colors}
-                onPressAuth={() => navigation.navigate("Auth")}
+                onPressAuth={() => navigation.navigate("Auth", { mode: "signup" })}
+                onPressLogin={() => navigation.navigate("Auth", { mode: "login" })}
               />
             </View>
           )}

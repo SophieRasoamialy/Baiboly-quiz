@@ -240,6 +240,78 @@ export const createAuthStyles = (colors: any) =>
       letterSpacing: 0.3,
     },
 
+    socialDividerRow: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 12,
+      marginTop: 18,
+      marginBottom: 14,
+    },
+
+    socialDividerLine: {
+      flex: 1,
+      height: 1,
+      backgroundColor: colors.border,
+    },
+
+    socialDividerText: {
+      fontSize: 11,
+      fontWeight: "800",
+      letterSpacing: 1,
+      textTransform: "uppercase",
+      color: colors.textMuted,
+    },
+
+    socialButton: {
+      minHeight: 56,
+      borderRadius: 16,
+      borderWidth: 1,
+      borderColor: colors.border,
+      backgroundColor: colors.surfaceSoft,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 10,
+      paddingHorizontal: 16,
+    },
+
+    socialButtonText: {
+      fontSize: 15,
+      fontWeight: "800",
+      color: colors.text,
+    },
+
+    loadingOverlay: {
+      ...StyleSheet.absoluteFillObject,
+      backgroundColor: colors.mode === "light" ? "rgba(255,255,255,0.55)" : "rgba(6,10,18,0.6)",
+      justifyContent: "center",
+      alignItems: "center",
+      paddingHorizontal: 24,
+    },
+
+    loadingCard: {
+      minWidth: 160,
+      borderRadius: 20,
+      paddingHorizontal: 24,
+      paddingVertical: 20,
+      alignItems: "center",
+      gap: 12,
+      backgroundColor: colors.card,
+      borderWidth: 1,
+      borderColor: colors.border,
+      shadowColor: colors.shadow,
+      shadowOffset: { width: 0, height: 8 },
+      shadowOpacity: colors.mode === "light" ? 0.08 : 0.2,
+      shadowRadius: 18,
+      elevation: 4,
+    },
+
+    loadingText: {
+      fontSize: 14,
+      fontWeight: "700",
+      color: colors.text,
+    },
+
     helperText: {
       marginTop: 12,
       fontSize: 12,

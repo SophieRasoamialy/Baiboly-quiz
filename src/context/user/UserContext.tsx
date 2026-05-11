@@ -29,6 +29,19 @@ import {
   UserContextType,
 } from "./user.types";
 
+const normalizeMedals = (rawMedals: string | null | undefined) =>
+  (rawMedals || "")
+    .split(",")
+    .map((medal) => medal.trim())
+    .filter((medal) => medal.length > 0 && MEDALS.some(({ id }) => id === medal));
+
+const isProfileComplete = (profile: {
+  name?: string | null;
+  church?: string | null;
+  city?: string | null;
+} | null) =>
+  !!profile?.name?.trim() && !!profile?.church?.trim() && !!profile?.city?.trim();
+
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -140,10 +153,12 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
         const savedState = await databaseService.getUserState();
 
         if (savedState) {
+          const normalizedMedals = normalizeMedals(savedState.medals);
+
           setEmail(savedState.email ?? null);
           setGems(savedState.gems ?? DEFAULT_GEMS);
           setHearts(savedState.hearts ?? DEFAULT_HEARTS);
-          setMedals(savedState.medals ? savedState.medals.split(",") : DEFAULT_MEDALS);
+          setMedals(normalizedMedals.length > 0 ? normalizedMedals : DEFAULT_MEDALS);
           setAvatarLocal(savedState.avatar ?? DEFAULT_AVATAR);
           setLanguageLocal((savedState.language as LanguageCode) ?? DEFAULT_LANGUAGE);
           setThemeState((savedState.theme as ThemeMode) ?? DEFAULT_THEME);
@@ -155,6 +170,10 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
           setPoints(savedState.points || 0);
           setSoundEnabledLocal(savedState.soundEnabled !== undefined ? !!savedState.soundEnabled : DEFAULT_SOUND_ENABLED);
           setProfileId(savedState.profileId ?? null);
+
+          if ((savedState.medals || "") !== normalizedMedals.join(",")) {
+            await updateDB({ medals: normalizedMedals.join(",") });
+          }
 
           if (savedState.language) {
             i18n.locale = savedState.language;
@@ -452,6 +471,29 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     await applyAuthenticatedProfile(user.id, user.email ?? nextEmail.trim(), profile);
   };
 
+  const signInWithGoogle = async (callbackUrl: string) => {
+    const user = await supabaseService.completeOAuthSignInFromUrl(callbackUrl);
+
+    if (!user) {
+      throw new Error("Google sign in succeeded without a user.");
+    }
+
+    let profile = await supabaseService.getProfile(user.id);
+    let profileComplete = isProfileComplete(profile);
+
+    if (!profile) {
+      await supabaseService.upsertProfile(user.id, getProfileDefaultsFromUser(user));
+      profile = await supabaseService.getProfile(user.id);
+      profileComplete = false;
+    }
+
+    await applyAuthenticatedProfile(user.id, user.email ?? null, profile);
+
+    return {
+      profileComplete,
+    };
+  };
+
   const updateProfile = async (profile: { name: string; church: string; city: string }) => {
     if (!profileId) {
       throw new Error("No authenticated profile to update.");
@@ -546,6 +588,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       toggleTheme,
       signUp,
       signIn,
+      signInWithGoogle,
       updateProfile,
       logout,
       addFriend,

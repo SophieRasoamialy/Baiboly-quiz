@@ -8,9 +8,10 @@ interface Props {
   styles: any;
   colors: any;
   onPressAuth: () => void;
+  onPressLogin: () => void;
 }
 
-const GuestCard: React.FC<Props> = ({ styles, colors, onPressAuth }) => {
+const GuestCard: React.FC<Props> = ({ styles, colors, onPressAuth, onPressLogin }) => {
   return (
     <View style={styles.guestCard}>
       <View style={styles.giftBanner}>
@@ -72,6 +73,11 @@ const GuestCard: React.FC<Props> = ({ styles, colors, onPressAuth }) => {
             {i18n.t("create_account_btn")}
           </Text>
         </LinearGradient>
+      </TouchableOpacity>
+
+      <TouchableOpacity activeOpacity={0.88} onPress={onPressLogin} style={styles.secondaryCta}>
+        <MaterialCommunityIcons name="account-arrow-right-outline" size={20} color={colors.text} />
+        <Text style={styles.secondaryCtaText}>{i18n.t("login_btn_text")}</Text>
       </TouchableOpacity>
     </View>
   );

@@ -245,6 +245,26 @@ export const createProfileStyles = (colors: any) =>
       gap: 10,
     },
 
+    secondaryCta: {
+      marginTop: 12,
+      minHeight: 54,
+      borderRadius: 18,
+      borderWidth: 1,
+      borderColor: colors.border,
+      backgroundColor: colors.surfaceSoft,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 10,
+    },
+
+    secondaryCtaText: {
+      color: colors.text,
+      fontSize: 15,
+      fontWeight: "800",
+      letterSpacing: 0.3,
+    },
+
     sectionWrap: {
       paddingHorizontal: 20,
       marginTop: 28,

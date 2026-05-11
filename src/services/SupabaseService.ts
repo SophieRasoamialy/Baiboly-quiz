@@ -67,6 +67,11 @@ export interface AuthProfileInput {
   points: number;
 }
 
+const parseUrlParams = (value: string) => {
+  const trimmed = value.replace(/^[?#]/, "");
+  return new URLSearchParams(trimmed);
+};
+
 class SupabaseService {
   /**
    * Insert the current user into the remote matchmaking_pool table.
@@ -357,6 +362,71 @@ class SupabaseService {
     }
 
     return data;
+  }
+
+  /**
+   * Start a Google OAuth flow and return the provider URL to open.
+   */
+  async signInWithGoogle(redirectTo: string) {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo,
+        skipBrowserRedirect: true,
+        queryParams: {
+          access_type: "offline",
+          prompt: "consent",
+        },
+      },
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    if (!data.url) {
+      throw new Error("Supabase Google sign in did not return a redirect URL.");
+    }
+
+    return data.url;
+  }
+
+  /**
+   * Complete a Supabase OAuth flow from a deep-link callback URL.
+   */
+  async completeOAuthSignInFromUrl(callbackUrl: string) {
+    const parsedUrl = new URL(callbackUrl);
+    const hashParams = parseUrlParams(parsedUrl.hash);
+    const queryParams = parseUrlParams(parsedUrl.search);
+
+    const accessToken = hashParams.get("access_token") || queryParams.get("access_token");
+    const refreshToken = hashParams.get("refresh_token") || queryParams.get("refresh_token");
+    const authCode = queryParams.get("code");
+
+    if (authCode) {
+      const { data, error } = await supabase.auth.exchangeCodeForSession(authCode);
+
+      if (error) {
+        throw error;
+      }
+
+      return data.user ?? null;
+    }
+
+    if (!accessToken || !refreshToken) {
+      throw new Error("OAuth callback did not include a valid Supabase session.");
+    }
+
+    const { data, error } = await supabase.auth.setSession({
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    return data.user ?? null;
   }
 
   /**

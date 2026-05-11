@@ -123,7 +123,7 @@ class DatabaseService {
     );
     if (result && result.count === 0) {
       await this.db.runAsync(
-        'INSERT INTO user_state (id, gems, hearts, medals, avatar, language, theme, points, soundEnabled, lastHeartRefill) VALUES (1, 100, 5, "bronze", "default", "mg", "light", 0, 1, ?)',
+        'INSERT INTO user_state (id, gems, hearts, medals, avatar, language, theme, points, soundEnabled, lastHeartRefill) VALUES (1, 100, 5, "", "default", "mg", "light", 0, 1, ?)',
         [Date.now()],
       );
     }
