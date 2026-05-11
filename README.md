@@ -1,6 +1,12 @@
 # Baiboly Quiz
 
-Baiboly Quiz est une application mobile Expo/React Native dédiée à l'apprentissage biblique par le jeu. Elle propose des quiz bibliques, des défis en duo, des questions basées sur des images, une lecture de la Bible, un verset du jour et un suivi de progression avec gemmes, cœurs, points, médailles et classement.
+Baiboly Quiz est une application mobile **Expo / React Native** dédiée à l'apprentissage biblique par le jeu. Elle propose des quiz bibliques, des défis en duo, des questions basées sur des images, une lecture de la Bible, un verset du jour et un suivi de progression avec gemmes, cœurs, points, médailles et classement.
+
+## Capture d'écran
+
+<p align="center">
+  <img src="docs/screen-capture.svg" alt="Capture d'écran de l'écran d'accueil Baiboly Quiz" width="760" />
+</p>
 
 ## Fonctionnalités principales
 
@@ -34,50 +40,36 @@ Avant d'installer le projet, assurez-vous d'avoir :
 
 > Remarque : les commandes iOS nécessitent macOS et Xcode.
 
-## Installation
+## Installation rapide
 
-1. Clonez le dépôt :
+```bash
+git clone <url-du-depot>
+cd Baiboly-quiz
+npm install
+npm start
+```
 
-   ```bash
-   git clone <url-du-depot>
-   cd Baiboly-quiz
-   ```
+Ensuite, ouvrez l'application en scannant le QR code avec **Expo Go**, ou appuyez sur `a` pour Android / `i` pour iOS dans le terminal Expo.
 
-2. Installez les dépendances :
+## Configuration Supabase
 
-   ```bash
-   npm install
-   ```
+Créez un fichier `.env` à la racine du projet avec les variables suivantes :
 
-3. Configurez les variables d'environnement Supabase à la racine du projet, par exemple dans un fichier `.env` :
+```env
+EXPO_PUBLIC_SUPABASE_URL=https://votre-projet.supabase.co
+EXPO_PUBLIC_SUPABASE_ANON_KEY=votre-cle-anon
+```
 
-   ```env
-   EXPO_PUBLIC_SUPABASE_URL=https://votre-projet.supabase.co
-   EXPO_PUBLIC_SUPABASE_ANON_KEY=votre-cle-anon
-   ```
-
-   Ces variables sont nécessaires pour les fonctionnalités en ligne comme l'authentification, les profils publics, la recherche de joueurs et le matchmaking. Les parties locales de l'application peuvent être développées sans Supabase, mais certaines fonctionnalités afficheront des erreurs si ces valeurs sont absentes.
-
-4. Lancez le serveur de développement Expo :
-
-   ```bash
-   npm start
-   ```
-
-5. Ouvrez l'application :
-
-   - scannez le QR code avec Expo Go ;
-   - ou appuyez sur `a` dans le terminal pour Android ;
-   - ou appuyez sur `i` pour iOS sur macOS.
+Ces variables sont nécessaires pour les fonctionnalités en ligne comme l'authentification, les profils publics, la recherche de joueurs et le matchmaking. Les parties locales de l'application peuvent être développées sans Supabase, mais certaines fonctionnalités afficheront des erreurs si ces valeurs sont absentes.
 
 ## Scripts disponibles
 
-| Commande | Description |
-| --- | --- |
-| `npm start` | Lance Expo en mode développement. |
+| Commande          | Description                                                      |
+| ----------------- | ---------------------------------------------------------------- |
+| `npm start`       | Lance Expo en mode développement.                                |
 | `npm run android` | Compile et lance l'application sur Android avec un client natif. |
-| `npm run ios` | Compile et lance l'application sur iOS avec un client natif. |
-| `npm run web` | Lance la version web via Expo. |
+| `npm run ios`     | Compile et lance l'application sur iOS avec un client natif.     |
+| `npm run web`     | Lance la version web via Expo.                                   |
 
 ## Structure du projet
 
@@ -88,6 +80,7 @@ Avant d'installer le projet, assurez-vous d'avoir :
 ├── app.json                # Configuration Expo
 ├── eas.json                # Configuration des builds EAS
 ├── assets/                 # Logos, icônes et avatars
+├── docs/                   # Captures d'écran et documentation visuelle
 ├── raw_data/               # Données sources et scripts de préparation
 └── src/
     ├── components/         # Composants réutilisables
