@@ -1,10 +1,8 @@
 # Baiboly Quiz
 
-Baiboly Quiz est une application mobile **Expo / React Native** dédiée à l'apprentissage biblique par le jeu. Elle propose des quiz bibliques, des défis en duo, des questions basées sur des images, une lecture de la Bible, un verset du jour et un suivi de progression avec gemmes, cœurs, points, médailles et classement.
+Baiboly Quiz est une application mobile **Expo / React Native** dédiée à l'apprentissage biblique par le jeu. Le contenu du jeu est **100 % en malagasy**, tandis que l'interface et les menus sont **bilingues** avec un changement possible entre **malagasy** et **français**. L'application propose des quiz bibliques, des défis en duo, des questions basées sur des images, une lecture de la Bible, un verset du jour et un suivi de progression avec gemmes, cœurs, points, médailles et classement.
 
 ## Capture d'écran
-
-## 📸 Captures d'écran
 
 <p align="center">
   <img src="docs/home.jpeg" alt="Accueil Baiboly Quiz" width="220" />
@@ -28,6 +26,7 @@ Baiboly Quiz est une application mobile **Expo / React Native** dédiée à l'ap
 - **Profil joueur** : personnalisez votre avatar, suivez vos points, gemmes, cœurs et médailles.
 - **Classement et amis** : comparez votre progression avec d'autres joueurs et recherchez des amis.
 - **Paramètres** : changez la langue, le thème visuel et les préférences de l'application.
+- **Interface bilingue** : les menus peuvent être affichés en malagasy ou en français, tout en gardant le jeu entièrement en malagasy.
 
 ## Technologies utilisées
 
