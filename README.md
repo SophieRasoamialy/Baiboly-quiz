@@ -131,3 +131,16 @@ npx eas build --platform ios --profile production
 - **Expo ne trouve pas un module** : relancez `npm install`, puis redémarrez Expo avec `npm start -- --clear`.
 - **Problème Android/iOS natif** : vérifiez que l'émulateur, le SDK Android ou Xcode sont correctement installés.
 - **Cache persistant** : fermez Expo et relancez avec `npm start -- --clear`.
+
+## Télécharger l'application
+
+Télécharger la dernière version APK ici :
+
+<p align="center">
+  <a href="TON_LIEN_GOOGLE_DRIVE">
+    <img src="https://img.shields.io/badge/Download-APK-10B981?style=for-the-badge&logo=android&logoColor=white" />
+  </a>
+</p>
+
+⚠️ Android peut demander d'autoriser
+l'installation depuis des sources inconnues.
